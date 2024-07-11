@@ -1,18 +1,19 @@
 /* eslint-disable react/display-name */
-import { memo } from "react";
-import { Navigate, Route } from "react-router-dom";
-import RoutesNotFound from "./RoutesNotFound";
-import { PrivateRoutes } from "./Routes";
-import AuthGuard from "./guard/AuthGuard";
-import AppLayout from "../Layout/AppLayout";
-import Home from "../pages/Home";
+import { memo } from 'react';
+import { Navigate, Route } from 'react-router-dom';
+import RoutesNotFound from './RoutesNotFound';
+import { PrivateRoutes } from './Routes';
+import AuthGuard from './guard/AuthGuard';
+import AppLayout from '../Layout/AppLayout';
+import Home from '../pages/Home';
+import LandPageLayout from '../Layout/LandPageLayout';
 
 // import AppLayout from '../layouts/AppLayout';
 
 const AppRoutes = memo(() => {
 	return (
 		<RoutesNotFound>
-			<Route path="*" element={<Navigate to={PrivateRoutes.Home} />} />
+			<Route path='*' element={<Navigate to={PrivateRoutes.Home} />} />
 
 			{/* Public Routes */}
 			{/* EJEMPLO:
@@ -37,7 +38,10 @@ const AppRoutes = memo(() => {
 				/>
 				*/}
 			</Route>
-			<Route path={PrivateRoutes.Home} element={<AppLayout component={<Home />} />} />
+			<Route
+				path={PrivateRoutes.Home}
+				element={<AppLayout component={<Home />} />}
+			/>
 		</RoutesNotFound>
 	);
 });

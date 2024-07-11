@@ -1,16 +1,16 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { AppLayoutProps } from '../interfaces/AppLayoutProps';
-import { DarkGridBackground } from '../assets/images';
+import { DarkBackground, DarkGridBackground } from '../assets/images';
 // import Navigation from '../components/SidebarComponent/Navigation';
 // import HeaderComponent from '../components/HeaderComponent/HeaderComponent';
 
-const AppLayout = ({ component }: AppLayoutProps) => {
+const LandPageLayout = ({ component }: AppLayoutProps) => {
 	return (
-		<Flex h='100vh' bgSize={'cover'}>
+		<Flex h='100vh' bgSize='100%' height='4752px'>
 			{/* <Navigation /> */}
 			<Flex flexDirection={'column'} flex={1} p={8}>
 				{/* <HeaderComponent /> */}
-				<Box w='100%' py={4} px={10}>
+				<Box w='100%' py={4} px={10} maxWidth={'1135px'}>
 					{component}
 				</Box>
 			</Flex>
@@ -18,4 +18,4 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 	);
 };
 
-export default AppLayout;
+export default LandPageLayout;
