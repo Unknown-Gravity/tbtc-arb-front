@@ -1,6 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { AppLayoutProps } from '../interfaces/AppLayoutProps';
-import { DarkGridBackground } from '../assets/images';
 // import Navigation from '../components/SidebarComponent/Navigation';
 // import HeaderComponent from '../components/HeaderComponent/HeaderComponent';
 

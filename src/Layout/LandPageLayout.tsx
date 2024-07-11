@@ -1,8 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { AppLayoutProps } from '../interfaces/AppLayoutProps';
-import { DarkBackground, DarkGridBackground } from '../assets/images';
-// import Navigation from '../components/SidebarComponent/Navigation';
-// import HeaderComponent from '../components/HeaderComponent/HeaderComponent';
 
 const LandPageLayout = ({ component }: AppLayoutProps) => {
 	return (
