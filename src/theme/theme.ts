@@ -1,4 +1,9 @@
-import { extendTheme, ThemeConfig, ThemeOverride } from '@chakra-ui/react';
+import {
+	extendTheme,
+	StyleFunctionProps,
+	ThemeConfig,
+	ThemeOverride,
+} from '@chakra-ui/react';
 
 const config: ThemeConfig = {
 	initialColorMode: 'dark',
@@ -58,32 +63,26 @@ const fonts: ThemeOverride['fonts'] = {
 
 const components: ThemeOverride['components'] = {
 	Text: {
-		baseStyle: {
-			color: 'light.primaryGray',
-			_dark: {
-				color: 'white',
-			},
-		},
+		baseStyle: (props: StyleFunctionProps) => ({
+			color: props.colorMode === 'dark' ? 'white' : 'light.primaryGray',
+		}),
 
 		variants: {
-			gray: {
-				_dark: {
-					color: 'dark.coolGray',
-				},
-			},
+			gray: (props: StyleFunctionProps) => ({
+				color: props.colorMode === 'dark' && 'dark.primaryGray',
+			}),
 		},
 	},
 
 	Button: {
 		variants: {
-			purple: {
+			purple: (props: StyleFunctionProps) => ({
 				py: '16px',
 				px: '0px',
 				fontWeight: 700,
-
-				_light: { bg: 'brand.purple.900', color: 'white' },
-				_dark: { bg: 'brand.purple.900' },
-			},
+				bg: 'brand.purple.900',
+				color: props.colorMode === 'light' && 'white',
+			}),
 
 			whiteFilled: {
 				color: 'brand.purple.900',
@@ -99,17 +98,6 @@ const components: ThemeOverride['components'] = {
 
 				_active: {
 					bg: 'brand.purple.500',
-				},
-			},
-		},
-	},
-
-	Box: {
-		variants: {
-			container: {
-				bg: 'white',
-				_dark: {
-					bg: 'dark.primaryGray',
 				},
 			},
 		},
