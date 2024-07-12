@@ -17,26 +17,26 @@ const styles: ThemeOverride['styles'] = {
 const colors: ThemeOverride['colors'] = {
 	brand: {
 		purple: {
-			100: 'rgba(125, 0, 255, 0.1)',
-			200: 'rgba(125, 0, 255, 0.2)',
-			300: 'rgba(125, 0, 255, 0.3)',
-			400: 'rgba(125, 0, 255, 0.4)',
-			500: 'rgba(125, 0, 255, 0.5)',
-			600: 'rgba(125, 0, 255, 0.6)',
-			700: 'rgba(125, 0, 255, 0.7)',
-			800: 'rgba(125, 0, 255, 0.8)',
-			900: 'rgba(125, 0, 255, 1.0)',
+			900: '#7D00FF',
+			800: '#9B33FF',
+			700: '#AF66FF',
+			600: '#C399FF',
+			500: '#D7CCFF',
+			400: '#EBE1FF',
+			300: '#F5EBFF',
+			200: '#FAF5FF',
+			100: '#FFF9FF',
 		},
 		yellow: {
-			100: 'rgba(250, 173, 20, 0.1)',
-			200: 'rgba(250, 173, 20, 0.2)',
-			300: 'rgba(250, 173, 20, 0.3)',
-			400: 'rgba(250, 173, 20, 0.4)',
-			500: 'rgba(250, 173, 20, 0.5)',
-			600: 'rgba(250, 173, 20, 0.6)',
-			700: 'rgba(250, 173, 20, 0.7)',
-			800: 'rgba(250, 173, 20, 0.8)',
-			900: 'rgba(250, 173, 20, 1.0)',
+			900: '#FAAD14',
+			800: '#FFBA3F',
+			700: '#FFC76A',
+			600: '#FFD495',
+			500: '#FFE1C0',
+			400: '#FFEBE6',
+			300: '#FFF2E3',
+			200: '#FFF8F0',
+			100: '#FFFDF5',
 		},
 	},
 	light: {
@@ -90,6 +90,27 @@ const components: ThemeOverride['components'] = {
 				bg: 'white',
 				px: '47px',
 				fontWeight: 600,
+				transition: 'background-color 0.3s ease',
+
+				_hover: {
+					transition: 'background-color 0.3s ease',
+					bg: 'brand.purple.300',
+				},
+
+				_active: {
+					bg: 'brand.purple.500',
+				},
+			},
+		},
+	},
+
+	Box: {
+		variants: {
+			container: {
+				bg: 'white',
+				_dark: {
+					bg: 'dark.primaryGray',
+				},
 			},
 		},
 	},

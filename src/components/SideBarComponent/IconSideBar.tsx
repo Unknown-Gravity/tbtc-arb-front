@@ -1,8 +1,8 @@
 import {
 	As,
-	Box,
+	Flex,
 	Icon,
-	useColorMode,
+	Text,
 	useColorModeValue,
 	useTheme,
 } from '@chakra-ui/react';
@@ -13,33 +13,43 @@ type Props = {
 	selectedTag?: number;
 	icon: As;
 	setSelectedTag?: Dispatch<SetStateAction<number | undefined>>;
+	isOpen?: boolean;
+	text?: string;
 };
 
-const IconSideBar = ({ tag, selectedTag, icon, setSelectedTag }: Props) => {
+const IconSideBar = ({
+	tag,
+	selectedTag,
+	icon,
+	setSelectedTag,
+	isOpen,
+	text,
+}: Props) => {
 	const theme = useTheme();
 	const borderColor = theme.colors.brand.purple[900];
 	const notSelectedColor = useColorModeValue('brand.light.gray', 'white');
+
 	return (
-		<Box
-			w='100%'
-			px='10px'
+		<Flex
+			w='calc(100% - 5px)'
+			px='15px'
 			py='13px'
-			onClick={
-				setSelectedTag ? () => setSelectedTag(tag) : setSelectedTag
-			}
+			onClick={setSelectedTag ? () => setSelectedTag(tag) : undefined}
 			cursor='pointer'
 			boxShadow={
 				tag
 					? tag === selectedTag
-						? `5px 0px 0px  ${borderColor}`
-						: `none`
+						? `5px 0px 0px ${borderColor}`
+						: 'none'
 					: 'none'
 			}
-			transition={'box-shadow 0.5s ease-in-out'}
+			transition='box-shadow 0.5s ease-in-out'
+			alignItems='center'
+			gap={2}
 		>
 			<Icon
 				as={icon}
-				transition={'color 0.5s ease-in-out'}
+				transition='color 0.5s ease-in-out'
 				color={
 					tag
 						? tag === selectedTag
@@ -49,7 +59,23 @@ const IconSideBar = ({ tag, selectedTag, icon, setSelectedTag }: Props) => {
 				}
 				boxSize='26px'
 			/>
-		</Box>
+			{isOpen && (
+				<Text
+					fontSize='16px'
+					fontWeight={500}
+					color={
+						tag
+							? tag === selectedTag
+								? borderColor
+								: notSelectedColor
+							: notSelectedColor
+					}
+				>
+					{text}
+				</Text>
+			)}
+		</Flex>
 	);
 };
+
 export default IconSideBar;

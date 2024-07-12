@@ -5,6 +5,7 @@ import { HouseIcon } from './HouseIcon';
 import { LogoAloneIcon } from './LogoAlone';
 import LogoIcon from './LogoIcon';
 import { SearchIcon } from './SearchIcon';
+import { SidebarArrow } from './SidebarArrow';
 
 export {
 	BitcoinIcon,
@@ -14,4 +15,5 @@ export {
 	LogoAloneIcon,
 	LogoIcon,
 	SearchIcon,
+	SidebarArrow,
 };
