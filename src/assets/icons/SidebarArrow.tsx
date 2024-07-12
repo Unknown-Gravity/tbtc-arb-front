@@ -1,6 +1,6 @@
 import { createIcon } from '@chakra-ui/react';
 
-export const SearchIcon = createIcon({
+export const SidebarArrow = createIcon({
 	displayName: 'SearchIcon',
 	viewBox: '0 0 27 27',
 	path: (
