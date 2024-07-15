@@ -82,7 +82,7 @@ const SideBarComponent = () => {
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
-						transition={{ duration: 0.5 }}
+						transition={{ duration: 0.5, delay: 1 }}
 					>
 						<LogoAloneIcon
 							color={logoColor}
@@ -112,12 +112,18 @@ const SideBarComponent = () => {
 					</MotionBox>
 				)}
 				{isSidebarOpen && hasAnimated && (
-					<Box mx='auto'>
+					<MotionBox
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						transition={{ duration: 0.2, delay: 0.1 }}
+						mx='auto'
+					>
 						<LogoIcon color={logoColor} boxSize='121px' h='10px' />
-					</Box>
+					</MotionBox>
 				)}
 
-				<Stack spacing={2}>
+				<Stack>
 					<IconSideBar
 						tag={1}
 						selectedTag={selectedTag}

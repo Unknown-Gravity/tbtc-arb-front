@@ -1,9 +1,11 @@
+// src/theme/theme.ts
 import {
 	extendTheme,
 	StyleFunctionProps,
 	ThemeConfig,
 	ThemeOverride,
 } from '@chakra-ui/react';
+import { darken } from '@chakra-ui/theme-tools';
 
 const config: ThemeConfig = {
 	initialColorMode: 'dark',
@@ -45,14 +47,14 @@ const colors: ThemeOverride['colors'] = {
 		},
 	},
 	light: {
-		primaryGray: '#4A5568', // Titulos
-		coolGray: '#B1BCCC', // Detalles
-		gray: '#828282', // Navbar
+		primaryGray: '#4A5568',
+		coolGray: '#B1BCCC',
+		gray: '#828282',
 	},
 	dark: {
-		primaryGray: '#1D2229', // Fondos de cajas
-		focusGray: '#161A1F', // Fondo de inputs y focus de pestañas
-		coolGray: '#B1BCCC', // Navbar links y detalles
+		primaryGray: '#1D2229',
+		focusGray: '#161A1F',
+		coolGray: '#B1BCCC',
 	},
 };
 
@@ -78,8 +80,7 @@ const components: ThemeOverride['components'] = {
 					props.colorMode === 'light' ? 'brand.purple.900' : 'none',
 				bg:
 					props.colorMode === 'dark' &&
-					`linear-gradient(to left, #7D00FF 20%, #D987FF)`,
-
+					`linear-gradient(-45deg, #AB5AFA , #EDC6FF)`,
 				backgroundClip: props.colorMode === 'dark' && 'text',
 				fill: props.colorMode === 'dark' && 'transparent',
 			}),
@@ -88,14 +89,12 @@ const components: ThemeOverride['components'] = {
 				color: props.colorMode === 'light' ? 'light.gray' : 'none',
 				bg:
 					props.colorMode === 'dark' &&
-					'linear-gradient(to left, #7D00FF 20%, #D987FF )',
-
+					`linear-gradient(#D987FF 60%, #AB5AFA)`,
 				backgroundClip: props.colorMode === 'dark' && 'text',
 				fill: props.colorMode === 'dark' && 'transparent',
 			}),
 		},
 	},
-
 	Button: {
 		variants: {
 			purple: (props: StyleFunctionProps) => ({
@@ -105,23 +104,91 @@ const components: ThemeOverride['components'] = {
 				bg: 'brand.purple.900',
 				color: props.colorMode === 'light' && 'white',
 			}),
-
 			whiteFilled: {
 				color: 'brand.purple.900',
 				bg: 'white',
 				px: '47px',
 				fontWeight: 600,
 				transition: 'background-color 0.3s ease',
-
 				_hover: {
 					transition: 'background-color 0.3s ease',
 					bg: 'brand.purple.300',
 				},
-
 				_active: {
 					bg: 'brand.purple.500',
 				},
 			},
+		},
+	},
+
+	Stepper: {
+		baseStyle: (props: StyleFunctionProps) => ({
+			indicator: {
+				'&[data-status=complete]': {
+					bg: 'none',
+					w: '24px',
+					h: '24px',
+					border: `2px solid ${
+						props.colorMode === 'light'
+							? props.theme.colors.dark.coolGray
+							: props.theme.colors.dark.coolGray
+					}`,
+				},
+				'&[data-status=active]': {
+					bg: 'none',
+					w: '24px',
+					h: '24px',
+					border: `2px solid ${
+						props.colorMode === 'light'
+							? props.theme.colors.dark.coolGray
+							: props.theme.colors.dark.coolGray
+					}`,
+				},
+				'&[data-status=incomplete]': {
+					bg: 'none',
+					w: '24px',
+					h: '24px',
+					border: `2px solid ${
+						props.colorMode === 'light'
+							? props.theme.colors.dark.coolGray
+							: props.theme.colors.dark.coolGray
+					}`,
+				},
+			},
+
+			number: {
+				color:
+					props.colorMode === 'dark' ? 'white' : 'brand.purple.900',
+				fontWeight: 700,
+			},
+
+			step: {
+				fontSize: '14px',
+				w: '492px',
+			},
+
+			title: {
+				fontSize: '14px',
+			},
+			separator: {
+				border: `1px solid ${props.theme.colors.dark.coolGray}`,
+				ml: '-4px',
+			},
+		}),
+	},
+
+	Link: {
+		variants: {
+			purpleDarkGradient: (props: StyleFunctionProps) => ({
+				transition: 'text-decoration 0.2s',
+				color:
+					props.colorMode === 'light' ? 'brand.purple.900' : 'none',
+				bg:
+					props.colorMode === 'dark' &&
+					`linear-gradient(-45deg, #AB5AFA , #EDC6FF)`,
+				backgroundClip: props.colorMode === 'dark' && 'text',
+				fill: props.colorMode === 'dark' && 'transparent',
+			}),
 		},
 	},
 };

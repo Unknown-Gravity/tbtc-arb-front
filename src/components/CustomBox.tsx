@@ -1,4 +1,4 @@
-import { Box, BoxProps, Text, useColorMode } from '@chakra-ui/react';
+import { Box, BoxProps, useColorMode } from '@chakra-ui/react';
 
 export const CustomBox = (props: BoxProps) => {
 	const { colorMode } = useColorMode();

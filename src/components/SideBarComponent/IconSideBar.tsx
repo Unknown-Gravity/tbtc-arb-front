@@ -1,5 +1,6 @@
 import {
 	As,
+	border,
 	Flex,
 	Icon,
 	Text,
@@ -27,25 +28,23 @@ const IconSideBar = ({
 }: Props) => {
 	const theme = useTheme();
 	const borderColor = theme.colors.brand.purple[900];
-	const notSelectedColor = useColorModeValue('brand.light.gray', 'white');
+	const notSelectedColor = useColorModeValue(
+		'brand.light.gray',
+		'dark.coolGray',
+	);
 
 	return (
 		<Flex
-			w='calc(100% - 5px)'
-			px='15px'
-			py='13px'
+			px='10px'
+			py='10px'
 			onClick={setSelectedTag ? () => setSelectedTag(tag) : undefined}
 			cursor='pointer'
-			boxShadow={
-				tag
-					? tag === selectedTag
-						? `5px 0px 0px ${borderColor}`
-						: 'none'
-					: 'none'
-			}
-			transition='box-shadow 0.5s ease-in-out'
+			transition='background-color 0.5s ease-in-out'
 			alignItems='center'
 			gap={2}
+			bg={tag ? (tag === selectedTag ? borderColor : 'none') : 'none'}
+			m='5px'
+			borderRadius='5px'
 		>
 			<Icon
 				as={icon}
@@ -53,7 +52,7 @@ const IconSideBar = ({
 				color={
 					tag
 						? tag === selectedTag
-							? borderColor
+							? 'white'
 							: notSelectedColor
 						: notSelectedColor
 				}
@@ -63,10 +62,11 @@ const IconSideBar = ({
 				<Text
 					fontSize='16px'
 					fontWeight={500}
+					transition='color 0.5s ease-in-out'
 					color={
 						tag
 							? tag === selectedTag
-								? borderColor
+								? 'white'
 								: notSelectedColor
 							: notSelectedColor
 					}
