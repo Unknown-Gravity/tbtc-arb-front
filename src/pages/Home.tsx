@@ -1,12 +1,18 @@
-import { Box, Stack, Text } from '@chakra-ui/react';
+import { Box, Flex, Stack, Text } from '@chakra-ui/react';
 import HomeHeader from './components/HomeHeader';
-import { useState } from 'react';
+import { Component, FC, useEffect, useState } from 'react';
 import BannerHome from './components/BannerHome';
 import SideBarComponent from '../components/SideBarComponent/SideBarComponent';
 import { CustomBox } from '../components/CustomBox';
+import { convertBTCToCurrency, currencyFormatter } from '../utils/utils';
+import BTCtoCurrencyComponent from '../components/BTCtoCurrencycomponent';
+import BridgeStatsComponent from './components/BridgeStatsComponent';
 
-const Home = () => {
+const Home: FC = () => {
 	const [showMintWindow, setShowMintWindow] = useState(true);
+
+	const btc = convertBTCToCurrency(3355.58, 'USD');
+	console.log('🚀 ~ btc:', btc);
 
 	const handleCloseBanner = (): void => {
 		setShowMintWindow(false);
@@ -17,16 +23,7 @@ const Home = () => {
 			<HomeHeader />
 			<SideBarComponent />
 			{showMintWindow && <BannerHome onClick={handleCloseBanner} />}
-			<CustomBox minW={{ base: '100%', '2xl': '1134px' }} mx='auto'>
-				<Stack mx='center'>
-					<Text fontSize='14px' fontWeight={700} variant='gray'>
-						tBTC BRIGDE STATS
-					</Text>
-					<Text fontSize='14px' fontWeight={400} variant='gray'>
-						TOTAL SUPPLY
-					</Text>
-				</Stack>
-			</CustomBox>
+			<BridgeStatsComponent />
 		</Stack>
 	);
 };

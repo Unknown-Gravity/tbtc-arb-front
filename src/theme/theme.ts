@@ -69,7 +69,29 @@ const components: ThemeOverride['components'] = {
 
 		variants: {
 			gray: (props: StyleFunctionProps) => ({
-				color: props.colorMode === 'dark' && 'dark.primaryGray',
+				color:
+					props.colorMode === 'dark' ? 'dark.coolGray' : 'light.gray',
+			}),
+
+			purpleDarkGradient: (props: StyleFunctionProps) => ({
+				color:
+					props.colorMode === 'light' ? 'brand.purple.900' : 'none',
+				bg:
+					props.colorMode === 'dark' &&
+					`linear-gradient(to left, #7D00FF 20%, #D987FF)`,
+
+				backgroundClip: props.colorMode === 'dark' && 'text',
+				fill: props.colorMode === 'dark' && 'transparent',
+			}),
+
+			grayPurpleGradient: (props: StyleFunctionProps) => ({
+				color: props.colorMode === 'light' ? 'light.gray' : 'none',
+				bg:
+					props.colorMode === 'dark' &&
+					'linear-gradient(to left, #7D00FF 20%, #D987FF )',
+
+				backgroundClip: props.colorMode === 'dark' && 'text',
+				fill: props.colorMode === 'dark' && 'transparent',
 			}),
 		},
 	},
