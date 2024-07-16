@@ -6,7 +6,13 @@ import DocumentBoxComponent from './DocumentBoxComponent';
 
 const AuditReportComponent = () => {
 	return (
-		<CustomBox h='504px' w='100%' as={Stack} justifyContent='space-between'>
+		<CustomBox
+			h='504px'
+			w='100%'
+			as={Stack}
+			justifyContent='space-between'
+			p='25px'
+		>
 			<Text fontSize='24px' fontWeight={700}>
 				AUDIT REPORT
 			</Text>

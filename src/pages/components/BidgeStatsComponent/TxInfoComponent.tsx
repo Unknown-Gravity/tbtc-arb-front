@@ -6,7 +6,7 @@ import {
 	useColorModeValue,
 	useTheme,
 } from '@chakra-ui/react';
-import { getDifferenceInMinutes } from '../../utils/utils';
+import { getDifferenceInMinutes } from '../../../utils/utils';
 
 type Props = {
 	amount: number;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { CustomBox } from '../../../components/CustomBox';
-import { Image, Stack, Text, useColorMode } from '@chakra-ui/react';
+import { Flex, Image, Stack, Text, useColorMode } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { DarkJsonImage, LightJsonImage } from '../../../assets/images';
 
@@ -8,16 +8,7 @@ const JsonFileComponent = () => {
 	const { colorMode } = useColorMode();
 
 	return (
-		<CustomBox
-			as={Stack}
-			maxW='100%'
-			gap='20px'
-			p={''}
-			px='25px'
-			pt='25px'
-			pb='50px'
-			h='738px'
-		>
+		<CustomBox as={Stack} maxW='100%' gap='20px' p='25px' h='738px'>
 			<Text fontSize='24px' fontWeight={700} lineHeight='16px'>
 				JSON file for fund recoveries
 			</Text>
@@ -45,11 +36,13 @@ const JsonFileComponent = () => {
 					here
 				</Text>
 			</Text>
-			<Image
-				src={colorMode === 'light' ? LightJsonImage : DarkJsonImage}
-				maxW={'256.63px'}
-				alignSelf='center'
-			/>
+			<Flex h={'100%'} alignItems='center' justifyContent='center'>
+				<Image
+					src={colorMode === 'light' ? LightJsonImage : DarkJsonImage}
+					maxW={'256.63px'}
+					alignSelf='center'
+				/>
+			</Flex>
 		</CustomBox>
 	);
 };

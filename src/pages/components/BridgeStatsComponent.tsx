@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { currencyFormatter } from '../../utils/utils';
 import BTCtoCurrencyComponent from '../../components/BTCtoCurrencycomponent';
-import TxInfoComponent from './TxInfoComponent';
+import TxInfoComponent from './BidgeStatsComponent/TxInfoComponent';
 import { transactions } from '../../data/mockData';
 
 const BridgeStatsComponent: FC = () => {

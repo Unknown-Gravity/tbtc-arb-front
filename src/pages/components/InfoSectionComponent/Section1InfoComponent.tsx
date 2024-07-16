@@ -1,15 +1,13 @@
-import { Flex, Stack, Text, Theme, useTheme } from '@chakra-ui/react';
+import { Flex, Stack, Text } from '@chakra-ui/react';
 import { CustomBox } from '../../../components/CustomBox';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 
 const Section1InfoComponent = () => {
-	const theme: Theme = useTheme();
-
 	return (
 		<CustomBox
 			minW={{ base: '100%', '2xl': '1134px' }}
 			mx='auto'
-			p='30px, 40px, 30px, 40px'
+			p='30px 40px 30px 40px'
 		>
 			<Flex
 				flexDir={{ base: 'column', md: 'row' }}

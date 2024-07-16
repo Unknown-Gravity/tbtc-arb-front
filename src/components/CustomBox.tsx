@@ -9,7 +9,7 @@ export const CustomBox = (props: BoxProps) => {
 			borderRadius='14px'
 			boxShadow={colorMode === 'light' ? '0px 0px 7px #00000025' : 'none'}
 			bg={colorMode === 'light' ? 'white' : 'dark.primaryGray'}
-			p={5}
+			p={props.p || 5}
 		></Box>
 	);
 };

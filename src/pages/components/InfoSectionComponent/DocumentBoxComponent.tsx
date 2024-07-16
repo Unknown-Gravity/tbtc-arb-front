@@ -4,6 +4,7 @@ import { IoMdLink } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import { Contract, Report } from '../../../data/mockData';
 import { BiSolidFileBlank } from 'react-icons/bi';
+import { useDownload } from '../../../hooks/useDownload';
 
 type Props = {
 	contract?: Contract;
@@ -12,6 +13,14 @@ type Props = {
 
 const DocumentBoxComponent = (props: Props) => {
 	const boxBg = useColorModeValue('light.lightGray', 'dark.focusGray');
+	const { downloadFile } = useDownload();
+
+	const handleDownload = () => {
+		console.log('hello!');
+		const fileName = 'DATA.txt';
+		const fileURL = '../../../assets/files/' + fileName;
+		downloadFile(fileName, fileURL);
+	};
 	return (
 		<Flex
 			bg={boxBg}
@@ -48,11 +57,12 @@ const DocumentBoxComponent = (props: Props) => {
 			</Flex>
 			<Text
 				as={Link}
-				to={props.contract?.link || props.report?.link}
-				target='_blank'
-				rel='noopener noreferrer'
+				to={props.contract?.link}
+				target={props.contract && '_blank'}
+				rel={props.contract && 'noopener noreferrer'}
 				variant={'purpleDarkGradient'}
 				whiteSpace='nowrap'
+				onClick={props.report && handleDownload}
 			>
 				Read More
 			</Text>

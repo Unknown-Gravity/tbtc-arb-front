@@ -1,4 +1,4 @@
-import { Box, Flex, Link, Stack, Text, useColorMode } from '@chakra-ui/react';
+import { Box, Link, Stack, Text, useColorMode } from '@chakra-ui/react';
 import { CustomBox } from '../../../components/CustomBox';
 import {
 	Step,
@@ -11,7 +11,6 @@ import {
 	useSteps,
 } from '@chakra-ui/react';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
-import { FiArrowUpRight } from 'react-icons/fi';
 
 type Props = {};
 
