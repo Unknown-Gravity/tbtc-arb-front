@@ -6,6 +6,8 @@ import SideBarComponent from '../components/SideBarComponent/SideBarComponent';
 import { convertBTCToCurrency } from '../utils/utils';
 import BridgeStatsComponent from './components/BridgeStatsComponent';
 import InfoSectionComponent from './components/InfoSectionComponent';
+import JoinComponent from './components/JoinComponent';
+import FooterComponent from '../components/FooterComponent';
 
 const Home: FC = () => {
 	const [showMintWindow, setShowMintWindow] = useState(true);
@@ -24,6 +26,8 @@ const Home: FC = () => {
 			{showMintWindow && <BannerHome onClick={handleCloseBanner} />}
 			<BridgeStatsComponent />
 			<InfoSectionComponent />
+			<JoinComponent />
+			<FooterComponent />
 		</Stack>
 	);
 };

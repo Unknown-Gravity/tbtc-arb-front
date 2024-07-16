@@ -6,6 +6,7 @@ import { LogoAloneIcon } from './LogoAlone';
 import LogoIcon from './LogoIcon';
 import { SearchIcon } from './SearchIcon';
 import { SidebarArrow } from './SidebarArrow';
+import { TwitterIcon } from './TwitterIcon';
 
 export {
 	BitcoinIcon,
@@ -16,4 +17,5 @@ export {
 	LogoIcon,
 	SearchIcon,
 	SidebarArrow,
+	TwitterIcon,
 };
