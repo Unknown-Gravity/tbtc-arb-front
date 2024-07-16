@@ -7,6 +7,8 @@ import DarkPointBackground from './darkPointBackground.svg';
 import LightPointBackground from './lightPointBackground.svg';
 import AtomImage from './atomImage.svg';
 import Bridge from './bridge.svg';
+import LightJsonImage from './lightJsonImage.svg';
+import DarkJsonImage from './darkJsonImage.svg';
 
 export {
 	DarkBackground,
@@ -18,4 +20,6 @@ export {
 	LightPointBackground,
 	AtomImage,
 	Bridge,
+	LightJsonImage,
+	DarkJsonImage,
 };

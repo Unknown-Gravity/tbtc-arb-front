@@ -50,6 +50,7 @@ const colors: ThemeOverride['colors'] = {
 		primaryGray: '#4A5568',
 		coolGray: '#B1BCCC',
 		gray: '#828282',
+		lightGray: '#F6F7FA',
 	},
 	dark: {
 		primaryGray: '#1D2229',
