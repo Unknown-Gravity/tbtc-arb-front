@@ -1,13 +1,14 @@
 import {
 	Box,
-	Button,
 	Flex,
 	Text,
 	useColorMode,
+	useColorModeValue,
 	useTheme,
 } from '@chakra-ui/react';
 import { HiMoon } from 'react-icons/hi';
 import { HiOutlineSun } from 'react-icons/hi';
+import ConnectButton from './ConnectButton';
 
 type Props = {
 	isOpen: boolean;
@@ -16,7 +17,8 @@ type Props = {
 const HeaderComponent = (props: Props) => {
 	const theme = useTheme();
 	const { colorMode, toggleColorMode } = useColorMode();
-	const borderColor = theme.colors.brand.purple[900];
+	const borderColor = theme.colors.brand.purple[940];
+	const bgColor = useColorModeValue('white', 'dark.primaryGray');
 	return (
 		<Box
 			position='fixed'
@@ -30,9 +32,16 @@ const HeaderComponent = (props: Props) => {
 			transition='width 0.2s'
 			p='10px 40px 10px 40px'
 			borderBottom={`1px solid ${borderColor}`}
+			borderRadius='0px 0px 10px 10px'
+			bg={bgColor}
 		>
 			<Flex justifyContent='space-between'>
-				<Text fontSize='24px' fontWeight={600} lineHeight='36px'>
+				<Text
+					fontSize='24px'
+					fontWeight={600}
+					lineHeight='36px'
+					variant='gray'
+				>
 					tBTC | Minting
 				</Text>
 				<Flex alignItems='center' gap='10px'>
@@ -49,7 +58,7 @@ const HeaderComponent = (props: Props) => {
 							cursor='pointer'
 						/>
 					)}
-					<Button variant='purple'>Connect Wallet</Button>
+					<ConnectButton />
 				</Flex>
 			</Flex>
 		</Box>

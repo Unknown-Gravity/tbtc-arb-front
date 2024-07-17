@@ -10,6 +10,8 @@ import AtomImage from './atomImage.svg';
 import Bridge from './bridge.svg';
 import LightJsonImage from './lightJsonImage.svg';
 import DarkJsonImage from './darkJsonImage.svg';
+import DarkMintingActivity from './darkMintingActivity.svg';
+import LightMintingActivity from './lightMintingActivity.svg';
 
 export {
 	DarkBackground,
@@ -24,4 +26,6 @@ export {
 	Bridge,
 	LightJsonImage,
 	DarkJsonImage,
+	DarkMintingActivity,
+	LightMintingActivity,
 };

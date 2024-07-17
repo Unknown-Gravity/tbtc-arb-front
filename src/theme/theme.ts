@@ -17,6 +17,7 @@ const styles: ThemeOverride['styles'] = {
 		body: {
 			height: '100vh',
 			width: '100%',
+			bg: props.colorMode === 'dark' && 'dark.background',
 		},
 	}),
 };
@@ -25,6 +26,15 @@ const colors: ThemeOverride['colors'] = {
 	brand: {
 		purple: {
 			900: '#7D00FF',
+			990: '#7D00FF90',
+			980: '#7D00FF80',
+			970: '#7D00FF70',
+			960: '#7D00FF60',
+			950: '#7D00FF50',
+			940: '#7D00FF40',
+			930: '#7D00FF30',
+			920: '#7D00FF20',
+			910: '#7D00FF10',
 			800: '#9B33FF',
 			700: '#AF66FF',
 			600: '#C399FF',
@@ -56,6 +66,7 @@ const colors: ThemeOverride['colors'] = {
 		primaryGray: '#1D2229',
 		focusGray: '#161A1F',
 		coolGray: '#B1BCCC',
+		background: '#161A1F',
 	},
 };
 
@@ -74,6 +85,13 @@ const components: ThemeOverride['components'] = {
 			gray: (props: StyleFunctionProps) => ({
 				color:
 					props.colorMode === 'dark' ? 'dark.coolGray' : 'light.gray',
+			}),
+
+			gray2: (props: StyleFunctionProps) => ({
+				color:
+					props.colorMode === 'dark'
+						? 'dark.coolGray'
+						: 'light.primaryGray',
 			}),
 
 			purpleDarkGradient: (props: StyleFunctionProps) => ({
