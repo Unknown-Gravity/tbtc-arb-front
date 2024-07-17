@@ -1,15 +1,15 @@
 import { Box, Stack, useColorModeValue, useTheme } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { HouseIcon } from '../../assets/icons/HouseIcon';
-import { BitcoinIcon } from '../../assets/icons/BitcoinIcon';
-import { SearchIcon } from '../../assets/icons/SearchIcon';
-import IconSideBar from './IconSideBar';
-import { GitHubIcon } from '../../assets/icons/GitHubIcon';
-import { DiscorIcon } from '../../assets/icons/DiscordIcon';
-import { SidebarArrow } from '../../assets/icons/SidebarArrow';
-import { LogoAloneIcon } from '../../assets/icons/LogoAlone';
-import LogoIcon from '../../assets/icons/LogoIcon';
+import { HouseIcon } from '../assets/icons/HouseIcon';
+import { BitcoinIcon } from '../assets/icons/BitcoinIcon';
+import { SearchIcon } from '../assets/icons/SearchIcon';
+import IconSideBar from './SideBarComponent/IconSideBar';
+import { GitHubIcon } from '../assets/icons/GitHubIcon';
+import { DiscorIcon } from '../assets/icons/DiscordIcon';
+import { SidebarArrow } from '../assets/icons/SidebarArrow';
+import { LogoAloneIcon } from '../assets/icons/LogoAlone';
+import LogoIcon from '../assets/icons/LogoIcon';
 
 const MotionBox = motion(Box);
 
@@ -37,6 +37,7 @@ const SideBarComponent = () => {
 			w={sideBarWidth}
 			borderRightRadius='20px'
 			h='90vh'
+			minH='520px'
 			borderRight={`0.5px solid ${borderColor}`}
 			borderBottom={`0.5px solid ${borderColor}`}
 			bg={sidebarBG}

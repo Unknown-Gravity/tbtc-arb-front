@@ -19014,10 +19014,6 @@
 <circle opacity="0.3" cx="42.5127" cy="4046.36" r="432.681" fill="url(#paint2_radial_207_12518)"/>
 <circle opacity="0.3" cx="27.4575" cy="960.181" r="432.681" fill="url(#paint3_radial_207_12518)"/>
 <defs>
-<linearGradient id="paint0_linear_207_12518" x1="719.713" y1="0.915558" x2="719.713" y2="325.409" gradientUnits="userSpaceOnUse">
-<stop offset="0.16" stop-color="#161A1F"/>
-<stop offset="1" stop-color="#161A1F" stop-opacity="0"/>
-</linearGradient>
 <radialGradient id="paint1_radial_207_12518" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1389.25 3071.27) rotate(90) scale(432.681)">
 <stop stop-color="#7D00FF"/>
 <stop offset="1" stop-color="#7D00FF" stop-opacity="0"/>

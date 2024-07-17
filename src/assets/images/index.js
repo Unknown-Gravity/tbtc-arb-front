@@ -1,6 +1,7 @@
 import DarkBackground from './darkBackground.svg';
 import LightBackground from './lightBackground.svg';
 import DarkGridBackground from './darkGridBackground.svg';
+import LightGridBackground from './lightGridBackground.svg';
 import DarkCoins from './darkCoins.svg';
 import LightCoins from './lightCoins.svg';
 import DarkPointBackground from './darkPointBackground.svg';
@@ -14,6 +15,7 @@ export {
 	DarkBackground,
 	LightBackground,
 	DarkGridBackground,
+	LightGridBackground,
 	DarkCoins,
 	LightCoins,
 	DarkPointBackground,
