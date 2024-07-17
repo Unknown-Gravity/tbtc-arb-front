@@ -99,9 +99,9 @@ const components: ThemeOverride['components'] = {
 	Button: {
 		variants: {
 			purple: (props: StyleFunctionProps) => ({
-				py: '16px',
-				px: '0px',
-				fontWeight: 700,
+				p: '0px 16px 0px 16px',
+				fontWeight: 600,
+				fontSize: '16px',
 				bg: 'brand.purple.900',
 				color: props.colorMode === 'light' && 'white',
 			}),

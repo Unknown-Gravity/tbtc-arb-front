@@ -1,16 +1,22 @@
-import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { AppLayoutProps } from '../interfaces/AppLayoutProps';
-import { DarkGridBackground, LightGridBackground } from '../assets/images';
 import SideBarComponent from '../components/SideBarComponent';
+import { Dispatch, useState } from 'react';
+import HeaderComponent from '../components/HeaderComponent';
 // import Navigation from '../components/SidebarComponent/Navigation';
 // import HeaderComponent from '../components/HeaderComponent/HeaderComponent';
 
 const AppLayout = ({ component }: AppLayoutProps) => {
+	const [isOpen, setIsOpen]: [boolean, Dispatch<boolean>] = useState(false);
+
+	const handleOpen = () => {
+		setIsOpen(!isOpen);
+	};
 	return (
 		<Flex minHeight='100vh' position='relative'>
-			<SideBarComponent />
+			<SideBarComponent isOpen={isOpen} onClick={handleOpen} />
 			<Flex flexDirection={'column'} flex={1} p={8}>
-				{/* <HeaderComponent /> */}
+				<HeaderComponent isOpen={isOpen} />
 				<Box w='100%' py={4} px={10}>
 					{component}
 				</Box>

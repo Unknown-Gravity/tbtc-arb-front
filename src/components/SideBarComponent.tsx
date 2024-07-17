@@ -13,10 +13,14 @@ import LogoIcon from '../assets/icons/LogoIcon';
 
 const MotionBox = motion(Box);
 
-const SideBarComponent = () => {
+type Props = {
+	isOpen: boolean;
+	onClick: () => void;
+};
+
+const SideBarComponent = (props: Props) => {
 	const [sideBarWidth, setSideBarWidth] = useState('57px');
 	const [selectedTag, setSelectedTag] = useState<number | undefined>(1);
-	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 	const [hasAnimated, setHasAnimated] = useState(false);
 
 	const theme = useTheme();
@@ -25,7 +29,7 @@ const SideBarComponent = () => {
 	const logoColor = useColorModeValue('brand.purple.900', 'white');
 
 	const handleClick = () => {
-		setIsSidebarOpen(!isSidebarOpen);
+		props.onClick();
 		setSideBarWidth(sideBarWidth === '57px' ? '155px' : '57px');
 		if (!hasAnimated) {
 			setHasAnimated(true);
@@ -61,24 +65,24 @@ const SideBarComponent = () => {
 					right={0}
 					top='40px'
 					transform={`translateX(50%) ${
-						isSidebarOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+						props.isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
 					}`}
 					boxSize='20px'
 					transition='transform 0.1s ease'
 					_hover={{
-						transform: `translateX(50%) scale(1.2) ${
-							isSidebarOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+						transform: `translateX(50%) scale(1.1) ${
+							props.isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
 						}`,
 					}}
 					_active={{
 						transform: `translateX(50%) scale(1) ${
-							isSidebarOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+							props.isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
 						}`,
 					}}
 					zIndex={1000}
 					onClick={handleClick}
 				/>
-				{!isSidebarOpen && !hasAnimated && (
+				{!props.isOpen && !hasAnimated && (
 					<MotionBox
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
@@ -92,7 +96,7 @@ const SideBarComponent = () => {
 						/>
 					</MotionBox>
 				)}
-				{!isSidebarOpen && hasAnimated && (
+				{!props.isOpen && hasAnimated && (
 					<Box>
 						<LogoAloneIcon
 							color={logoColor}
@@ -101,7 +105,7 @@ const SideBarComponent = () => {
 						/>
 					</Box>
 				)}
-				{isSidebarOpen && !hasAnimated && (
+				{props.isOpen && !hasAnimated && (
 					<MotionBox
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
@@ -112,7 +116,7 @@ const SideBarComponent = () => {
 						<LogoIcon color={logoColor} boxSize='121px' h='10px' />
 					</MotionBox>
 				)}
-				{isSidebarOpen && hasAnimated && (
+				{props.isOpen && hasAnimated && (
 					<MotionBox
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
@@ -130,7 +134,7 @@ const SideBarComponent = () => {
 						selectedTag={selectedTag}
 						icon={HouseIcon}
 						setSelectedTag={setSelectedTag}
-						isOpen={isSidebarOpen}
+						isOpen={props.isOpen}
 						text='Overview'
 					/>
 					<IconSideBar
@@ -138,7 +142,7 @@ const SideBarComponent = () => {
 						selectedTag={selectedTag}
 						icon={BitcoinIcon}
 						setSelectedTag={setSelectedTag}
-						isOpen={isSidebarOpen}
+						isOpen={props.isOpen}
 						text='tBTC'
 					/>
 					<IconSideBar
@@ -146,7 +150,7 @@ const SideBarComponent = () => {
 						selectedTag={selectedTag}
 						icon={SearchIcon}
 						setSelectedTag={setSelectedTag}
-						isOpen={isSidebarOpen}
+						isOpen={props.isOpen}
 						text='Explorer'
 					/>
 				</Stack>
@@ -154,12 +158,12 @@ const SideBarComponent = () => {
 			<Stack>
 				<IconSideBar
 					icon={GitHubIcon}
-					isOpen={isSidebarOpen}
+					isOpen={props.isOpen}
 					text='GitHub'
 				/>
 				<IconSideBar
 					icon={DiscorIcon}
-					isOpen={isSidebarOpen}
+					isOpen={props.isOpen}
 					text='Discord'
 				/>
 			</Stack>
