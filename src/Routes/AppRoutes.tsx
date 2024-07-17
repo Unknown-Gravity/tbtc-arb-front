@@ -40,7 +40,7 @@ const AppRoutes = memo(() => {
 			</Route>
 			<Route
 				path={PrivateRoutes.Home}
-				element={<AppLayout component={<Home />} />}
+				element={<LandPageLayout component={<Home />} />}
 			/>
 		</RoutesNotFound>
 	);

@@ -1,13 +1,26 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
 import { AppLayoutProps } from '../interfaces/AppLayoutProps';
+import { DarkGridBackground, LightGridBackground } from '../assets/images';
+import SideBarComponent from '../components/SideBarComponent';
 
 const LandPageLayout = ({ component }: AppLayoutProps) => {
+	const background = useColorModeValue(
+		LightGridBackground,
+		DarkGridBackground,
+	);
 	return (
-		<Flex h='100vh' bgSize='100%' height='4752px'>
-			{/* <Navigation /> */}
+		<Flex
+			minHeight='100vh'
+			bgImage={background}
+			bgSize='100% 100%'
+			bgRepeat='no-repeat'
+			bgPosition='bottom'
+			position='relative'
+		>
+			<SideBarComponent />
 			<Flex flexDirection={'column'} flex={1} p={8}>
 				{/* <HeaderComponent /> */}
-				<Box w='100%' py={4} px={10} maxWidth={'1135px'}>
+				<Box w='100%' py={4} px={10}>
 					{component}
 				</Box>
 			</Flex>
