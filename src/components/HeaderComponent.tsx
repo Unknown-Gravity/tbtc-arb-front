@@ -26,14 +26,15 @@ const HeaderComponent = (props: Props) => {
 			right={0}
 			w={
 				props.isOpen === false
-					? 'calc(100% - 57px)'
-					: 'calc(100% - 155px)'
+					? 'calc(100% - 37px)'
+					: 'calc(100% - 135px)'
 			}
 			transition='width 0.2s'
-			p='10px 40px 10px 40px'
+			p='10px 60px 10px 60px'
 			borderBottom={`1px solid ${borderColor}`}
 			borderRadius='0px 0px 10px 10px'
 			bg={bgColor}
+			zIndex={10}
 		>
 			<Flex justifyContent='space-between'>
 				<Text

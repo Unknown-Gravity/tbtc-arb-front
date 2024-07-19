@@ -5,11 +5,6 @@ type Props = {
 	transaction?: Transaction;
 };
 
-const stateColor = {
-	bg: '',
-	color: '',
-};
-
 const TransactionComponent = (props: Props) => {
 	return (
 		<Box
@@ -55,7 +50,7 @@ const TransactionComponent = (props: Props) => {
 						fontWeight={400}
 						variant='grayPurpleGradient'
 					>
-						{props.transaction?.tx.slice(0, 5)}...
+						{props.transaction?.tx?.slice(0, 5)}...
 					</Text>
 					<Text
 						fontSize='10px'
@@ -81,7 +76,7 @@ const TransactionComponent = (props: Props) => {
 						}
 						borderRadius='50px'
 					>
-						{props.transaction?.state.toUpperCase()}
+						{props.transaction?.state?.toUpperCase()}
 					</Text>
 				</Grid>
 			)}

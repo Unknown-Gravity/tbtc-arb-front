@@ -1,4 +1,3 @@
-import { link } from 'fs';
 import { Transaction } from '../interfaces/Transaction.interface';
 
 interface Tx {
@@ -154,5 +153,23 @@ export const transactions2: Transaction[] = [
 		tbtc: 0.9,
 		tx: '0x345abc678def012ghj901klm234nop567qrs890tuv123wxy456zab789cde234m',
 		state: 'minted',
+	},
+];
+
+export const transactionsMint: Transaction[] = [
+	{
+		tbtc: 0.001,
+		address: '0x91D9588F07d468A925d1103b89C18d4F1Ae1CF1F',
+		date: new Date(new Date().getTime() - 10 * 60000), // hace 10 minutos
+	},
+	{
+		tbtc: 0.002,
+		address: '0x83A441F1D22A8E6B1234567890CDEFAB12345678',
+		date: new Date(new Date().getTime() - 20 * 60000), // hace 20 minutos
+	},
+	{
+		tbtc: 0.003,
+		address: '0x72C3D45B4561234567890ABCDEF1234567890ABC',
+		date: new Date(new Date().getTime() - 30 * 60000), // hace 30 minutos
 	},
 ];

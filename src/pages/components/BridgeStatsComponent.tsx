@@ -36,6 +36,7 @@ const BridgeStatsComponent: FC = () => {
 						<BTCtoCurrencyComponent
 							btcAmount={3355.85}
 							currency='USD'
+							variant='gray'
 						/>
 					</Stack>
 

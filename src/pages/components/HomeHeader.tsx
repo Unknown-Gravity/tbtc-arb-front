@@ -13,8 +13,6 @@ import {
 	LightCoins,
 } from '../../assets/images';
 import { FC } from 'react';
-import { HouseIcon } from '../../assets/icons/HouseIcon';
-import { DiscorIcon } from '../../assets/icons/DiscordIcon';
 
 const HomeHeader: FC = () => {
 	const backgroundImage = useColorModeValue(LightBackground, DarkBackground);

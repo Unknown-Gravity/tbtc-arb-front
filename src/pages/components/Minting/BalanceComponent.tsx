@@ -7,7 +7,7 @@ import { BasicComponentProps } from '../../../interfaces/BasicComponentProps';
 const BalanceComponent = (props: BasicComponentProps) => {
 	const { colorMode } = useColorMode();
 	return (
-		<CustomBox h='114px' p='25px'>
+		<CustomBox h='fit-content' p='25px'>
 			<Stack gap='16px'>
 				<Flex gap='8px'>
 					<BitcoinFilledIcon
@@ -21,13 +21,14 @@ const BalanceComponent = (props: BasicComponentProps) => {
 						tBTC BALANCE
 					</Text>
 				</Flex>
-				<Text fontSize='32px'>
+				<Text fontSize='24px' lineHeight='32px' fontWeight={500}>
 					{props.isConnected ? walletInfo.balance : '--'}{' '}
 					<Text
 						as='span'
 						fontSize='14px'
 						fontWeight={400}
 						variant='gray'
+						lineHeight='20px'
 					>
 						tBTC
 					</Text>

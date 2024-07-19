@@ -13,7 +13,12 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 		setIsOpen(!isOpen);
 	};
 	return (
-		<Flex minHeight='100vh' position='relative'>
+		<Flex
+			minHeight='100vh'
+			position='relative'
+			pl={isOpen ? '155px' : '55px'}
+			transition='padding 0.2s'
+		>
 			<SideBarComponent isOpen={isOpen} onClick={handleOpen} />
 			<Flex
 				flexDirection={'column'}

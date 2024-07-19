@@ -1,5 +1,7 @@
 export interface Transaction {
 	tbtc: number;
-	tx: string;
-	state: 'pending' | 'minted' | 'error';
+	address?: string;
+	tx?: string;
+	state?: 'pending' | 'minted' | 'error';
+	date?: Date;
 }

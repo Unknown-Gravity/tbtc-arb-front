@@ -12,6 +12,7 @@ import LightJsonImage from './lightJsonImage.svg';
 import DarkJsonImage from './darkJsonImage.svg';
 import DarkMintingActivity from './darkMintingActivity.svg';
 import LightMintingActivity from './lightMintingActivity.svg';
+import AccountImageExample from './accountImageExample.png';
 
 export {
 	DarkBackground,
@@ -28,4 +29,5 @@ export {
 	DarkJsonImage,
 	DarkMintingActivity,
 	LightMintingActivity,
+	AccountImageExample,
 };

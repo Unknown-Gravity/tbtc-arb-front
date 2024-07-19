@@ -5,7 +5,6 @@ import {
 	ThemeConfig,
 	ThemeOverride,
 } from '@chakra-ui/react';
-import { darken } from '@chakra-ui/theme-tools';
 
 const config: ThemeConfig = {
 	initialColorMode: 'dark',
@@ -137,6 +136,20 @@ const components: ThemeOverride['components'] = {
 					bg: 'brand.purple.500',
 				},
 			},
+
+			lightpurple: (props: StyleFunctionProps) => ({
+				bg: props.colorMode === 'dark' ? 'dark.primaryGray' : 'white',
+				_active: {
+					bg:
+						props.colorMode === 'dark'
+							? 'dark.focusGray'
+							: 'brand.purple.910',
+					color: 'brand.purple.900',
+				},
+				_hover: {
+					bg: props.colorMode === 'dark' ? 'dark.focusGray' : 'white',
+				},
+			}),
 		},
 	},
 

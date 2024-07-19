@@ -55,11 +55,6 @@ createWeb3Modal({
 	chains: [mainnet, sepolia],
 	projectId,
 	enableAnalytics: true, // Optional - defaults to your Cloud configuration
-	themeVariables: {
-		'--w3m-font-family': 'Inter',
-		'--w3m-accent': '#7D00FF',
-		'--w3m-border-radius-master': '.6px',
-	},
 });
 
 const root = ReactDOM.createRoot(

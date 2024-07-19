@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { CustomBox } from '../../../components/CustomBox';
 import { Flex, Grid, Image, Stack, Text, useColorMode } from '@chakra-ui/react';
 import { BasicComponentProps } from '../../../interfaces/BasicComponentProps';
@@ -11,7 +10,6 @@ import { transactions2 } from '../../../data/mockData';
 
 const MyActivityComponent = (props: BasicComponentProps) => {
 	const { colorMode } = useColorMode();
-	const [transactions, setTransactions] = useState(transactions2);
 	return (
 		<CustomBox h='100%' p=' 25px 15px'>
 			<Text fontSize='16px' lineHeight='16px' fontWeight='600'>
@@ -57,7 +55,7 @@ const MyActivityComponent = (props: BasicComponentProps) => {
 					</Text>
 				</Stack>
 			) : (
-				<Stack mt='40px'>
+				<Stack mt='40px' maxH='520px'>
 					<Grid
 						w={{ base: '95%', xl: '220px' }}
 						mx={'auto'}
@@ -93,8 +91,13 @@ const MyActivityComponent = (props: BasicComponentProps) => {
 						</Text>
 					</Grid>
 					<Stack>
-						{transactions2.map((tx, index) => {
-							return <TransactionComponent transaction={tx} />;
+						{transactions2.slice(0, 7).map((tx, index) => {
+							return (
+								<TransactionComponent
+									key={index}
+									transaction={tx}
+								/>
+							);
 						})}
 					</Stack>
 				</Stack>

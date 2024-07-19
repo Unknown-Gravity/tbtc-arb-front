@@ -1,6 +1,4 @@
 import { Flex, Stack, Text } from '@chakra-ui/react';
-import React from 'react';
-import { DiscorIcon } from '../../assets/icons/DiscordIcon';
 import { DiscordNoBackgroundIcon } from '../../assets/icons/DiscordNoBackgroundIcon';
 import { LogoAloneIcon } from '../../assets/icons/LogoAlone';
 import { TwitterIcon } from '../../assets/icons/TwitterIcon';

@@ -1,25 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Box, Text, Flex } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { Button, Box, Flex, ButtonProps } from '@chakra-ui/react';
 import {
+	useWeb3Modal,
 	useWeb3ModalAccount,
 	useWeb3ModalProvider,
 } from '@web3modal/ethers/react';
 import { ethers } from 'ethers';
-import { InfoAccount } from '../interfaces/InfoAccount.type';
 import { useDispatch } from 'react-redux';
 import { addAccount } from '../redux/reducers/AccountReducer';
+import { normalizeNetWorkNames } from '../utils/utils';
 
-type Props = {};
-
-const ConnectButton = (props: Props) => {
-	const { address, chainId, isConnected } = useWeb3ModalAccount();
+const ConnectButton = (props: ButtonProps) => {
+	const { address, isConnected } = useWeb3ModalAccount();
 	const { walletProvider } = useWeb3ModalProvider();
+	const [networkName, setNetWorkName] = useState('');
 	const [needRefresh, setNeedRefresh] = useState(true);
-	const [infoAccount, setInfoAccount] = useState<InfoAccount>({
-		provider: null,
-		signer: null,
-		balance: '0',
-	});
+
+	const { open } = useWeb3Modal();
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -27,6 +25,7 @@ const ConnectButton = (props: Props) => {
 			if (walletProvider && address) {
 				const provider = new ethers.BrowserProvider(walletProvider);
 				const signer = await provider.getSigner();
+				const network = await provider.getNetwork();
 				const balanceBigInt = await provider.getBalance(address);
 				const ethBalance = ethers.formatEther(balanceBigInt);
 				const newInfoAccount = {
@@ -34,21 +33,38 @@ const ConnectButton = (props: Props) => {
 					signer,
 					balance: ethBalance,
 				};
-				setInfoAccount(newInfoAccount);
 				dispatch(addAccount(newInfoAccount));
 				setNeedRefresh(false);
+				setNetWorkName(network.name);
 			}
 		};
 		getBalance();
-	}, [address, walletProvider, needRefresh]);
+	}, [address, walletProvider, needRefresh, dispatch]);
 
-	const handleConnect = () => {
-		setNeedRefresh(true);
+	const handleConnectWallet = () => {
+		!isConnected ? open({ view: 'Connect' }) : open({ view: 'Account' });
 	};
 
 	return (
-		<Box textAlign='center'>
-			{isConnected ? <w3m-account-button /> : <w3m-connect-button />}
+		<Box>
+			{!isConnected ? (
+				<Button
+					{...props}
+					variant='purple'
+					onClick={handleConnectWallet}
+				>
+					Connect Wallet
+				</Button>
+			) : (
+				<Flex gap='10px'>
+					<Button bg='none'>
+						{normalizeNetWorkNames(networkName)}
+					</Button>
+					<Button variant='purple' onClick={handleConnectWallet}>
+						{address?.slice(0, 5)}...{address?.slice(-4)}
+					</Button>
+				</Flex>
+			)}
 		</Box>
 	);
 };

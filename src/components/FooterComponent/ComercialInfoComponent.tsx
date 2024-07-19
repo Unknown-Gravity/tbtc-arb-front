@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import ThresholdIcon from '../../assets/icons/ThresholdIcon';
 import { BitcoinFilledIcon } from '../../assets/icons/BitcoinFilledIcon';
-import { BsDiscord, BsGithub, BsTwitterX, BsYoutube } from 'react-icons/bs';
+import { BsDiscord, BsTwitterX, BsYoutube } from 'react-icons/bs';
 import { GitHubIcon } from '../../assets/icons/GitHubIcon';
 
 type Props = {};
