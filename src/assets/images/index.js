@@ -13,6 +13,8 @@ import DarkJsonImage from './darkJsonImage.svg';
 import DarkMintingActivity from './darkMintingActivity.svg';
 import LightMintingActivity from './lightMintingActivity.svg';
 import AccountImageExample from './accountImageExample.png';
+import LightStep1Timeline from './lightStep1Timeline.svg';
+import DarkStep1Timeline from './darkStep1Timeline.svg';
 
 export {
 	DarkBackground,
@@ -30,4 +32,6 @@ export {
 	DarkMintingActivity,
 	LightMintingActivity,
 	AccountImageExample,
+	LightStep1Timeline,
+	DarkStep1Timeline,
 };

@@ -66,6 +66,7 @@ const colors: ThemeOverride['colors'] = {
 		focusGray: '#161A1F',
 		coolGray: '#B1BCCC',
 		background: '#161A1F',
+		secondaryGray: '#1D2229',
 	},
 };
 
@@ -111,6 +112,11 @@ const components: ThemeOverride['components'] = {
 				backgroundClip: props.colorMode === 'dark' && 'text',
 				fill: props.colorMode === 'dark' && 'transparent',
 			}),
+
+			purple: (props: StyleFunctionProps) => ({
+				color:
+					props.colorMode === 'light' ? 'brand.purple.900' : 'white',
+			}),
 		},
 	},
 	Button: {
@@ -150,6 +156,16 @@ const components: ThemeOverride['components'] = {
 					bg: props.colorMode === 'dark' ? 'dark.focusGray' : 'white',
 				},
 			}),
+
+			purpleOutlined: (props: StyleFunctionProps) => ({
+				bg: 'linear-gradient(#D987FF 60%, #AB5AFA)',
+				bgClip: 'text',
+				color:
+					props.colorMode === 'light'
+						? 'brand.purple.900'
+						: 'transparent',
+				border: `1px solid ${theme.colors.brand.purple[900]}`,
+			}),
 		},
 	},
 
@@ -160,31 +176,28 @@ const components: ThemeOverride['components'] = {
 					bg: 'none',
 					w: '24px',
 					h: '24px',
-					border: `2px solid ${
+					border:
 						props.colorMode === 'light'
-							? props.theme.colors.dark.coolGray
-							: props.theme.colors.dark.coolGray
-					}`,
+							? `2px solid ${props.theme.colors.light.coolGray}`
+							: 'none',
 				},
 				'&[data-status=active]': {
 					bg: 'none',
 					w: '24px',
 					h: '24px',
-					border: `2px solid ${
+					border:
 						props.colorMode === 'light'
-							? props.theme.colors.dark.coolGray
-							: props.theme.colors.dark.coolGray
-					}`,
+							? `2px solid ${props.theme.colors.light.coolGray}`
+							: 'none',
 				},
 				'&[data-status=incomplete]': {
 					bg: 'none',
 					w: '24px',
 					h: '24px',
-					border: `2px solid ${
+					border:
 						props.colorMode === 'light'
-							? props.theme.colors.dark.coolGray
-							: props.theme.colors.dark.coolGray
-					}`,
+							? `2px solid ${props.theme.colors.light.coolGray}`
+							: 'none',
 				},
 			},
 
@@ -207,6 +220,28 @@ const components: ThemeOverride['components'] = {
 				ml: '-4px',
 			},
 		}),
+
+		variants: {
+			minting: (props: StyleFunctionProps) => ({
+				step: {
+					fontSize: '14px',
+					maxW: '235px',
+					pb: '15px',
+					pt: '5px',
+				},
+				title: {
+					fontWeight: '600',
+					lineHeight: '24px',
+					h: '60px',
+				},
+
+				description: {
+					lineHeight: '20px',
+					color: props.colorMode === 'dark' && 'white',
+					w: '213px',
+				},
+			}),
+		},
 	},
 
 	Link: {
@@ -222,6 +257,36 @@ const components: ThemeOverride['components'] = {
 				fill: props.colorMode === 'dark' && 'transparent',
 			}),
 		},
+	},
+
+	Input: {
+		baseStyle: (props: StyleFunctionProps) => ({
+			field: {
+				fontSize: '18px',
+				lineHeight: '24px',
+				fontWeight: 400,
+				height: '48px',
+				_light: {
+					bg: 'white',
+					borderColor: 'light.primaryGray',
+					color: 'light.primaryGray',
+				},
+				_dark: {
+					bg: 'dark.focusGray',
+					borderColor: 'light.primaryGray',
+				},
+				_focus: {
+					_dark: {
+						boxShadow: 'none',
+						outline: 'none',
+					},
+					_light: {
+						boxShadow: 'none',
+						outline: 'none',
+					},
+				},
+			},
+		}),
 	},
 };
 

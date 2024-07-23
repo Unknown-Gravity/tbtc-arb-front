@@ -1,18 +1,12 @@
-import { Box, Divider, Flex, useColorMode } from '@chakra-ui/react';
+import { Box, Flex, useColorMode } from '@chakra-ui/react';
 import { CustomBox } from '../../../components/CustomBox';
-import MintingProcessComponent from './components/MintingProcessComponent';
-import {
-	Step,
-	StepDescription,
-	StepIcon,
-	StepIndicator,
-	StepNumber,
-	StepSeparator,
-	StepStatus,
-	StepTitle,
-	Stepper,
-	useSteps,
-} from '@chakra-ui/react';
+import MintingProcessComponent from './components/MintingProcess/MintingProcessComponent';
+import TimelineComponent from './components/Timeline/TimelineComponent';
+import { useState } from 'react';
+import Step1MintingProcess from './components/MintingProcess/Step1MintingProcess';
+import Step1Timeline from './components/Timeline/Step1Timeline';
+import Step2MintingProcess from './components/MintingProcess/Step2MintingProcess';
+import HeaderStepsMintingComponent from './components/MintingProcess/HeaderStepsMintingComponent';
 
 type Props = {
 	isConnected: boolean;
@@ -20,54 +14,28 @@ type Props = {
 
 const MintComponent = (props: Props) => {
 	const { colorMode } = useColorMode();
-	const steps = [
-		{ title: 'First', description: 'Contact Info' },
-		{ title: 'Second', description: 'Date & Time' },
-		{ title: 'Third', description: 'Select Rooms' },
-	];
-	const { activeStep } = useSteps({
-		index: 1,
-		count: steps.length,
-	});
+	const [step, setStep] = useState(1);
 
 	return (
-		<CustomBox h='100%'>
-			<Flex w='100%' gap='32px'>
-				<MintingProcessComponent />
+		<CustomBox h='100%' maxH='820px' p='25px'>
+			<HeaderStepsMintingComponent label='tBTC - MINTING PROCESS' />
+			<Flex w='100%' h='100%'>
+				{!props.isConnected && <MintingProcessComponent />}
+				{props.isConnected && step === 1 && (
+					<Step1MintingProcess onClick={setStep} />
+				)}
+				{props.isConnected && step === 2 && (
+					<Step2MintingProcess onClick={setStep} />
+				)}
 
 				<Box
 					bg={colorMode === 'dark' ? 'white' : 'light.coolGray'}
 					w='1px'
+					ml='32px'
+					mr='22px'
 				></Box>
-				<Box minW='235px'>
-					<Stepper
-						index={activeStep}
-						orientation='vertical'
-						minH='200px'
-						gap='0'
-					>
-						{steps.map((step, index) => (
-							<Step key={index}>
-								<StepIndicator>
-									<StepStatus
-										complete={<StepNumber />}
-										incomplete={<StepNumber />}
-										active={<StepNumber />}
-									/>
-								</StepIndicator>
-
-								<Box flexShrink='0'>
-									<StepTitle>{step.title}</StepTitle>
-									<StepDescription>
-										{step.description}
-									</StepDescription>
-								</Box>
-
-								<StepSeparator />
-							</Step>
-						))}
-					</Stepper>
-				</Box>
+				{!props.isConnected && <TimelineComponent />}
+				{props.isConnected && step === 1 && <Step1Timeline />}
 			</Flex>
 		</CustomBox>
 	);

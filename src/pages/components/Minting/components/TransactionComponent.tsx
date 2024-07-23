@@ -1,16 +1,19 @@
-import { Box, Flex, Grid, Text } from '@chakra-ui/react';
+import { Box, Flex, Grid, Text, useColorMode } from '@chakra-ui/react';
 import { Transaction } from '../../../../interfaces/Transaction.interface';
+import { color } from 'framer-motion';
 
 type Props = {
 	transaction?: Transaction;
 };
 
 const TransactionComponent = (props: Props) => {
+	const { colorMode } = useColorMode();
 	return (
 		<Box
-			p='17px 10px 17px 25px'
+			p='12px 10px 12px 25px'
+			maxH='50px'
 			border='1px solid #B1BCCC'
-			borderRadius='6px'
+			borderRadius='10px'
 		>
 			{!props.transaction ? (
 				<Flex justifyContent='space-between'>
@@ -55,21 +58,33 @@ const TransactionComponent = (props: Props) => {
 					<Text
 						fontSize='10px'
 						lineHeight='24px'
-						fontWeight={400}
+						fontWeight={500}
 						variant='gray'
 						placeSelf='end'
 						textAlign='center'
 						w='100%'
 						bg={
-							props.transaction.state === 'minted'
-								? '#153A27'
+							colorMode === 'dark'
+								? props.transaction.state === 'minted'
+									? '#153A27'
+									: props.transaction.state === 'pending'
+									? '#393A15'
+									: '#3A1515'
+								: props.transaction.state === 'minted'
+								? '#F0FFF4'
 								: props.transaction.state === 'pending'
-								? '#393A15'
-								: '#3A1515'
+								? '#FFFBE6'
+								: '#FFF5F5'
 						}
 						color={
-							props.transaction.state === 'minted'
-								? '#8DFEAB'
+							colorMode === 'dark'
+								? props.transaction.state === 'minted'
+									? '#8DFEAB'
+									: props.transaction.state === 'pending'
+									? '#FAAD14'
+									: '#E53939'
+								: props.transaction.state === 'minted'
+								? '#38A169'
 								: props.transaction.state === 'pending'
 								? '#FAAD14'
 								: '#E53939'
