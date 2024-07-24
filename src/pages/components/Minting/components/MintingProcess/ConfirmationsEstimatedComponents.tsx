@@ -1,6 +1,6 @@
 import { Box, Stack, Text, useColorMode } from '@chakra-ui/react';
 
-type Props = {};
+type Props = { time: number; confirmations: number; btc: string };
 
 const ConfirmationsEstimatedComponents = (props: Props) => {
 	const { colorMode } = useColorMode();
@@ -12,7 +12,7 @@ const ConfirmationsEstimatedComponents = (props: Props) => {
 			borderRadius='14px'
 			p={colorMode === 'light' ? 0 : '5px'}
 			spacing={0}
-			boxShadow={colorMode === 'light' ? '0px 0px 7px #00000025' : 'none'}
+			boxShadow={colorMode === 'light' ? '0px 1px 2px #00000020' : 'none'}
 		>
 			<Box
 				borderRadius='14px'
@@ -23,17 +23,27 @@ const ConfirmationsEstimatedComponents = (props: Props) => {
 				}
 			>
 				<Stack py='5px' alignItems='center'>
-					<Text fontSize='24px' fontWeight={500} lineHeight='32px'>
-						1 hour
+					<Text
+						fontSize='24px'
+						fontWeight={500}
+						lineHeight='32px'
+						variant='darkPurpleGradient'
+					>
+						{props.time} hour
 					</Text>
-					<Text fontSize='10px' fontWeight={400} lineHeight='16px'>
-						+ 1 confirmations
+					<Text
+						fontSize='10px'
+						fontWeight={400}
+						lineHeight='16px'
+						variant='darkPurpleGradient'
+					>
+						+ {props.confirmations} confirmations
 					</Text>
 				</Stack>
 			</Box>
 			<Stack alignItems='center' justifyContent='center' h='100%'>
 				<Text fontSize='24px' fontWeight={500} lineHeight='32px'>
-					{'< 0.10'}
+					{props.btc}
 				</Text>
 				<Text fontSize='12px' fontWeight={400} lineHeight='16px'>
 					BTC

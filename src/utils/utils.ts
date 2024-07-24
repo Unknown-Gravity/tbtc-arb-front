@@ -84,3 +84,9 @@ export const normalizeNetWorkNames = (networkName: string): string => {
 		)
 		.join(' ');
 };
+
+export const formatAddress = (
+	address: `0x${string}` | undefined | string,
+): string => {
+	return address?.slice(0, 5) + '...' + address?.slice(-4);
+};

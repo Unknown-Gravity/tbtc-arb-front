@@ -29,7 +29,7 @@ const Minting = (props: Props) => {
 				xl: 'minmax(0, 280px) minmax(0, 820px)',
 			}}
 		>
-			<Stack gap='20px'>
+			<Stack gap='20px' maxH='704px'>
 				<BalanceComponent
 					account={accountInfo}
 					isConnected={isConnected}

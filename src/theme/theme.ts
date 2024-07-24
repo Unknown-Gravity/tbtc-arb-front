@@ -24,6 +24,7 @@ const styles: ThemeOverride['styles'] = {
 const colors: ThemeOverride['colors'] = {
 	brand: {
 		purple: {
+			1000: '#4A2E99',
 			900: '#7D00FF',
 			990: '#7D00FF90',
 			980: '#7D00FF80',
@@ -66,7 +67,7 @@ const colors: ThemeOverride['colors'] = {
 		focusGray: '#161A1F',
 		coolGray: '#B1BCCC',
 		background: '#161A1F',
-		secondaryGray: '#1D2229',
+		secondaryGray: '#323A47',
 	},
 };
 
@@ -116,6 +117,25 @@ const components: ThemeOverride['components'] = {
 			purple: (props: StyleFunctionProps) => ({
 				color:
 					props.colorMode === 'light' ? 'brand.purple.900' : 'white',
+			}),
+
+			darkPurpleGradient: (props: StyleFunctionProps) => ({
+				color:
+					props.colorMode === 'light'
+						? 'brand.purple.1000'
+						: 'transparent',
+				bg:
+					props.colorMode === 'dark' &&
+					`linear-gradient(#D987FF 60%, #AB5AFA)`,
+				backgroundClip: props.colorMode === 'dark' && 'text',
+				fill: props.colorMode === 'dark' && 'transparent',
+			}),
+
+			grayPurple: (props: StyleFunctionProps) => ({
+				color:
+					props.colorMode === 'light'
+						? 'brand.purple.900'
+						: 'dark.coolGray',
 			}),
 		},
 	},

@@ -12,9 +12,13 @@ import {
 	LightStep1Timeline,
 } from '../../../../../assets/images';
 
-type Props = {};
+type Props = {
+	step: number;
+	label: string;
+	children: any;
+};
 
-const Step1Timeline = (props: Props) => {
+const TimelineTemplate = (props: Props) => {
 	const theme = useTheme();
 	const borderColor = theme.colors.brand.purple[900];
 	const { colorMode } = useColorMode();
@@ -35,28 +39,15 @@ const Step1Timeline = (props: Props) => {
 				borderLeft={`5px solid ${borderColor}`}
 			>
 				<Text variant='purple' fontSize='10px'>
-					STEP 1
+					STEP {props.step}
 				</Text>
 				<Text fontSize='14px' lineHeight='16px' fontWeight={600}>
-					PROVIDE A DEPOSIT ADDRESS
+					{props.label}
 				</Text>
-				<Text fontSize='14px' lineHeight='21px' fontWeight={400}>
-					Provide an ETH address and a BTC Return address to generate
-					a unique BTC deposit address. <br />
-					<Link as='span' variant='purpleDarkGradient'>
-						Read More
-					</Link>
-				</Text>
-				<Image
-					src={
-						colorMode === 'light'
-							? LightStep1Timeline
-							: DarkStep1Timeline
-					}
-				/>
+				{props.children}
 			</Stack>
 		</Box>
 	);
 };
 
-export default Step1Timeline;
+export default TimelineTemplate;

@@ -8,36 +8,21 @@ import {
 	Tooltip,
 	useColorMode,
 } from '@chakra-ui/react';
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
-import { BitcoinFilledIcon } from '../../../../../assets/icons/BitcoinFilledIcon';
+import { ChangeEvent, MouseEvent } from 'react';
 import { InfoIcon } from '../../../../../assets/icons/InfoIcon';
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 
 type Props = {
-	onClick: Dispatch<SetStateAction<number>>;
+	onClick: () => void;
+	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+	btcAddress: string;
+	errorMsg: string;
 };
 
 const Step1MintingProcess = (props: Props) => {
 	const { colorMode } = useColorMode();
 	const { address } = useWeb3ModalAccount();
-	const [btcAddress, setBtcAdress] = useState('');
-	const [errorMsg, setErrorMsg] = useState('');
 
-	const handleClick = () => {
-		if (btcAddress === '') {
-			setErrorMsg('The recovery address can´t be empty');
-		} else {
-			props.onClick(2);
-		}
-	};
-
-	const changeBtcAdress = (event: ChangeEvent<HTMLInputElement>) => {
-		if (errorMsg) {
-			setErrorMsg('');
-		}
-		const { value } = event.target;
-		setBtcAdress(value);
-	};
 	return (
 		<Box w='470px' maxW='470px'>
 			<Stack spacing='24px' mt='24px'>
@@ -108,13 +93,15 @@ const Step1MintingProcess = (props: Props) => {
 					</Flex>
 					<Input
 						name='BTCAdress'
-						value={btcAddress}
-						onChange={changeBtcAdress}
+						value={props.btcAddress}
+						onChange={props.onChange}
 					/>
-					{errorMsg !== '' && <Text color='red'>{errorMsg}</Text>}
+					{props.errorMsg !== '' && (
+						<Text color='red'>{props.errorMsg}</Text>
+					)}
 				</Stack>
 				<Stack gap='10.37px'>
-					<Button variant='purple' h='48px' onClick={handleClick}>
+					<Button variant='purple' h='48px' onClick={props.onClick}>
 						Generate Deposit Adress
 					</Button>
 					<Button variant='purpleOutlined' h='48px'>

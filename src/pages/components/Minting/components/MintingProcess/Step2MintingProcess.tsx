@@ -1,3 +1,4 @@
+import { CloseIcon } from '@chakra-ui/icons';
 import {
 	Box,
 	Flex,
@@ -7,28 +8,56 @@ import {
 	useClipboard,
 	useTheme,
 	Icon,
+	Divider,
+	Button,
+	useToast,
 } from '@chakra-ui/react';
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 import QRCode from 'qrcode.react';
 import { Dispatch, SetStateAction } from 'react';
 import { InfoIcon } from '../../../../../assets/icons/InfoIcon';
-import { CopyIcon } from '@chakra-ui/icons';
 import { TbCopy } from 'react-icons/tb';
 import ConfirmationsEstimatedComponents from './ConfirmationsEstimatedComponents';
+import { formatAddress } from '../../../../../utils/utils';
+import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 
 type Props = {
 	onClick: Dispatch<SetStateAction<number>>;
+	btcAddress: string;
 };
 
+const cardsInfo = [
+	{
+		time: 1,
+		confirmations: 1,
+		btc: '< 0.10',
+	},
+	{
+		time: 2,
+		confirmations: 3,
+		btc: '< 1.00',
+	},
+	{
+		time: 1,
+		confirmations: 6,
+		btc: '≥ 1.00',
+	},
+];
+
 const Step2MintingProcess = (props: Props) => {
+	const toast = useToast();
+
 	const { address } = useWeb3ModalAccount();
 	const { colorMode } = useColorMode();
 	const theme = useTheme();
 	const borderColor = theme.colors.brand.purple[900];
 	const iconColor = theme.colors.light.coolGray;
-	const { onCopy } = useClipboard(
+
+	const { onCopy: onCopyDepositAddress } = useClipboard(
 		'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
 	);
+	const { onCopy: onCopyEthAddress } = useClipboard(address || '');
+	const { onCopy: onCopyBtcAddress } = useClipboard(props.btcAddress);
 
 	return (
 		<Box w='448.28px' maxW='448.28px'>
@@ -87,16 +116,114 @@ const Step2MintingProcess = (props: Props) => {
 					</Text>{' '}
 					<Icon
 						as={TbCopy}
-						boxSize='17.25px'
+						boxSize='24px'
 						color={iconColor}
 						transition='transform 0.1s'
 						_hover={{ transform: 'scale(1.1)' }}
 						_active={{ transform: 'scale(1)' }}
 						cursor='pointer'
+						onClick={onCopyDepositAddress}
 					/>
 				</Flex>
 			</Stack>
-			<ConfirmationsEstimatedComponents />
+			<Stack gap='20px' mt='10px'>
+				<Flex justifyContent='space-between'>
+					{cardsInfo.map((card, index) => {
+						return (
+							<ConfirmationsEstimatedComponents
+								key={index}
+								time={card.time}
+								confirmations={card.confirmations}
+								btc={card.btc}
+							/>
+						);
+					})}
+				</Flex>
+				<Text variant='gray2' fontWeight={400} lineHeight='24px'>
+					Provided Addresses Recap
+				</Text>
+				<Flex justifyContent='space-between'>
+					<Box
+						bg={
+							colorMode === 'light'
+								? 'brand.purple.100'
+								: 'dark.focusGray'
+						}
+						padding='4px 8px 4px 8px'
+						borderRadius='4px'
+					>
+						<Text
+							variant='darkPurpleGradient'
+							fontSize='14px'
+							lineHeight='20px'
+						>
+							Arbitrum Address
+						</Text>
+					</Box>
+					<Flex gap='9px'>
+						<Text variant='grayPurple' textDecor='underline'>
+							{formatAddress(address)}
+						</Text>
+						<Icon
+							as={TbCopy}
+							boxSize='24px'
+							color={iconColor}
+							transition='transform 0.1s'
+							_hover={{ transform: 'scale(1.1)' }}
+							_active={{ transform: 'scale(1)' }}
+							cursor='pointer'
+							onClick={onCopyEthAddress}
+						/>
+					</Flex>
+				</Flex>
+				<Flex justifyContent='space-between'>
+					<Box
+						bg={
+							colorMode === 'light'
+								? 'brand.purple.100'
+								: 'dark.focusGray'
+						}
+						padding='4px 8px 4px 8px'
+						borderRadius='4px'
+					>
+						<Text
+							variant='darkPurpleGradient'
+							fontSize='14px'
+							lineHeight='20px'
+						>
+							BTC Recovery Address
+						</Text>
+					</Box>
+					<Flex gap='9px'>
+						<Text variant='grayPurple' textDecor='underline'>
+							{formatAddress(props.btcAddress)}
+						</Text>
+						<Icon
+							as={TbCopy}
+							boxSize='24px'
+							color={iconColor}
+							transition='transform 0.1s'
+							_hover={{ transform: 'scale(1.1)' }}
+							_active={{ transform: 'scale(1)' }}
+							cursor='pointer'
+							onClick={onCopyBtcAddress}
+						/>
+					</Flex>
+				</Flex>
+				<Divider borderColor='light.coolGray' />
+				<Flex color='brand.purple.900' gap='9px' alignItems='center'>
+					<Box>
+						<BsFillArrowRightCircleFill size='15px' />
+					</Box>
+					<Text variant='gray' fontSize='14px' lineHeight='24px'>
+						Send the funds and come back to this dApp. You do not
+						need to wait for the BTC transaction to be mined.
+					</Text>
+				</Flex>
+				<Button variant='purple' h='48px' fontSize='18px'>
+					I sent the BTC
+				</Button>
+			</Stack>
 		</Box>
 	);
 };
