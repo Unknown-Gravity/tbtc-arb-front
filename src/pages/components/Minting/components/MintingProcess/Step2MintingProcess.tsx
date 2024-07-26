@@ -1,4 +1,3 @@
-import { CloseIcon } from '@chakra-ui/icons';
 import {
 	Box,
 	Flex,
@@ -10,7 +9,7 @@ import {
 	Icon,
 	Divider,
 	Button,
-	useToast,
+	useDisclosure,
 } from '@chakra-ui/react';
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 import QRCode from 'qrcode.react';
@@ -20,6 +19,7 @@ import { TbCopy } from 'react-icons/tb';
 import ConfirmationsEstimatedComponents from './ConfirmationsEstimatedComponents';
 import { formatAddress } from '../../../../../utils/utils';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
+import ModalMinting from '../ModalMinting';
 
 type Props = {
 	onClick: Dispatch<SetStateAction<number>>;
@@ -45,13 +45,12 @@ const cardsInfo = [
 ];
 
 const Step2MintingProcess = (props: Props) => {
-	const toast = useToast();
-
 	const { address } = useWeb3ModalAccount();
 	const { colorMode } = useColorMode();
 	const theme = useTheme();
 	const borderColor = theme.colors.brand.purple[900];
 	const iconColor = theme.colors.light.coolGray;
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const { onCopy: onCopyDepositAddress } = useClipboard(
 		'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
@@ -61,6 +60,7 @@ const Step2MintingProcess = (props: Props) => {
 
 	return (
 		<Box w='448.28px' maxW='448.28px'>
+			<ModalMinting isOpen={isOpen} onClose={onClose} />
 			<Text fontSize='16px' lineHeight='28px' fontWeight={600} mt='24px'>
 				<Text variant='purpleDarkGradient' as={'span'}>
 					STEP 2{' '}
@@ -220,7 +220,12 @@ const Step2MintingProcess = (props: Props) => {
 						need to wait for the BTC transaction to be mined.
 					</Text>
 				</Flex>
-				<Button variant='purple' h='48px' fontSize='18px'>
+				<Button
+					variant='purple'
+					h='48px'
+					fontSize='18px'
+					onClick={onOpen}
+				>
 					I sent the BTC
 				</Button>
 			</Stack>

@@ -1,6 +1,5 @@
 import { Box, Flex, Grid, Text, useColorMode } from '@chakra-ui/react';
 import { Transaction } from '../../../../interfaces/Transaction.interface';
-import { color } from 'framer-motion';
 
 type Props = {
 	transaction?: Transaction;
