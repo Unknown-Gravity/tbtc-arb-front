@@ -1,7 +1,7 @@
 import { Flex, Stack, Text } from '@chakra-ui/react';
-import { DiscordNoBackgroundIcon } from '../../assets/icons/DiscordNoBackgroundIcon';
-import { LogoAloneIcon } from '../../assets/icons/LogoAlone';
-import { TwitterIcon } from '../../assets/icons/TwitterIcon';
+import { DiscordNoBackgroundIcon } from '../../../assets/icons/DiscordNoBackgroundIcon';
+import { LogoAloneIcon } from '../../../assets/icons/LogoAlone';
+import { TwitterIcon } from '../../../assets/icons/TwitterIcon';
 
 type Props = {};
 

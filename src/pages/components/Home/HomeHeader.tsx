@@ -11,7 +11,7 @@ import {
 	DarkCoins,
 	LightBackground,
 	LightCoins,
-} from '../../assets/images';
+} from '../../../assets/images';
 import { FC } from 'react';
 
 const HomeHeader: FC = () => {

@@ -1,4 +1,3 @@
-import React from 'react';
 import {
 	Box,
 	Button,
@@ -11,8 +10,8 @@ import {
 	useColorModeValue,
 	useTheme,
 } from '@chakra-ui/react';
-import { AtomImage, LightPointBackground } from '../../assets/images';
-import { ComponentProps } from '../../interfaces/ComponentProps';
+import { AtomImage, LightPointBackground } from '../../../assets/images';
+import { ComponentProps } from '../../../interfaces/ComponentProps';
 
 // Definimos la interfaz para las props
 

@@ -1,6 +1,6 @@
 import { Flex, Image, Stack, Text } from '@chakra-ui/react';
-import { CustomBox } from '../../../components/CustomBox';
-import { Bridge } from '../../../assets/images';
+import { CustomBox } from '../../../../components/CustomBox';
+import { Bridge } from '../../../../assets/images';
 
 const Section2InfoComponent = () => {
 	return (

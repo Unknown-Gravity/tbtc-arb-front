@@ -8,6 +8,8 @@ import TimeLineTemplate from './components/Timeline/TimelineTemplate';
 import Step2MintingProcess from './components/MintingProcess/Step2MintingProcess';
 import HeaderStepsMintingComponent from './components/MintingProcess/HeaderStepsMintingComponent';
 import { DarkStep1Timeline, LightStep1Timeline } from '../../../assets/images';
+import { address } from 'bitcoinjs-lib';
+import { ArrowBackIcon } from '@chakra-ui/icons';
 
 type Props = {
 	isConnected: boolean;
@@ -23,9 +25,15 @@ const MintComponent = (props: Props) => {
 		if (btcAddress === '') {
 			setErrorMsg('The recovery address can´t be empty');
 		} else {
-			setStep(2);
+			try {
+				address.toOutputScript(btcAddress);
+				setStep(2); // If the address is valid, proceed to the next step
+			} catch (error) {
+				setErrorMsg('Invalid Bitcoin address');
+			}
 		}
 	};
+
 	const changeBtcAdress = (event: ChangeEvent<HTMLInputElement>) => {
 		if (errorMsg) {
 			setErrorMsg('');
@@ -34,10 +42,32 @@ const MintComponent = (props: Props) => {
 		setBtcAdress(value);
 	};
 
+	const goBack = () => {
+		setStep(step - 1);
+	};
+
 	return (
 		<CustomBox h='100%' p='25px'>
-			<HeaderStepsMintingComponent label='tBTC - MINTING PROCESS' />
-			<Flex w='100%' h='100%'>
+			<Flex alignItems='center' gap='9px'>
+				{step > 1 && (
+					<ArrowBackIcon
+						boxSize='24px'
+						p='0.5px'
+						transition={'transform 0.1s'}
+						cursor='pointer'
+						_hover={{ transform: 'scale(1.2)' }}
+						_active={{ transform: 'scale(1)' }}
+						onClick={goBack}
+					/>
+				)}
+				<HeaderStepsMintingComponent label='tBTC - MINTING PROCESS' />
+			</Flex>
+
+			<Flex
+				w='100%'
+				h='100%'
+				flexDirection={{ base: 'column', xl: 'row' }}
+			>
 				{!props.isConnected && <MintingProcessComponent />}
 				{props.isConnected && step === 1 && (
 					<Step1MintingProcess
@@ -57,8 +87,9 @@ const MintComponent = (props: Props) => {
 				<Box
 					bg={colorMode === 'dark' ? 'white' : 'light.coolGray'}
 					alignSelf='start'
-					h='584px'
-					w='1px'
+					h={{ base: '1px', xl: '584px' }}
+					w={{ base: '94%', xl: '1px' }}
+					my={'25px'}
 					ml='32px'
 					mr='22px'
 				></Box>

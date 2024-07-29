@@ -1,5 +1,5 @@
 import { Box, Link, Stack, Text, useColorMode } from '@chakra-ui/react';
-import { CustomBox } from '../../../components/CustomBox';
+import { CustomBox } from '../../../../components/CustomBox';
 import {
 	Step,
 	StepIndicator,

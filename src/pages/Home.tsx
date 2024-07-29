@@ -1,11 +1,11 @@
 import { Stack } from '@chakra-ui/react';
-import HomeHeader from './components/HomeHeader';
+import HomeHeader from './components/Home/HomeHeader';
 import { FC, useState } from 'react';
-import BannerHome from './components/BannerHome';
+import BannerHome from './components/Home/BannerHome';
 import { convertBTCToCurrency } from '../utils/utils';
-import BridgeStatsComponent from './components/BridgeStatsComponent';
-import InfoSectionComponent from './components/InfoSectionComponent';
-import JoinComponent from './components/JoinComponent';
+import BridgeStatsComponent from './components/Home/BridgeStatsComponent';
+import InfoSectionComponent from './components/Home/InfoSectionComponent';
+import JoinComponent from './components/Home/JoinComponent';
 import FooterComponent from '../components/FooterComponent';
 
 const Home: FC = () => {

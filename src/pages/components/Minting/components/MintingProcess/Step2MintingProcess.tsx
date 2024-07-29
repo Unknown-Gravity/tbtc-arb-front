@@ -45,8 +45,6 @@ const cardsInfo = [
 ];
 
 const Step2MintingProcess = (props: Props) => {
-	const toast = useToast();
-
 	const { address } = useWeb3ModalAccount();
 	const { colorMode } = useColorMode();
 	const theme = useTheme();
@@ -60,7 +58,7 @@ const Step2MintingProcess = (props: Props) => {
 	const { onCopy: onCopyBtcAddress } = useClipboard(props.btcAddress);
 
 	return (
-		<Box w='448.28px' maxW='448.28px'>
+		<Box maxW='448.28px'>
 			<Text fontSize='16px' lineHeight='28px' fontWeight={600} mt='24px'>
 				<Text variant='purpleDarkGradient' as={'span'}>
 					STEP 2{' '}
@@ -127,7 +125,11 @@ const Step2MintingProcess = (props: Props) => {
 				</Flex>
 			</Stack>
 			<Stack gap='20px' mt='10px'>
-				<Flex justifyContent='space-between'>
+				<Flex
+					justifyContent='space-between'
+					flexDir={{ base: 'column', xl: 'row' }}
+					alignItems={{ base: 'center', xl: 'flex-start' }}
+				>
 					{cardsInfo.map((card, index) => {
 						return (
 							<ConfirmationsEstimatedComponents
@@ -220,7 +222,12 @@ const Step2MintingProcess = (props: Props) => {
 						need to wait for the BTC transaction to be mined.
 					</Text>
 				</Flex>
-				<Button variant='purple' h='48px' fontSize='18px'>
+				<Button
+					variant='purple'
+					h='48px'
+					fontSize='18px'
+					onClick={() => props.onClick(3)}
+				>
 					I sent the BTC
 				</Button>
 			</Stack>
