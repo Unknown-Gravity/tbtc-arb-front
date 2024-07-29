@@ -15,6 +15,8 @@ import LightMintingActivity from './lightMintingActivity.svg';
 import AccountImageExample from './accountImageExample.png';
 import LightStep1Timeline from './lightStep1Timeline.svg';
 import DarkStep1Timeline from './darkStep1Timeline.svg';
+import LightModalMinting from './lightModalMinting.svg';
+import DarkModalMinting from './darkModalMinting.svg';
 
 export {
 	DarkBackground,
@@ -34,4 +36,6 @@ export {
 	AccountImageExample,
 	LightStep1Timeline,
 	DarkStep1Timeline,
+	LightModalMinting,
+	DarkModalMinting,
 };

@@ -61,6 +61,7 @@ const colors: ThemeOverride['colors'] = {
 		coolGray: '#B1BCCC',
 		gray: '#828282',
 		lightGray: '#F6F7FA',
+		superLightGray: '#E2E8F0',
 	},
 	dark: {
 		primaryGray: '#1D2229',
@@ -186,6 +187,15 @@ const components: ThemeOverride['components'] = {
 						: 'transparent',
 				border: `1px solid ${theme.colors.brand.purple[900]}`,
 			}),
+
+			grayOutlined: (props: StyleFunctionProps) => ({
+				bg: 'none',
+				color:
+					props.colorMode === 'light'
+						? 'light.primaryGray'
+						: 'dark.coolGray',
+				border: `1px solid ${theme.colors.light.coolGray}`,
+			}),
 		},
 	},
 
@@ -305,6 +315,14 @@ const components: ThemeOverride['components'] = {
 						outline: 'none',
 					},
 				},
+			},
+		}),
+	},
+
+	Modal: {
+		baseStyle: (props: StyleFunctionProps) => ({
+			dialog: {
+				bg: props.colorMode === 'light' ? 'white' : 'dark.focusGray',
 			},
 		}),
 	},

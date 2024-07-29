@@ -1,4 +1,3 @@
-import { CloseIcon } from '@chakra-ui/icons';
 import {
 	Box,
 	Flex,
@@ -10,7 +9,7 @@ import {
 	Icon,
 	Divider,
 	Button,
-	useToast,
+	useDisclosure,
 } from '@chakra-ui/react';
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 import QRCode from 'qrcode.react';
@@ -20,6 +19,7 @@ import { TbCopy } from 'react-icons/tb';
 import ConfirmationsEstimatedComponents from './ConfirmationsEstimatedComponents';
 import { formatAddress } from '../../../../../utils/utils';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
+import ModalMinting from '../ModalMinting';
 
 type Props = {
 	onClick: Dispatch<SetStateAction<number>>;
