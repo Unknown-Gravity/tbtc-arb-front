@@ -20,7 +20,6 @@ type Props = {
 };
 
 const Step1MintingProcess = (props: Props) => {
-	const { colorMode } = useColorMode();
 	const { address } = useWeb3ModalAccount();
 
 	return (

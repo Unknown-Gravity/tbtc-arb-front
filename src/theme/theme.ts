@@ -59,9 +59,11 @@ const colors: ThemeOverride['colors'] = {
 	light: {
 		primaryGray: '#4A5568',
 		coolGray: '#B1BCCC',
+		coolGray2: '#718096',
 		gray: '#828282',
 		lightGray: '#F6F7FA',
 		superLightGray: '#E2E8F0',
+		secondaryGray: '#323A47',
 	},
 	dark: {
 		primaryGray: '#1D2229',
@@ -94,6 +96,18 @@ const components: ThemeOverride['components'] = {
 					props.colorMode === 'dark'
 						? 'dark.coolGray'
 						: 'light.primaryGray',
+			}),
+
+			coolGray: (props: StyleFunctionProps) => ({
+				color:
+					props.colorMode === 'light'
+						? 'light.coolGray2'
+						: 'dark.coolGray',
+			}),
+
+			lightCoolGray: (props: StyleFunctionProps) => ({
+				color:
+					props.colorMode === 'light' ? 'light.coolGray2' : 'white',
 			}),
 
 			purpleDarkGradient: (props: StyleFunctionProps) => ({
@@ -226,32 +240,36 @@ const components: ThemeOverride['components'] = {
 					h: '24px',
 					border:
 						props.colorMode === 'light'
-							? `2px solid ${props.theme.colors.light.coolGray}`
+							? `2px solid ${theme.colors.light.coolGray}`
 							: 'none',
 				},
-			},
 
-			number: {
-				color:
-					props.colorMode === 'dark' ? 'white' : 'brand.purple.900',
-				fontWeight: 700,
-			},
+				title: {
+					fontSize: '14px',
+				},
+				separator: {
+					border: `1px solid ${theme.colors.dark.coolGray}`,
+					ml: '-4px',
+				},
 
-			step: {
-				fontSize: '14px',
-				w: '492px',
-			},
-
-			title: {
-				fontSize: '14px',
-			},
-			separator: {
-				border: `1px solid ${props.theme.colors.dark.coolGray}`,
-				ml: '-4px',
+				number: {
+					color:
+						props.colorMode === 'dark'
+							? 'white'
+							: 'brand.purple.900',
+					fontWeight: 700,
+				},
 			},
 		}),
 
 		variants: {
+			main: (props: StyleFunctionProps) => ({
+				step: {
+					fontSize: '14px',
+					w: '492px',
+				},
+			}),
+
 			minting: (props: StyleFunctionProps) => ({
 				step: {
 					fontSize: '14px',
@@ -269,6 +287,63 @@ const components: ThemeOverride['components'] = {
 					lineHeight: '20px',
 					color: props.colorMode === 'dark' && 'white',
 					w: '213px',
+				},
+			}),
+
+			progress: (props: StyleFunctionProps) => ({
+				stepper: {
+					justifyContent: 'space-between',
+				},
+				step: {
+					gap: 0,
+					w: undefined,
+				},
+				separator: {
+					'&[data-status=complete]': {
+						bg:
+							props.colorMode === 'light'
+								? 'brand.purple.900'
+								: `linear-gradient(to right, #EDC6FF , #AB5AFA)`,
+					},
+					'&[data-status=incomplete]': {
+						bg: 'dark.coolGray',
+					},
+
+					'&[data-status=active]': {
+						bg: 'dark.coolGray',
+					},
+
+					_horizontal: {
+						ml: 0,
+					},
+				},
+
+				indicator: {
+					'&[data-status=complete]': {
+						bg:
+							props.colorMode === 'light'
+								? 'brand.purple.900'
+								: `linear-gradient(to right, #EDC6FF , #AB5AFA)`,
+						border: 'none',
+					},
+					'&[data-status=active]': {
+						bg: `linear-gradient(to right, #B62CFF , #7D00FF)`,
+						border: 'none',
+						boxShadow: `0 0 11.5px ${theme.colors.brand.purple[990]}`,
+					},
+
+					'&[data-status=incomplete]': {
+						padding: '3px',
+						backgroundClip: 'content-box',
+						bg: 'light.secondaryGray',
+						border: `3px solid ${theme.colors.light.primaryGray}`,
+					},
+				},
+				icon: {
+					color:
+						props.colorMode === 'light'
+							? 'white'
+							: 'dark.primaryGray',
 				},
 			}),
 		},

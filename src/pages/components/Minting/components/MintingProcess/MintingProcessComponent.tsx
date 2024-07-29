@@ -4,10 +4,8 @@ import {
 	Link,
 	Stack,
 	Text,
-	useColorMode,
 	useColorModeValue,
 } from '@chakra-ui/react';
-import { BitcoinFilledIcon } from '../../../../../assets/icons/BitcoinFilledIcon';
 import ConnectButton from '../../../../../components/ConnectButton';
 import { currencyFormatter } from '../../../../../utils/utils';
 import BTCtoCurrencyComponent from '../../../../../components/BTCtoCurrencycomponent';
@@ -15,7 +13,6 @@ import TransactionMinting from '../TransactionMinting';
 import { transactionsMint } from '../../../../../data/mockData';
 
 const MintingProcessComponent = () => {
-	const { colorMode } = useColorMode();
 	const bgGradient = useColorModeValue(
 		'linear-gradient(to top, white, transparent)',
 		`linear-gradient(to top, #1D2229, transparent)`,

@@ -17,6 +17,7 @@ import { DarkModalMinting, LightModalMinting } from '../../../../assets/images';
 type Props = {
 	isOpen: boolean;
 	onClose: () => void;
+	goBack: () => void;
 };
 
 const ModalMinting = (props: Props) => {
@@ -101,8 +102,12 @@ const ModalMinting = (props: Props) => {
 					/>
 				</Stack>
 				<Flex mt='24px' gap='12px' justifyContent='flex-end'>
-					<Button variant='grayOutlined'>Generate New Address</Button>
-					<Button variant='purple'>Dismiss</Button>
+					<Button variant='grayOutlined' onClick={props.goBack}>
+						Generate New Address
+					</Button>
+					<Button variant='purple' onClick={props.onClose}>
+						Dismiss
+					</Button>
 				</Flex>
 			</ModalContent>
 		</Modal>

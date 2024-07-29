@@ -46,6 +46,7 @@ const MintinTimelineComponent = (props: Props) => {
 				gap={5}
 				maxW='400px'
 				w='100%'
+				variant='main'
 			>
 				<Step>
 					<StepIndicator>

@@ -1,4 +1,12 @@
-import { Box, Flex, Image, Link, Text, useColorMode } from '@chakra-ui/react';
+import {
+	Box,
+	Flex,
+	Image,
+	Link,
+	Text,
+	useColorMode,
+	useDisclosure,
+} from '@chakra-ui/react';
 import { CustomBox } from '../../../components/CustomBox';
 import MintingProcessComponent from './components/MintingProcess/MintingProcessComponent';
 import TimelineComponent from './components/Timeline/TimelineComponent';
@@ -10,6 +18,8 @@ import HeaderStepsMintingComponent from './components/MintingProcess/HeaderSteps
 import { DarkStep1Timeline, LightStep1Timeline } from '../../../assets/images';
 import { address } from 'bitcoinjs-lib';
 import { ArrowBackIcon } from '@chakra-ui/icons';
+import ModalMinting from './components/ModalMinting';
+import Step3MintingProcess from './components/MintingProcess/Step3MintingProcess/Step3MintingProcess';
 
 type Props = {
 	isConnected: boolean;
@@ -17,9 +27,10 @@ type Props = {
 
 const MintComponent = (props: Props) => {
 	const { colorMode } = useColorMode();
-	const [step, setStep] = useState(1);
+	const [step, setStep] = useState(3);
 	const [btcAddress, setBtcAdress] = useState('');
 	const [errorMsg, setErrorMsg] = useState('');
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const handleClick = () => {
 		if (btcAddress === '') {
@@ -44,12 +55,18 @@ const MintComponent = (props: Props) => {
 
 	const goBack = () => {
 		setStep(step - 1);
+		onClose();
+		setBtcAdress('');
 	};
 
 	return (
-		<CustomBox h='100%' p='25px'>
+		<CustomBox
+			h={{ base: '100%', xl: step === 1 ? '636px' : 'fit-content' }}
+			p='25px'
+		>
+			<ModalMinting isOpen={isOpen} onClose={onClose} goBack={goBack} />
 			<Flex alignItems='center' gap='9px'>
-				{step > 1 && (
+				{step === 2 && (
 					<ArrowBackIcon
 						boxSize='24px'
 						p='0.5px'
@@ -57,17 +74,13 @@ const MintComponent = (props: Props) => {
 						cursor='pointer'
 						_hover={{ transform: 'scale(1.2)' }}
 						_active={{ transform: 'scale(1)' }}
-						onClick={goBack}
+						onClick={onOpen}
 					/>
 				)}
 				<HeaderStepsMintingComponent label='tBTC - MINTING PROCESS' />
 			</Flex>
 
-			<Flex
-				w='100%'
-				h='100%'
-				flexDirection={{ base: 'column', xl: 'row' }}
-			>
+			<Flex w='100%' flexDirection={{ base: 'column', xl: 'row' }}>
 				{!props.isConnected && <MintingProcessComponent />}
 				{props.isConnected && step === 1 && (
 					<Step1MintingProcess
@@ -84,12 +97,14 @@ const MintComponent = (props: Props) => {
 					/>
 				)}
 
+				{props.isConnected && step === 3 && <Step3MintingProcess />}
+
 				<Box
 					bg={colorMode === 'dark' ? 'white' : 'light.coolGray'}
 					alignSelf='start'
 					h={{ base: '1px', xl: '584px' }}
-					w={{ base: '94%', xl: '1px' }}
-					my={'25px'}
+					w={{ base: '100%', xl: '1px' }}
+					mt='-24px'
 					ml='32px'
 					mr='22px'
 				></Box>
