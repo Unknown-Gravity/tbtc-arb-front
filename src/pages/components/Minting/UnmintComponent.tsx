@@ -11,6 +11,7 @@ import { CustomBox } from '../../../components/CustomBox';
 import HeaderStepsMintingComponent from './components/MintingProcess/HeaderStepsMintingComponent';
 import MintingProcessComponent from './components/MintingProcessComponent';
 import DurationComponent from './components/UnmintingProcess/DurationComponent';
+import Step1UnmintingProcess from './components/UnmintingProcess/Step1UnmintingProcess';
 
 type Props = {
 	isConnected: boolean;
@@ -21,7 +22,7 @@ const UnmintComponent = (props: Props) => {
 	const { colorMode } = useColorMode();
 	const { onOpen } = useDisclosure();
 	return (
-		<CustomBox h='100%' w='100%'>
+		<CustomBox h='100%' w='100%' p='26px'>
 			<Flex w='100%' flexDirection={{ base: 'column', xl: 'row' }}>
 				<Stack spacing={0}>
 					<Flex alignItems='center' gap='9px'>
@@ -36,9 +37,12 @@ const UnmintComponent = (props: Props) => {
 								onClick={onOpen}
 							/>
 						)}
-						<HeaderStepsMintingComponent label='tBTC - MINTING PROCESS' />
+						<HeaderStepsMintingComponent label='tBTC - UNMINTING PROCESS' />
 					</Flex>
 					{!props.isConnected && <MintingProcessComponent />}
+					{props.isConnected && step === 1 && (
+						<Step1UnmintingProcess />
+					)}
 				</Stack>
 
 				{step < 3 && (

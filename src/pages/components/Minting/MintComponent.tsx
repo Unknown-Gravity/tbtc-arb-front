@@ -61,7 +61,7 @@ const MintComponent = (props: Props) => {
 	};
 
 	return (
-		<CustomBox p='25px'>
+		<CustomBox p='26px'>
 			<ModalMinting isOpen={isOpen} onClose={onClose} goBack={goBack} />
 
 			<Flex w='100%' flexDirection={{ base: 'column', xl: 'row' }}>

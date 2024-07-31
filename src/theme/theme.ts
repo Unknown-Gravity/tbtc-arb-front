@@ -1,5 +1,6 @@
 // src/theme/theme.ts
 import {
+	baseTheme,
 	extendTheme,
 	StyleFunctionProps,
 	ThemeConfig,
@@ -367,7 +368,7 @@ const components: ThemeOverride['components'] = {
 	},
 
 	Input: {
-		baseStyle: (props: StyleFunctionProps) => ({
+		baseStyle: props => ({
 			field: {
 				fontSize: '18px',
 				lineHeight: '24px',
@@ -377,10 +378,20 @@ const components: ThemeOverride['components'] = {
 					bg: 'white',
 					borderColor: 'light.primaryGray',
 					color: 'light.primaryGray',
+					'&:-webkit-autofill': {
+						boxShadow: '0 0 0px 1000px white inset !important',
+						'-webkit-text-fill-color':
+							'light.primaryGray !important',
+					},
 				},
 				_dark: {
 					bg: 'dark.focusGray',
 					borderColor: 'light.primaryGray',
+					'&:-webkit-autofill': {
+						boxShadow:
+							'0 0 0px 1000px dark.focusGray inset !important',
+						'-webkit-text-fill-color': 'dark.focusGray !important',
+					},
 				},
 				_focus: {
 					_dark: {
@@ -392,6 +403,9 @@ const components: ThemeOverride['components'] = {
 						outline: 'none',
 					},
 				},
+			},
+			addon: {
+				height: '48px',
 			},
 		}),
 	},
