@@ -23,23 +23,27 @@ import LightYellowBitcoinIcon from './lightYellowBitcoinIcon.svg';
 import DarkYellowBitcoinIcon from './darkYellowBitcoinIcon.svg';
 import LightTransactionBoxImage from './lightTransactionBoxImage.svg';
 import DarkTransactionBoxImage from './darkTransactionBoxImage.svg';
+import LightMainGridBackground from './lightMainGridBackground.svg';
+import DarkMainGridBackground from './darkMainGridBackground.svg';
+import LightUnmintImage from './lightUnmintImage.svg';
+import DarkUnmintImage from './darkUnmintImage.svg';
 
 export {
-	DarkBackground,
-	LightBackground,
-	DarkGridBackground,
-	LightGridBackground,
-	DarkCoins,
-	LightCoins,
-	DarkPointBackground,
-	LightPointBackground,
-	AtomImage,
 	Bridge,
+	AtomImage,
+	AccountImageExample,
+	LightBackground,
+	DarkBackground,
+	LightGridBackground,
+	DarkGridBackground,
+	LightCoins,
+	DarkCoins,
+	LightPointBackground,
+	DarkPointBackground,
 	LightJsonImage,
 	DarkJsonImage,
-	DarkMintingActivity,
 	LightMintingActivity,
-	AccountImageExample,
+	DarkMintingActivity,
 	LightStep1Timeline,
 	DarkStep1Timeline,
 	LightModalMinting,
@@ -50,4 +54,8 @@ export {
 	DarkYellowBitcoinIcon,
 	LightTransactionBoxImage,
 	DarkTransactionBoxImage,
+	LightMainGridBackground,
+	DarkMainGridBackground,
+	LightUnmintImage,
+	DarkUnmintImage,
 };

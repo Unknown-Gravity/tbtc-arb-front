@@ -111,6 +111,7 @@ const components: ThemeOverride['components'] = {
 			}),
 
 			purpleDarkGradient: (props: StyleFunctionProps) => ({
+				transition: 'text-decoration 0.2s',
 				color:
 					props.colorMode === 'light' ? 'brand.purple.900' : 'none',
 				bg:
@@ -249,18 +250,6 @@ const components: ThemeOverride['components'] = {
 				title: {
 					fontSize: '14px',
 				},
-				separator: {
-					border: `1px solid ${theme.colors.dark.coolGray}`,
-					ml: '-4px',
-				},
-
-				number: {
-					color:
-						props.colorMode === 'dark'
-							? 'white'
-							: 'brand.purple.900',
-					fontWeight: 700,
-				},
 			},
 		}),
 
@@ -289,6 +278,17 @@ const components: ThemeOverride['components'] = {
 					lineHeight: '20px',
 					color: props.colorMode === 'dark' && 'white',
 					w: '213px',
+				},
+				number: {
+					color:
+						props.colorMode === 'dark'
+							? 'white'
+							: 'brand.purple.900',
+					fontWeight: 700,
+				},
+				separator: {
+					border: `1px solid ${theme.colors.dark.coolGray}`,
+					ml: '-4px',
 				},
 			}),
 

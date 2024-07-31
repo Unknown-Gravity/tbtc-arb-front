@@ -9,11 +9,11 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import { CustomBox } from '../../../components/CustomBox';
-import MintingProcessComponent from './components/MintingProcess/MintingProcessComponent';
+import MintingProcessComponent from './components/MintingProcessComponent';
 import TimelineComponent from './components/Timeline/TimelineComponent';
 import { ChangeEvent, useState } from 'react';
 import Step1MintingProcess from './components/MintingProcess/Step1MintingProcess';
-import TimeLineTemplate from './components/Timeline/TimelineTemplate';
+import TimeLineTemplate from './components/Timeline/TimelineMintingTemplate';
 import HeaderStepsMintingComponent from './components/MintingProcess/HeaderStepsMintingComponent';
 import { DarkStep1Timeline, LightStep1Timeline } from '../../../assets/images';
 import { address } from 'bitcoinjs-lib';
