@@ -6,9 +6,8 @@ import {
 	Stack,
 	Text,
 	Tooltip,
-	useColorMode,
 } from '@chakra-ui/react';
-import { ChangeEvent, MouseEvent } from 'react';
+import { ChangeEvent } from 'react';
 import { InfoIcon } from '../../../../../assets/icons/InfoIcon';
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 

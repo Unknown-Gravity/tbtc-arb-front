@@ -124,9 +124,11 @@ const components: ThemeOverride['components'] = {
 				color: props.colorMode === 'light' ? 'light.gray' : 'none',
 				bg:
 					props.colorMode === 'dark' &&
-					`linear-gradient(#D987FF 60%, #AB5AFA)`,
+					`linear-gradient(113.75deg, #EDC6FF 0%, #AB5AFA 100%);`,
 				backgroundClip: props.colorMode === 'dark' && 'text',
 				fill: props.colorMode === 'dark' && 'transparent',
+				textDecorationLine: 'underline',
+				WebkitBackgroundClip: 'text',
 			}),
 
 			purple: (props: StyleFunctionProps) => ({

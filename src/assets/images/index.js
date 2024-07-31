@@ -17,6 +17,12 @@ import LightStep1Timeline from './lightStep1Timeline.svg';
 import DarkStep1Timeline from './darkStep1Timeline.svg';
 import LightModalMinting from './lightModalMinting.svg';
 import DarkModalMinting from './darkModalMinting.svg';
+import LightPurpleBitcoinIcon from './lightPurpleBitcoinIcon.svg';
+import DarkPurpleBitcoinIcon from './darkPurpleBitcoinIcon.svg';
+import LightYellowBitcoinIcon from './lightYellowBitcoinIcon.svg';
+import DarkYellowBitcoinIcon from './darkYellowBitcoinIcon.svg';
+import LightTransactionBoxImage from './lightTransactionBoxImage.svg';
+import DarkTransactionBoxImage from './darkTransactionBoxImage.svg';
 
 export {
 	DarkBackground,
@@ -38,4 +44,10 @@ export {
 	DarkStep1Timeline,
 	LightModalMinting,
 	DarkModalMinting,
+	LightPurpleBitcoinIcon,
+	DarkPurpleBitcoinIcon,
+	LightYellowBitcoinIcon,
+	DarkYellowBitcoinIcon,
+	LightTransactionBoxImage,
+	DarkTransactionBoxImage,
 };

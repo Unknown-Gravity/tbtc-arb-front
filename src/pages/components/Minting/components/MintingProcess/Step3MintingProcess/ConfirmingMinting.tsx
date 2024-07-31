@@ -1,8 +1,6 @@
-import { CheckCircleIcon, CheckIcon } from '@chakra-ui/icons';
 import {
 	Box,
 	Flex,
-	Spinner,
 	Stack,
 	Text,
 	useColorMode,
@@ -10,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { IoCheckmark } from 'react-icons/io5';
+import CustomSpinner from '../../../../../../components/CustomSpinner';
 
 type Props = {
 	confirmations: number;
@@ -22,18 +21,12 @@ const ConfirmingMinting = (props: Props) => {
 	return (
 		<Stack gap='35px' alignItems='center'>
 			<Text fontSize='12px' lineHeight='14.52px' textAlign='center'>
-				Waiting for the Bitcoin Network Confirmations...
+				{props.confirmations < 6
+					? 'Waiting for the Bitcoin Network Confirmations...'
+					: 'Confirmations completed'}
 			</Text>
 			{props.confirmations <= 6 ? (
-				<Spinner
-					h='160px'
-					w='160px'
-					aspectRatio={1}
-					speed='1.5s'
-					thickness='12px'
-					color='brand.purple.900'
-					emptyColor='light.superLightGray'
-				/>
+				<CustomSpinner />
 			) : (
 				<Box
 					boxSize='160px'

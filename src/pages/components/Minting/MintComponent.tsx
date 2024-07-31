@@ -3,6 +3,7 @@ import {
 	Flex,
 	Image,
 	Link,
+	Stack,
 	Text,
 	useColorMode,
 	useDisclosure,
@@ -20,6 +21,7 @@ import { address } from 'bitcoinjs-lib';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import ModalMinting from './components/ModalMinting';
 import Step3MintingProcess from './components/MintingProcess/Step3MintingProcess/Step3MintingProcess';
+import TransactionHistory from './components/Timeline/TransactionHistory';
 
 type Props = {
 	isConnected: boolean;
@@ -65,48 +67,48 @@ const MintComponent = (props: Props) => {
 			p='25px'
 		>
 			<ModalMinting isOpen={isOpen} onClose={onClose} goBack={goBack} />
-			<Flex alignItems='center' gap='9px'>
-				{step === 2 && (
-					<ArrowBackIcon
-						boxSize='24px'
-						p='0.5px'
-						transition={'transform 0.1s'}
-						cursor='pointer'
-						_hover={{ transform: 'scale(1.2)' }}
-						_active={{ transform: 'scale(1)' }}
-						onClick={onOpen}
-					/>
-				)}
-				<HeaderStepsMintingComponent label='tBTC - MINTING PROCESS' />
-			</Flex>
 
 			<Flex w='100%' flexDirection={{ base: 'column', xl: 'row' }}>
-				{!props.isConnected && <MintingProcessComponent />}
-				{props.isConnected && step === 1 && (
-					<Step1MintingProcess
-						onClick={handleClick}
-						onChange={changeBtcAdress}
-						btcAddress={btcAddress}
-						errorMsg={errorMsg}
-					/>
-				)}
-				{props.isConnected && step === 2 && (
-					<Step2MintingProcess
-						onClick={setStep}
-						btcAddress={btcAddress}
-					/>
-				)}
+				<Stack spacing={0}>
+					<Flex alignItems='center' gap='9px'>
+						{step === 2 && (
+							<ArrowBackIcon
+								boxSize='24px'
+								p='0.5px'
+								transition={'transform 0.1s'}
+								cursor='pointer'
+								_hover={{ transform: 'scale(1.2)' }}
+								_active={{ transform: 'scale(1)' }}
+								onClick={onOpen}
+							/>
+						)}
+						<HeaderStepsMintingComponent label='tBTC - MINTING PROCESS' />
+					</Flex>
+					{!props.isConnected && <MintingProcessComponent />}
+					{props.isConnected && step === 1 && (
+						<Step1MintingProcess
+							onClick={handleClick}
+							onChange={changeBtcAdress}
+							btcAddress={btcAddress}
+							errorMsg={errorMsg}
+						/>
+					)}
+					{props.isConnected && step === 2 && (
+						<Step2MintingProcess
+							onClick={setStep}
+							btcAddress={btcAddress}
+						/>
+					)}
 
-				{props.isConnected && step === 3 && <Step3MintingProcess />}
+					{props.isConnected && step === 3 && <Step3MintingProcess />}
+				</Stack>
 
 				<Box
 					bg={colorMode === 'dark' ? 'white' : 'light.coolGray'}
 					alignSelf='start'
 					h={{ base: '1px', xl: '584px' }}
 					w={{ base: '100%', xl: '1px' }}
-					mt='-24px'
-					ml='32px'
-					mr='22px'
+					mx='22px'
 				></Box>
 				{!props.isConnected && <TimelineComponent />}
 				{props.isConnected && step === 1 && (
@@ -143,6 +145,7 @@ const MintComponent = (props: Props) => {
 						</Text>
 					</TimeLineTemplate>
 				)}
+				{props.isConnected && step === 3 && <TransactionHistory />}
 			</Flex>
 		</CustomBox>
 	);

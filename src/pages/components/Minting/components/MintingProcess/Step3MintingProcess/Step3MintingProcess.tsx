@@ -9,7 +9,6 @@ import {
 	StepSeparator,
 	StepStatus,
 	Text,
-	useColorMode,
 	useSteps,
 } from '@chakra-ui/react';
 import { Dispatch, SetStateAction, useState } from 'react';
@@ -24,11 +23,10 @@ const steps = [
 type Props = {};
 
 const Step3MintingProcess = (props: Props) => {
-	const { colorMode } = useColorMode();
 	const [confirmations, setConfirmations]: [
 		number,
 		Dispatch<SetStateAction<number>>,
-	] = useState(7);
+	] = useState(5);
 	const { activeStep, setActiveStep } = useSteps({
 		index: 1,
 		count: steps.length,
