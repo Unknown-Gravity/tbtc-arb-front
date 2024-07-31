@@ -7,7 +7,7 @@ import AuthGuard from './guard/AuthGuard';
 import AppLayout from '../Layout/AppLayout';
 import Home from '../pages/Home';
 import LandPageLayout from '../Layout/LandPageLayout';
-import Minting from '../pages/Minting';
+import Minting from '../pages/TbtcComponent';
 
 // import AppLayout from '../layouts/AppLayout';
 

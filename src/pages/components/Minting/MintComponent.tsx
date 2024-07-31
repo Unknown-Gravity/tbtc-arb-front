@@ -21,7 +21,6 @@ import { ArrowBackIcon } from '@chakra-ui/icons';
 import ModalMinting from './components/ModalMinting';
 import Step3MintingProcess from './components/MintingProcess/Step3MintingProcess/Step3MintingProcess';
 import Step2MintingProcess from './components/MintingProcess/Step2MintingProcess/Step2MintingProcess';
-import TransactionHistory from './components/MintingProcess/Step3MintingProcess/TransactionHistory';
 
 type Props = {
 	isConnected: boolean;
@@ -29,7 +28,7 @@ type Props = {
 
 const MintComponent = (props: Props) => {
 	const { colorMode } = useColorMode();
-	const [step, setStep] = useState(3);
+	const [step, setStep] = useState(1);
 	const [btcAddress, setBtcAdress] = useState('');
 	const [errorMsg, setErrorMsg] = useState('');
 	const { isOpen, onOpen, onClose } = useDisclosure();

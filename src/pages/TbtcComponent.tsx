@@ -11,7 +11,7 @@ import MintComponent from './components/Minting/MintComponent';
 
 type Props = {};
 
-const Minting = (props: Props) => {
+const TbtcComponent = (props: Props) => {
 	const [tabSelected, setTabSelected] = useState<number>(1);
 	const accountInfo = useSelector((state: RootState) => state.account);
 	const { isConnected } = useWeb3ModalAccount();
@@ -60,10 +60,12 @@ const Minting = (props: Props) => {
 						</Button>
 					</Grid>
 				</CustomBox>
-				<MintComponent isConnected={isConnected} />
+				{tabSelected === 1 && (
+					<MintComponent isConnected={isConnected} />
+				)}
 			</Stack>
 		</Grid>
 	);
 };
 
-export default Minting;
+export default TbtcComponent;
