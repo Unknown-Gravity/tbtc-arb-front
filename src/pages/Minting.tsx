@@ -14,7 +14,6 @@ type Props = {};
 const Minting = (props: Props) => {
 	const [tabSelected, setTabSelected] = useState<number>(1);
 	const accountInfo = useSelector((state: RootState) => state.account);
-	console.log('🚀 ~ Minting ~ accountInfo:', accountInfo);
 	const { isConnected } = useWeb3ModalAccount();
 
 	return (

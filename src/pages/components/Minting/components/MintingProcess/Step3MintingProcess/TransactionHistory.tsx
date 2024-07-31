@@ -1,5 +1,4 @@
 import {
-	Box,
 	Flex,
 	Icon,
 	Image,
@@ -17,11 +16,16 @@ import {
 	LightPurpleBitcoinIcon,
 	LightTransactionBoxImage,
 	LightYellowBitcoinIcon,
-} from '../../../../../assets/images';
+} from '../../../../../../assets/images';
 import { GoDotFill } from 'react-icons/go';
 import { useEffect, useState } from 'react';
 
-type Props = {};
+type Props = {
+	btcTxHash?: string;
+	arbitrumTxHash?: string;
+	initializedEthTxHash?: string;
+	finalizedEthTxHash?: string;
+};
 
 const TransactionHistory = (props: Props) => {
 	const { colorMode } = useColorMode();
@@ -77,30 +81,74 @@ const TransactionHistory = (props: Props) => {
 				</Flex>
 			</Stack>
 			<Stack mt='10px'>
-				<Text
-					variant='gray'
-					fontSize='14px'
-					lineHeight='20px'
-					fontWeight={400}
-				>
-					BTC confirmations{' '}
-					<Link as={'span'} variant='purpleDarkGradient'>
-						{' '}
-						transactions
-					</Link>
-				</Text>
-				<Text
-					variant='gray'
-					fontSize='14px'
-					lineHeight='20px'
-					fontWeight={400}
-				>
-					Reveal{' '}
-					<Link as={'span'} variant='purpleDarkGradient'>
-						{' '}
-						transactions
-					</Link>
-				</Text>
+				{props.btcTxHash && (
+					<Text
+						variant='gray'
+						fontSize='14px'
+						lineHeight='20px'
+						fontWeight={400}
+					>
+						BTC confirmations{' '}
+						<Link
+							variant='purpleDarkGradient'
+							href={props.btcTxHash}
+						>
+							{' '}
+							transactions
+						</Link>
+					</Text>
+				)}
+				{props.arbitrumTxHash && (
+					<Text
+						variant='gray'
+						fontSize='14px'
+						lineHeight='20px'
+						fontWeight={400}
+					>
+						Reveal{' '}
+						<Link
+							variant='purpleDarkGradient'
+							href={props.arbitrumTxHash}
+						>
+							{' '}
+							transactions
+						</Link>
+					</Text>
+				)}
+				{props.initializedEthTxHash && (
+					<Text
+						variant='gray'
+						fontSize='14px'
+						lineHeight='20px'
+						fontWeight={400}
+					>
+						Minting Initialized{' '}
+						<Link
+							variant='purpleDarkGradient'
+							href={props.initializedEthTxHash}
+						>
+							{' '}
+							transactions
+						</Link>
+					</Text>
+				)}
+				{props.finalizedEthTxHash && (
+					<Text
+						variant='gray'
+						fontSize='14px'
+						lineHeight='20px'
+						fontWeight={400}
+					>
+						Minting finalized{' '}
+						<Link
+							variant='purpleDarkGradient'
+							href={props.finalizedEthTxHash}
+						>
+							{' '}
+							transactions
+						</Link>
+					</Text>
+				)}
 				<Flex alignItems='center' mt='50px'>
 					<Image
 						src={

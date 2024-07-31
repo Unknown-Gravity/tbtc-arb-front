@@ -14,14 +14,14 @@ import TimelineComponent from './components/Timeline/TimelineComponent';
 import { ChangeEvent, useState } from 'react';
 import Step1MintingProcess from './components/MintingProcess/Step1MintingProcess';
 import TimeLineTemplate from './components/Timeline/TimelineTemplate';
-import Step2MintingProcess from './components/MintingProcess/Step2MintingProcess';
 import HeaderStepsMintingComponent from './components/MintingProcess/HeaderStepsMintingComponent';
 import { DarkStep1Timeline, LightStep1Timeline } from '../../../assets/images';
 import { address } from 'bitcoinjs-lib';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import ModalMinting from './components/ModalMinting';
 import Step3MintingProcess from './components/MintingProcess/Step3MintingProcess/Step3MintingProcess';
-import TransactionHistory from './components/Timeline/TransactionHistory';
+import Step2MintingProcess from './components/MintingProcess/Step2MintingProcess/Step2MintingProcess';
+import TransactionHistory from './components/MintingProcess/Step3MintingProcess/TransactionHistory';
 
 type Props = {
 	isConnected: boolean;
@@ -62,10 +62,7 @@ const MintComponent = (props: Props) => {
 	};
 
 	return (
-		<CustomBox
-			h={{ base: '100%', xl: step === 1 ? '636px' : 'fit-content' }}
-			p='25px'
-		>
+		<CustomBox p='25px'>
 			<ModalMinting isOpen={isOpen} onClose={onClose} goBack={goBack} />
 
 			<Flex w='100%' flexDirection={{ base: 'column', xl: 'row' }}>
@@ -103,13 +100,15 @@ const MintComponent = (props: Props) => {
 					{props.isConnected && step === 3 && <Step3MintingProcess />}
 				</Stack>
 
-				<Box
-					bg={colorMode === 'dark' ? 'white' : 'light.coolGray'}
-					alignSelf='start'
-					h={{ base: '1px', xl: '584px' }}
-					w={{ base: '100%', xl: '1px' }}
-					mx='22px'
-				></Box>
+				{step < 3 && (
+					<Box
+						bg={colorMode === 'dark' ? 'white' : 'light.coolGray'}
+						alignSelf='start'
+						h={{ base: '1px', xl: '584px' }}
+						w={{ base: '100%', xl: '1px' }}
+						mx='22px'
+					></Box>
+				)}
 				{!props.isConnected && <TimelineComponent />}
 				{props.isConnected && step === 1 && (
 					<TimeLineTemplate
@@ -145,7 +144,6 @@ const MintComponent = (props: Props) => {
 						</Text>
 					</TimeLineTemplate>
 				)}
-				{props.isConnected && step === 3 && <TransactionHistory />}
 			</Flex>
 		</CustomBox>
 	);

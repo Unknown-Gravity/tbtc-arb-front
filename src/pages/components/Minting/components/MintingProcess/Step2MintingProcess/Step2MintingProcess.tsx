@@ -9,17 +9,15 @@ import {
 	Icon,
 	Divider,
 	Button,
-	useDisclosure,
 } from '@chakra-ui/react';
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 import QRCode from 'qrcode.react';
 import { Dispatch, SetStateAction } from 'react';
-import { InfoIcon } from '../../../../../assets/icons/InfoIcon';
+import { InfoIcon } from '../../../../../../assets/icons/InfoIcon';
 import { TbCopy } from 'react-icons/tb';
 import ConfirmationsEstimatedComponents from './ConfirmationsEstimatedComponents';
-import { formatAddress } from '../../../../../utils/utils';
+import { formatAddress } from '../../../../../../utils/utils';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
-import ModalMinting from '../ModalMinting';
 
 type Props = {
 	onClick: Dispatch<SetStateAction<number>>;
@@ -44,7 +42,7 @@ const cardsInfo = [
 	},
 ];
 
-const Step2MintingProcess = (props: Props) => {
+const Step2ProvideDataComponent = (props: Props) => {
 	const { address } = useWeb3ModalAccount();
 	const { colorMode } = useColorMode();
 	const theme = useTheme();
@@ -235,4 +233,4 @@ const Step2MintingProcess = (props: Props) => {
 	);
 };
 
-export default Step2MintingProcess;
+export default Step2ProvideDataComponent;
