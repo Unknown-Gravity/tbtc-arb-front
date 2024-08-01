@@ -1,5 +1,5 @@
 import { Box, Flex, useColorMode, useSteps } from '@chakra-ui/react';
-import { Dispatch, SetStateAction, useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import ConfirmingMinting from './ConfirmingMinting';
 import Step3HeaderComponent from './Step3HeaderComponent';
 import TransactionHistory from './TransactionHistory';

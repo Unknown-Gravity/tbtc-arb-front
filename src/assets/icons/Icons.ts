@@ -8,6 +8,7 @@ import { SearchIcon } from './SearchIcon';
 import { SidebarArrow } from './SidebarArrow';
 import { TwitterIcon } from './TwitterIcon';
 import { InfoIcon } from './InfoIcon';
+import { TransactionCompletedImage } from './TransactionCompletedImage';
 
 export {
 	BitcoinIcon,
@@ -20,4 +21,5 @@ export {
 	SidebarArrow,
 	TwitterIcon,
 	InfoIcon,
+	TransactionCompletedImage,
 };

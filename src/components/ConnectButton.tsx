@@ -28,12 +28,7 @@ const ConnectButton = (props: ButtonProps) => {
 				const network = await provider.getNetwork();
 				const balanceBigInt = await provider.getBalance(address);
 				const ethBalance = ethers.formatEther(balanceBigInt);
-				const newInfoAccount = {
-					provider,
-					signer,
-					balance: ethBalance,
-				};
-				dispatch(addAccount(newInfoAccount));
+				dispatch(addAccount(provider, signer, ethBalance));
 				setNeedRefresh(false);
 				setNetWorkName(network.name);
 			}

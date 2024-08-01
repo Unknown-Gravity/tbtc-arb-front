@@ -10,11 +10,13 @@ import {
 	useColorModeValue,
 } from '@chakra-ui/react';
 import { BitcoinFilledIcon } from '../assets/icons/BitcoinFilledIcon';
+import { ChangeEvent } from 'react';
 
 type Props = InputProps & {
-	leftLabel?: string;
-	rightLabel?: string;
-	leftIcon?: boolean;
+	leftlabel?: string;
+	rightlabel?: string;
+	lefticon?: string;
+	onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const CustomInput = (props: Props) => {
@@ -24,14 +26,14 @@ const CustomInput = (props: Props) => {
 		<Stack spacing='8px' w='100%'>
 			<Flex alignItems='center' gap={2} justifyContent='space-between'>
 				<Text fontSize='16px' lineHeight='24px' fontWeight={600}>
-					{props.leftLabel}
+					{props.leftlabel}
 				</Text>
 				<Text fontSize='16px' lineHeight='24px' fontWeight={600}>
-					{props.rightLabel}
+					{props.rightlabel}
 				</Text>
 			</Flex>
 			<InputGroup>
-				{props.leftIcon && (
+				{props.lefticon === 'true' && (
 					<InputLeftElement>
 						<BitcoinFilledIcon
 							color={textColor}
@@ -40,11 +42,11 @@ const CustomInput = (props: Props) => {
 									? 'brand.purple.900'
 									: 'white'
 							}
-							boxSize='22px'
+							boxSize='17px'
 						/>
 					</InputLeftElement>
 				)}
-				<Input {...props} />
+				<Input {...props} onChange={props.onChange} />
 			</InputGroup>
 		</Stack>
 	);

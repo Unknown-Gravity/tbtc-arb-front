@@ -74,7 +74,10 @@ const TbtcComponent = (props: Props) => {
 				{tabSelected === 1 ? (
 					<MintComponent isConnected={isConnected} />
 				) : (
-					<UnmintComponent isConnected={isConnected} />
+					<UnmintComponent
+						isConnected={isConnected}
+						setTabSelected={setTabSelected}
+					/>
 				)}
 			</Stack>
 		</Grid>
