@@ -1,4 +1,3 @@
-import React from 'react';
 import {
 	Box,
 	Button,
@@ -11,8 +10,9 @@ import {
 	useColorModeValue,
 	useTheme,
 } from '@chakra-ui/react';
-import { AtomImage, LightPointBackground } from '../../assets/images';
-import { ComponentProps } from '../../interfaces/ComponentProps';
+import { AtomImage, LightPointBackground } from '../../../assets/images';
+import { ComponentProps } from '../../../interfaces/ComponentProps';
+import { useNavigate } from 'react-router-dom';
 
 // Definimos la interfaz para las props
 
@@ -28,6 +28,8 @@ const BannerHome = ({ onClick }: ComponentProps) => {
 		`linear-gradient(to right, #B62CFF70, #7D00FF70), url(${LightPointBackground})`,
 		`linear-gradient(to right, #00000080, #00000080), url(${LightPointBackground})`,
 	);
+
+	const navigate = useNavigate();
 
 	return (
 		<Box
@@ -74,7 +76,11 @@ const BannerHome = ({ onClick }: ComponentProps) => {
 						</Text>
 					</Stack>
 				</Flex>
-				<Button variant='whiteFilled' justifySelf='flex-end'>
+				<Button
+					variant='whiteFilled'
+					justifySelf='flex-end'
+					onClick={() => navigate('/minting')}
+				>
 					Mint tBTC
 				</Button>
 			</Flex>

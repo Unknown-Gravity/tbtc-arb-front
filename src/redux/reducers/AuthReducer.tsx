@@ -1,8 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-	email: "",
-	user: "",
+	email: '',
+	user: '',
 	isSuccess: false,
 };
 
@@ -14,7 +14,7 @@ const initialState = {
  *
  */
 export const authSlice = createSlice({
-	name: "auth",
+	name: 'auth',
 	initialState,
 	reducers: {
 		reset: () => initialState,

@@ -1,4 +1,4 @@
-import { Flex, Stack } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import ComercialInfoComponent from './FooterComponent/ComercialInfoComponent';
 import LinksComponent from './FooterComponent/LinksComponent';
 

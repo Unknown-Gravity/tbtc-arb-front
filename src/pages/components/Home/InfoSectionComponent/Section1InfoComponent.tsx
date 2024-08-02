@@ -1,5 +1,5 @@
 import { Flex, Stack, Text } from '@chakra-ui/react';
-import { CustomBox } from '../../../components/CustomBox';
+import { CustomBox } from '../../../../components/CustomBox';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 
 const Section1InfoComponent = () => {

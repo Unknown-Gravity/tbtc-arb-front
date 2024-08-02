@@ -1,6 +1,5 @@
 import {
 	As,
-	border,
 	Flex,
 	Icon,
 	Text,

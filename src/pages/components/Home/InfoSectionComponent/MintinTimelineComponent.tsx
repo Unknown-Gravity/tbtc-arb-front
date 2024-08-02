@@ -1,5 +1,5 @@
 import { Box, Link, Stack, Text, useColorMode } from '@chakra-ui/react';
-import { CustomBox } from '../../../components/CustomBox';
+import { CustomBox } from '../../../../components/CustomBox';
 import {
 	Step,
 	StepIndicator,
@@ -46,6 +46,7 @@ const MintinTimelineComponent = (props: Props) => {
 				gap={5}
 				maxW='400px'
 				w='100%'
+				variant='main'
 			>
 				<Step>
 					<StepIndicator>

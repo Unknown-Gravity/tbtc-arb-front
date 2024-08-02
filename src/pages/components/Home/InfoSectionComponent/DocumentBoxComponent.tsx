@@ -1,10 +1,9 @@
 import { Box, Flex, Stack, Text, useColorModeValue } from '@chakra-ui/react';
-import React from 'react';
 import { IoMdLink } from 'react-icons/io';
 import { Link } from 'react-router-dom';
-import { Contract, Report } from '../../../data/mockData';
+import { Contract, Report } from '../../../../data/mockData';
 import { BiSolidFileBlank } from 'react-icons/bi';
-import { useDownload } from '../../../hooks/useDownload';
+import { useDownload } from '../../../../hooks/useDownload';
 
 type Props = {
 	contract?: Contract;

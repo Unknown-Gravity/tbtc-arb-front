@@ -1,8 +1,7 @@
-import React from 'react';
-import { CustomBox } from '../../../components/CustomBox';
+import { CustomBox } from '../../../../components/CustomBox';
 import { Flex, Image, Stack, Text, useColorMode } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { DarkJsonImage, LightJsonImage } from '../../../assets/images';
+import { DarkJsonImage, LightJsonImage } from '../../../../assets/images';
 
 const JsonFileComponent = () => {
 	const { colorMode } = useColorMode();

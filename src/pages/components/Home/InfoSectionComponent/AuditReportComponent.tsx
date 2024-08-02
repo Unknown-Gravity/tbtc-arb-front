@@ -1,7 +1,7 @@
 import React from 'react';
-import { CustomBox } from '../../../components/CustomBox';
+import { CustomBox } from '../../../../components/CustomBox';
 import { Stack, Text } from '@chakra-ui/react';
-import { reports } from '../../../data/mockData';
+import { reports } from '../../../../data/mockData';
 import DocumentBoxComponent from './DocumentBoxComponent';
 
 const AuditReportComponent = () => {

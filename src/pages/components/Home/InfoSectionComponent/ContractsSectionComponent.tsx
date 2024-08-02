@@ -1,6 +1,6 @@
 import { Stack, Text } from '@chakra-ui/react';
-import { CustomBox } from '../../../components/CustomBox';
-import { contracts } from '../../../data/mockData';
+import { CustomBox } from '../../../../components/CustomBox';
+import { contracts } from '../../../../data/mockData';
 import DocumentBoxComponent from './DocumentBoxComponent';
 
 const ContractsSectionComponent = () => {
