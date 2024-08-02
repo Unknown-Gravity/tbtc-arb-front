@@ -275,10 +275,50 @@ const components: ThemeOverride['components'] = {
 
 		variants: {
 			main: (props: StyleFunctionProps) => ({
+				indicator: {
+					'&[data-status=complete]': {
+						bg: 'none',
+						w: '24px',
+						h: '24px',
+						border:
+							props.colorMode === 'light'
+								? `2px solid ${props.theme.colors.light.coolGray}`
+								: 'none',
+					},
+					'&[data-status=active]': {
+						bg: 'none',
+						w: '24px',
+						h: '24px',
+						border:
+							props.colorMode === 'light'
+								? `2px solid ${props.theme.colors.light.coolGray}`
+								: 'none',
+					},
+					'&[data-status=incomplete]': {
+						bg: 'none',
+						w: '24px',
+						h: '24px',
+						border:
+							props.colorMode === 'light'
+								? `2px solid ${theme.colors.light.coolGray}`
+								: 'none',
+					},
+
+					title: {
+						fontSize: '14px',
+					},
+				},
 				step: {
 					fontSize: '14px',
-					w: '492px',
 				},
+				separator: {
+					border: `2px solid ${theme.colors.dark.coolGray}`,
+					ml: '-4px',
+				},
+				number: {
+					color: 'brand.purple.900',
+				},
+				w: '100%',
 			}),
 
 			minting: (props: StyleFunctionProps) => ({
@@ -424,6 +464,14 @@ const components: ThemeOverride['components'] = {
 			dialog: {
 				bg: props.colorMode === 'light' ? 'white' : 'dark.focusGray',
 			},
+		}),
+	},
+
+	Divider: {
+		baseStyle: (props: StyleFunctionProps) => ({
+			opacity: 1,
+			borderColor:
+				props.colorMode === 'light' ? 'light.superLightGray' : 'white',
 		}),
 	},
 };

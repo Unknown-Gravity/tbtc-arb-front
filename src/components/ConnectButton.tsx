@@ -52,10 +52,14 @@ const ConnectButton = (props: ButtonProps) => {
 				</Button>
 			) : (
 				<Flex gap='10px'>
-					<Button bg='none'>
+					<Button bg='none' fontSize={{ base: '12px', md: '16px' }}>
 						{normalizeNetWorkNames(networkName)}
 					</Button>
-					<Button variant='purple' onClick={handleConnectWallet}>
+					<Button
+						variant='purple'
+						onClick={handleConnectWallet}
+						fontSize={{ base: '12px', md: '16px' }}
+					>
 						{address?.slice(0, 5)}...{address?.slice(-4)}
 					</Button>
 				</Flex>

@@ -4,7 +4,7 @@ import { Bridge } from '../../../../assets/images';
 
 const Section2InfoComponent = () => {
 	return (
-		<CustomBox p='25px' minW={{ base: '100%', '2xl': '1134px' }} mx='auto'>
+		<CustomBox p='25px' minW={{ base: '100%', xl: '1134px' }} mx='auto'>
 			<Flex
 				flexDir={{ base: 'column', lg: 'row' }}
 				alignItems='center'
@@ -24,7 +24,7 @@ const Section2InfoComponent = () => {
 						DeFi and the expanding web3 universe.
 					</Text>
 				</Stack>
-				<Image src={Bridge} maxW='432px' />
+				<Image src={Bridge} />
 			</Flex>
 		</CustomBox>
 	);

@@ -5,7 +5,13 @@ import DocumentBoxComponent from './DocumentBoxComponent';
 
 const ContractsSectionComponent = () => {
 	return (
-		<Stack as={CustomBox} w='100%' gap='20px' h='249px' p='25px'>
+		<Stack
+			as={CustomBox}
+			w='100%'
+			gap='20px'
+			h={{ base: 'auto', xl: '249px' }}
+			p='25px'
+		>
 			<Text fontSize='24px' fontWeight={700} lineHeight='13px'>
 				CONTRACTS
 			</Text>

@@ -22,7 +22,7 @@ const Step1MintingProcess = (props: Props) => {
 	const { address } = useWeb3ModalAccount();
 
 	return (
-		<Box w='470px' maxW='470px'>
+		<Box h={{ base: 'auto', xl: '555px' }}>
 			<Stack spacing='24px' mt='24px'>
 				<Text fontSize='16px' lineHeight='28px' fontWeight={600}>
 					<Text variant='purpleDarkGradient' as={'span'}>

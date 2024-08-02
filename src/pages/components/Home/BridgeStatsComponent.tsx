@@ -17,7 +17,7 @@ const BridgeStatsComponent: FC = () => {
 	const { colorMode } = useColorMode();
 	return (
 		<Stack gap={5}>
-			<CustomBox minW={{ base: '100%', '2xl': '1134px' }} mx='auto'>
+			<CustomBox minW={{ base: '100%', xl: '1134px' }} mx='auto'>
 				<Stack alignItems='center' spacing={0}>
 					<Text fontSize='14px' fontWeight={700} variant='gray'>
 						tBTC BRIGDE STATS
@@ -68,7 +68,7 @@ const BridgeStatsComponent: FC = () => {
 					</Grid>
 				</Stack>
 			</CustomBox>
-			<CustomBox minW={{ base: '100%', '2xl': '1134px' }} mx='auto'>
+			<CustomBox minW={{ base: '100%', xl: '1134px' }} mx='auto'>
 				{' '}
 				<Stack alignItems='center' spacing={0}>
 					<Text fontSize='14px' fontWeight={700} variant='gray'>

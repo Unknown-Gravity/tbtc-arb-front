@@ -39,13 +39,13 @@ const BannerHome = ({ onClick }: ComponentProps) => {
 					: 'linear-gradient(to right, #B62CFF, #7D00FF)'
 			}
 			borderRadius='14px'
-			minW={{ base: '100%', '2xl': '1134px' }}
+			minW={{ base: '100%', xl: '1134px' }}
 			mx='auto'
 			position='relative'
 		>
 			<Flex
 				py={5}
-				px={24}
+				px={{ base: 0, xl: 24 }}
 				border={`1px solid ${borderColor}`}
 				bgImage={background}
 				bgPosition='bottom'
@@ -54,10 +54,15 @@ const BannerHome = ({ onClick }: ComponentProps) => {
 				borderRadius='14px'
 				alignItems='center'
 				justifyContent='space-between'
+				flexDir={{ base: 'column', xl: 'row' }}
+				h='fit-content'
 			>
-				<Flex alignItems='center'>
+				<Flex
+					alignItems='center'
+					flexDir={{ base: 'column', xl: 'row' }}
+				>
 					<Image src={AtomImage} />
-					<Stack h='70px' pl={5}>
+					<Stack pl={5} pb={{ base: 5, xl: 0 }}>
 						<Text
 							fontSize='16px'
 							fontWeight={600}
@@ -78,8 +83,8 @@ const BannerHome = ({ onClick }: ComponentProps) => {
 				</Flex>
 				<Button
 					variant='whiteFilled'
-					justifySelf='flex-end'
 					onClick={() => navigate('/minting')}
+					justifySelf='end'
 				>
 					Mint tBTC
 				</Button>

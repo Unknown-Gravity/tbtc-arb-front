@@ -1,43 +1,45 @@
-import { Box, Flex, useColorMode } from '@chakra-ui/react';
+import { Box, Flex, useColorMode, useDisclosure } from '@chakra-ui/react';
+import { useMediaQuery } from '@chakra-ui/react';
 import { AppLayoutProps } from '../interfaces/AppLayoutProps';
-import SideBarComponent from '../components/SideBarComponent';
-import { Dispatch, useState } from 'react';
+import { DarkGridBackground, LightGridBackground } from '../assets/images';
+import SideBarMenu from '../components/SideBarMenu';
 import HeaderComponent from '../components/HeaderComponent';
-import {
-	DarkMainGridBackground,
-	LightMainGridBackground,
-} from '../assets/images';
 
 const AppLayout = ({ component }: AppLayoutProps) => {
-	const [isOpen, setIsOpen]: [boolean, Dispatch<boolean>] = useState(false);
+	const [isMobile] = useMediaQuery('(min-width: 768px)');
 	const { colorMode } = useColorMode();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	const handleOpen = () => {
-		setIsOpen(!isOpen);
-	};
 	return (
 		<Flex
 			minHeight='100vh'
 			position='relative'
-			pl={isOpen ? '155px' : '55px'}
+			pl={isMobile ? (isOpen ? '205px' : '105px') : '0px'}
 			transition='padding 0.2s'
 			bgImage={
-				colorMode === 'light'
-					? LightMainGridBackground
-					: DarkMainGridBackground
+				colorMode === 'light' ? LightGridBackground : DarkGridBackground
 			}
 			bgRepeat='no-repeat'
 			bgSize='cover'
 			bgPos='bottom'
 		>
-			<SideBarComponent isOpen={isOpen} onClick={handleOpen} />
+			<SideBarMenu
+				isOpen={isOpen}
+				onOpen={onOpen}
+				onClose={onClose}
+				isMobile={isMobile}
+			/>
 			<Flex
 				flexDirection={'column'}
 				flex={1}
 				py={8}
 				pr={{ base: 3.5, xl: 8 }}
 			>
-				<HeaderComponent isOpen={isOpen} />
+				<HeaderComponent
+					isOpen={isOpen}
+					onOpen={onOpen}
+					isMobile={isMobile}
+				/>
 				<Box
 					w='100%'
 					py={4}

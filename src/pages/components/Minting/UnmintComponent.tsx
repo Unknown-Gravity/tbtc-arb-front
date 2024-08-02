@@ -15,6 +15,7 @@ import DurationComponent from './components/UnmintingProcess/DurationComponent';
 import Step1UnmintingProcess from './components/UnmintingProcess/Step1UnmintingProcess';
 import Step2UnmintingProcess from './components/UnmintingProcess/Step2UnmintingProcess';
 import ElapsedTimeComponent from './components/UnmintingProcess/ElapsedTimeComponent';
+import DividerCustom from '../../../components/DividerCustom';
 
 type Props = {
 	isConnected: boolean;
@@ -35,10 +36,6 @@ const UnmintComponent = ({ isConnected, setTabSelected }: Props) => {
 	const [isConfirmed, setIsConfirmed] = useState(false);
 	const [isSent, setIsSent] = useState(true);
 	const [unmint, setUnmint] = useState(initialValue);
-	const orientation = useBreakpointValue<'horizontal' | 'vertical'>({
-		base: 'horizontal',
-		xl: 'vertical',
-	});
 
 	//TODO hay que quitar tantos estados y poner solo uno el unmint
 
@@ -81,7 +78,10 @@ const UnmintComponent = ({ isConnected, setTabSelected }: Props) => {
 
 	return (
 		<CustomBox h={{ xl: containerHeight }} w='100%' p='26px'>
-			<Flex flexDirection={{ base: 'column', xl: 'row' }}>
+			<Flex
+				flexDirection={{ base: 'column', xl: 'row' }}
+				h={{ base: 'auto', xl: '580px' }}
+			>
 				<Stack spacing={0} maxW={{ base: '100%', xl: '458px' }}>
 					<HeaderStepsMintingComponent label='tBTC - UNMINTING PROCESS' />
 
@@ -105,14 +105,7 @@ const UnmintComponent = ({ isConnected, setTabSelected }: Props) => {
 					)}
 				</Stack>
 
-				{step < 3 && (
-					<Center height='auto'>
-						<Divider
-							orientation={orientation}
-							m={{ base: '32px 0', xl: '0 32px' }}
-						/>
-					</Center>
-				)}
+				<DividerCustom />
 				{!isConnected && <DurationComponent />}
 				{isConnected && step === 1 && <DurationComponent />}
 				{isConnected && step === 2 && (

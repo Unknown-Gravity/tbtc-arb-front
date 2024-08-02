@@ -2,7 +2,6 @@ import { Box, Flex, useColorMode, useSteps } from '@chakra-ui/react';
 import { useEffect, useState, useMemo } from 'react';
 import ConfirmingMinting from './ConfirmingMinting';
 import Step3HeaderComponent from './Step3HeaderComponent';
-import TransactionHistory from './TransactionHistory';
 
 type Props = {};
 
@@ -34,17 +33,6 @@ const Step3MintingProcess = (props: Props) => {
 		index: 2,
 		count: steps.length,
 	});
-
-	const [btcTxHash, setTxHash] = useState<string | undefined>('A');
-	const [arbitrumTxHash, setArbitrumTxHash] = useState<string | undefined>(
-		'A',
-	);
-	const [initializedEthTxHash, setInitializedEthTxHash] = useState<
-		string | undefined
-	>(undefined);
-	const [finalizedEthTxHash, setFinalizedEthTxHash] = useState<
-		string | undefined
-	>(undefined);
 
 	useEffect(() => {
 		if (confirmations >= 6 && !initializedMint && activeStep === 0) {
@@ -91,7 +79,7 @@ const Step3MintingProcess = (props: Props) => {
 
 	return (
 		<Flex>
-			<Box>
+			<Box h={{ base: 'auto', xl: '555px' }}>
 				<Step3HeaderComponent activeStep={activeStep} steps={steps} />
 				<ConfirmingMinting
 					isLoading={isLoading}
@@ -100,19 +88,6 @@ const Step3MintingProcess = (props: Props) => {
 					finalizedMinting={finalizedMint}
 				/>
 			</Box>
-			<Box
-				bg={colorMode === 'dark' ? 'white' : 'light.coolGray'}
-				alignSelf='start'
-				h={{ base: '1px', xl: '584px' }}
-				w={{ base: '100%', xl: '1px' }}
-				mx='22px'
-			></Box>
-			<TransactionHistory
-				btcTxHash={btcTxHash}
-				arbitrumTxHash={arbitrumTxHash}
-				initializedEthTxHash={initializedEthTxHash}
-				finalizedEthTxHash={finalizedEthTxHash}
-			/>
 		</Flex>
 	);
 };

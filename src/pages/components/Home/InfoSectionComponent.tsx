@@ -10,22 +10,31 @@ import AuditReportComponent from './InfoSectionComponent/AuditReportComponent';
 
 const InfoSectionComponent: FC = () => {
 	return (
-		<Stack gap={4} maxW={{ base: '100%', '2xl': '1134px' }} mx='auto'>
+		<Stack gap={4} maxW={{ base: '100%', xl: '1134px' }} mx='auto'>
 			<HeaderInfoComponent />
 			<Section1InfoComponent />
 			<Section2InfoComponent />
 			<Flex
 				justifyContent='center'
 				alignContent='center'
-				minW={{ base: '100%', '2xl': '1134px' }}
+				minW={{ xl: '1134px' }}
 				mx='auto'
 				gap={4}
+				flexDirection={{ base: 'column', xl: 'row' }}
 			>
-				<Stack alignItems='center' w='50%' gap={4}>
+				<Stack
+					alignItems='center'
+					w={{ base: '100%', xl: '50%' }}
+					gap={4}
+				>
 					<MintinTimelineComponent />
 					<ContractsSectionComponent />
 				</Stack>
-				<Stack alignItems='center' w='50%' gap={4}>
+				<Stack
+					alignItems='center'
+					w={{ base: '100%', xl: '50%' }}
+					gap={4}
+				>
 					<JsonFileComponent />
 					<AuditReportComponent />
 				</Stack>

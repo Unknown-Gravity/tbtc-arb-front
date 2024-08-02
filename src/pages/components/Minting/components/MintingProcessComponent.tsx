@@ -18,7 +18,7 @@ const MintingProcessComponent = () => {
 		`linear-gradient(to top, #1D2229, transparent)`,
 	);
 	return (
-		<Box w='470px' maxW='470px'>
+		<Box w={{ base: 'auto', xl: '470px' }}>
 			<Text
 				fontSize='24px'
 				lineHeight='32px'

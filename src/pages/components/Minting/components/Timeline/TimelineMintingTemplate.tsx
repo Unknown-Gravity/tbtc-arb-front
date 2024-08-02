@@ -12,7 +12,7 @@ const TimelineTemplate = (props: Props) => {
 	const borderColor = theme.colors.brand.purple[900];
 	const { colorMode } = useColorMode();
 	return (
-		<Box maxW='221px'>
+		<Box maxW={{ base: 'none', xl: '235px' }}>
 			<Text
 				fontSize='16px'
 				lineHeight='16px'
