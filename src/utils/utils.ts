@@ -90,3 +90,17 @@ export const formatAddress = (
 ): string => {
 	return address?.slice(0, 5) + '...' + address?.slice(-4);
 };
+
+const millisecondsToTimeString = (milliseconds: number): string => {
+	const totalMinutes = milliseconds / 60000; // 1 minuto = 60,000 milisegundos
+	const hours = Math.floor(totalMinutes / 60);
+	const minutes = Math.floor(totalMinutes % 60);
+
+	if (hours > 0) {
+		return `${hours} HOURS ${minutes} MINUTES`;
+	} else {
+		return `${minutes} MINUTES`;
+	}
+};
+
+export { millisecondsToTimeString };

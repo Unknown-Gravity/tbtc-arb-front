@@ -1,13 +1,16 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, useColorMode } from '@chakra-ui/react';
 import { AppLayoutProps } from '../interfaces/AppLayoutProps';
 import SideBarComponent from '../components/SideBarComponent';
 import { Dispatch, useState } from 'react';
 import HeaderComponent from '../components/HeaderComponent';
-// import Navigation from '../components/SidebarComponent/Navigation';
-// import HeaderComponent from '../components/HeaderComponent/HeaderComponent';
+import {
+	DarkMainGridBackground,
+	LightMainGridBackground,
+} from '../assets/images';
 
 const AppLayout = ({ component }: AppLayoutProps) => {
 	const [isOpen, setIsOpen]: [boolean, Dispatch<boolean>] = useState(false);
+	const { colorMode } = useColorMode();
 
 	const handleOpen = () => {
 		setIsOpen(!isOpen);
@@ -18,6 +21,14 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 			position='relative'
 			pl={isOpen ? '155px' : '55px'}
 			transition='padding 0.2s'
+			bgImage={
+				colorMode === 'light'
+					? LightMainGridBackground
+					: DarkMainGridBackground
+			}
+			bgRepeat='no-repeat'
+			bgSize='cover'
+			bgPos='bottom'
 		>
 			<SideBarComponent isOpen={isOpen} onClick={handleOpen} />
 			<Flex

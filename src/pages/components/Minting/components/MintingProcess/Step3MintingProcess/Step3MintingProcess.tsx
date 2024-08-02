@@ -1,5 +1,5 @@
 import { Box, Flex, useColorMode, useSteps } from '@chakra-ui/react';
-import { Dispatch, SetStateAction, useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import ConfirmingMinting from './ConfirmingMinting';
 import Step3HeaderComponent from './Step3HeaderComponent';
 import TransactionHistory from './TransactionHistory';
@@ -8,9 +8,9 @@ type Props = {};
 
 const Step3MintingProcess = (props: Props) => {
 	const { colorMode } = useColorMode();
-	const [confirmations, setConfirmations] = useState<number>(3);
-	const [initializedMint, setInitializedMint] = useState<boolean>(false);
-	const [finalizedMint, setFinalizedMint] = useState<boolean>(false);
+	const [confirmations, setConfirmations] = useState<number>(7);
+	const [initializedMint, setInitializedMint] = useState<boolean>(true);
+	const [finalizedMint, setFinalizedMint] = useState<boolean>(true);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [msg, setMsg] = useState({
 		header: 'Waiting for the Bitcoin Network confirmations',
@@ -31,7 +31,7 @@ const Step3MintingProcess = (props: Props) => {
 	);
 
 	const { activeStep, setActiveStep } = useSteps({
-		index: 0,
+		index: 2,
 		count: steps.length,
 	});
 

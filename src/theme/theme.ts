@@ -98,11 +98,23 @@ const components: ThemeOverride['components'] = {
 						: 'light.primaryGray',
 			}),
 
+			secondary: (props: StyleFunctionProps) => ({
+				color:
+					props.colorMode === 'light'
+						? 'light.secondaryGray'
+						: 'white',
+			}),
+
 			coolGray: (props: StyleFunctionProps) => ({
 				color:
 					props.colorMode === 'light'
 						? 'light.coolGray2'
 						: 'dark.coolGray',
+			}),
+
+			coolGray2: (props: StyleFunctionProps) => ({
+				color:
+					props.colorMode === 'light' ? 'light.coolGray2' : 'white',
 			}),
 
 			lightCoolGray: (props: StyleFunctionProps) => ({
@@ -111,11 +123,13 @@ const components: ThemeOverride['components'] = {
 			}),
 
 			purpleDarkGradient: (props: StyleFunctionProps) => ({
+				transition: 'text-decoration 0.2s',
 				color:
 					props.colorMode === 'light' ? 'brand.purple.900' : 'none',
 				bg:
 					props.colorMode === 'dark' &&
-					`linear-gradient(-45deg, #AB5AFA , #EDC6FF)`,
+					'linear-gradient(113.75deg, #EDC6FF 0%, #AB5AFA 100%)',
+
 				backgroundClip: props.colorMode === 'dark' && 'text',
 				fill: props.colorMode === 'dark' && 'transparent',
 			}),
@@ -143,7 +157,7 @@ const components: ThemeOverride['components'] = {
 						: 'transparent',
 				bg:
 					props.colorMode === 'dark' &&
-					`linear-gradient(#D987FF 60%, #AB5AFA)`,
+					'linear-gradient(113.75deg, #EDC6FF 0%, #AB5AFA 100%)',
 				backgroundClip: props.colorMode === 'dark' && 'text',
 				fill: props.colorMode === 'dark' && 'transparent',
 			}),
@@ -195,7 +209,7 @@ const components: ThemeOverride['components'] = {
 			}),
 
 			purpleOutlined: (props: StyleFunctionProps) => ({
-				bg: 'linear-gradient(#D987FF 60%, #AB5AFA)',
+				bg: 'linear-gradient(113.75deg, #EDC6FF 0%, #AB5AFA 100%)',
 				bgClip: 'text',
 				color:
 					props.colorMode === 'light'
@@ -210,6 +224,13 @@ const components: ThemeOverride['components'] = {
 					props.colorMode === 'light'
 						? 'light.primaryGray'
 						: 'dark.coolGray',
+				border: `1px solid ${theme.colors.light.coolGray}`,
+			}),
+
+			grayOutlined2: (props: StyleFunctionProps) => ({
+				bg: 'none',
+				color:
+					props.colorMode === 'light' ? 'light.primaryGray' : 'white',
 				border: `1px solid ${theme.colors.light.coolGray}`,
 			}),
 		},
@@ -249,18 +270,6 @@ const components: ThemeOverride['components'] = {
 				title: {
 					fontSize: '14px',
 				},
-				separator: {
-					border: `1px solid ${theme.colors.dark.coolGray}`,
-					ml: '-4px',
-				},
-
-				number: {
-					color:
-						props.colorMode === 'dark'
-							? 'white'
-							: 'brand.purple.900',
-					fontWeight: 700,
-				},
 			},
 		}),
 
@@ -290,6 +299,17 @@ const components: ThemeOverride['components'] = {
 					color: props.colorMode === 'dark' && 'white',
 					w: '213px',
 				},
+				number: {
+					color:
+						props.colorMode === 'dark'
+							? 'white'
+							: 'brand.purple.900',
+					fontWeight: 700,
+				},
+				separator: {
+					border: `1px solid ${theme.colors.dark.coolGray}`,
+					ml: '-4px',
+				},
 			}),
 
 			progress: (props: StyleFunctionProps) => ({
@@ -305,7 +325,7 @@ const components: ThemeOverride['components'] = {
 						bg:
 							props.colorMode === 'light'
 								? 'brand.purple.900'
-								: `linear-gradient(to right, #EDC6FF , #AB5AFA)`,
+								: 'linear-gradient(113.75deg, #EDC6FF 0%, #AB5AFA 100%)',
 					},
 					'&[data-status=incomplete]': {
 						bg: 'dark.coolGray',
@@ -325,7 +345,7 @@ const components: ThemeOverride['components'] = {
 						bg:
 							props.colorMode === 'light'
 								? 'brand.purple.900'
-								: `linear-gradient(to right, #EDC6FF , #AB5AFA)`,
+								: 'linear-gradient(113.75deg, #EDC6FF 0%, #AB5AFA 100%)',
 						border: 'none',
 					},
 					'&[data-status=active]': {
@@ -359,7 +379,7 @@ const components: ThemeOverride['components'] = {
 					props.colorMode === 'light' ? 'brand.purple.900' : 'none',
 				bg:
 					props.colorMode === 'dark' &&
-					`linear-gradient(-45deg, #AB5AFA , #EDC6FF)`,
+					'linear-gradient(113.75deg, #EDC6FF 0%, #AB5AFA 100%)',
 				backgroundClip: props.colorMode === 'dark' && 'text',
 				fill: props.colorMode === 'dark' && 'transparent',
 			}),
@@ -367,7 +387,7 @@ const components: ThemeOverride['components'] = {
 	},
 
 	Input: {
-		baseStyle: (props: StyleFunctionProps) => ({
+		baseStyle: props => ({
 			field: {
 				fontSize: '18px',
 				lineHeight: '24px',
@@ -392,6 +412,9 @@ const components: ThemeOverride['components'] = {
 						outline: 'none',
 					},
 				},
+			},
+			addon: {
+				height: '48px',
 			},
 		}),
 	},
