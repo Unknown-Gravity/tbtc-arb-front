@@ -93,9 +93,9 @@ const components: ThemeOverride['components'] = {
 
 			gray2: (props: StyleFunctionProps) => ({
 				color:
-					props.colorMode === 'dark'
-						? 'dark.coolGray'
-						: 'light.primaryGray',
+					props.colorMode === 'light'
+						? 'light.primaryGray'
+						: 'dark.coolGray',
 			}),
 
 			secondary: (props: StyleFunctionProps) => ({
