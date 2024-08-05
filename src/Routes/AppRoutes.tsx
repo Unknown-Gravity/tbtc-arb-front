@@ -7,6 +7,7 @@ import AuthGuard from './guard/AuthGuard';
 import AppLayout from '../Layout/AppLayout';
 import Home from '../pages/Home';
 import Minting from '../pages/TbtcComponent';
+import Explore from '../pages/Explore';
 
 // import AppLayout from '../layouts/AppLayout';
 
@@ -31,6 +32,10 @@ const AppRoutes = memo(() => {
 			<Route
 				path={PublicRoutes.Minting}
 				element={<AppLayout component={<Minting />} />}
+			/>
+			<Route
+				path={PublicRoutes.Explore}
+				element={<AppLayout component={<Explore />} />}
 			/>
 
 			{/* Private Routes */}

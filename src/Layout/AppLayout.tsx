@@ -14,7 +14,7 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 		<Flex
 			minHeight='100vh'
 			position='relative'
-			pl={isMobile ? (isOpen ? '205px' : '105px') : '0px'}
+			pl={isMobile ? (isOpen ? '155px' : '55px') : '0px'}
 			transition='padding 0.2s'
 			bgImage={
 				colorMode === 'light' ? LightGridBackground : DarkGridBackground

@@ -228,7 +228,7 @@ const components: ThemeOverride['components'] = {
 			}),
 
 			grayOutlined2: (props: StyleFunctionProps) => ({
-				bg: 'none',
+				bg: props.colorMode === 'light' ? 'white' : 'dark.focusGray',
 				color:
 					props.colorMode === 'light' ? 'light.primaryGray' : 'white',
 				border: `1px solid ${theme.colors.light.coolGray}`,
@@ -472,6 +472,25 @@ const components: ThemeOverride['components'] = {
 			opacity: 1,
 			borderColor:
 				props.colorMode === 'light' ? 'light.superLightGray' : 'white',
+		}),
+	},
+	Table: {
+		baseStyle: (props: StyleFunctionProps) => ({
+			tbody: {
+				tr: {
+					td: {
+						border: 'none',
+					},
+					'&:nth-of-type(odd)': {
+						'th, td': {
+							bg:
+								props.colorMode === 'light'
+									? 'light.lightGray'
+									: 'dark.focusGray',
+						},
+					},
+				},
+			},
 		}),
 	},
 };
