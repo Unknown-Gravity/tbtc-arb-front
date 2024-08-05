@@ -33,7 +33,11 @@ const ComercialInfoComponent = (props: Props) => {
 					/>
 					<Text variant='gray'>tBTC</Text>
 				</Stack>
-				<BitcoinFilledIcon color='brand.purple.900' boxSize='56px' />
+				<BitcoinFilledIcon
+					color='brand.purple.900'
+					boxSize='56px'
+					fill={colorMode === 'light' ? 'white' : 'dark.primaryGray'}
+				/>
 			</Flex>
 			<Text
 				fontSize='13.9px'
@@ -51,6 +55,7 @@ const ComercialInfoComponent = (props: Props) => {
 					bg='brand.purple.900'
 					placeContent='center'
 					borderRadius='50%'
+					alignItems='center'
 				>
 					<BsYoutube size='14px' color='white' />
 				</Flex>
@@ -60,6 +65,7 @@ const ComercialInfoComponent = (props: Props) => {
 					bg='brand.purple.900'
 					placeContent='center'
 					borderRadius='50%'
+					alignItems='center'
 				>
 					<BsTwitterX size='13.5px' color='white' />
 				</Flex>
@@ -69,6 +75,7 @@ const ComercialInfoComponent = (props: Props) => {
 					bg='brand.purple.900'
 					placeContent='center'
 					borderRadius='50%'
+					alignItems='center'
 				>
 					<BsDiscord size='14px' color='white' />
 				</Flex>
