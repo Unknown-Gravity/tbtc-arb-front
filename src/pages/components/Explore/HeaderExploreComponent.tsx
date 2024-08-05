@@ -1,18 +1,71 @@
-import { Button, Flex, Stack, Text, useColorModeValue } from '@chakra-ui/react';
-import { CustomBox } from '../../../components/CustomBox';
+import {
+	Button,
+	Flex,
+	Link,
+	Stack,
+	Text,
+	useColorModeValue,
+} from '@chakra-ui/react';
 import InfoHeaderExploreComponent from './HeaderExploreComponent/InfoHeaderExploreComponent';
 import {
-	DarkBackground,
 	DarkExploreBackground,
-	LightBackground,
 	LightExploreBackground,
 } from '../../../assets/images';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { currencyFormatter } from '../../../utils/utils';
 
-type Props = {
-	// dune: DuneClient;
+type Props = {};
+
+type Data = {
+	supply: number;
+	tbtc: number;
+	minting: number;
+	addresses: number;
+};
+
+const initialValue = {
+	supply: 0,
+	tbtc: 0,
+	minting: 0,
+	addresses: 0,
 };
 
 const HeaderExploreComponent = (props: Props) => {
+	const [data, setData] = useState(initialValue);
+
+	const apikey = process.env.REACT_APP_API_KEY || '';
+	console.log('🚀 ~ Explore ~ apikey:', apikey);
+	useEffect(() => {
+		const urls = [
+			'https://api.dune.com/api/v1/query/1964092/results?limit=1',
+			'https://api.dune.com/api/v1/query/2610107/results?limit=1',
+			'https://api.dune.com/api/v1/query/3965411/results?limit=1',
+			'https://api.dune.com/api/v1/query/1964103/results?limit=1',
+		];
+		const fetchData = async () => {
+			try {
+				const [supply, tbtc, mints, addresses] = await Promise.all(
+					urls.map(url =>
+						axios.get(url, {
+							headers: { 'X-Dune-API-Key': apikey },
+						}),
+					),
+				);
+				setData({
+					...data,
+					supply: supply.data.result.rows[0].tvl,
+					minting: mints.data.result.rows[0].total_mint,
+					tbtc: tbtc.data.result.rows[0]._col0,
+					addresses: addresses.data.result.rows[0].Holders,
+				});
+				console.log('supply', mints.data.result.rows[0]);
+			} catch (error) {
+				console.error('Error fetching data: ', error);
+			}
+		};
+		fetchData();
+	}, []);
 	const backgroundImage = useColorModeValue(
 		`url(${LightExploreBackground})`,
 		`url(${DarkExploreBackground})`,
@@ -52,9 +105,15 @@ const HeaderExploreComponent = (props: Props) => {
 					lineHeight='64px'
 					fontWeight={700}
 				>
-					$226,031,612.87 USD
+					{currencyFormatter(data.supply)}
 				</Text>
-				<Button h='48px' variant='grayOutlined2'>
+				<Button
+					as={Link}
+					href='https://dune.com/threshold/tbtc'
+					h='48px'
+					variant='grayOutlined2'
+					isExternal
+				>
 					View On Dune Analytics
 				</Button>
 			</Flex>
@@ -65,16 +124,21 @@ const HeaderExploreComponent = (props: Props) => {
 				alignItems='center'
 				flexDir={{ base: 'column', xl: 'row' }}
 			>
-				<InfoHeaderExploreComponent info={3347.43} label='tBTC' />
 				<InfoHeaderExploreComponent
-					info={4200}
+					info={data.tbtc}
 					label='tBTC'
-					symbol='Total mints'
+					symbol='none'
+				/>
+
+				<InfoHeaderExploreComponent
+					info={data.minting}
+					label='Total mints'
+					symbol='none'
 				/>
 				<InfoHeaderExploreComponent
-					info={828}
-					label='tBTC'
-					symbol='tBTC Holding Addresses'
+					info={data.addresses}
+					label='tBTC Holding Addresses'
+					symbol='none'
 				/>
 			</Flex>
 		</Stack>

@@ -3,13 +3,12 @@ import { CustomBox } from '../components/CustomBox';
 import { DuneClient } from '@duneanalytics/client-sdk';
 import { Image, Stack, useColorModeValue } from '@chakra-ui/react';
 import HistoryExploreComponent from './components/Explore/HistoryExploreComponent';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 type Props = {};
 
 const Explore = (props: Props) => {
-	const apikey = process.env.API_KEY || '';
-
-	// const dune: DuneClient = new DuneClient(apikey);
 	return (
 		<Stack
 			mt='64px'
