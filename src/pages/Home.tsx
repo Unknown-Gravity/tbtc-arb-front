@@ -21,7 +21,6 @@ const Home: FC = () => {
 		<Stack gap={10} position='relative'>
 			<HomeHeader />
 
-			{/* <SideBarComponent /> */}
 			<Stack gap={10} w='100%'>
 				{showMintWindow && <BannerHome onClick={handleCloseBanner} />}
 				<BridgeStatsComponent />

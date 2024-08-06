@@ -1,5 +1,5 @@
 import { Flex, Link, Stack, Text } from '@chakra-ui/react';
-import React from 'react';
+import { socialMedia } from '../../data/mockData';
 
 type Props = {};
 
@@ -27,16 +27,36 @@ const LinksComponent = (props: Props) => {
 				<Text lineHeight='27px' fontSize='17.9px' fontWeight={600}>
 					CONNECT WITH US
 				</Text>
-				<Link variant='purpleDarkGradient' fontWeight={500}>
+				<Link
+					variant='purpleDarkGradient'
+					fontWeight={500}
+					isExternal={true}
+					href={socialMedia.forum}
+				>
 					Dao Forum
 				</Link>
-				<Link variant='purpleDarkGradient' fontWeight={500}>
+				<Link
+					variant='purpleDarkGradient'
+					fontWeight={500}
+					isExternal={true}
+					href={socialMedia.github}
+				>
 					Github
 				</Link>
-				<Link variant='purpleDarkGradient' fontWeight={500}>
+				<Link
+					variant='purpleDarkGradient'
+					fontWeight={500}
+					isExternal={true}
+					href={socialMedia.discord}
+				>
 					Discord
 				</Link>
-				<Link variant='purpleDarkGradient' fontWeight={500}>
+				<Link
+					variant='purpleDarkGradient'
+					fontWeight={500}
+					isExternal={true}
+					href={socialMedia.x}
+				>
 					X
 				</Link>
 			</Stack>

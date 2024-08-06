@@ -1,7 +1,9 @@
 import { Flex, Stack, Text } from '@chakra-ui/react';
 import { DiscordNoBackgroundIcon } from '../../../assets/icons/DiscordNoBackgroundIcon';
 import { LogoAloneIcon } from '../../../assets/icons/LogoAlone';
-import { TwitterIcon } from '../../../assets/icons/TwitterIcon';
+import { socialMedia } from '../../../data/mockData';
+import { TwitterXIcon } from '../../../assets/icons/TwitterXIcon';
+import IconJoincomponent from './JoinComponent/IconJoincomponent';
 
 type Props = {};
 
@@ -22,27 +24,21 @@ const JoinComponent = (props: Props) => {
 				open source.
 			</Text>
 			<Flex gap='48px' mt='38px'>
-				<Stack alignItems='center'>
-					<DiscordNoBackgroundIcon
-						color='brand.purple.900'
-						boxSize='41px'
-					/>
-					<Text fontSize='13.9' lineHeight='21px' fontWeight={700}>
-						Discord
-					</Text>
-				</Stack>
-				<Stack alignItems='center'>
-					<LogoAloneIcon color='brand.purple.900' boxSize='41px' />
-					<Text fontSize='13.9' lineHeight='21px' fontWeight={700}>
-						DAO Forum
-					</Text>
-				</Stack>
-				<Stack alignItems='center'>
-					<TwitterIcon color='brand.purple.900' boxSize='41px' />
-					<Text fontSize='13.9' lineHeight='21px' fontWeight={700}>
-						Twitter
-					</Text>
-				</Stack>
+				<IconJoincomponent
+					label='Discord'
+					icon={DiscordNoBackgroundIcon}
+					link={socialMedia.discord}
+				/>
+				<IconJoincomponent
+					label='DAO Forum'
+					icon={LogoAloneIcon}
+					link={socialMedia.forum}
+				/>
+				<IconJoincomponent
+					label='X'
+					icon={TwitterXIcon}
+					link={socialMedia.x}
+				/>
 			</Flex>
 		</Stack>
 	);
