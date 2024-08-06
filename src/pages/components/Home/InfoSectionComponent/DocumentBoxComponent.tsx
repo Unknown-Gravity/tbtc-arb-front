@@ -9,6 +9,7 @@ import {
 import { IoMdLink } from 'react-icons/io';
 import { Contract, Report } from '../../../../data/mockData';
 import { BiSolidFileBlank } from 'react-icons/bi';
+import { UpRightIcon } from '../../../../assets/icons/UpRightIcon';
 
 type Props = {
 	contract?: Contract;
@@ -17,6 +18,7 @@ type Props = {
 
 const DocumentBoxComponent = (props: Props) => {
 	const boxBg = useColorModeValue('light.lightGray', 'dark.focusGray');
+	const filter = useColorModeValue('brightness(0.9)', 'brightness(1.15)');
 
 	return (
 		<Flex
@@ -34,7 +36,7 @@ const DocumentBoxComponent = (props: Props) => {
 			transition='filter 0.2s'
 			_hover={{
 				textDecor: 'none',
-				filter: 'brightness(1.15)',
+				filter: filter,
 			}}
 		>
 			<Flex
@@ -77,6 +79,7 @@ const DocumentBoxComponent = (props: Props) => {
 			</Flex>
 			<Link variant={'purpleDarkGradient'} whiteSpace='nowrap'>
 				Read More
+				<UpRightIcon />
 			</Link>
 		</Flex>
 	);

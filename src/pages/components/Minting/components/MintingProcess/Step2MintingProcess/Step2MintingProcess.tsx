@@ -56,7 +56,7 @@ const Step2ProvideDataComponent = (props: Props) => {
 	const { onCopy: onCopyBtcAddress } = useClipboard(props.btcAddress);
 
 	return (
-		<Box maxW='448.28px'>
+		<Box maxW={{ xl: '448.28px' }}>
 			<Text fontSize='16px' lineHeight='28px' fontWeight={600} mt='24px'>
 				<Text variant='purpleDarkGradient' as={'span'}>
 					STEP 2{' '}
@@ -125,7 +125,7 @@ const Step2ProvideDataComponent = (props: Props) => {
 			<Stack gap='20px' mt='10px'>
 				<Flex
 					justifyContent='space-between'
-					flexDir={{ base: 'column', xl: 'row' }}
+					flexDir={{ base: 'column', lg: 'row' }}
 					alignItems={{ base: 'center', xl: 'flex-start' }}
 				>
 					{cardsInfo.map((card, index) => {

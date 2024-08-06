@@ -13,6 +13,7 @@ import {
 import { AtomImage, LightPointBackground } from '../../../assets/images';
 import { ComponentProps } from '../../../interfaces/ComponentProps';
 import { useNavigate } from 'react-router-dom';
+import { PublicRoutes } from '../../../Routes/Routes';
 
 // Definimos la interfaz para las props
 
@@ -83,7 +84,7 @@ const BannerHome = ({ onClick }: ComponentProps) => {
 				</Flex>
 				<Button
 					variant='whiteFilled'
-					onClick={() => navigate('/minting')}
+					onClick={() => navigate(`/${PublicRoutes.Mintin}`)}
 					justifySelf='end'
 				>
 					Mint tBTC

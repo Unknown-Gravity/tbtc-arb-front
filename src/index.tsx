@@ -10,16 +10,11 @@ import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
 
 // 1. Get projectId
 const projectId =
-	process.env.REACT_APP_WEB3MODAL_PROJECTID || 'YOUR_PROJECT_ID';
+	process.env.REACT_APP_WEB3MODAL_PROJECTID ||
+	'dfd7f123447ea173608e4dc22191511f';
 
 // 2. Set chains
-const mainnet = {
-	chainId: 1,
-	name: 'Ethereum',
-	currency: 'ETH',
-	explorerUrl: 'https://etherscan.io',
-	rpcUrl: 'https://cloudflare-eth.com',
-};
+
 const sepolia = {
 	chainId: 421614,
 	name: 'Arbitrum Sepolia',
@@ -52,7 +47,7 @@ const ethersConfig = defaultConfig({
 // 5. Create a Web3Modal instance
 createWeb3Modal({
 	ethersConfig,
-	chains: [mainnet, sepolia],
+	chains: [sepolia],
 	projectId,
 	enableAnalytics: true, // Optional - defaults to your Cloud configuration
 });

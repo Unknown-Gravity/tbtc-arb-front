@@ -20,8 +20,15 @@ const IconJoincomponent = (props: Props) => {
 			as={Link}
 			href={props.link}
 			isExternal={true}
+			role='group'
 		>
-			<Icon as={props.icon} color='brand.purple.900' boxSize='41px' />
+			<Icon
+				as={props.icon}
+				color='brand.purple.900'
+				boxSize='41px'
+				transition='filter 0.2'
+				_groupHover={{ filter: 'brightness(1.25)' }}
+			/>
 			<Text fontSize='13.9' lineHeight='21px' fontWeight={700}>
 				{props.label}
 			</Text>

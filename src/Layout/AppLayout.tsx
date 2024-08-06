@@ -84,7 +84,7 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 					onOpen={onOpen}
 					isMobile={isMobile}
 				/>
-				<Box w='100%' py={4} pl={{ base: 4, xl: 18 }}>
+				<Box w='100%' py={'64px'} pl={{ base: 4, xl: 18 }}>
 					{component}
 				</Box>
 			</Flex>

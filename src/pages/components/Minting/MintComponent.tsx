@@ -1,5 +1,4 @@
 import {
-	Box,
 	Flex,
 	Image,
 	Link,
@@ -23,6 +22,9 @@ import Step3MintingProcess from './components/MintingProcess/Step3MintingProcess
 import Step2MintingProcess from './components/MintingProcess/Step2MintingProcess/Step2MintingProcess';
 import DividerCustom from '../../../components/DividerCustom';
 import TransactionHistory from './components/MintingProcess/Step3MintingProcess/TransactionHistory';
+import { useWeb3Modal } from '@web3modal/ethers/react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../types/RootState';
 
 type Props = {
 	isConnected: boolean;
@@ -34,6 +36,8 @@ const MintComponent = (props: Props) => {
 	const [btcAddress, setBtcAdress] = useState('');
 	const [errorMsg, setErrorMsg] = useState('');
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { open } = useWeb3Modal();
+	const provider = useSelector((state: RootState) => state.account.provider);
 	const [btcTxHash, setTxHash] = useState<string | undefined>('A');
 	const [arbitrumTxHash, setArbitrumTxHash] = useState<string | undefined>(
 		'A',
@@ -44,17 +48,20 @@ const MintComponent = (props: Props) => {
 	const [finalizedEthTxHash, setFinalizedEthTxHash] = useState<
 		string | undefined
 	>(undefined);
+	const chainId = provider?._network.chainId.toString();
 
 	const handleClick = () => {
 		if (btcAddress === '') {
 			setErrorMsg('The recovery address can´t be empty');
-		} else {
+		} else if (chainId === '421614') {
 			try {
 				address.toOutputScript(btcAddress);
 				setStep(2); // If the address is valid, proceed to the next step
 			} catch (error) {
 				setErrorMsg('Invalid Bitcoin address');
 			}
+		} else {
+			open({ view: 'Networks' });
 		}
 	};
 
@@ -85,7 +92,7 @@ const MintComponent = (props: Props) => {
 
 			<Flex w='100%' flexDirection={{ base: 'column', xl: 'row' }}>
 				<Stack spacing={0} maxW={{ base: 'none', xl: '448px' }}>
-					<Flex alignItems='center' gap='9px'>
+					<Flex alignItems='center' gap='9px' zIndex={10}>
 						{step === 2 && (
 							<ArrowBackIcon
 								boxSize='24px'

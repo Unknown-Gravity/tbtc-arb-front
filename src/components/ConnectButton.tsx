@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button, Box, Flex, ButtonProps } from '@chakra-ui/react';
 import {
+	useDisconnect,
 	useWeb3Modal,
 	useWeb3ModalAccount,
 	useWeb3ModalProvider,
@@ -9,15 +10,16 @@ import { ethers } from 'ethers';
 import { useDispatch } from 'react-redux';
 import { addAccount } from '../redux/reducers/AccountReducer';
 import { normalizeNetWorkNames } from '../utils/utils';
+import { ArbitrumIcon } from '../assets/icons/ArbitrumIcon';
+import { FaQuestionCircle } from 'react-icons/fa';
 
 const ConnectButton = (props: ButtonProps) => {
 	const { address, isConnected } = useWeb3ModalAccount();
 	const { walletProvider } = useWeb3ModalProvider();
 	const [networkName, setNetWorkName] = useState('');
 	const [needRefresh, setNeedRefresh] = useState(true);
-
 	const { open } = useWeb3Modal();
-
+	const { disconnect } = useDisconnect();
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -31,13 +33,37 @@ const ConnectButton = (props: ButtonProps) => {
 				dispatch(addAccount(provider, signer, ethBalance));
 				setNeedRefresh(false);
 				setNetWorkName(network.name);
+
+				const handleChainChanged = (chainId: string) => {
+					console.log(`Chain changed to ${chainId}`);
+					if (chainId.toString() !== '421614') {
+						open({ view: 'Networks' });
+					}
+				};
+
+				(walletProvider as any).on('chainChanged', handleChainChanged);
+
+				// Clean up listeners on component unmount
+				return () => {
+					if ((walletProvider as any)?.removeListener) {
+						(walletProvider as any).removeListener(
+							'chainChanged',
+							handleChainChanged,
+						);
+					}
+				};
 			}
 		};
-		getBalance();
-	}, [address, walletProvider, needRefresh, dispatch]);
 
-	const handleConnectWallet = () => {
-		!isConnected ? open({ view: 'Connect' }) : open({ view: 'Account' });
+		getBalance();
+	}, [address, walletProvider, needRefresh, dispatch, disconnect]);
+
+	const handleConnectWallet = async () => {
+		if (!isConnected) {
+			await open({ view: 'Connect' });
+		} else {
+			open({ view: 'Account' });
+		}
 	};
 
 	return (
@@ -52,7 +78,12 @@ const ConnectButton = (props: ButtonProps) => {
 				</Button>
 			) : (
 				<Flex gap='10px'>
-					<Button bg='none' fontSize={{ base: '12px', md: '16px' }}>
+					<Button
+						bg='none'
+						fontSize={{ base: '12px', md: '16px' }}
+						variant='grayOutlined'
+						leftIcon={<ArbitrumIcon boxSize='17px' />}
+					>
 						{normalizeNetWorkNames(networkName)}
 					</Button>
 					<Button

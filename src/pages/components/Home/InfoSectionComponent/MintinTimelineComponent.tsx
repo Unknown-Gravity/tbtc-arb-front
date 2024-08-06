@@ -11,6 +11,7 @@ import {
 	useSteps,
 } from '@chakra-ui/react';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
+import { UpRightIcon } from '../../../../assets/icons/UpRightIcon';
 
 type Props = {};
 
@@ -48,7 +49,10 @@ const MintinTimelineComponent = (props: Props) => {
 							Provide an ETH address and a BTC Return address to
 							generate a unique BTC deposit address.
 						</Text>
-						<Link variant='purpleDarkGradient'>Read more</Link>
+						<Link variant='purpleDarkGradient'>
+							Read More
+							<UpRightIcon />
+						</Link>
 					</Stack>
 
 					<StepSeparator />
@@ -66,7 +70,6 @@ const MintinTimelineComponent = (props: Props) => {
 					</Text>
 					<Text lineHeight='24px'>
 						<Box
-							as='span'
 							color='brand.purple.900'
 							display='inline-block'
 							verticalAlign='middle'
@@ -91,7 +94,6 @@ const MintinTimelineComponent = (props: Props) => {
 					</Text>
 					<Text lineHeight='24px'>
 						<Box
-							as='span'
 							color='brand.purple.900'
 							display='inline-block'
 							verticalAlign='middle'
@@ -103,13 +105,13 @@ const MintinTimelineComponent = (props: Props) => {
 						</Box>
 						Providing a BTC refund address means your bitcoin will
 						be safe, even in the unlikely case of an error minting.{' '}
-						<Link as='span' variant='purpleDarkGradient'>
-							Read more
+						<Link variant='purpleDarkGradient'>
+							Read More
+							<UpRightIcon />
 						</Link>
 					</Text>
 					<Text lineHeight='24px'>
 						<Box
-							as='span'
 							color='brand.purple.900'
 							display='inline-block'
 							verticalAlign='middle'
@@ -122,14 +124,14 @@ const MintinTimelineComponent = (props: Props) => {
 						Make sure you provide a single BTC recovery address that
 						you control. Don't use a multi-sig or an exchange
 						address. You can read more about the requirements and
-						P2PKH.
-						<Link as='span' variant='purpleDarkGradient'>
-							Read more
+						P2PKH.{' '}
+						<Link variant='purpleDarkGradient'>
+							Read More
+							<UpRightIcon />
 						</Link>
 					</Text>
 					<Text lineHeight='24px'>
 						<Box
-							as='span'
 							color='brand.purple.900'
 							display='inline-block'
 							verticalAlign='middle'
@@ -139,17 +141,21 @@ const MintinTimelineComponent = (props: Props) => {
 								style={{ minWidth: '16px' }}
 							/>
 						</Box>
-						Based on these two addresses, the protocol will create a
-						unique BTC deposit address using a P2SWH for each user.
-						<Link as='span' variant='purpleDarkGradient'>
-							Read more
+						This address has to start with “1” or “bc1”for Bitcoin
+						Mainnet and with “m”, “n” or “tb1” for Testnet Bitcoin.
+						This means that your addresses are P2PKH or P2WPKH
+						compliant.{' '}
+						<Link variant='purpleDarkGradient'>
+							Read More
+							<UpRightIcon />
 						</Link>
 					</Text>
 					<Text lineHeight='24px'>
 						Based on these two addresses, the protocol will create a
-						unique BTC deposit address using a P2SWH for each user.
-						<Link as='span' variant='purpleDarkGradient'>
-							Read more
+						unique BTC deposit address using a P2SWH for each user.{' '}
+						<Link variant='purpleDarkGradient'>
+							Read More
+							<UpRightIcon />
 						</Link>
 					</Text>
 				</Stack>
