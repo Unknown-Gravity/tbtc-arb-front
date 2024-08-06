@@ -77,25 +77,25 @@ export const reports = [
 		id: 1,
 		name: 'Least Authority Report',
 		description: 'tBTC Bridge v2 Security',
-		link: 'hhtps://google.es',
+		link: 'https://leastauthority.com/blog/audits/audit-of-keep-network-tbtc-bridge-v2/',
 	},
 	{
 		id: 2,
 		name: 'CertiK Report',
 		description: 'Vending Machine Security',
-		link: 'hhtps://google.es',
+		link: 'https://skynet.certik.com/projects/threshold-network',
 	},
 	{
 		id: 3,
 		name: 'ChainSecurity Report',
 		description: 'Staking Contract, T Token, Vending Machine Security',
-		link: 'hhtps://google.es',
+		link: 'https://www.chainsecurity.com/security-audit/threshold-network',
 	},
 	{
 		id: 4,
 		name: 'Mintin service Report',
 		description: 'Staking Contract, T Token, Vending Machine Security',
-		link: 'hhtps://google.es',
+		link: 'https://leastauthority.com/blog/audits/audit-of-keep-network-solana-smart-contracts/',
 	},
 ];
 
@@ -296,3 +296,11 @@ export const transactionExplorer: Array<Transaction> = [
 		tx: '0xabcdef1234567890abcdefabcdefabcdef1234567890abcdefabcdefabcdefabcd',
 	},
 ];
+
+export const socialMedia = {
+	youtube: 'https://www.youtube.com/channel/UCMEW6scsXJFigeeLhSCPF5Q',
+	x: 'https://x.com/TheTNetwork',
+	discord: 'https://discord.com/invite/Threshold',
+	github: 'https://github.com/threshold-network',
+	forum: 'https://forum.threshold.network/',
+};

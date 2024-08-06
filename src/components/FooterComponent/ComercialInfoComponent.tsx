@@ -1,6 +1,8 @@
 import {
 	Box,
 	Flex,
+	Icon,
+	Link,
 	Stack,
 	Text,
 	useColorMode,
@@ -9,7 +11,10 @@ import {
 import ThresholdIcon from '../../assets/icons/ThresholdIcon';
 import { BitcoinFilledIcon } from '../../assets/icons/BitcoinFilledIcon';
 import { BsDiscord, BsTwitterX, BsYoutube } from 'react-icons/bs';
+import { TbBrandGithubFilled } from 'react-icons/tb';
+import FooterIcon from './FooterIcon';
 import { GitHubIcon } from '../../assets/icons/GitHubIcon';
+import { socialMedia } from '../../data/mockData';
 
 type Props = {};
 
@@ -33,7 +38,12 @@ const ComercialInfoComponent = (props: Props) => {
 					/>
 					<Text variant='gray'>tBTC</Text>
 				</Stack>
-				<BitcoinFilledIcon color='brand.purple.900' boxSize='56px' />
+
+				<BitcoinFilledIcon
+					color='brand.purple.900'
+					boxSize='56px'
+					fill={colorMode === 'light' ? 'white' : 'dark.primaryGray'}
+				/>
 			</Flex>
 			<Text
 				fontSize='13.9px'
@@ -45,50 +55,14 @@ const ComercialInfoComponent = (props: Props) => {
 				Curated by Threshold DAO Developed by Unknown Gravity
 			</Text>
 			<Flex gap='12px' mt='20px'>
-				<Flex
-					w='24px'
-					aspectRatio={1}
-					bg='brand.purple.900'
-					placeContent='center'
-					borderRadius='50%'
-				>
-					<BsYoutube size='14px' color='white' />
-				</Flex>
-				<Flex
-					w='24px'
-					aspectRatio={1}
-					bg='brand.purple.900'
-					placeContent='center'
-					borderRadius='50%'
-				>
-					<BsTwitterX size='13.5px' color='white' />
-				</Flex>
-				<Flex
-					w='24px'
-					aspectRatio={1}
-					bg='brand.purple.900'
-					placeContent='center'
-					borderRadius='50%'
-				>
-					<BsDiscord size='14px' color='white' />
-				</Flex>
-				<Box
-					bg='white'
-					h='22px'
-					w='22px'
-					position='relative'
-					borderRadius='50%'
-					transform='translateY(2px)'
-				>
-					<GitHubIcon
-						borderRadius='50%'
-						boxSize='24px'
-						color={purple}
-						position='absolute'
-						bottom={0}
-						left='-0.5px'
-					/>{' '}
-				</Box>
+				<FooterIcon link={socialMedia.youtube} icon={BsYoutube} />
+				<FooterIcon link={socialMedia.x} icon={BsTwitterX} />
+				<FooterIcon link={socialMedia.discord} icon={BsDiscord} />
+				<FooterIcon
+					link={socialMedia.github}
+					icon={GitHubIcon}
+					solid={true}
+				/>
 			</Flex>
 			<Text
 				fontSize='13.9px'

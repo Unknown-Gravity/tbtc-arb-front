@@ -9,6 +9,7 @@ import {
 import { HiMoon } from 'react-icons/hi';
 import { HiOutlineSun } from 'react-icons/hi';
 import ConnectButton from './ConnectButton';
+import { useParams } from 'react-router-dom';
 
 type Props = {
 	isOpen: boolean;
