@@ -1,10 +1,7 @@
 import HeaderExploreComponent from './components/Explore/HeaderExploreComponent';
 import { CustomBox } from '../components/CustomBox';
-import { DuneClient } from '@duneanalytics/client-sdk';
-import { Image, Stack, useColorModeValue } from '@chakra-ui/react';
+import { Stack } from '@chakra-ui/react';
 import HistoryExploreComponent from './components/Explore/HistoryExploreComponent';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 type Props = {};
 

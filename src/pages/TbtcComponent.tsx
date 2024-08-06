@@ -30,14 +30,6 @@ const TbtcComponent = (props: Props) => {
 
 	return (
 		<>
-			{isConnected && (
-				<CustomBox
-					w={{ base: '100%', xl: '1120px' }}
-					mt='64px'
-					mb='20px'
-					mx='auto'
-				></CustomBox>
-			)}
 			<Grid
 				maxW='1120px'
 				minH='720px'

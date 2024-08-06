@@ -1,4 +1,10 @@
-import { Box, Stack, useColorModeValue, useTheme } from '@chakra-ui/react';
+import {
+	Box,
+	Icon,
+	Stack,
+	useColorModeValue,
+	useTheme,
+} from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { HouseIcon } from '../../assets/icons/HouseIcon';
@@ -10,6 +16,9 @@ import { DiscorIcon } from '../../assets/icons/DiscordIcon';
 import { SidebarArrow } from '../../assets/icons/SidebarArrow';
 import { LogoAloneIcon } from '../../assets/icons/LogoAlone';
 import LogoIcon from '../../assets/icons/LogoIcon';
+import { useNavigate } from 'react-router-dom';
+import { ExternalRoutes, PublicRoutes } from '../../Routes/Routes';
+import { publicLinks } from '../../Routes/Routes';
 
 const MotionBox = motion(Box);
 
@@ -17,13 +26,13 @@ type Props = {
 	isOpen: boolean;
 	onOpen: () => void;
 	onClick: (tag: number) => void;
+	path: string;
 };
 
 const SideBarComponent = (props: Props) => {
 	const [sideBarWidth, setSideBarWidth] = useState('');
-	const [selectedTag, setSelectedTag] = useState<number | undefined>(1);
 	const [hasAnimated, setHasAnimated] = useState(false);
-
+	const navigate = useNavigate();
 	const theme = useTheme();
 	const borderColor = theme.colors.brand.purple[900];
 	const sidebarBG = useColorModeValue('white', 'dark.primaryGray');
@@ -38,10 +47,6 @@ const SideBarComponent = (props: Props) => {
 			setHasAnimated(true);
 		}
 	}, [hasAnimated, props.isOpen]);
-
-	const handleChangeTag = (tag: number) => {
-		setSelectedTag(tag);
-	};
 
 	return (
 		<Stack
@@ -136,30 +141,17 @@ const SideBarComponent = (props: Props) => {
 				)}
 
 				<Stack>
-					<IconSideBar
-						tag={1}
-						selectedTag={selectedTag}
-						icon={HouseIcon}
-						setSelectedTag={handleChangeTag}
-						isOpen={props.isOpen}
-						text='Overview'
-					/>
-					<IconSideBar
-						tag={2}
-						selectedTag={selectedTag}
-						icon={BitcoinIcon}
-						setSelectedTag={handleChangeTag}
-						isOpen={props.isOpen}
-						text='tBTC'
-					/>
-					<IconSideBar
-						tag={3}
-						selectedTag={selectedTag}
-						icon={SearchIcon}
-						setSelectedTag={handleChangeTag}
-						isOpen={props.isOpen}
-						text='Explorer'
-					/>
+					{publicLinks.map((link, index) => {
+						return (
+							<IconSideBar
+								icon={link.icon ?? Icon}
+								isOpen={props.isOpen}
+								text='Explorer'
+								filled={props.path === link.link}
+								onClick={() => navigate(`/${link.link}`)}
+							/>
+						);
+					})}
 				</Stack>
 			</Stack>
 			<Stack>
@@ -167,11 +159,13 @@ const SideBarComponent = (props: Props) => {
 					icon={GitHubIcon}
 					isOpen={props.isOpen}
 					text='GitHub'
+					link={ExternalRoutes.Github}
 				/>
 				<IconSideBar
 					icon={DiscorIcon}
 					isOpen={props.isOpen}
 					text='Discord'
+					link={ExternalRoutes.Discord}
 				/>
 			</Stack>
 		</Stack>

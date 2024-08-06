@@ -17,19 +17,18 @@ import { BitcoinIcon } from '../../assets/icons/BitcoinIcon';
 import { SearchIcon } from '../../assets/icons/SearchIcon';
 import { GitHubIcon } from '../../assets/icons/GitHubIcon';
 import { DiscorIcon } from '../../assets/icons/DiscordIcon';
+import { ExternalRoutes, PublicRoutes } from '../../Routes/Routes';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
 	isOpen: boolean;
 	onClose: () => void;
 	onClick: (tag: number) => void;
+	path: string;
 };
 
 const DrawerComponent = (props: Props) => {
-	const [selectedTag, setSelectedTag] = useState<number | undefined>(1);
-
-	const handleClick = (tag: number) => {
-		setSelectedTag(tag);
-	};
+	const navigate = useNavigate();
 
 	return (
 		<Drawer isOpen={props.isOpen} placement='left' onClose={props.onClose}>
@@ -45,28 +44,25 @@ const DrawerComponent = (props: Props) => {
 
 				<DrawerBody display='flex' flexDir='column' gap='20px'>
 					<IconSideBar
-						tag={1}
 						icon={HouseIcon}
-						isOpen={true}
-						selectedTag={selectedTag}
-						setSelectedTag={handleClick}
+						isOpen={props.isOpen}
 						text='Overview'
+						filled={props.path === PublicRoutes.Home}
+						onClick={() => navigate(`/${PublicRoutes.Home}`)}
 					/>
 					<IconSideBar
-						tag={2}
 						icon={BitcoinIcon}
-						isOpen={true}
-						selectedTag={selectedTag}
-						setSelectedTag={handleClick}
-						text='Overview'
+						isOpen={props.isOpen}
+						text='tBTC'
+						filled={props.path === PublicRoutes.Mintin}
+						onClick={() => navigate(`/${PublicRoutes.Mintin}`)}
 					/>
 					<IconSideBar
-						tag={3}
 						icon={SearchIcon}
-						isOpen={true}
-						selectedTag={selectedTag}
-						setSelectedTag={handleClick}
-						text='Overview'
+						isOpen={props.isOpen}
+						text='Explorer'
+						filled={props.path === PublicRoutes.Explore}
+						onClick={() => navigate(`/${PublicRoutes.Explore}`)}
 					/>
 				</DrawerBody>
 				<DrawerFooter justifyContent='center' flexDir='column'>
@@ -75,11 +71,13 @@ const DrawerComponent = (props: Props) => {
 							icon={GitHubIcon}
 							isOpen={false}
 							text='GitHub'
+							link={ExternalRoutes.Github}
 						/>
 						<IconSideBar
 							icon={DiscorIcon}
 							isOpen={false}
 							text='Discord'
+							link={ExternalRoutes.Discord}
 						/>
 					</Flex>
 					<Text fontSize='10px'>© 2024 Threshold Network</Text>
