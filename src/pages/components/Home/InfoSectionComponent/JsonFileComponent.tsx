@@ -7,7 +7,13 @@ const JsonFileComponent = () => {
 	const { colorMode } = useColorMode();
 
 	return (
-		<CustomBox as={Stack} maxW='100%' gap='20px' p='25px' h='738px'>
+		<CustomBox
+			as={Stack}
+			maxW='100%'
+			gap='20px'
+			p='25px'
+			h={{ base: 'auto', xl: '738px' }}
+		>
 			<Text fontSize='24px' fontWeight={700} lineHeight='16px'>
 				JSON file for fund recoveries
 			</Text>

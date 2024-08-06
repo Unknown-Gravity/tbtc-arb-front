@@ -1,25 +1,26 @@
 import { Box, Stack, useColorModeValue, useTheme } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { HouseIcon } from '../assets/icons/HouseIcon';
-import { BitcoinIcon } from '../assets/icons/BitcoinIcon';
-import { SearchIcon } from '../assets/icons/SearchIcon';
-import IconSideBar from './SideBarComponent/IconSideBar';
-import { GitHubIcon } from '../assets/icons/GitHubIcon';
-import { DiscorIcon } from '../assets/icons/DiscordIcon';
-import { SidebarArrow } from '../assets/icons/SidebarArrow';
-import { LogoAloneIcon } from '../assets/icons/LogoAlone';
-import LogoIcon from '../assets/icons/LogoIcon';
+import { useEffect, useState } from 'react';
+import { HouseIcon } from '../../assets/icons/HouseIcon';
+import { BitcoinIcon } from '../../assets/icons/BitcoinIcon';
+import { SearchIcon } from '../../assets/icons/SearchIcon';
+import IconSideBar from './IconSideBar';
+import { GitHubIcon } from '../../assets/icons/GitHubIcon';
+import { DiscorIcon } from '../../assets/icons/DiscordIcon';
+import { SidebarArrow } from '../../assets/icons/SidebarArrow';
+import { LogoAloneIcon } from '../../assets/icons/LogoAlone';
+import LogoIcon from '../../assets/icons/LogoIcon';
 
 const MotionBox = motion(Box);
 
 type Props = {
 	isOpen: boolean;
-	onClick: () => void;
+	onOpen: () => void;
+	onClick: (tag: number) => void;
 };
 
 const SideBarComponent = (props: Props) => {
-	const [sideBarWidth, setSideBarWidth] = useState('57px');
+	const [sideBarWidth, setSideBarWidth] = useState('');
 	const [selectedTag, setSelectedTag] = useState<number | undefined>(1);
 	const [hasAnimated, setHasAnimated] = useState(false);
 
@@ -27,13 +28,19 @@ const SideBarComponent = (props: Props) => {
 	const borderColor = theme.colors.brand.purple[900];
 	const sidebarBG = useColorModeValue('white', 'dark.primaryGray');
 	const logoColor = useColorModeValue('brand.purple.900', 'white');
-
 	const handleClick = () => {
-		props.onClick();
-		setSideBarWidth(sideBarWidth === '57px' ? '155px' : '57px');
+		props.onOpen();
+	};
+
+	useEffect(() => {
+		props.isOpen ? setSideBarWidth('155px') : setSideBarWidth('55px');
 		if (!hasAnimated) {
 			setHasAnimated(true);
 		}
+	}, [hasAnimated, props.isOpen]);
+
+	const handleChangeTag = (tag: number) => {
+		setSelectedTag(tag);
 	};
 
 	return (
@@ -133,7 +140,7 @@ const SideBarComponent = (props: Props) => {
 						tag={1}
 						selectedTag={selectedTag}
 						icon={HouseIcon}
-						setSelectedTag={setSelectedTag}
+						setSelectedTag={handleChangeTag}
 						isOpen={props.isOpen}
 						text='Overview'
 					/>
@@ -141,7 +148,7 @@ const SideBarComponent = (props: Props) => {
 						tag={2}
 						selectedTag={selectedTag}
 						icon={BitcoinIcon}
-						setSelectedTag={setSelectedTag}
+						setSelectedTag={handleChangeTag}
 						isOpen={props.isOpen}
 						text='tBTC'
 					/>
@@ -149,7 +156,7 @@ const SideBarComponent = (props: Props) => {
 						tag={3}
 						selectedTag={selectedTag}
 						icon={SearchIcon}
-						setSelectedTag={setSelectedTag}
+						setSelectedTag={handleChangeTag}
 						isOpen={props.isOpen}
 						text='Explorer'
 					/>

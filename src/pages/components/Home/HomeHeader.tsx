@@ -5,6 +5,7 @@ import {
 	Stack,
 	Text,
 	useColorModeValue,
+	useMediaQuery,
 } from '@chakra-ui/react';
 import {
 	DarkBackground,
@@ -15,6 +16,7 @@ import {
 import { FC } from 'react';
 
 const HomeHeader: FC = () => {
+	const [isMobile] = useMediaQuery('(min-width: 820px)');
 	const backgroundImage = useColorModeValue(LightBackground, DarkBackground);
 	const coins = useColorModeValue(LightCoins, DarkCoins);
 
@@ -74,7 +76,7 @@ const HomeHeader: FC = () => {
 							Bridge your Bitcoin and start earning.
 						</Text>
 					</Stack>
-					<Image src={coins} />
+					{isMobile && <Image src={coins} />}
 				</Flex>
 			</Flex>
 		</Box>

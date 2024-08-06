@@ -12,7 +12,6 @@ const Home: FC = () => {
 	const [showMintWindow, setShowMintWindow] = useState(true);
 
 	const btc = convertBTCToCurrency(3355.58, 'USD');
-	console.log('🚀 ~ btc:', btc);
 
 	const handleCloseBanner = (): void => {
 		setShowMintWindow(false);

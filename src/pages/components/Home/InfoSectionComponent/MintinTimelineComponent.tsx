@@ -14,28 +14,14 @@ import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 
 type Props = {};
 
-const steps = [
-	{ title: 'First', description: 'Contact Info' },
-	{ title: 'Second', description: 'Date & Time' },
-	{ title: 'Third', description: 'Select Rooms' },
-];
-
 const MintinTimelineComponent = (props: Props) => {
 	const { colorMode } = useColorMode();
 	const { activeStep } = useSteps({
 		index: 1,
-		count: steps.length,
 	});
 
 	return (
-		<CustomBox
-			w='100%'
-			fontSize='14px'
-			h='993px'
-			p={'24.5px, 25px, 0px, 25px'}
-			pl='24.5px'
-			py='25px'
-		>
+		<CustomBox w='100%' fontSize='14px' h={{ xl: '993px' }} p='25px'>
 			<Text fontSize='24px' fontWeight={700} lineHeight='16px' mb='16px'>
 				Bridging duration
 			</Text>
@@ -43,40 +29,38 @@ const MintinTimelineComponent = (props: Props) => {
 			<Stepper
 				index={activeStep}
 				orientation='vertical'
-				gap={5}
-				maxW='400px'
-				w='100%'
+				gap={8}
+				w={{ base: '100%', xl: '502px' }}
 				variant='main'
 			>
 				<Step>
 					<StepIndicator>
 						<StepStatus
-							complete={<StepNumber />}
-							incomplete={<StepNumber />}
-							active={<StepNumber />}
+							complete={<StepNumber>1</StepNumber>}
+							incomplete={<StepNumber>1</StepNumber>}
+							active={<StepNumber>1</StepNumber>}
 						/>
 					</StepIndicator>
 
-					<Stack flexShrink='0' maxW={'400px'} gap='16px' h='128px'>
+					<Stack flexShrink='0' w='100%' maxW='470px'>
 						<StepTitle>PROVIDE A DEPOSIT ADDRESS</StepTitle>
 						<Text lineHeight='24px'>
 							Provide an ETH address and a BTC Return address to
-							generate a unique BTC deposit address.{' '}
-							<Link as='span' variant='purpleDarkGradient'>
-								Read more
-							</Link>
+							generate a unique BTC deposit address.
 						</Text>
+						<Link variant='purpleDarkGradient'>Read more</Link>
 					</Stack>
 
 					<StepSeparator />
 				</Step>
-				<Stack>
+				<Stack w='100%' gap='16px' fontSize='16px'>
 					<Text
 						mt={2}
 						px={2}
 						borderRadius='6px'
 						bg={colorMode === 'light' ? 'light.lightGray' : 'none'}
 						py={1}
+						w='fit-content'
 					>
 						ETH Address
 					</Text>
@@ -101,6 +85,7 @@ const MintinTimelineComponent = (props: Props) => {
 						borderRadius='6px'
 						bg={colorMode === 'light' ? 'light.lightGray' : 'none'}
 						py={1}
+						w='fit-content'
 					>
 						Recovery BTC Address
 					</Text>
@@ -177,10 +162,10 @@ const MintinTimelineComponent = (props: Props) => {
 						/>
 					</StepIndicator>
 
-					<Stack h='140px'>
+					<Stack w='100%' h='140px'>
 						<StepTitle>Make a BTC deposit</StepTitle>
 						<Text lineHeight='24px'>
-							Send any amount lager than 0.01 BTC to this unique
+							Send any amount larger than 0.01 BTC to this unique
 							BTC Deposit Address. The amount sent will be used to
 							mint tBTC.
 						</Text>
@@ -195,7 +180,7 @@ const MintinTimelineComponent = (props: Props) => {
 							active={<StepNumber>3</StepNumber>}
 						/>
 					</StepIndicator>
-					<Stack h='140px'>
+					<Stack w='100%' h='140px'>
 						<StepTitle>Initiate minting</StepTitle>
 						<Text lineHeight='24px'>
 							Minting tBTC does not require you to wait for the

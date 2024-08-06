@@ -5,7 +5,7 @@ import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 const Section1InfoComponent = () => {
 	return (
 		<CustomBox
-			minW={{ base: '100%', '2xl': '1134px' }}
+			minW={{ base: '100%', xl: '1134px' }}
 			mx='auto'
 			p='30px 40px 30px 40px'
 		>

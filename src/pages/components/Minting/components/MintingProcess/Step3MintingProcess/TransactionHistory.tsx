@@ -51,8 +51,8 @@ const TransactionHistory = (props: Props) => {
 	};
 
 	return (
-		<Stack spacing={0} w='244px'>
-			<Stack gap='20px'>
+		<Stack spacing={0} w={'100%'}>
+			<Stack gap='20px' w='100%'>
 				<Text
 					fontSize='14px'
 					fontWeight={600}

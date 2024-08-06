@@ -1,6 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ethers } from 'ethers';
 
-const initialState = {
+// Define the initial state type
+interface AccountState {
+	provider: ethers.BrowserProvider | null;
+	signer: ethers.JsonRpcSigner | null;
+	balance: string;
+}
+
+// Define the initial state
+const initialState: AccountState = {
 	provider: null,
 	signer: null,
 	balance: '0',
@@ -18,11 +27,26 @@ export const accountSlice = createSlice({
 	initialState,
 	reducers: {
 		reset: () => initialState,
-		addAccount: (state, action) => {
-			const { provider, signer, balance } = action.payload;
-			state.provider = provider;
-			state.signer = signer;
-			state.balance = balance;
+		addAccount: {
+			reducer: (state, action: PayloadAction<AccountState>) => {
+				const { provider, signer, balance } = action.payload;
+				state.provider = provider;
+				state.signer = signer;
+				state.balance = balance;
+			},
+			prepare: (
+				provider: ethers.BrowserProvider,
+				signer: ethers.JsonRpcSigner,
+				balance: string,
+			) => {
+				return {
+					payload: {
+						provider,
+						signer,
+						balance,
+					},
+				};
+			},
 		},
 	},
 });

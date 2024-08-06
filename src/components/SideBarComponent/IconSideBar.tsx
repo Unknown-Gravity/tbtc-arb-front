@@ -1,18 +1,17 @@
 import {
-	As,
 	Flex,
 	Icon,
 	Text,
 	useColorModeValue,
 	useTheme,
+	As,
 } from '@chakra-ui/react';
-import { Dispatch, SetStateAction } from 'react';
 
 type Props = {
 	tag?: number;
 	selectedTag?: number;
 	icon: As;
-	setSelectedTag?: Dispatch<SetStateAction<number | undefined>>;
+	setSelectedTag?: (tag: number) => void;
 	isOpen?: boolean;
 	text?: string;
 };
@@ -32,11 +31,17 @@ const IconSideBar = ({
 		'dark.coolGray',
 	);
 
+	const handleClick = () => {
+		if (tag !== undefined && setSelectedTag) {
+			setSelectedTag(tag);
+		}
+	};
+
 	return (
 		<Flex
 			px='10px'
 			py='10px'
-			onClick={setSelectedTag ? () => setSelectedTag(tag) : undefined}
+			onClick={handleClick}
 			cursor='pointer'
 			transition='background-color 0.5s ease-in-out'
 			alignItems='center'
@@ -44,6 +49,7 @@ const IconSideBar = ({
 			bg={tag ? (tag === selectedTag ? borderColor : 'none') : 'none'}
 			m='5px'
 			borderRadius='5px'
+			_hover={{ bg: tag !== selectedTag ? 'brand.purple.910' : 'auto' }}
 		>
 			<Icon
 				as={icon}

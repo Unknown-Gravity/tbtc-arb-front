@@ -1,15 +1,19 @@
-import { Spinner, SpinnerProps } from '@chakra-ui/react';
+import { Spinner, SpinnerProps, useColorModeValue } from '@chakra-ui/react';
 
 const CustomSpinner = (props: SpinnerProps) => {
+	const emptyColorValue = useColorModeValue(
+		'light.superLightGray',
+		'dark.focusGray',
+	);
 	return (
 		<Spinner
 			{...props}
-			h='160px'
-			w='160px'
-			speed='1.5s'
-			thickness='12px'
-			color='brand.purple.900'
-			emptyColor='light.superLightGray'
+			h={props.h || '160px'}
+			w={props.w || '160px'}
+			speed={props.speed || '1.5s'}
+			thickness={props.thickness || '12px'}
+			color={props.color || 'brand.purple.900'}
+			emptyColor={props.emptyColor || emptyColorValue}
 		/>
 	);
 };

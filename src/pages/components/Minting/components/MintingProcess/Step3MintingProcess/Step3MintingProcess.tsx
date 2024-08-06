@@ -1,16 +1,15 @@
 import { Box, Flex, useColorMode, useSteps } from '@chakra-ui/react';
-import { Dispatch, SetStateAction, useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import ConfirmingMinting from './ConfirmingMinting';
 import Step3HeaderComponent from './Step3HeaderComponent';
-import TransactionHistory from './TransactionHistory';
 
 type Props = {};
 
 const Step3MintingProcess = (props: Props) => {
 	const { colorMode } = useColorMode();
-	const [confirmations, setConfirmations] = useState<number>(3);
-	const [initializedMint, setInitializedMint] = useState<boolean>(false);
-	const [finalizedMint, setFinalizedMint] = useState<boolean>(false);
+	const [confirmations, setConfirmations] = useState<number>(7);
+	const [initializedMint, setInitializedMint] = useState<boolean>(true);
+	const [finalizedMint, setFinalizedMint] = useState<boolean>(true);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [msg, setMsg] = useState({
 		header: 'Waiting for the Bitcoin Network confirmations',
@@ -31,20 +30,9 @@ const Step3MintingProcess = (props: Props) => {
 	);
 
 	const { activeStep, setActiveStep } = useSteps({
-		index: 0,
+		index: 2,
 		count: steps.length,
 	});
-
-	const [btcTxHash, setTxHash] = useState<string | undefined>('A');
-	const [arbitrumTxHash, setArbitrumTxHash] = useState<string | undefined>(
-		'A',
-	);
-	const [initializedEthTxHash, setInitializedEthTxHash] = useState<
-		string | undefined
-	>(undefined);
-	const [finalizedEthTxHash, setFinalizedEthTxHash] = useState<
-		string | undefined
-	>(undefined);
 
 	useEffect(() => {
 		if (confirmations >= 6 && !initializedMint && activeStep === 0) {
@@ -91,7 +79,7 @@ const Step3MintingProcess = (props: Props) => {
 
 	return (
 		<Flex>
-			<Box>
+			<Box h={{ base: 'auto', xl: '555px' }}>
 				<Step3HeaderComponent activeStep={activeStep} steps={steps} />
 				<ConfirmingMinting
 					isLoading={isLoading}
@@ -100,19 +88,6 @@ const Step3MintingProcess = (props: Props) => {
 					finalizedMinting={finalizedMint}
 				/>
 			</Box>
-			<Box
-				bg={colorMode === 'dark' ? 'white' : 'light.coolGray'}
-				alignSelf='start'
-				h={{ base: '1px', xl: '584px' }}
-				w={{ base: '100%', xl: '1px' }}
-				mx='22px'
-			></Box>
-			<TransactionHistory
-				btcTxHash={btcTxHash}
-				arbitrumTxHash={arbitrumTxHash}
-				initializedEthTxHash={initializedEthTxHash}
-				finalizedEthTxHash={finalizedEthTxHash}
-			/>
 		</Flex>
 	);
 };

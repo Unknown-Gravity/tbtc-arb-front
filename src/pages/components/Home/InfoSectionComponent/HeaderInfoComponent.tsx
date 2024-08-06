@@ -8,7 +8,7 @@ const HeaderInfoComponent: FC = () => {
 	return (
 		<Stack
 			alignItems='center'
-			minW={{ base: '100%', '2xl': '1134px' }}
+			minW={{ base: '100%', xl: '1134px' }}
 			mx='auto'
 			my={10}
 		>

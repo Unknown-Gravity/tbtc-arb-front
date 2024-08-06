@@ -6,7 +6,6 @@ import { PublicRoutes } from './Routes';
 import AuthGuard from './guard/AuthGuard';
 import AppLayout from '../Layout/AppLayout';
 import Home from '../pages/Home';
-import LandPageLayout from '../Layout/LandPageLayout';
 import Minting from '../pages/TbtcComponent';
 
 // import AppLayout from '../layouts/AppLayout';
@@ -27,7 +26,7 @@ const AppRoutes = memo(() => {
 			*/}
 			<Route
 				path={PublicRoutes.Home}
-				element={<LandPageLayout component={<Home />} />}
+				element={<AppLayout component={<Home />} />}
 			/>
 			<Route
 				path={PublicRoutes.Minting}

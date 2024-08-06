@@ -9,11 +9,11 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import { CustomBox } from '../../../components/CustomBox';
-import MintingProcessComponent from './components/MintingProcess/MintingProcessComponent';
+import MintingProcessComponent from './components/MintingProcessComponent';
 import TimelineComponent from './components/Timeline/TimelineComponent';
 import { ChangeEvent, useState } from 'react';
 import Step1MintingProcess from './components/MintingProcess/Step1MintingProcess';
-import TimeLineTemplate from './components/Timeline/TimelineTemplate';
+import TimeLineTemplate from './components/Timeline/TimelineMintingTemplate';
 import HeaderStepsMintingComponent from './components/MintingProcess/HeaderStepsMintingComponent';
 import { DarkStep1Timeline, LightStep1Timeline } from '../../../assets/images';
 import { address } from 'bitcoinjs-lib';
@@ -21,6 +21,8 @@ import { ArrowBackIcon } from '@chakra-ui/icons';
 import ModalMinting from './components/ModalMinting';
 import Step3MintingProcess from './components/MintingProcess/Step3MintingProcess/Step3MintingProcess';
 import Step2MintingProcess from './components/MintingProcess/Step2MintingProcess/Step2MintingProcess';
+import DividerCustom from '../../../components/DividerCustom';
+import TransactionHistory from './components/MintingProcess/Step3MintingProcess/TransactionHistory';
 
 type Props = {
 	isConnected: boolean;
@@ -32,6 +34,16 @@ const MintComponent = (props: Props) => {
 	const [btcAddress, setBtcAdress] = useState('');
 	const [errorMsg, setErrorMsg] = useState('');
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [btcTxHash, setTxHash] = useState<string | undefined>('A');
+	const [arbitrumTxHash, setArbitrumTxHash] = useState<string | undefined>(
+		'A',
+	);
+	const [initializedEthTxHash, setInitializedEthTxHash] = useState<
+		string | undefined
+	>(undefined);
+	const [finalizedEthTxHash, setFinalizedEthTxHash] = useState<
+		string | undefined
+	>(undefined);
 
 	const handleClick = () => {
 		if (btcAddress === '') {
@@ -61,11 +73,18 @@ const MintComponent = (props: Props) => {
 	};
 
 	return (
-		<CustomBox p='25px'>
+		<CustomBox
+			p='26px'
+			h={{ base: 'none', xl: step === 1 ? '634px' : 'fit-content' }}
+			maxH={{
+				base: 'none',
+				xl: step === 1 || step === 3 ? '634px' : 'none',
+			}}
+		>
 			<ModalMinting isOpen={isOpen} onClose={onClose} goBack={goBack} />
 
 			<Flex w='100%' flexDirection={{ base: 'column', xl: 'row' }}>
-				<Stack spacing={0}>
+				<Stack spacing={0} maxW={{ base: 'none', xl: '448px' }}>
 					<Flex alignItems='center' gap='9px'>
 						{step === 2 && (
 							<ArrowBackIcon
@@ -99,15 +118,7 @@ const MintComponent = (props: Props) => {
 					{props.isConnected && step === 3 && <Step3MintingProcess />}
 				</Stack>
 
-				{step < 3 && (
-					<Box
-						bg={colorMode === 'dark' ? 'white' : 'light.coolGray'}
-						alignSelf='start'
-						h={{ base: '1px', xl: '584px' }}
-						w={{ base: '100%', xl: '1px' }}
-						mx='22px'
-					></Box>
-				)}
+				<DividerCustom />
 				{!props.isConnected && <TimelineComponent />}
 				{props.isConnected && step === 1 && (
 					<TimeLineTemplate
@@ -142,6 +153,14 @@ const MintComponent = (props: Props) => {
 							mint tBTC.
 						</Text>
 					</TimeLineTemplate>
+				)}
+				{props.isConnected && step === 3 && (
+					<TransactionHistory
+						btcTxHash={btcTxHash}
+						arbitrumTxHash={arbitrumTxHash}
+						initializedEthTxHash={initializedEthTxHash}
+						finalizedEthTxHash={finalizedEthTxHash}
+					/>
 				)}
 			</Flex>
 		</CustomBox>

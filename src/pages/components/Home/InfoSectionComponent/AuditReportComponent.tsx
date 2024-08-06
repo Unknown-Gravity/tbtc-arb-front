@@ -7,7 +7,7 @@ import DocumentBoxComponent from './DocumentBoxComponent';
 const AuditReportComponent = () => {
 	return (
 		<CustomBox
-			h='504px'
+			h={{ base: 'auto', xl: '504px' }}
 			w='100%'
 			as={Stack}
 			justifyContent='space-between'
