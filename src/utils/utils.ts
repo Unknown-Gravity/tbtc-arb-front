@@ -69,9 +69,20 @@ export const convertBTCToCurrency = async (
 };
 
 export const getDifferenceInMinutes = (date1: Date, date2: Date) => {
-	const diffInMs = date2?.getMinutes() - date1.getMinutes();
+	const diffInMs = date2?.getTime() - date1.getTime();
+	const diffInMinutes = Math.floor(diffInMs / 60000);
 
-	return diffInMs;
+	if (diffInMinutes < 60) {
+		return `${diffInMinutes} minutes ago`;
+	}
+
+	const diffInHours = Math.floor(diffInMinutes / 60);
+	if (diffInHours < 24) {
+		return `${diffInHours} hours ago`;
+	}
+
+	const diffInDays = Math.floor(diffInHours / 24);
+	return `${diffInDays} days ago`;
 };
 
 export const normalizeNetWorkNames = (networkName: string): string => {

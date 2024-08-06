@@ -28,6 +28,8 @@ import DarkMainGridBackground from './darkMainGridBackground.svg';
 import LightUnmintImage from './lightUnmintImage.svg';
 import DarkUnmintImage from './darkUnmintImage.svg';
 import TransactionCompletedImage from './transactionCompletedImage.svg';
+import LightExploreBackground from './lightExploreBackground.svg';
+import DarkExploreBackground from './darkExploreBackground.svg';
 
 export {
 	Bridge,
@@ -60,4 +62,6 @@ export {
 	LightUnmintImage,
 	DarkUnmintImage,
 	TransactionCompletedImage,
+	LightExploreBackground,
+	DarkExploreBackground,
 };

@@ -28,7 +28,7 @@ const HomeHeader: FC = () => {
 		<Box
 			h='711px'
 			position='relative'
-			mx='-72px'
+			mx='-120px'
 			mt='-48px'
 			_before={{
 				content: '""',
