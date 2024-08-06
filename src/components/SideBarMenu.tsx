@@ -12,6 +12,7 @@ type Props = {
 
 const SideBarMenu = (props: Props) => {
 	const [selectedTag, setSelectedTag] = useState<number | undefined>(0);
+	const path = window.location.pathname.slice(1);
 
 	const handleClick = (tag: number) => {
 		setSelectedTag(tag);
@@ -27,12 +28,14 @@ const SideBarMenu = (props: Props) => {
 					isOpen={props.isOpen}
 					onOpen={handleOpen}
 					onClick={handleClick}
+					path={path}
 				/>
 			) : (
 				<DrawerComponent
 					onClose={props.onClose}
 					isOpen={props.isOpen}
 					onClick={handleClick}
+					path={path}
 				/>
 			)}
 		</>

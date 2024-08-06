@@ -1,27 +1,14 @@
-import {
-	Box,
-	Flex,
-	Icon,
-	Link,
-	Stack,
-	Text,
-	useColorMode,
-	useTheme,
-} from '@chakra-ui/react';
+import { Flex, Stack, Text, useColorMode } from '@chakra-ui/react';
 import ThresholdIcon from '../../assets/icons/ThresholdIcon';
 import { BitcoinFilledIcon } from '../../assets/icons/BitcoinFilledIcon';
 import { BsDiscord, BsTwitterX, BsYoutube } from 'react-icons/bs';
-import { TbBrandGithubFilled } from 'react-icons/tb';
 import FooterIcon from './FooterIcon';
 import { GitHubIcon } from '../../assets/icons/GitHubIcon';
-import { socialMedia } from '../../data/mockData';
+import { ExternalRoutes } from '../../Routes/Routes';
+import { FC } from 'react';
 
-type Props = {};
-
-const ComercialInfoComponent = (props: Props) => {
+const ComercialInfoComponent: FC = () => {
 	const { colorMode } = useColorMode();
-	const theme = useTheme();
-	const purple = theme.colors.brand.purple[900];
 
 	return (
 		<Stack spacing={0}>
@@ -55,11 +42,11 @@ const ComercialInfoComponent = (props: Props) => {
 				Curated by Threshold DAO Developed by Unknown Gravity
 			</Text>
 			<Flex gap='12px' mt='20px'>
-				<FooterIcon link={socialMedia.youtube} icon={BsYoutube} />
-				<FooterIcon link={socialMedia.x} icon={BsTwitterX} />
-				<FooterIcon link={socialMedia.discord} icon={BsDiscord} />
+				<FooterIcon link={ExternalRoutes.Youtube} icon={BsYoutube} />
+				<FooterIcon link={ExternalRoutes.X} icon={BsTwitterX} />
+				<FooterIcon link={ExternalRoutes.Discord} icon={BsDiscord} />
 				<FooterIcon
-					link={socialMedia.github}
+					link={ExternalRoutes.Github}
 					icon={GitHubIcon}
 					solid={true}
 				/>

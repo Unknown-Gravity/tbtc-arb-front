@@ -30,7 +30,7 @@ const AppRoutes = memo(() => {
 				element={<AppLayout component={<Home />} />}
 			/>
 			<Route
-				path={PublicRoutes.Minting}
+				path={PublicRoutes.Mintin}
 				element={<AppLayout component={<Minting />} />}
 			/>
 			<Route

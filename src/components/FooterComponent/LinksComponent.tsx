@@ -1,5 +1,5 @@
 import { Flex, Link, Stack, Text } from '@chakra-ui/react';
-import { socialMedia } from '../../data/mockData';
+import { ExternalRoutes } from '../../Routes/Routes';
 
 type Props = {};
 
@@ -31,7 +31,7 @@ const LinksComponent = (props: Props) => {
 					variant='purpleDarkGradient'
 					fontWeight={500}
 					isExternal={true}
-					href={socialMedia.forum}
+					href={ExternalRoutes.Forum}
 				>
 					Dao Forum
 				</Link>
@@ -39,7 +39,7 @@ const LinksComponent = (props: Props) => {
 					variant='purpleDarkGradient'
 					fontWeight={500}
 					isExternal={true}
-					href={socialMedia.github}
+					href={ExternalRoutes.Github}
 				>
 					Github
 				</Link>
@@ -47,7 +47,7 @@ const LinksComponent = (props: Props) => {
 					variant='purpleDarkGradient'
 					fontWeight={500}
 					isExternal={true}
-					href={socialMedia.discord}
+					href={ExternalRoutes.Discord}
 				>
 					Discord
 				</Link>
@@ -55,7 +55,7 @@ const LinksComponent = (props: Props) => {
 					variant='purpleDarkGradient'
 					fontWeight={500}
 					isExternal={true}
-					href={socialMedia.x}
+					href={ExternalRoutes.X}
 				>
 					X
 				</Link>

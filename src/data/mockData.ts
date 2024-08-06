@@ -296,11 +296,3 @@ export const transactionExplorer: Array<Transaction> = [
 		tx: '0xabcdef1234567890abcdefabcdefabcdef1234567890abcdefabcdefabcdefabcd',
 	},
 ];
-
-export const socialMedia = {
-	youtube: 'https://www.youtube.com/channel/UCMEW6scsXJFigeeLhSCPF5Q',
-	x: 'https://x.com/TheTNetwork',
-	discord: 'https://discord.com/invite/Threshold',
-	github: 'https://github.com/threshold-network',
-	forum: 'https://forum.threshold.network/',
-};

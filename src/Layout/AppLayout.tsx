@@ -28,6 +28,8 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 		'linear-gradient(to top, rgba(26, 32, 44, 0) 0%, rgba(26, 32, 44, 0.4) 100%)',
 	);
 
+	const path = window.location.pathname.slice(1);
+
 	const backgroundImage = useColorModeValue(LightBackground, DarkBackground);
 
 	return (
@@ -55,12 +57,14 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 					maskImage: mask,
 				}}
 			>
-				<Image
-					src={backgroundImage}
-					w='100%'
-					h='100%'
-					position='absolute'
-				/>
+				{path === 'home' && (
+					<Image
+						src={backgroundImage}
+						w='100%'
+						h='100%'
+						position='absolute'
+					/>
+				)}
 			</Box>
 
 			<SideBarMenu
