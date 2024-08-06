@@ -1,9 +1,9 @@
 import { Flex, Stack, Text } from '@chakra-ui/react';
 import { DiscordNoBackgroundIcon } from '../../../assets/icons/DiscordNoBackgroundIcon';
 import { LogoAloneIcon } from '../../../assets/icons/LogoAlone';
-import { socialMedia } from '../../../data/mockData';
 import { TwitterXIcon } from '../../../assets/icons/TwitterXIcon';
 import IconJoincomponent from './JoinComponent/IconJoincomponent';
+import { ExternalRoutes } from '../../../Routes/Routes';
 
 type Props = {};
 
@@ -27,17 +27,17 @@ const JoinComponent = (props: Props) => {
 				<IconJoincomponent
 					label='Discord'
 					icon={DiscordNoBackgroundIcon}
-					link={socialMedia.discord}
+					link={ExternalRoutes.Discord}
 				/>
 				<IconJoincomponent
 					label='DAO Forum'
 					icon={LogoAloneIcon}
-					link={socialMedia.forum}
+					link={ExternalRoutes.Forum}
 				/>
 				<IconJoincomponent
 					label='X'
 					icon={TwitterXIcon}
-					link={socialMedia.x}
+					link={ExternalRoutes.X}
 				/>
 			</Flex>
 		</Stack>
