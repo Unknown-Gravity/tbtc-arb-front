@@ -1,21 +1,73 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import { ChakraProvider } from "@chakra-ui/react";
-import { theme } from "./theme/theme";
-import { Provider } from "react-redux";
-import { store } from "./redux/store/store";
-import { BrowserRouter } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { ChakraProvider } from '@chakra-ui/react';
+import { theme } from './theme/theme';
+import { Provider } from 'react-redux';
+import { store } from './redux/store/store';
+import { BrowserRouter } from 'react-router-dom';
+import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
 
-const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+// 1. Get projectId
+const projectId =
+	process.env.REACT_APP_WEB3MODAL_PROJECTID || 'YOUR_PROJECT_ID';
+
+// 2. Set chains
+const mainnet = {
+	chainId: 1,
+	name: 'Ethereum',
+	currency: 'ETH',
+	explorerUrl: 'https://etherscan.io',
+	rpcUrl: 'https://cloudflare-eth.com',
+};
+const sepolia = {
+	chainId: 421614,
+	name: 'Arbitrum Sepolia',
+	currency: 'ETH',
+	explorerUrl: 'https://sepolia.etherscan.io/',
+	rpcUrl: 'https://go.getblock.io/236cdd2047ed4f70a50ebf23cebd0a8c',
+};
+
+// 3. Create a metadata object
+const metadata = {
+	name: 'My Website',
+	description: 'My Website description',
+	url: 'https://mywebsite.com', // origin must match your domain & subdomain
+	icons: ['https://avatars.mywebsite.com/'],
+};
+
+// 4. Create Ethers config
+const ethersConfig = defaultConfig({
+	/*Required*/
+	metadata,
+
+	/*Optional*/
+	enableEIP6963: true, // true by default
+	enableInjected: true, // true by default
+	enableCoinbase: true, // true by default
+	rpcUrl: '...', // used for the Coinbase SDK
+	defaultChainId: 11155111, // used for the Coinbase SDK
+});
+
+// 5. Create a Web3Modal instance
+createWeb3Modal({
+	ethersConfig,
+	chains: [mainnet, sepolia],
+	projectId,
+	enableAnalytics: true, // Optional - defaults to your Cloud configuration
+});
+
+const root = ReactDOM.createRoot(
+	document.getElementById('root') as HTMLElement,
+);
 root.render(
 	<React.StrictMode>
 		<Provider store={store}>
-			<BrowserRouter>
-				<ChakraProvider theme={theme}>
+			<ChakraProvider theme={theme}>
+				<BrowserRouter>
 					<App />
-				</ChakraProvider>
-			</BrowserRouter>
+				</BrowserRouter>
+			</ChakraProvider>
 		</Provider>
-	</React.StrictMode>
+	</React.StrictMode>,
 );
