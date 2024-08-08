@@ -63,11 +63,11 @@ const Step2ProvideDataComponent = (props: Props) => {
 
 	useEffect(() => {
 		const getDepositAddress = async () => {
-			const deposit = await sdk.deposits.initiateDeposit(
-				props.btcAddress,
-			);
-			const btcDepositAddress = await deposit.getBitcoinAddress();
-			setDepositAdress(btcDepositAddress);
+			// const deposit = await sdk.deposits.initiateDeposit(
+			// 	props.btcAddress,
+			// );
+			// const btcDepositAddress = await deposit.getBitcoinAddress();
+			// setDepositAdress(btcDepositAddress);
 		};
 	}, []);
 
