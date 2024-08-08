@@ -22,7 +22,7 @@ import Step3MintingProcess from './components/MintingProcess/Step3MintingProcess
 import Step2MintingProcess from './components/MintingProcess/Step2MintingProcess/Step2MintingProcess';
 import DividerCustom from '../../../components/DividerCustom';
 import TransactionHistory from './components/MintingProcess/Step3MintingProcess/TransactionHistory';
-import { useWeb3Modal } from '@web3modal/ethers/react';
+import { useWeb3Modal } from '@web3modal/ethers5/react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../types/RootState';
 
@@ -48,6 +48,7 @@ const MintComponent = (props: Props) => {
 	const [finalizedEthTxHash, setFinalizedEthTxHash] = useState<
 		string | undefined
 	>(undefined);
+
 	const chainId = provider?._network.chainId.toString();
 
 	const handleClick = () => {

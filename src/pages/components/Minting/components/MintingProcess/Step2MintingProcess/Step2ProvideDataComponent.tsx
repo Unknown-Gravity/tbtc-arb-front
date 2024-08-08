@@ -10,7 +10,7 @@ import {
 	Divider,
 	Button,
 } from '@chakra-ui/react';
-import { useWeb3ModalAccount } from '@web3modal/ethers/react';
+import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import QRCode from 'qrcode.react';
 import { Dispatch, SetStateAction } from 'react';
 import { InfoIcon } from '../../../../../../assets/icons/InfoIcon';

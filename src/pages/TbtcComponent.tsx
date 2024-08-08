@@ -4,7 +4,7 @@ import { CustomBox } from '../components/CustomBox';
 import BalanceComponent from './components/Minting/BalanceComponent';
 import { useSelector } from 'react-redux';
 import { RootState } from '../types/RootState';
-import { useWeb3ModalAccount } from '@web3modal/ethers/react';
+import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import MyActivityComponent from './components/Minting/MyActivityComponent';
 import { useEffect, useState } from 'react';
 import MintComponent from './components/Minting/MintComponent';

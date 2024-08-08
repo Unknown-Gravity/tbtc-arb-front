@@ -63,7 +63,7 @@ const SideBarComponent = (props: Props) => {
 			py='28px'
 			transition='width 0.2s'
 			justifyContent='space-between'
-			zIndex={11}
+			zIndex={20}
 		>
 			<Stack
 				h='250px'

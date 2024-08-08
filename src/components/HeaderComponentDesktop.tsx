@@ -37,7 +37,7 @@ const HeaderComponentDesktop = (props: Props) => {
 			borderBottom={`1px solid ${borderColor}`}
 			borderRadius='0px 0px 10px 10px'
 			bg={bgColor}
-			zIndex={1000}
+			zIndex={15}
 		>
 			<Flex justifyContent='space-between'>
 				<Text

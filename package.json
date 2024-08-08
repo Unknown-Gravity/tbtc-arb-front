@@ -10,7 +10,7 @@
 		"@emotion/react": "^11.11.4",
 		"@emotion/styled": "^11.11.5",
 		"@ethersproject/providers": "^5.7.2",
-		"@keep-network/tbtc-v2.ts": "../keep-network-tbtc-v2.ts-v2.5.0-dev.tgz",
+		"@keep-network/tbtc-v2.ts": "^2.4.1",
 		"@reduxjs/toolkit": "^2.2.6",
 		"@testing-library/jest-dom": "^5.17.0",
 		"@testing-library/react": "^13.4.0",
@@ -19,13 +19,17 @@
 		"@types/node": "^16.18.101",
 		"@types/react": "^18.3.3",
 		"@types/react-dom": "^18.3.0",
-		"@web3modal/ethers": "^4.2.3",
+		"@web3modal/ethers5": "^5.0.11",
 		"assert": "^2.1.0",
 		"axios": "^1.7.2",
 		"bitcoinjs-lib": "^6.1.6",
-		"ethers": "^6.13.1",
+		"browserify-zlib": "^0.2.0",
+		"ethers": "5.7.2",
 		"framer-motion": "^11.3.6",
+		"net-browserify": "^0.2.4",
+		"path-browserify": "^1.0.1",
 		"qrcode.react": "^3.1.0",
+		"querystring-es3": "^0.2.1",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"react-icons": "^5.2.1",
@@ -33,14 +37,12 @@
 		"react-router-dom": "^6.24.1",
 		"react-scripts": "5.0.1",
 		"typescript": "^4.9.5",
-		"web-vitals": "^2.1.4",
-		"web3": "^4.11.0",
-		"web3modal": "^1.9.12"
+		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
+		"start": "react-app-rewired start",
+		"build": "react-app-rewired build",
+		"test": "react-app-rewired test",
 		"eject": "react-scripts eject"
 	},
 	"eslintConfig": {
@@ -62,6 +64,15 @@
 		]
 	},
 	"devDependencies": {
-		"@types/qrcode.react": "^1.0.5"
+		"@types/qrcode.react": "^1.0.5",
+		"buffer": "^6.0.3",
+		"crypto-browserify": "^3.12.0",
+		"https-browserify": "^1.0.0",
+		"os-browserify": "^0.3.0",
+		"process": "^0.11.10",
+		"react-app-rewired": "^2.2.1",
+		"stream-browserify": "^3.0.0",
+		"stream-http": "^3.2.0",
+		"url": "^0.11.4"
 	}
 }

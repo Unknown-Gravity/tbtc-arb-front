@@ -3,8 +3,8 @@ import { ethers } from 'ethers';
 
 // Define the initial state type
 interface AccountState {
-	provider: ethers.BrowserProvider | null;
-	signer: ethers.JsonRpcSigner | null;
+	provider: ethers.providers.Web3Provider | null;
+	signer: ethers.Signer | null;
 	balance: string;
 }
 
@@ -35,8 +35,8 @@ export const accountSlice = createSlice({
 				state.balance = balance;
 			},
 			prepare: (
-				provider: ethers.BrowserProvider,
-				signer: ethers.JsonRpcSigner,
+				provider: ethers.providers.Web3Provider,
+				signer: ethers.Signer,
 				balance: string,
 			) => {
 				return {

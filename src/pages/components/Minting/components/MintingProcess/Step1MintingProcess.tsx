@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { ChangeEvent } from 'react';
 import { InfoIcon } from '../../../../../assets/icons/InfoIcon';
-import { useWeb3ModalAccount } from '@web3modal/ethers/react';
+import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 
 type Props = {
 	onClick: () => void;

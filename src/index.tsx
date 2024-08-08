@@ -6,7 +6,7 @@ import { theme } from './theme/theme';
 import { Provider } from 'react-redux';
 import { store } from './redux/store/store';
 import { BrowserRouter } from 'react-router-dom';
-import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
+import { createWeb3Modal, defaultConfig } from '@web3modal/ethers5/react';
 
 // 1. Get projectId
 const projectId =

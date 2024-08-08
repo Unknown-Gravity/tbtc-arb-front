@@ -10,14 +10,15 @@ import {
 	Divider,
 	Button,
 } from '@chakra-ui/react';
-import { useWeb3ModalAccount } from '@web3modal/ethers/react';
+import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import QRCode from 'qrcode.react';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { InfoIcon } from '../../../../../../assets/icons/InfoIcon';
 import { TbCopy } from 'react-icons/tb';
 import ConfirmationsEstimatedComponents from './ConfirmationsEstimatedComponents';
 import { formatAddress } from '../../../../../../utils/utils';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
+import { sdk } from '../../../../../../services/initiateSDK';
 
 type Props = {
 	onClick: Dispatch<SetStateAction<number>>;
@@ -48,12 +49,27 @@ const Step2ProvideDataComponent = (props: Props) => {
 	const theme = useTheme();
 	const borderColor = theme.colors.brand.purple[900];
 	const iconColor = theme.colors.light.coolGray;
+	const [depositAddress, setDepositAdress] = useState('');
+	console.log(
+		'🚀 ~ Step2ProvideDataComponent ~ depositAddress:',
+		depositAddress,
+	);
 
 	const { onCopy: onCopyDepositAddress } = useClipboard(
 		'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
 	);
 	const { onCopy: onCopyEthAddress } = useClipboard(address || '');
 	const { onCopy: onCopyBtcAddress } = useClipboard(props.btcAddress);
+
+	useEffect(() => {
+		const getDepositAddress = async () => {
+			const deposit = await sdk.deposits.initiateDeposit(
+				props.btcAddress,
+			);
+			const btcDepositAddress = await deposit.getBitcoinAddress();
+			setDepositAdress(btcDepositAddress);
+		};
+	}, []);
 
 	return (
 		<Box maxW={{ xl: '448.28px' }}>

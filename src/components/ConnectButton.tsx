@@ -5,13 +5,12 @@ import {
 	useWeb3Modal,
 	useWeb3ModalAccount,
 	useWeb3ModalProvider,
-} from '@web3modal/ethers/react';
+} from '@web3modal/ethers5/react';
 import { ethers } from 'ethers';
 import { useDispatch } from 'react-redux';
 import { addAccount } from '../redux/reducers/AccountReducer';
 import { normalizeNetWorkNames } from '../utils/utils';
 import { ArbitrumIcon } from '../assets/icons/ArbitrumIcon';
-import { FaQuestionCircle } from 'react-icons/fa';
 
 const ConnectButton = (props: ButtonProps) => {
 	const { address, isConnected } = useWeb3ModalAccount();
@@ -25,11 +24,13 @@ const ConnectButton = (props: ButtonProps) => {
 	useEffect(() => {
 		const getBalance = async () => {
 			if (walletProvider && address) {
-				const provider = new ethers.BrowserProvider(walletProvider);
+				const provider = new ethers.providers.Web3Provider(
+					walletProvider,
+				);
 				const signer = await provider.getSigner();
 				const network = await provider.getNetwork();
 				const balanceBigInt = await provider.getBalance(address);
-				const ethBalance = ethers.formatEther(balanceBigInt);
+				const ethBalance = ethers.utils.formatEther(balanceBigInt);
 				dispatch(addAccount(provider, signer, ethBalance));
 				setNeedRefresh(false);
 				setNetWorkName(network.name);
