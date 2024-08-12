@@ -56,7 +56,7 @@ const MintComponent = (props: Props) => {
 			setErrorMsg('The recovery address can´t be empty');
 		} else if (chainId === '421614') {
 			try {
-				address.toOutputScript(btcAddress);
+				// address.toOutputScript(btcAddress);
 				setStep(2); // If the address is valid, proceed to the next step
 			} catch (error) {
 				setErrorMsg('Invalid Bitcoin address');
@@ -84,10 +84,7 @@ const MintComponent = (props: Props) => {
 		<CustomBox
 			p='26px'
 			h={{ base: 'none', xl: step === 1 ? '634px' : 'fit-content' }}
-			maxH={{
-				base: 'none',
-				xl: step === 1 || step === 3 ? '634px' : 'none',
-			}}
+			zIndex={10}
 		>
 			<ModalMinting isOpen={isOpen} onClose={onClose} goBack={goBack} />
 

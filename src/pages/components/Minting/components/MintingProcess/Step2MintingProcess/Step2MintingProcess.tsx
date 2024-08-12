@@ -9,6 +9,8 @@ import {
 	Icon,
 	Divider,
 	Button,
+	Spinner,
+	Link,
 } from '@chakra-ui/react';
 import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import QRCode from 'qrcode.react';
@@ -18,7 +20,8 @@ import { TbCopy } from 'react-icons/tb';
 import ConfirmationsEstimatedComponents from './ConfirmationsEstimatedComponents';
 import { formatAddress } from '../../../../../../utils/utils';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
-import { sdk } from '../../../../../../services/initiateSDK';
+import { getSDK } from '../../../../../../services/intiateSDK';
+import { downloadJson } from '../../../../../../utils/jsonUtils';
 
 type Props = {
 	onClick: Dispatch<SetStateAction<number>>;
@@ -50,26 +53,30 @@ const Step2ProvideDataComponent = (props: Props) => {
 	const borderColor = theme.colors.brand.purple[900];
 	const iconColor = theme.colors.light.coolGray;
 	const [depositAddress, setDepositAdress] = useState('');
-	console.log(
-		'🚀 ~ Step2ProvideDataComponent ~ depositAddress:',
-		depositAddress,
-	);
-
-	const { onCopy: onCopyDepositAddress } = useClipboard(
-		'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
-	);
+	const sdk = getSDK();
+	const { onCopy: onCopyDepositAddress } = useClipboard(depositAddress);
 	const { onCopy: onCopyEthAddress } = useClipboard(address || '');
 	const { onCopy: onCopyBtcAddress } = useClipboard(props.btcAddress);
 
 	useEffect(() => {
 		const getDepositAddress = async () => {
-			// const deposit = await sdk.deposits.initiateDeposit(
-			// 	props.btcAddress,
-			// );
-			// const btcDepositAddress = await deposit.getBitcoinAddress();
-			// setDepositAdress(btcDepositAddress);
+			const deposit = await sdk.deposits.initiateDeposit(
+				props.btcAddress,
+			);
+			console.log(
+				'🚀 ~ getDepositAddress ~ deposit:',
+				deposit.getReceipt().refundLocktime.toPrefixedString(),
+			);
+			const btcDepositAddress = await deposit.getBitcoinAddress();
+			setDepositAdress(btcDepositAddress);
+			downloadJson(
+				deposit.getReceipt(),
+				depositAddress,
+				deposit.getReceipt().depositor.identifierHex.toString(),
+			);
 		};
-	}, []);
+		getDepositAddress();
+	}, [props.btcAddress, sdk.deposits]);
 
 	return (
 		<Box maxW={{ xl: '448.28px' }}>
@@ -105,38 +112,60 @@ const Step2ProvideDataComponent = (props: Props) => {
 					mx='auto'
 					p='20px'
 					bg='white'
+					h='170px'
+					w='170px'
 					borderRadius='15px'
 					border={`1px solid ${borderColor}`}
 				>
-					<QRCode value={address || ''} />
+					{depositAddress && <QRCode value={depositAddress} />}
 				</Box>
-				<Flex
-					bg={colorMode === 'dark' ? 'dark.secondaryGray' : 'white'}
-					p='8px'
-					borderRadius='8px'
-					gap='10px'
-					alignItems='center'
-				>
-					<Text
-						fontSize='16px'
-						lineHeight='24px'
-						color={
-							colorMode === 'light' ? 'brand.purple.900' : 'white'
+				{depositAddress ? (
+					<Flex
+						bg={
+							colorMode === 'dark'
+								? 'dark.secondaryGray'
+								: 'white'
 						}
+						p='8px'
+						borderRadius='8px'
+						gap='10px'
+						alignItems='center'
 					>
-						bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
-					</Text>{' '}
-					<Icon
-						as={TbCopy}
-						boxSize='24px'
-						color={iconColor}
-						transition='transform 0.1s'
-						_hover={{ transform: 'scale(1.1)' }}
-						_active={{ transform: 'scale(1)' }}
-						cursor='pointer'
-						onClick={onCopyDepositAddress}
+						<Text
+							fontSize='16px'
+							lineHeight='24px'
+							color={
+								colorMode === 'light'
+									? 'brand.purple.900'
+									: 'white'
+							}
+							maxW='363.8px'
+							whiteSpace='nowrap'
+							overflow='hidden'
+							textOverflow='ellipsis'
+						>
+							{depositAddress}
+						</Text>
+
+						<Icon
+							as={TbCopy}
+							boxSize='24px'
+							color={iconColor}
+							transition='transform 0.1s'
+							_hover={{ transform: 'scale(1.1)' }}
+							_active={{ transform: 'scale(1)' }}
+							cursor='pointer'
+							onClick={onCopyDepositAddress}
+						/>
+					</Flex>
+				) : (
+					<Spinner
+						h='40px'
+						w='40px'
+						color='brand.purple.900'
+						mx='auto'
 					/>
-				</Flex>
+				)}
 			</Stack>
 			<Stack gap='20px' mt='10px'>
 				<Flex
@@ -177,9 +206,13 @@ const Step2ProvideDataComponent = (props: Props) => {
 						</Text>
 					</Box>
 					<Flex gap='9px'>
-						<Text variant='grayPurple' textDecor='underline'>
+						<Link
+							variant='grayPurple'
+							href={`${process.env.REACT_APP_ARB_EXPLORER}${address}`}
+							isExternal={true}
+						>
 							{formatAddress(address)}
-						</Text>
+						</Link>
 						<Icon
 							as={TbCopy}
 							boxSize='24px'
@@ -211,9 +244,13 @@ const Step2ProvideDataComponent = (props: Props) => {
 						</Text>
 					</Box>
 					<Flex gap='9px'>
-						<Text variant='grayPurple' textDecor='underline'>
+						<Link
+							variant='grayPurple'
+							href={`${process.env.REACT_APP_BTC_EXPLORER}${props.btcAddress}`}
+							isExternal={true}
+						>
 							{formatAddress(props.btcAddress)}
-						</Text>
+						</Link>
 						<Icon
 							as={TbCopy}
 							boxSize='24px'

@@ -443,6 +443,12 @@ const components: ThemeOverride['components'] = {
 						? 'light.gray'
 						: 'brand.purple.700',
 			}),
+			grayPurple: (props: StyleFunctionProps) => ({
+				color:
+					props.colorMode === 'light'
+						? 'brand.purple.900'
+						: 'dark.coolGray',
+			}),
 		},
 	},
 

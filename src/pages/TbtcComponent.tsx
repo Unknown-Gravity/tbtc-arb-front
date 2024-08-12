@@ -51,7 +51,7 @@ const TbtcComponent = (props: Props) => {
 						isConnected={isConnected}
 					/>
 				</Stack>
-				<Stack gap='20px' maxH='704px'>
+				<Stack gap='20px'>
 					<CustomBox h='fit-content' p='5px'>
 						<Grid
 							templateColumns='repeat(2, minmax(0, 1fr))'

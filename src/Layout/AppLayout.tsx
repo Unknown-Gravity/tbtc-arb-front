@@ -45,27 +45,27 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 			bgSize='cover'
 			bgPos='bottom'
 		>
-			<Box
-				maxH='711px'
-				content='""'
-				position='absolute'
-				top='61px'
-				right={0}
-				bottom={0}
-				left={0}
-				sx={{
-					maskImage: mask,
-				}}
-			>
-				{path === 'home' && (
+			{path === 'home' && (
+				<Box
+					maxH='711px'
+					content='""'
+					position='absolute'
+					top='61px'
+					right={0}
+					bottom={0}
+					left={0}
+					sx={{
+						maskImage: mask,
+					}}
+				>
 					<Image
 						src={backgroundImage}
 						w='100%'
 						h='100%'
 						position='absolute'
 					/>
-				)}
-			</Box>
+				</Box>
+			)}
 
 			<SideBarMenu
 				isOpen={isOpen}
