@@ -177,7 +177,7 @@ const components: ThemeOverride['components'] = {
 				fontWeight: 600,
 				fontSize: '16px',
 				bg: 'brand.purple.900',
-				color: props.colorMode === 'light' && 'white',
+				color: props.colorMode === 'light' ? 'white' : 'inherit',
 				transition: 'background-color 0.1s, filter 0.1s',
 
 				_hover: {

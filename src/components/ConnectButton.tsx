@@ -33,7 +33,13 @@ const ConnectButton = (props: ButtonProps) => {
 				const ethBalance = ethers.utils.formatEther(balanceBigInt);
 				dispatch(addAccount(provider, signer, ethBalance));
 				setNeedRefresh(false);
-				setNetWorkName(network.name);
+				let networkName = network.name;
+				if (networkName === 'unknown') {
+					if (network.chainId === 421614) {
+						networkName = 'Arbitrum Sepolia';
+					}
+				}
+				setNetWorkName(networkName);
 
 				const handleChainChanged = (chainId: string) => {
 					console.log(`Chain changed to ${chainId}`);

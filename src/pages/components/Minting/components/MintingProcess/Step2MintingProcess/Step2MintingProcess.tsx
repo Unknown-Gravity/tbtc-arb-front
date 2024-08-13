@@ -20,12 +20,14 @@ import { TbCopy } from 'react-icons/tb';
 import ConfirmationsEstimatedComponents from './ConfirmationsEstimatedComponents';
 import { formatAddress } from '../../../../../../utils/utils';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
-import { getSDK } from '../../../../../../services/intiateSDK';
-import { downloadJson } from '../../../../../../utils/jsonUtils';
+import { SdkProvider, useSdk } from '../../../../../../context/SDKProvider';
+import { Deposit } from '@keep-network/tbtc-v2.ts';
 
 type Props = {
 	onClick: Dispatch<SetStateAction<number>>;
-	btcAddress: string;
+	btcDepositAddress: string;
+	btcRecoveryAddress: string;
+	deposit: Deposit | null;
 };
 
 const cardsInfo = [
@@ -46,37 +48,38 @@ const cardsInfo = [
 	},
 ];
 
-const Step2ProvideDataComponent = (props: Props) => {
+const Step2ProvideDataComponent = ({
+	onClick,
+	btcDepositAddress,
+	btcRecoveryAddress,
+	deposit,
+}: Props) => {
 	const { address } = useWeb3ModalAccount();
 	const { colorMode } = useColorMode();
 	const theme = useTheme();
 	const borderColor = theme.colors.brand.purple[900];
 	const iconColor = theme.colors.light.coolGray;
-	const [depositAddress, setDepositAdress] = useState('');
-	const sdk = getSDK();
-	const { onCopy: onCopyDepositAddress } = useClipboard(depositAddress);
+	const [depositExist, setDepositExist] = useState(false);
+	const { onCopy: onCopyDepositAddress } = useClipboard(btcDepositAddress);
 	const { onCopy: onCopyEthAddress } = useClipboard(address || '');
-	const { onCopy: onCopyBtcAddress } = useClipboard(props.btcAddress);
+	const { onCopy: onCopyBtcAddress } = useClipboard(btcRecoveryAddress);
 
 	useEffect(() => {
-		const getDepositAddress = async () => {
-			const deposit = await sdk.deposits.initiateDeposit(
-				props.btcAddress,
-			);
-			console.log(
-				'🚀 ~ getDepositAddress ~ deposit:',
-				deposit.getReceipt().refundLocktime.toPrefixedString(),
-			);
-			const btcDepositAddress = await deposit.getBitcoinAddress();
-			setDepositAdress(btcDepositAddress);
-			downloadJson(
-				deposit.getReceipt(),
-				depositAddress,
-				deposit.getReceipt().depositor.identifierHex.toString(),
-			);
-		};
-		getDepositAddress();
-	}, [props.btcAddress, sdk.deposits]);
+		const intervalId = setInterval(async () => {
+			try {
+				const existDeposit = await deposit?.detectFunding();
+				if (existDeposit && existDeposit.length > 0) {
+					setDepositExist(true);
+					clearInterval(intervalId); // Clear the interval once the deposit is detected
+				}
+			} catch (error) {
+				console.error('Error checking deposit:', error);
+			}
+		}, 5000); // Check every 5 seconds
+
+		// Clean up the interval on component unmount
+		return () => clearInterval(intervalId);
+	}, [deposit]);
 
 	return (
 		<Box maxW={{ xl: '448.28px' }}>
@@ -117,9 +120,9 @@ const Step2ProvideDataComponent = (props: Props) => {
 					borderRadius='15px'
 					border={`1px solid ${borderColor}`}
 				>
-					{depositAddress && <QRCode value={depositAddress} />}
+					{btcDepositAddress && <QRCode value={btcDepositAddress} />}
 				</Box>
-				{depositAddress ? (
+				{btcDepositAddress ? (
 					<Flex
 						bg={
 							colorMode === 'dark'
@@ -144,7 +147,7 @@ const Step2ProvideDataComponent = (props: Props) => {
 							overflow='hidden'
 							textOverflow='ellipsis'
 						>
-							{depositAddress}
+							{btcDepositAddress}
 						</Text>
 
 						<Icon
@@ -246,10 +249,10 @@ const Step2ProvideDataComponent = (props: Props) => {
 					<Flex gap='9px'>
 						<Link
 							variant='grayPurple'
-							href={`${process.env.REACT_APP_BTC_EXPLORER}${props.btcAddress}`}
+							href={`${process.env.REACT_APP_BTC_EXPLORER}${btcRecoveryAddress}`}
 							isExternal={true}
 						>
-							{formatAddress(props.btcAddress)}
+							{formatAddress(btcRecoveryAddress)}
 						</Link>
 						<Icon
 							as={TbCopy}
@@ -277,7 +280,8 @@ const Step2ProvideDataComponent = (props: Props) => {
 					variant='purple'
 					h='48px'
 					fontSize='18px'
-					onClick={() => props.onClick(3)}
+					onClick={() => onClick(3)}
+					isDisabled={depositExist ? false : true}
 				>
 					I sent the BTC
 				</Button>

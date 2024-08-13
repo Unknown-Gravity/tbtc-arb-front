@@ -14,6 +14,7 @@ import ResumeDepositComponent from './components/Minting/ResumeDepositComponent'
 type Props = {};
 
 const TbtcComponent = (props: Props) => {
+	const [step, setStep] = useState(1);
 	const [tabSelected, setTabSelected] = useState<number>();
 	const accountInfo = useSelector((state: RootState) => state.account);
 	const { isConnected } = useWeb3ModalAccount();
@@ -74,7 +75,11 @@ const TbtcComponent = (props: Props) => {
 						</Grid>
 					</CustomBox>
 					{tabSelected === 1 ? (
-						<MintComponent isConnected={isConnected} />
+						<MintComponent
+							isConnected={isConnected}
+							step={step}
+							setStep={setStep}
+						/>
 					) : tabSelected === 2 ? (
 						<UnmintComponent
 							isConnected={isConnected}

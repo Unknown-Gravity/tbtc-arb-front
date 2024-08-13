@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store/store';
 import { BrowserRouter } from 'react-router-dom';
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers5/react';
+import { SdkProvider } from './context/SDKProvider';
 
 // 1. Get projectId
 const projectId =
@@ -56,13 +57,13 @@ const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement,
 );
 root.render(
-	<React.StrictMode>
-		<Provider store={store}>
-			<ChakraProvider theme={theme}>
+	<Provider store={store}>
+		<ChakraProvider theme={theme}>
+			<SdkProvider>
 				<BrowserRouter>
 					<App />
 				</BrowserRouter>
-			</ChakraProvider>
-		</Provider>
-	</React.StrictMode>,
+			</SdkProvider>
+		</ChakraProvider>
+	</Provider>,
 );

@@ -21,7 +21,7 @@ import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 
 type Props = {
 	onClick: Dispatch<SetStateAction<number>>;
-	btcAddress: string;
+	btcRecoveryAddress: string;
 };
 
 const cardsInfo = [
@@ -53,7 +53,9 @@ const Step2ProvideDataComponent = (props: Props) => {
 		'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
 	);
 	const { onCopy: onCopyEthAddress } = useClipboard(address || '');
-	const { onCopy: onCopyBtcAddress } = useClipboard(props.btcAddress);
+	const { onCopy: onCopybtcRecoveryAddress } = useClipboard(
+		props.btcRecoveryAddress,
+	);
 
 	return (
 		<Box maxW='448.28px'>
@@ -196,7 +198,7 @@ const Step2ProvideDataComponent = (props: Props) => {
 					</Box>
 					<Flex gap='9px'>
 						<Text variant='grayPurple' textDecor='underline'>
-							{formatAddress(props.btcAddress)}
+							{formatAddress(props.btcRecoveryAddress)}
 						</Text>
 						<Icon
 							as={TbCopy}
@@ -206,7 +208,7 @@ const Step2ProvideDataComponent = (props: Props) => {
 							_hover={{ transform: 'scale(1.1)' }}
 							_active={{ transform: 'scale(1)' }}
 							cursor='pointer'
-							onClick={onCopyBtcAddress}
+							onClick={onCopybtcRecoveryAddress}
 						/>
 					</Flex>
 				</Flex>
