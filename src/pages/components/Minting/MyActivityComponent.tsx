@@ -16,20 +16,16 @@ import { TransactionResponse } from '@ethersproject/providers';
 const MyActivityComponent = (props: BasicComponentProps) => {
 	const { colorMode } = useColorMode();
 	const accountInfo = useSelector((state: RootState) => state.account);
-	const [transactions, setTransactions] =
-		useState<Array<TransactionResponse>>();
+	const [transactions, setTransactions] = useState<Array<any>>();
+	console.log('🚀 ~ MyActivityComponent ~ transactions:', transactions);
 
 	useEffect(() => {
-		const getTransactions = async () => {
-			try {
-				const history = await getTransactionHistory(accountInfo);
-				console.log('🚀 ~ getTransactions ~ history:', history);
-				setTransactions(history);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		getTransactions();
+		getTransactionHistory(accountInfo);
+		// const getTransactions = async () => {
+		// 	const history = await getTransactionHistory(accountInfo);
+		// 	setTransactions(history);
+		// };
+		// getTransactions();
 	}, []);
 
 	return (

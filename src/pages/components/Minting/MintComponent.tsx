@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { CustomBox } from '../../../components/CustomBox';
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
-import { useWeb3Modal } from '@web3modal/ethers5/react';
+import { useWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../types/RootState';
 import { Deposit } from '@keep-network/tbtc-v2.ts';
@@ -26,6 +26,7 @@ import TransactionHistory from './components/MintingProcess/Step3MintingProcess/
 import { DarkStep1Timeline, LightStep1Timeline } from '../../../assets/images';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { useSdk } from '../../../context/SDKProvider';
+import { downloadJson } from '../../../utils/jsonUtils';
 
 type Props = {
 	isConnected: boolean;
@@ -47,6 +48,7 @@ const MintComponent = ({ isConnected, step, setStep }: Props) => {
 	// Hooks de Chakra y Web3
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { open } = useWeb3Modal();
+	const { address } = useWeb3ModalAccount();
 	const provider = useSelector((state: RootState) => state.account.provider);
 	const chainId = provider?._network.chainId.toString();
 
@@ -79,13 +81,24 @@ const MintComponent = ({ isConnected, step, setStep }: Props) => {
 				const btcAddress = await depositInstance.getBitcoinAddress();
 				setDepositAdress(btcAddress);
 				setDeposit(depositInstance);
-
+				downloadJson(
+					depositInstance.getReceipt(),
+					btcRecoveryAddress,
+					address,
+				);
 				setStep(2);
 			}
 		} catch (error) {
 			setErrorMsg('Invalid Bitcoin address');
 		} finally {
 			setInitializingDeposit(false);
+		}
+	};
+
+	const handleClickGenerateDepositAddress = async () => {
+		await initializeDeposit();
+		if (deposit) {
+			downloadJson(deposit.getReceipt(), btcRecoveryAddress, address);
 		}
 	};
 

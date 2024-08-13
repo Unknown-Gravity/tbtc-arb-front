@@ -26,7 +26,6 @@ const downloadJson = (
 	data: DepositReceipt,
 	btcRecoveryAddress: string,
 	ethAddress: any,
-	operationId: string,
 ): void => {
 	const json = JSON.stringify(
 		normalizeData(data, btcRecoveryAddress, ethAddress),
@@ -35,6 +34,7 @@ const downloadJson = (
 	);
 	const blob = new Blob([json], { type: 'application/json' });
 	const url = URL.createObjectURL(blob);
+	const operationId = data.depositor.identifierHex.toString();
 
 	const link = document.createElement('a');
 	link.href = url;
