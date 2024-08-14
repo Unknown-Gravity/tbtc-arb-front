@@ -39,6 +39,7 @@ module.exports = override(
 		config.resolve.fullySpecified = false;
 		config.resolve.fallback = {
 			vm: require.resolve('vm-browserify'),
+			path: require.resolve('path-browserify'),
 			tls: false,
 			zlib: require.resolve('browserify-zlib'),
 			querystring: require.resolve('querystring-es3'),
