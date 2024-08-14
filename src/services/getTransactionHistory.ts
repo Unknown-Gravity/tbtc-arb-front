@@ -1,31 +1,26 @@
-import { ethers } from 'ethers';
+import { ethers, Transaction } from 'ethers';
 import { InfoAccount } from '../interfaces/InfoAccount.type';
 
-export const getTransactionHistory = async (data: InfoAccount) => {
-	const provider = data.provider;
-
-	if (provider && data.signer) {
+export const getTransactionHistory = async (
+	data: InfoAccount,
+): Promise<Array<Transaction>> => {
+	try {
 		const address = await data.signer.getAddress();
 
-		// Obtener todos los logs relacionados con la dirección
-		const logs = await provider.getLogs({
-			fromBlock: 0, // Puedes ajustar el bloque de inicio según tus necesidades
-			toBlock: 'latest',
-			address: address,
-		});
+		console.log(`Address: ${address}`);
 
-		const transactions = logs.map(log => ({
-			transactionHash: log.transactionHash,
-			blockNumber: log.blockNumber,
-			data: log.data,
-			topics: log.topics,
-		}));
+		// Obtén el historial de transacciones (esto es un ejemplo simplificado)
+		const network = await data.provider?.getNetwork();
+		const etherscanProvider = new ethers.providers.EtherscanProvider(
+			network,
+		);
 
-		console.log('🚀 ~ getTransactionHistory ~ transactions:', transactions);
+		const history = await etherscanProvider.getHistory(address);
 
-		return transactions;
-	} else {
-		console.error('Provider or signer not initialized.');
+		console.log('Transaction history:', history);
+		return history;
+	} catch (error) {
+		console.error('Error fetching transactions:', error);
 		return [];
 	}
 };

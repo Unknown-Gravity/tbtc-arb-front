@@ -32,9 +32,15 @@ type Props = {
 	isConnected: boolean;
 	step: number;
 	setStep: Dispatch<SetStateAction<number>>;
+	setTabSelected: Dispatch<SetStateAction<number>>;
 };
 
-const MintComponent = ({ isConnected, step, setStep }: Props) => {
+const MintComponent = ({
+	isConnected,
+	step,
+	setStep,
+	setTabSelected,
+}: Props) => {
 	const { sdk } = useSdk();
 	// Hooks de Estado
 	const { colorMode } = useColorMode();
@@ -136,11 +142,12 @@ const MintComponent = ({ isConnected, step, setStep }: Props) => {
 					{!isConnected && <MintingProcessComponent />}
 					{isConnected && step === 1 && (
 						<Step1MintingProcess
-							onClick={initializeDeposit}
+							onClick={handleClickGenerateDepositAddress}
 							onChange={handleBtcAddressChange}
 							btcRecoveryAddress={btcRecoveryAddress}
 							errorMsg={errorMsg}
 							initializingDeposit={initilizingDeposit}
+							setStep={setTabSelected}
 						/>
 					)}
 					{isConnected && step === 2 && (

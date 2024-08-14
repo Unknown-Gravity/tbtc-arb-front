@@ -15,7 +15,7 @@ type Props = {};
 
 const TbtcComponent = (props: Props) => {
 	const [step, setStep] = useState(1);
-	const [tabSelected, setTabSelected] = useState<number>();
+	const [tabSelected, setTabSelected] = useState<number>(1);
 	const accountInfo = useSelector((state: RootState) => state.account);
 	const { isConnected } = useWeb3ModalAccount();
 
@@ -79,6 +79,7 @@ const TbtcComponent = (props: Props) => {
 							isConnected={isConnected}
 							step={step}
 							setStep={setStep}
+							setTabSelected={setTabSelected}
 						/>
 					) : tabSelected === 2 ? (
 						<UnmintComponent
@@ -86,7 +87,10 @@ const TbtcComponent = (props: Props) => {
 							setTabSelected={setTabSelected}
 						/>
 					) : (
-						<ResumeDepositComponent />
+						<ResumeDepositComponent
+							setTabSelected={setTabSelected}
+							setStep={setStep}
+						/>
 					)}
 				</Stack>
 			</Grid>

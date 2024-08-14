@@ -1,14 +1,12 @@
-import { Box, Flex, useColorMode, useSteps } from '@chakra-ui/react';
+import { Box, Flex, useSteps } from '@chakra-ui/react';
 import { useEffect, useState, useMemo } from 'react';
 import ConfirmingMinting from './ConfirmingMinting';
 import Step3HeaderComponent from './Step3HeaderComponent';
 import { Deposit } from '@keep-network/tbtc-v2.ts';
 
-type Props = { deposit: Deposit };
+type Props = { deposit?: Deposit };
 
 const Step3MintingProcess = ({ deposit }: Props) => {
-	console.log('🚀 ~ Step3MintingProcess ~ deposit:', deposit.getReceipt());
-
 	const [initializedMint, setInitializedMint] = useState<boolean>(false);
 	const [finalizedMint, setFinalizedMint] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -39,7 +37,7 @@ const Step3MintingProcess = ({ deposit }: Props) => {
 	useEffect(() => {
 		const intiateMinting = async () => {
 			try {
-				const txHash = await deposit.initiateMinting();
+				const txHash = await deposit?.initiateMinting();
 				console.log('🚀 ~ intiateMinting ~ txHash:', txHash);
 			} catch (error) {
 				console.log(error);

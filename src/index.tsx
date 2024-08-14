@@ -21,7 +21,15 @@ const sepolia = {
 	name: 'Arbitrum Sepolia',
 	currency: 'ETH',
 	explorerUrl: 'https://sepolia.etherscan.io/',
-	rpcUrl: 'https://go.getblock.io/236cdd2047ed4f70a50ebf23cebd0a8c',
+	rpcUrl: 'https://go.getblock.io/c37b6ab2f1f542fa8cfb88cf03d797c8',
+};
+
+const sepolia2 = {
+	chainId: 11155111,
+	name: 'Sepolia',
+	currency: 'ETH',
+	explorerUrl: 'https://sepolia.etherscan.io/',
+	rpcUrl: 'https://ethereum-sepolia.rpc.subquery.network/public',
 };
 
 // 3. Create a metadata object
@@ -48,7 +56,7 @@ const ethersConfig = defaultConfig({
 // 5. Create a Web3Modal instance
 createWeb3Modal({
 	ethersConfig,
-	chains: [sepolia],
+	chains: [sepolia, sepolia2],
 	projectId,
 	enableAnalytics: true, // Optional - defaults to your Cloud configuration
 });

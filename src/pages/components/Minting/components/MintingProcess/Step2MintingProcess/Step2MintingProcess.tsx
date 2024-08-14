@@ -20,7 +20,6 @@ import { TbCopy } from 'react-icons/tb';
 import ConfirmationsEstimatedComponents from './ConfirmationsEstimatedComponents';
 import { formatAddress } from '../../../../../../utils/utils';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
-import { SdkProvider, useSdk } from '../../../../../../context/SDKProvider';
 import { Deposit } from '@keep-network/tbtc-v2.ts';
 
 type Props = {
@@ -70,7 +69,8 @@ const Step2ProvideDataComponent = ({
 				const existDeposit = await deposit?.detectFunding();
 				if (existDeposit && existDeposit.length > 0) {
 					setDepositExist(true);
-					clearInterval(intervalId); // Clear the interval once the deposit is detected
+
+					clearInterval(intervalId);
 				}
 			} catch (error) {
 				console.error('Error checking deposit:', error);

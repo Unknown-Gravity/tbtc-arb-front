@@ -1,12 +1,30 @@
 import { Box, Flex, Grid, Text, useColorMode } from '@chakra-ui/react';
-import { Transaction } from '../../../../interfaces/Transaction.interface';
+import { useEffect, useState } from 'react';
+import { getTransactionInfo } from '../../../../services/getTransactionInfo';
+import { Web3Provider } from '@ethersproject/providers';
+import { Transaction } from 'ethers';
+import { TxInfo } from '../../../../interfaces/TxInfo.interface';
 
 type Props = {
 	transaction?: Transaction;
+	provider?: Web3Provider | null;
 };
 
-const TransactionComponent = (props: Props) => {
+const TransactionComponent = ({ transaction, provider }: Props) => {
 	const { colorMode } = useColorMode();
+	const [txInfo, setTxInfo] = useState<TxInfo>();
+	useEffect(() => {
+		const getTxInfo = async () => {
+			if (transaction && provider) {
+				const transactionInfo = await getTransactionInfo(
+					transaction,
+					provider,
+				);
+				setTxInfo(transactionInfo);
+			}
+		};
+		getTxInfo();
+	}, [provider, transaction]);
 	return (
 		<Box
 			p='12px 10px 12px 25px'
@@ -14,7 +32,7 @@ const TransactionComponent = (props: Props) => {
 			border='1px solid #B1BCCC'
 			borderRadius='10px'
 		>
-			{!props.transaction ? (
+			{!txInfo?.hash ? (
 				<Flex justifyContent='space-between'>
 					<Text
 						fontSize='16px'
@@ -44,7 +62,7 @@ const TransactionComponent = (props: Props) => {
 						fontWeight={400}
 						variant='gray'
 					>
-						{props.transaction?.tbtc}
+						{txInfo?.value}
 					</Text>
 					<Text
 						fontSize='14px'
@@ -52,7 +70,7 @@ const TransactionComponent = (props: Props) => {
 						fontWeight={400}
 						variant='grayPurpleGradient'
 					>
-						{props.transaction?.tx?.slice(0, 5)}...
+						{txInfo?.hash.slice(0, 5)}...
 					</Text>
 					<Text
 						fontSize='10px'
@@ -64,33 +82,33 @@ const TransactionComponent = (props: Props) => {
 						w='100%'
 						bg={
 							colorMode === 'dark'
-								? props.transaction.state === 'minted'
+								? txInfo?.status === 'MINTED'
 									? '#153A27'
-									: props.transaction.state === 'pending'
+									: txInfo?.status === 'PENDING'
 									? '#393A15'
 									: '#3A1515'
-								: props.transaction.state === 'minted'
+								: txInfo?.status === 'MINTED'
 								? '#F0FFF4'
-								: props.transaction.state === 'pending'
+								: txInfo?.status === 'PENDING'
 								? '#FFFBE6'
 								: '#FFF5F5'
 						}
 						color={
 							colorMode === 'dark'
-								? props.transaction.state === 'minted'
+								? txInfo?.status === 'MINTED'
 									? '#8DFEAB'
-									: props.transaction.state === 'pending'
+									: txInfo?.status === 'PENDING'
 									? '#FAAD14'
 									: '#E53939'
-								: props.transaction.state === 'minted'
+								: txInfo?.status === 'MINTED'
 								? '#38A169'
-								: props.transaction.state === 'pending'
+								: txInfo?.status === 'PENDING'
 								? '#FAAD14'
 								: '#E53939'
 						}
 						borderRadius='50px'
 					>
-						{props.transaction?.state?.toUpperCase()}
+						{txInfo?.status}
 					</Text>
 				</Grid>
 			)}

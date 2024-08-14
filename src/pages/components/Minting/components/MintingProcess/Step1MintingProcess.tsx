@@ -8,10 +8,11 @@ import {
 	Text,
 	Tooltip,
 } from '@chakra-ui/react';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { InfoIcon } from '../../../../../assets/icons/InfoIcon';
 import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import { useSdk } from '../../../../../context/SDKProvider';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
 	onClick: () => void;
@@ -19,17 +20,20 @@ type Props = {
 	btcRecoveryAddress: string;
 	errorMsg: string;
 	initializingDeposit: boolean;
+	setStep: Dispatch<SetStateAction<number>>;
 };
 
 const Step1MintingProcess = ({
 	onClick,
 	onChange,
+	setStep,
 	btcRecoveryAddress,
 	errorMsg,
 	initializingDeposit,
 }: Props) => {
 	const { address } = useWeb3ModalAccount();
 	const { initializing } = useSdk();
+	const navigate = useNavigate();
 	console.log('🚀 ~ initializing:', initializing);
 
 	return (
@@ -124,7 +128,11 @@ const Step1MintingProcess = ({
 							'Generate Desposit Address'
 						)}
 					</Button>
-					<Button variant='purpleOutlined' h='48px'>
+					<Button
+						variant='purpleOutlined'
+						h='48px'
+						onClick={() => setStep(3)}
+					>
 						Resume Deposit
 					</Button>
 				</Stack>
