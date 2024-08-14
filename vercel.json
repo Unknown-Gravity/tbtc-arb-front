@@ -1,0 +1,6 @@
+{
+	"build": {
+		"env": {},
+		"buildCommand": "git config --global url.\"https://\".insteadOf git:// && yarn build"
+	}
+}
