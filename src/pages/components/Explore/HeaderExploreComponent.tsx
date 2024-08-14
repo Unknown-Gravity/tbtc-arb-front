@@ -15,15 +15,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { currencyFormatter } from '../../../utils/utils';
 
-type Props = {};
-
-type Data = {
-	supply: number;
-	tbtc: number;
-	minting: number;
-	addresses: number;
-};
-
 const initialValue = {
 	supply: 0,
 	tbtc: 0,
@@ -31,7 +22,7 @@ const initialValue = {
 	addresses: 0,
 };
 
-const HeaderExploreComponent = (props: Props) => {
+const HeaderExploreComponent = () => {
 	const [data, setData] = useState(initialValue);
 
 	const apikey = process.env.REACT_APP_API_KEY || '';
@@ -65,7 +56,7 @@ const HeaderExploreComponent = (props: Props) => {
 			}
 		};
 		fetchData();
-	}, []);
+	}, [apikey, data]);
 	const backgroundImage = useColorModeValue(
 		`url(${LightExploreBackground})`,
 		`url(${DarkExploreBackground})`,

@@ -9,7 +9,6 @@ import {
 import { HiMoon } from 'react-icons/hi';
 import { HiOutlineSun } from 'react-icons/hi';
 import ConnectButton from './ConnectButton';
-import { useParams } from 'react-router-dom';
 
 type Props = {
 	isOpen: boolean;
@@ -37,7 +36,7 @@ const HeaderComponentDesktop = (props: Props) => {
 			borderBottom={`1px solid ${borderColor}`}
 			borderRadius='0px 0px 10px 10px'
 			bg={bgColor}
-			zIndex={10}
+			zIndex={15}
 		>
 			<Flex justifyContent='space-between'>
 				<Text

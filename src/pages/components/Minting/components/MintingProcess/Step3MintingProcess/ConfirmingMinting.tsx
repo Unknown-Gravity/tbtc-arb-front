@@ -14,7 +14,7 @@ import CustomSpinner from '../../../../../../components/CustomSpinner';
 
 type Props = {
 	isLoading: boolean;
-	confirmations: number;
+	initializedMint: boolean;
 	msg: {
 		header: string;
 		body: string;
@@ -27,27 +27,32 @@ type Props = {
 	finalizedMinting: boolean;
 };
 
-const ConfirmingMinting = (props: Props) => {
+const ConfirmingMinting = ({
+	isLoading,
+	initializedMint,
+	msg,
+	finalizedMinting,
+}: Props) => {
 	const { colorMode } = useColorMode();
 	const theme = useTheme();
 
 	return (
 		<Stack
-			gap={props.finalizedMinting ? '35px' : '20px'}
+			gap={finalizedMinting ? '35px' : '20px'}
 			alignItems='center'
 			maxW='458.46px'
 		>
-			{!props.finalizedMinting ? (
+			{!finalizedMinting ? (
 				<>
 					<Text
 						fontSize='12px'
 						lineHeight='14.52px'
 						textAlign='center'
 					>
-						{props.msg.header}
+						{msg.header}
 					</Text>
 
-					{props.isLoading ? (
+					{isLoading ? (
 						<CustomSpinner />
 					) : (
 						<Box
@@ -74,7 +79,7 @@ const ConfirmingMinting = (props: Props) => {
 					)}
 
 					<Stack gap='10px'>
-						{props.confirmations < 6 && (
+						{!initializedMint && (
 							<Flex
 								gap='4px'
 								color={
@@ -86,14 +91,6 @@ const ConfirmingMinting = (props: Props) => {
 								justifyContent='center'
 							>
 								<BsFillCheckCircleFill size='14.67px' />
-								<Text
-									variant='lightCoolGray'
-									lineHeight='19.36px'
-									fontWeight={600}
-								>
-									{props.isLoading ? 6 : props.confirmations}
-									/6 Bitcoin Network Confirmations
-								</Text>
 							</Flex>
 						)}
 						<Text
@@ -102,13 +99,13 @@ const ConfirmingMinting = (props: Props) => {
 							fontSize='14px'
 							lineHeight='24px'
 						>
-							{props.msg.body}
+							{msg.body}
 						</Text>
 					</Stack>
 					<Text variant='coolGray' fontSize='14px' lineHeight='20px'>
 						See transaction on{' '}
-						<Link href={props.msg.transaction.link}>
-							{props.msg.transaction.label}
+						<Link href={msg.transaction.link}>
+							{msg.transaction.label}
 						</Link>
 					</Text>
 				</>

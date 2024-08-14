@@ -13,7 +13,7 @@ type Props = {
 	isUnminting: boolean;
 };
 
-const initialValue = { amount: 0, btcAddress: '' };
+const initialValue = { amount: 0, btcRecoveryAddress: '' };
 
 const Step1UnmintingProcess = (props: Props) => {
 	const balance = useSelector((state: RootState) => state.account.balance);
@@ -62,9 +62,9 @@ const Step1UnmintingProcess = (props: Props) => {
 
 				<CustomInput
 					leftlabel='BTC Address'
-					name='btcAddress'
+					name='btcRecoveryAddress'
 					onChange={handleChange}
-					value={unmint.btcAddress}
+					value={unmint.btcRecoveryAddress}
 				/>
 
 				<Button

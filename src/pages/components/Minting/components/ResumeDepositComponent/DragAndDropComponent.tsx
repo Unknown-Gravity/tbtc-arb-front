@@ -10,33 +10,71 @@ import {
 	useColorModeValue,
 	useTheme,
 } from '@chakra-ui/react';
-import { ChangeEvent, DragEvent } from 'react';
+import {
+	ChangeEvent,
+	Dispatch,
+	DragEvent,
+	SetStateAction,
+	useState,
+} from 'react';
 import DragAndDropIcon from '../../../../../assets/icons/DragAndDropIcon';
 
-const DragAndDropComponent = () => {
+interface Props {
+	fileName: string | null;
+	setFileName: Dispatch<SetStateAction<string | null>>;
+	setFileContent: Dispatch<SetStateAction<string | ArrayBuffer | null>>; // Añadimos prop para manejar el contenido del archivo
+}
+
+const DragAndDropComponent = ({
+	fileName,
+	setFileName,
+	setFileContent,
+}: Props) => {
 	const iconColor = useColorModeValue('brand.purple.500', 'white');
 	const theme = useTheme();
+	const [isDraggingInside, setIsDraggingInsise] = useState(false);
+
 	const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
 		event.preventDefault();
-		console.log('🚀 ~ handleDragOver ~ ent:', event);
+		setIsDraggingInsise(true);
 	};
 
 	const handleDragLeave = (event: DragEvent<HTMLDivElement>) => {
 		event.preventDefault();
-		console.log('🚀 ~ handleDragOver ~ ent:', event);
+		setIsDraggingInsise(false);
 	};
 
 	const handleDrop = (event: DragEvent<HTMLDivElement>) => {
 		event.preventDefault();
-		console.log('🚀 ~ handleDragOver ~ ent:', event);
+		setIsDraggingInsise(false);
 
-		// Here we'll handle the dropped files
+		const files = event.dataTransfer.files;
+		if (files.length > 0) {
+			const file = files[0];
+			setFileName(file.name);
+			readFileContent(file); // Leemos el contenido del archivo
+		}
 	};
 
-	const handleChange = (event: ChangeEvent) => {
-		event.preventDefault();
-		console.log('🚀 ~ handleDragOver ~ ent:', event);
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const files = event.target.files;
+		if (files && files.length > 0) {
+			const file = files[0];
+			setFileName(file.name);
+			readFileContent(file); // Leemos el contenido del archivo
+		}
 	};
+
+	const readFileContent = (file: File) => {
+		const reader = new FileReader();
+		reader.onload = e => {
+			setFileContent(e.target?.result || null); // Guardamos el contenido del archivo
+		};
+		reader.readAsText(file); // Puedes cambiar readAsText a readAsDataURL o readAsArrayBuffer dependiendo de tus necesidades
+	};
+
+	const bgColor = useColorModeValue('gray.100', 'gray');
+
 	return (
 		<Stack spacing='8px'>
 			<Flex justifyContent='space-between'>
@@ -63,6 +101,8 @@ const DragAndDropComponent = () => {
 				alignItems='center'
 				justifyContent='center'
 				textAlign='center'
+				filter={isDraggingInside ? 'brightness(0.8)' : 'none'}
+				bg={isDraggingInside ? bgColor : 'none'}
 			>
 				<Box>
 					<DragAndDropIcon
@@ -93,6 +133,12 @@ const DragAndDropComponent = () => {
 						</Button>
 						<Input type='file' hidden onChange={handleChange} />
 					</FormControl>
+					{fileName && (
+						<Text mt='4'>
+							Selected file:{' '}
+							<Text variant='purple'>{fileName}</Text>
+						</Text>
+					)}
 				</Box>
 			</Stack>
 		</Stack>

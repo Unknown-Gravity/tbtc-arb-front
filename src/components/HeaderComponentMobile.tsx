@@ -31,7 +31,7 @@ const HeaderComponentMobile = (props: Props) => {
 			top={0}
 			p='1rem'
 			bg={bgHeaderColor}
-			zIndex={10}
+			zIndex={15}
 			borderBottom={`1px solid ${borderColor}`}
 		>
 			<Flex justifyContent='space-between' alignItems='center'>

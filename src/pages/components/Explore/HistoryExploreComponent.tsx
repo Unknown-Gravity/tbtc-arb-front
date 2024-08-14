@@ -15,9 +15,8 @@ import axios from 'axios';
 import { AccountImageExample } from '../../../assets/images';
 import { formatAddress, getDifferenceInMinutes } from '../../../utils/utils';
 import { Transactions } from '../../../interfaces/Transactions.interface';
-type Props = {};
 
-const HistoryExploreComponent = (props: Props) => {
+const HistoryExploreComponent = () => {
 	const [history, setHistory] = useState<Array<Transactions>>([]);
 	console.log('🚀 ~ HistoryExploreComponent ~ history:', history);
 	const apikey = process.env.REACT_APP_API_KEY || '';

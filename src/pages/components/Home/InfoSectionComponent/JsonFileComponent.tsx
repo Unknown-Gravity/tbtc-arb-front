@@ -1,7 +1,7 @@
 import { CustomBox } from '../../../../components/CustomBox';
-import { Flex, Image, Stack, Text, useColorMode } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Flex, Image, Link, Stack, Text, useColorMode } from '@chakra-ui/react';
 import { DarkJsonImage, LightJsonImage } from '../../../../assets/images';
+import { UpRightIcon } from '../../../../assets/icons/UpRightIcon';
 
 const JsonFileComponent = () => {
 	const { colorMode } = useColorMode();
@@ -37,9 +37,10 @@ const JsonFileComponent = () => {
 			</Text>
 			<Text fontSize='14px'>
 				Recovery guide can be found{' '}
-				<Text as={Link} variant='purpleDarkGradient'>
+				<Link variant='purpleDarkGradient'>
 					here
-				</Text>
+					<UpRightIcon />
+				</Link>
 			</Text>
 			<Flex h={'100%'} alignItems='center' justifyContent='center'>
 				<Image

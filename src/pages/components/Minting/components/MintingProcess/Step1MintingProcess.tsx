@@ -3,26 +3,40 @@ import {
 	Button,
 	Flex,
 	Input,
+	Spinner,
 	Stack,
 	Text,
 	Tooltip,
 } from '@chakra-ui/react';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { InfoIcon } from '../../../../../assets/icons/InfoIcon';
-import { useWeb3ModalAccount } from '@web3modal/ethers/react';
+import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
+import { useSdk } from '../../../../../context/SDKProvider';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
 	onClick: () => void;
 	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-	btcAddress: string;
+	btcRecoveryAddress: string;
 	errorMsg: string;
+	initializingDeposit: boolean;
+	setStep: Dispatch<SetStateAction<number>>;
 };
 
-const Step1MintingProcess = (props: Props) => {
+const Step1MintingProcess = ({
+	onClick,
+	onChange,
+	setStep,
+	btcRecoveryAddress,
+	errorMsg,
+	initializingDeposit,
+}: Props) => {
 	const { address } = useWeb3ModalAccount();
+	const { initializing } = useSdk();
+	console.log('🚀 ~ initializing:', initializing);
 
 	return (
-		<Box h={{ base: 'auto', xl: '555px' }}>
+		<Box h={{ base: 'auto', xl: '555px' }} zIndex={10}>
 			<Stack spacing='24px' mt='24px'>
 				<Text fontSize='16px' lineHeight='28px' fontWeight={600}>
 					<Text variant='purpleDarkGradient' as={'span'}>
@@ -75,7 +89,7 @@ const Step1MintingProcess = (props: Props) => {
 							lineHeight='24px'
 							fontWeight={600}
 						>
-							BTC Recovery Adress
+							BTC Recovery Address
 						</Text>
 						<Tooltip
 							hasArrow
@@ -91,18 +105,33 @@ const Step1MintingProcess = (props: Props) => {
 					</Flex>
 					<Input
 						name='BTCAdress'
-						value={props.btcAddress}
-						onChange={props.onChange}
+						value={btcRecoveryAddress}
+						onChange={onChange}
 					/>
-					{props.errorMsg !== '' && (
-						<Text color='red'>{props.errorMsg}</Text>
-					)}
+					{errorMsg !== '' && <Text color='red'>{errorMsg}</Text>}
 				</Stack>
 				<Stack gap='10.37px'>
-					<Button variant='purple' h='48px' onClick={props.onClick}>
-						Generate Deposit Adress
+					<Button
+						variant='purple'
+						h='48px'
+						onClick={initializing ? undefined : onClick}
+						rightIcon={
+							initializingDeposit ? <Spinner /> : undefined
+						}
+					>
+						{initializing ? (
+							<Spinner />
+						) : initializingDeposit ? (
+							'Generating Deposit Address'
+						) : (
+							'Generate Desposit Address'
+						)}
 					</Button>
-					<Button variant='purpleOutlined' h='48px'>
+					<Button
+						variant='purpleOutlined'
+						h='48px'
+						onClick={() => setStep(3)}
+					>
 						Resume Deposit
 					</Button>
 				</Stack>

@@ -177,8 +177,17 @@ const components: ThemeOverride['components'] = {
 				fontWeight: 600,
 				fontSize: '16px',
 				bg: 'brand.purple.900',
-				color: props.colorMode === 'light' && 'white',
+				color: props.colorMode === 'light' ? 'white' : 'inherit',
+				transition: 'background-color 0.1s, filter 0.1s',
+
+				_hover: {
+					bg: 'brand.purple.800',
+				},
+				_active: {
+					filter: 'brightness(0.8)',
+				},
 			}),
+
 			whiteFilled: {
 				color: 'brand.purple.900',
 				bg: 'white',
@@ -225,6 +234,13 @@ const components: ThemeOverride['components'] = {
 						? 'light.primaryGray'
 						: 'dark.coolGray',
 				border: `1px solid ${theme.colors.light.coolGray}`,
+
+				_hover: {
+					bg:
+						props.colorMode === 'light'
+							? 'light.lightGray'
+							: 'dark.secondaryGray',
+				},
 			}),
 
 			grayOutlined2: (props: StyleFunctionProps) => ({
@@ -416,12 +432,22 @@ const components: ThemeOverride['components'] = {
 			purpleDarkGradient: (props: StyleFunctionProps) => ({
 				transition: 'text-decoration 0.2s',
 				color:
-					props.colorMode === 'light' ? 'brand.purple.900' : 'none',
-				bg:
-					props.colorMode === 'dark' &&
-					'linear-gradient(113.75deg, #EDC6FF 0%, #AB5AFA 100%)',
-				backgroundClip: props.colorMode === 'dark' && 'text',
-				fill: props.colorMode === 'dark' && 'transparent',
+					props.colorMode === 'light'
+						? 'brand.purple.900'
+						: 'brand.purple.700',
+			}),
+
+			lightGrayDarkPurple: (props: StyleFunctionProps) => ({
+				color:
+					props.colorMode === 'light'
+						? 'light.gray'
+						: 'brand.purple.700',
+			}),
+			grayPurple: (props: StyleFunctionProps) => ({
+				color:
+					props.colorMode === 'light'
+						? 'brand.purple.900'
+						: 'dark.coolGray',
 			}),
 		},
 	},

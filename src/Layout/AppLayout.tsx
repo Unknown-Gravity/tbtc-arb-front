@@ -28,6 +28,8 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 		'linear-gradient(to top, rgba(26, 32, 44, 0) 0%, rgba(26, 32, 44, 0.4) 100%)',
 	);
 
+	const path = window.location.pathname.slice(1);
+
 	const backgroundImage = useColorModeValue(LightBackground, DarkBackground);
 
 	return (
@@ -43,25 +45,27 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 			bgSize='cover'
 			bgPos='bottom'
 		>
-			<Box
-				maxH='711px'
-				content='""'
-				position='absolute'
-				top='61px'
-				right={0}
-				bottom={0}
-				left={0}
-				sx={{
-					maskImage: mask,
-				}}
-			>
-				<Image
-					src={backgroundImage}
-					w='100%'
-					h='100%'
+			{path === 'home' && (
+				<Box
+					maxH='711px'
+					content='""'
 					position='absolute'
-				/>
-			</Box>
+					top='61px'
+					right={0}
+					bottom={0}
+					left={0}
+					sx={{
+						maskImage: mask,
+					}}
+				>
+					<Image
+						src={backgroundImage}
+						w='100%'
+						h='100%'
+						position='absolute'
+					/>
+				</Box>
+			)}
 
 			<SideBarMenu
 				isOpen={isOpen}
@@ -80,7 +84,7 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 					onOpen={onOpen}
 					isMobile={isMobile}
 				/>
-				<Box w='100%' py={4} pl={{ base: 4, xl: 18 }}>
+				<Box w='100%' py={'64px'} pl={{ base: 4, xl: 18 }}>
 					{component}
 				</Box>
 			</Flex>

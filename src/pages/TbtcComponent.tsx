@@ -4,7 +4,7 @@ import { CustomBox } from '../components/CustomBox';
 import BalanceComponent from './components/Minting/BalanceComponent';
 import { useSelector } from 'react-redux';
 import { RootState } from '../types/RootState';
-import { useWeb3ModalAccount } from '@web3modal/ethers/react';
+import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import MyActivityComponent from './components/Minting/MyActivityComponent';
 import { useEffect, useState } from 'react';
 import MintComponent from './components/Minting/MintComponent';
@@ -14,7 +14,8 @@ import ResumeDepositComponent from './components/Minting/ResumeDepositComponent'
 type Props = {};
 
 const TbtcComponent = (props: Props) => {
-	const [tabSelected, setTabSelected] = useState<number>();
+	const [step, setStep] = useState(1);
+	const [tabSelected, setTabSelected] = useState<number>(1);
 	const accountInfo = useSelector((state: RootState) => state.account);
 	const { isConnected } = useWeb3ModalAccount();
 
@@ -30,14 +31,6 @@ const TbtcComponent = (props: Props) => {
 
 	return (
 		<>
-			{isConnected && (
-				<CustomBox
-					w={{ base: '100%', xl: '1120px' }}
-					mt='64px'
-					mb='20px'
-					mx='auto'
-				></CustomBox>
-			)}
 			<Grid
 				maxW='1120px'
 				minH='720px'
@@ -59,7 +52,7 @@ const TbtcComponent = (props: Props) => {
 						isConnected={isConnected}
 					/>
 				</Stack>
-				<Stack gap='20px' maxH='704px'>
+				<Stack gap='20px'>
 					<CustomBox h='fit-content' p='5px'>
 						<Grid
 							templateColumns='repeat(2, minmax(0, 1fr))'
@@ -82,14 +75,22 @@ const TbtcComponent = (props: Props) => {
 						</Grid>
 					</CustomBox>
 					{tabSelected === 1 ? (
-						<MintComponent isConnected={isConnected} />
+						<MintComponent
+							isConnected={isConnected}
+							step={step}
+							setStep={setStep}
+							setTabSelected={setTabSelected}
+						/>
 					) : tabSelected === 2 ? (
 						<UnmintComponent
 							isConnected={isConnected}
 							setTabSelected={setTabSelected}
 						/>
 					) : (
-						<ResumeDepositComponent />
+						<ResumeDepositComponent
+							setTabSelected={setTabSelected}
+							setStep={setStep}
+						/>
 					)}
 				</Stack>
 			</Grid>

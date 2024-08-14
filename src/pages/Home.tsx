@@ -2,7 +2,6 @@ import { Stack } from '@chakra-ui/react';
 import HomeHeader from './components/Home/HomeHeader';
 import { FC, useState } from 'react';
 import BannerHome from './components/Home/BannerHome';
-import { convertBTCToCurrency } from '../utils/utils';
 import BridgeStatsComponent from './components/Home/BridgeStatsComponent';
 import InfoSectionComponent from './components/Home/InfoSectionComponent';
 import JoinComponent from './components/Home/JoinComponent';
@@ -10,8 +9,6 @@ import FooterComponent from '../components/FooterComponent';
 
 const Home: FC = () => {
 	const [showMintWindow, setShowMintWindow] = useState(true);
-
-	const btc = convertBTCToCurrency(3355.58, 'USD');
 
 	const handleCloseBanner = (): void => {
 		setShowMintWindow(false);
