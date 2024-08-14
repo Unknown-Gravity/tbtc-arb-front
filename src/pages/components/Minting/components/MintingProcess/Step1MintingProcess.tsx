@@ -33,7 +33,6 @@ const Step1MintingProcess = ({
 }: Props) => {
 	const { address } = useWeb3ModalAccount();
 	const { initializing } = useSdk();
-	const navigate = useNavigate();
 	console.log('🚀 ~ initializing:', initializing);
 
 	return (

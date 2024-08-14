@@ -7,7 +7,6 @@ import {
 	Link,
 } from '@chakra-ui/react';
 import { IconType } from 'react-icons';
-import { GitHubIcon } from '../../assets/icons/GitHubIcon';
 
 type Props = {
 	link: string;

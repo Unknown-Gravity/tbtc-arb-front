@@ -1,5 +1,4 @@
 import { Web3Provider } from '@ethersproject/providers';
-import { ethers } from 'ethers';
 
 export const getTransactionStatus = async (
 	provider: Web3Provider | null,

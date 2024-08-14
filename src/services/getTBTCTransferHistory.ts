@@ -1,6 +1,5 @@
 import { Contract } from 'ethers';
 import { Web3Provider } from '@ethersproject/providers';
-import { TBTC } from '@keep-network/tbtc-v2.ts';
 
 export async function getTBTCTransferHistory(
 	provider: Web3Provider,

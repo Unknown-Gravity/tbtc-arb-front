@@ -11,14 +11,12 @@ import { RootState } from '../../../types/RootState';
 import { useEffect, useState, useMemo } from 'react';
 import { getTransactionHistory } from '../../../services/getTransactionHistory';
 import { Transaction } from '@ethersproject/transactions';
-import { useSdk } from '../../../context/SDKProvider';
 
 const MyActivityComponent = (props: BasicComponentProps) => {
 	const { colorMode } = useColorMode();
 	const accountInfo = useSelector((state: RootState) => state.account);
 	const [transactions, setTransactions] = useState<Array<Transaction>>([]);
 	const [loading, setLoading] = useState<boolean>(true);
-	const { sdk } = useSdk();
 
 	useEffect(() => {
 		const getTransactions = async () => {

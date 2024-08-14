@@ -1,12 +1,7 @@
 import { Box, Link, Stack, Text } from '@chakra-ui/react';
 import CustomSpinner from '../../../../../../components/CustomSpinner';
 
-type Props = {
-	steps: Array<{ step: string }>;
-	activeStep: number;
-};
-
-const UnmintingInProgressComponent = (props: Props) => {
+const UnmintingInProgressComponent = () => {
 	return (
 		<Box>
 			<Stack gap='35px' alignItems='center'>

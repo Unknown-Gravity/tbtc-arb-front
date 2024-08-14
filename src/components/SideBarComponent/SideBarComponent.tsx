@@ -7,9 +7,6 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { HouseIcon } from '../../assets/icons/HouseIcon';
-import { BitcoinIcon } from '../../assets/icons/BitcoinIcon';
-import { SearchIcon } from '../../assets/icons/SearchIcon';
 import IconSideBar from './IconSideBar';
 import { GitHubIcon } from '../../assets/icons/GitHubIcon';
 import { DiscorIcon } from '../../assets/icons/DiscordIcon';
@@ -17,7 +14,7 @@ import { SidebarArrow } from '../../assets/icons/SidebarArrow';
 import { LogoAloneIcon } from '../../assets/icons/LogoAlone';
 import LogoIcon from '../../assets/icons/LogoIcon';
 import { useNavigate } from 'react-router-dom';
-import { ExternalRoutes, PublicRoutes } from '../../Routes/Routes';
+import { ExternalRoutes } from '../../Routes/Routes';
 import { publicLinks } from '../../Routes/Routes';
 
 const MotionBox = motion(Box);
@@ -25,7 +22,6 @@ const MotionBox = motion(Box);
 type Props = {
 	isOpen: boolean;
 	onOpen: () => void;
-	onClick: (tag: number) => void;
 	path: string;
 };
 

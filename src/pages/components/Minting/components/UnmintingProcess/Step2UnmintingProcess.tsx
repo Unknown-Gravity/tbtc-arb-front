@@ -1,6 +1,5 @@
-import { Fragment } from 'react/jsx-runtime';
 import UnmintingInProgressComponent from './Step2UnmintingProcess/UnmintingInProgressComponent';
-import { Box, Text } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import HeaderStep2UnmintingProcess from './Step2UnmintingProcess/HeaderStep2UnmintingProcess';
 import UnmintingDoneComponent from './Step2UnmintingProcess/UnmintingDoneComponent';
 
@@ -19,10 +18,7 @@ const Step2UnmintingProcess = (props: Props) => {
 				steps={props.steps}
 			/>
 			{!props.isSent ? (
-				<UnmintingInProgressComponent
-					steps={props.steps}
-					activeStep={props.activeStep}
-				/>
+				<UnmintingInProgressComponent />
 			) : (
 				<UnmintingDoneComponent onClick={props.onClick} />
 			)}

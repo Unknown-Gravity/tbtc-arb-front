@@ -3,9 +3,7 @@ import { CustomBox } from '../components/CustomBox';
 import { Stack } from '@chakra-ui/react';
 import HistoryExploreComponent from './components/Explore/HistoryExploreComponent';
 
-type Props = {};
-
-const Explore = (props: Props) => {
+const Explore = () => {
 	return (
 		<Stack
 			mt={'64px'}

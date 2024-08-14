@@ -5,13 +5,11 @@ import {
 	DrawerOverlay,
 	DrawerContent,
 	DrawerFooter,
-	Stack,
 	Flex,
 	Text,
 } from '@chakra-ui/react';
 import LogoIcon from '../../assets/icons/LogoIcon';
 import IconSideBar from './IconSideBar';
-import { useState } from 'react';
 import { HouseIcon } from '../../assets/icons/HouseIcon';
 import { BitcoinIcon } from '../../assets/icons/BitcoinIcon';
 import { SearchIcon } from '../../assets/icons/SearchIcon';
@@ -23,7 +21,6 @@ import { useNavigate } from 'react-router-dom';
 type Props = {
 	isOpen: boolean;
 	onClose: () => void;
-	onClick: (tag: number) => void;
 	path: string;
 };
 

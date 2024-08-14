@@ -1,5 +1,4 @@
 import { Image, Stack, Text, useColorModeValue } from '@chakra-ui/react';
-import React from 'react';
 import {
 	DarkInfoResumeImage,
 	LightInfoResumeImage,
