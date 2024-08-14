@@ -1,6 +1,6 @@
 {
-	"build": {
-		"env": {},
-		"buildCommand": "git config --global url.\"https://\".insteadOf git:// && yarn build"
+	"scripts": {
+		"postinstall": "git config --global url.\"https://\".insteadOf git://",
+		"build": "yarn build"
 	}
 }
