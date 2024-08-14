@@ -1,11 +1,5 @@
 import { DepositReceipt } from '@keep-network/tbtc-v2.ts';
 
-const fs = require('fs');
-const path = require('path');
-
-const JSON_DIR = process.env.JSON_PATH || './data/';
-const dirPath = path.resolve('.', JSON_DIR);
-
 const normalizeData = (
 	data: DepositReceipt,
 	btcRecoveryAddress: string,
