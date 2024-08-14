@@ -8,7 +8,7 @@ type Props = {};
 const Explore = (props: Props) => {
 	return (
 		<Stack
-			mt='64px'
+			mt={'64px'}
 			w={{ xl: '1120px' }}
 			mx='auto'
 			position='relative'
