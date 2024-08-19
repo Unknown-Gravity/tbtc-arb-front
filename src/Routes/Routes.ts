@@ -1,37 +1,62 @@
-import { LinkType } from "../types/Links.type";
+import { SearchIcon } from '../assets/icons/SearchIcon';
+import { BitcoinIcon } from '../assets/icons/BitcoinIcon';
+import { HouseIcon } from '../assets/icons/HouseIcon';
+import { LinkType } from '../types/Links.type';
 
 export const PublicRoutes = {
-	Login: "login",
-	ResetPassword: "reset",
+	Login: 'login',
+	Home: 'home',
+	Mintin: 'mintin',
+	Explore: 'explore',
 };
 
-export const PrivateRoutes = {
-	Home: "home",
-	Stats: "stats",
-	Users: "users",
-	Companies: "companies",
-	Invoices: "invoices",
+export const ExternalRoutes = {
+	Discord: 'https://discord.com/invite/Threshold',
+	Youtube: 'https://www.youtube.com/channel/UCMEW6scsXJFigeeLhSCPF5Q',
+	Github: 'https://github.com/threshold-network',
+	X: 'https://x.com/TheTNetwork',
+	Forum: 'https://forum.threshold.network/',
 };
 
-export const links: LinkType[] = [
+export const PrivateRoutes = {};
+
+export const publicLinks: Array<LinkType> = [
 	{
-		title: "home",
-		link: PrivateRoutes.Home,
+		icon: HouseIcon,
+		title: 'Overview',
+		link: PublicRoutes.Home,
 	},
 	{
-		title: "stats",
-		link: PrivateRoutes.Stats,
+		icon: BitcoinIcon,
+		title: 'tBTC',
+		link: PublicRoutes.Mintin,
 	},
 	{
-		title: "users",
-		link: PrivateRoutes.Users,
+		icon: SearchIcon,
+		title: 'Explore',
+		link: PublicRoutes.Explore,
+	},
+];
+
+export const externalLinks: Array<LinkType> = [
+	{
+		title: 'youtube',
+		link: ExternalRoutes.Youtube,
 	},
 	{
-		title: "companies",
-		link: PrivateRoutes.Companies,
+		title: 'discord',
+		link: ExternalRoutes.Discord,
 	},
 	{
-		title: "invoices",
-		link: PrivateRoutes.Invoices,
+		title: 'x',
+		link: ExternalRoutes.X,
+	},
+	{
+		title: 'github',
+		link: ExternalRoutes.Github,
+	},
+	{
+		title: 'forum',
+		link: ExternalRoutes.Forum,
 	},
 ];

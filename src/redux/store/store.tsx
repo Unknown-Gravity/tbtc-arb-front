@@ -1,5 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "../reducers/AuthReducer";
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from '../reducers/AuthReducer';
+import accountReducer from '../reducers/AccountReducer';
 
 /**
  * @name store
@@ -7,7 +8,24 @@ import authReducer from "../reducers/AuthReducer";
  * @version 1.0.0
  */
 export const store = configureStore({
+	middleware: getDefaultMiddleware =>
+		getDefaultMiddleware({
+			serializableCheck: {
+				// Ignore these action types
+				ignoredActions: ['auth/addAccount'],
+				// Ignore these field paths in all actions
+				ignoredActionPaths: [
+					'meta.arg',
+					'payload.provider',
+					'payload.signer',
+				],
+				// Ignore these paths in the state
+				ignoredPaths: ['account.provider', 'account.signer'],
+			},
+		}),
+
 	reducer: {
 		auth: authReducer,
+		account: accountReducer,
 	},
 });

@@ -36,8 +36,8 @@ const BTCtoCurrencyComponent: FC<{
 
 	return (
 		<Text
-			fontSize='14px'
-			variant={variant ? variant : 'gray'}
+			fontSize={variant === 'gray' ? '14px' : '16px'}
+			variant={variant}
 			lineHeight='10px'
 		>
 			{convertedAmount}

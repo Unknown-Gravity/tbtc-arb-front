@@ -25,13 +25,7 @@ export const currencyFormatter = (
 	currency: 'USD' | 'EUR' | 'JPY' | 'GBP' = 'USD',
 	symbol: string = 'symbol',
 ): string => {
-	const locales: { [key in 'USD' | 'EUR' | 'JPY' | 'GBP']: string } = {
-		USD: 'en-US',
-		EUR: 'de-DE',
-		JPY: 'ja-JP',
-		GBP: 'en-GB',
-	};
-	const locale = locales[currency] || 'en-US';
+	const locale = currencyLocales[currency] || 'en-US';
 
 	// Si el símbolo es 'none', formateamos solo el número sin símbolo ni código de moneda
 	if (symbol === 'none') {
@@ -75,7 +69,49 @@ export const convertBTCToCurrency = async (
 };
 
 export const getDifferenceInMinutes = (date1: Date, date2: Date) => {
-	const diffInMs = date2.getMinutes() - date1.getMinutes();
+	const diffInMs = date2?.getTime() - date1.getTime();
+	const diffInMinutes = Math.floor(diffInMs / 60000);
 
-	return diffInMs;
+	if (diffInMinutes < 60) {
+		return `${diffInMinutes} minutes ago`;
+	}
+
+	const diffInHours = Math.floor(diffInMinutes / 60);
+	if (diffInHours < 24) {
+		return `${diffInHours} hours ago`;
+	}
+
+	const diffInDays = Math.floor(diffInHours / 24);
+	return `${diffInDays} days ago`;
 };
+
+export const normalizeNetWorkNames = (networkName: string): string => {
+	if (!networkName) return '';
+
+	return networkName
+		.split('-') // Divide el nombre en partes usando guiones
+		.map(
+			word => word.charAt(0).toUpperCase() + word.slice(1), // Capitaliza la primera letra de cada palabra
+		)
+		.join(' ');
+};
+
+export const formatAddress = (
+	address: `0x${string}` | undefined | string,
+): string => {
+	return address?.slice(0, 5) + '...' + address?.slice(-4);
+};
+
+const millisecondsToTimeString = (milliseconds: number): string => {
+	const totalMinutes = milliseconds / 60000; // 1 minuto = 60,000 milisegundos
+	const hours = Math.floor(totalMinutes / 60);
+	const minutes = Math.floor(totalMinutes % 60);
+
+	if (hours > 0) {
+		return `${hours} HOURS ${minutes} MINUTES`;
+	} else {
+		return `${minutes} MINUTES`;
+	}
+};
+
+export { millisecondsToTimeString };
