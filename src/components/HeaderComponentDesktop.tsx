@@ -12,6 +12,7 @@ import ConnectButton from './ConnectButton';
 
 type Props = {
 	isOpen: boolean;
+	title: string;
 };
 
 const HeaderComponentDesktop = (props: Props) => {
@@ -29,7 +30,7 @@ const HeaderComponentDesktop = (props: Props) => {
 			w={
 				props.isOpen === false
 					? 'calc(100% - 37px)'
-					: 'calc(100% - 135px)'
+					: 'calc(100% - 185px)'
 			}
 			transition='width 0.2s'
 			p='10px 60px 10px 60px'
@@ -45,7 +46,7 @@ const HeaderComponentDesktop = (props: Props) => {
 					lineHeight='36px'
 					variant='gray'
 				>
-					tBTC | Minting
+					{props.title}
 				</Text>
 				<Flex alignItems='center' gap='10px'>
 					{colorMode === 'light' ? (

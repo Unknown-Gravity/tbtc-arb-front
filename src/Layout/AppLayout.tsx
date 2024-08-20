@@ -31,6 +31,8 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 	const path = window.location.pathname.slice(1);
 
 	const backgroundImage = useColorModeValue(LightBackground, DarkBackground);
+const AppLayout = ({ component, headerTitle }: AppLayoutProps) => {
+	const [isOpen, setIsOpen]: [boolean, Dispatch<boolean>] = useState(false);
 
 	return (
 		<Flex
@@ -80,11 +82,17 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 				pr={{ base: 3.5, xl: 0 }}
 			>
 				<HeaderComponent
+				 	title={headerTitle} 
 					isOpen={isOpen}
 					onOpen={onOpen}
 					isMobile={isMobile}
 				/>
-				<Box w='100%' py={'64px'} pl={{ base: 4, xl: 18 }}>
+				<Box 
+					w='100%' 
+					py={4} 
+					pl={{ base: 4, xl: 18 }} 
+					pr={{ base: 0, xl: 10 }}
+				>
 					{component}
 				</Box>
 			</Flex>
