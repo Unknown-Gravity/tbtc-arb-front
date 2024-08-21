@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Flex, Image, Stack, Text, Input, useColorMode, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Stack, Text, Input, useColorMode, useColorModeValue } from '@chakra-ui/react';
 import { CustomBox } from '../components/CustomBox';
 import { 
 	LightLoyaltyProgramGrid, 
 	DarkLoyaltyProgramGrid,
-	DarkBgBox,
-	LightBgBox,
-	PurpleGlare
 } from '../assets/images';
 import LeaderboardComponent from './components/Loyalty/LeaderboardComponent';
 
@@ -14,15 +11,10 @@ type Props = {};
 
 const Loyalty = (props: Props) => {
 	const { colorMode } = useColorMode();
-	const background = useColorModeValue(
-		LightBgBox,
-		DarkBgBox,
-	);
 	const [searchQuery, setSearchQuery] = useState(''); // New state for search query
 
 	return (
 		<Box
-			bgImage={background}
 			bgSize="auto"
 			bgRepeat="repeat"
 			w="100%"
@@ -36,29 +28,6 @@ const Loyalty = (props: Props) => {
 				maxW={{ base: '100%', '2xl': '1134px' }} 
 				mx='auto'
 			>
-				<Image
-					position="absolute"
-					top={0}
-					left={0}
-					marginLeft="-240px"
-					src={PurpleGlare}
-					maxW="1000px"
-					alignSelf='center'
-					zIndex={-1}
-					opacity={0.6}
-				/>
-				<Image
-					position="absolute"
-					top={0}
-					right={0}
-					marginRight="-80px"
-					marginTop="120px"
-					src={PurpleGlare}
-					maxW="560px"
-					alignSelf='center'
-					zIndex={-1}
-					opacity={0.6}
-				/>
 				<Box
 					borderRadius='14px'
 					boxShadow={colorMode === 'light' ? '0px 0px 7px #00000025' : 'none'}

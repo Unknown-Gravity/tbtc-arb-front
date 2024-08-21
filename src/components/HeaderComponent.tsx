@@ -2,7 +2,7 @@ import HeaderComponentDesktop from './HeaderComponentDesktop';
 import HeaderComponentMobile from './HeaderComponentMobile';
 
 type Props = {
-	title: string;
+	title: string | undefined;
 	isOpen: boolean;
 	onOpen: () => void;
 	isMobile: boolean;

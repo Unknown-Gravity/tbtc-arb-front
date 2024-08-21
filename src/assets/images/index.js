@@ -34,9 +34,6 @@ import LightExploreBackground from './lightExploreBackground.svg';
 import DarkExploreBackground from './darkExploreBackground.svg';
 import LightInfoResumeImage from './lightInfoResumeImage.svg';
 import DarkInfoResumeImage from './darkInfoResumeImage.svg';
-import DarkBgBox from './darkBgBox.svg';
-import LightBgBox from './lightBgBox.svg';
-import PurpleGlare from './purpleGlare.svg';
 
 export {
 	DarkBackground,
@@ -75,7 +72,4 @@ export {
 	DarkExploreBackground,
 	LightInfoResumeImage,
 	DarkInfoResumeImage,
-	DarkBgBox,
-	LightBgBox,
-	PurpleGlare
 };

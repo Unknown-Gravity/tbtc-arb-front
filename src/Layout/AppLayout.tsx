@@ -19,7 +19,7 @@ import HeaderComponent from '../components/HeaderComponent';
 
 //TODO mirar el problema del fondo
 
-const AppLayout = ({ component }: AppLayoutProps) => {
+const AppLayout = ({ component, headerTitle }: AppLayoutProps) => {
 	const [isMobile] = useMediaQuery('(min-width: 768px)');
 	const { colorMode } = useColorMode();
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,9 +31,6 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 	const path = window.location.pathname.slice(1);
 
 	const backgroundImage = useColorModeValue(LightBackground, DarkBackground);
-const AppLayout = ({ component, headerTitle }: AppLayoutProps) => {
-	const [isOpen, setIsOpen]: [boolean, Dispatch<boolean>] = useState(false);
-
 	return (
 		<Flex
 			minHeight='100vh'
@@ -44,8 +41,8 @@ const AppLayout = ({ component, headerTitle }: AppLayoutProps) => {
 				colorMode === 'light' ? LightGridBackground : DarkGridBackground
 			}
 			bgRepeat='no-repeat'
+			bgPosition='top'
 			bgSize='cover'
-			bgPos='bottom'
 		>
 			{path === 'home' && (
 				<Box

@@ -51,8 +51,8 @@ const DrawerComponent = (props: Props) => {
 						icon={BitcoinIcon}
 						isOpen={props.isOpen}
 						text='tBTC'
-						filled={props.path === PublicRoutes.Mintin}
-						onClick={() => navigate(`/${PublicRoutes.Mintin}`)}
+						filled={props.path === PublicRoutes.Minting}
+						onClick={() => navigate(`/${PublicRoutes.Minting}`)}
 					/>
 					<IconSideBar
 						icon={SearchIcon}

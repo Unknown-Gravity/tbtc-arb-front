@@ -35,12 +35,12 @@ const AppRoutes = memo(() => {
 				element={<AppLayout component={<Minting />} headerTitle="tBTC | Minting" />}
 			/>
 			<Route
-				path={PublicRoutes.Loyalty}
-				element={<AppLayout component={<Loyalty />} headerTitle="Loyalty Program" />}
-			/>
-			<Route
 				path={PublicRoutes.Explore}
 				element={<AppLayout component={<Explore />} />}
+			/>
+			<Route
+				path={PublicRoutes.Loyalty}
+				element={<AppLayout component={<Loyalty />} headerTitle="Loyalty Program" />}
 			/>
 
 			{/* Private Routes */}

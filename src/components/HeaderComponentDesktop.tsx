@@ -12,7 +12,7 @@ import ConnectButton from './ConnectButton';
 
 type Props = {
 	isOpen: boolean;
-	title: string;
+	title: string | undefined;
 };
 
 const HeaderComponentDesktop = (props: Props) => {

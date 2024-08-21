@@ -39,12 +39,19 @@ const EventRow: React.FC<EventRowProps> = ({ event, isSmallScreen }) => {
   const { colorMode } = useColorMode();
   const { token1, token2, transactionHash, timestamp } = event;
 
-  const token1Amount = useMemo(() => truncateToDecimals(ethers.formatUnits(token1.amount, token1.decimals), 4), [token1.amount, token1.decimals]);
-  const token2Amount = useMemo(() => truncateToDecimals(ethers.formatUnits(token2.amount, token2.decimals), 4), [token2.amount, token2.decimals]);
+  const token1Amount = useMemo(() => 
+    truncateToDecimals(
+      ethers.utils.formatUnits(token1.amount, token1.decimals), 4
+    ), [token1.amount, token1.decimals]);
+    
+  const token2Amount = useMemo(() => 
+    truncateToDecimals(
+      ethers.utils.formatUnits(token2.amount, token2.decimals), 4
+    ), [token2.amount, token2.decimals]);
 
   const renderToken = (amount: string, token: Token) => {
     return Number(token.amount) > 0 ? (
-      <Tooltip label={`${parseFloat(ethers.formatUnits(token.amount, token.decimals))} ${token.symbol}`} fontSize="xs">
+      <Tooltip label={`${parseFloat(ethers.utils.formatUnits(token.amount, token.decimals))} ${token.symbol}`} fontSize="xs">
         {`${amount} ${token.symbol}`}
       </Tooltip>
     ) : null;
