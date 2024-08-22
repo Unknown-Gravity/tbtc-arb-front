@@ -1,12 +1,14 @@
 import { SearchIcon } from '../assets/icons/SearchIcon';
 import { BitcoinIcon } from '../assets/icons/BitcoinIcon';
 import { HouseIcon } from '../assets/icons/HouseIcon';
+import { LoyaltyIcon } from '../assets/icons/LoyaltyIcon';
 import { LinkType } from '../types/Links.type';
 
 export const PublicRoutes = {
 	Login: 'login',
 	Home: 'home',
-	Mintin: 'mintin',
+	Minting: 'minting',
+	Loyalty: 'loyalty-program',
 	Explore: 'explore',
 };
 
@@ -29,12 +31,17 @@ export const publicLinks: Array<LinkType> = [
 	{
 		icon: BitcoinIcon,
 		title: 'tBTC',
-		link: PublicRoutes.Mintin,
+		link: PublicRoutes.Minting,
 	},
 	{
 		icon: SearchIcon,
 		title: 'Explore',
 		link: PublicRoutes.Explore,
+	},
+	{
+		icon: LoyaltyIcon,
+		title: 'Loyalty Program',
+		link: PublicRoutes.Loyalty,
 	},
 ];
 
@@ -58,5 +65,9 @@ export const externalLinks: Array<LinkType> = [
 	{
 		title: 'forum',
 		link: ExternalRoutes.Forum,
+	},
+	{
+		title: 'loyalty',
+		link: PublicRoutes.Loyalty,
 	},
 ];

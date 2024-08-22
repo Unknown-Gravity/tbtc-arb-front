@@ -1,4 +1,5 @@
 import axios from 'axios';
+import blockies from 'ethereum-blockies';
 
 const COINDESK_API_URL = 'https://api.coindesk.com/v1/bpi/currentprice.json';
 
@@ -19,6 +20,10 @@ const currencyLocales: { [key in Currency]: string } = {
 	JPY: 'ja-JP',
 	GBP: 'en-GB',
 };
+
+export const generateIdenticon = (address: string) => {
+	return blockies.create({ seed: address.toLowerCase() }).toDataURL();
+  };
 
 export const currencyFormatter = (
 	money: number,
@@ -111,6 +116,35 @@ const millisecondsToTimeString = (milliseconds: number): string => {
 		return `${hours} HOURS ${minutes} MINUTES`;
 	} else {
 		return `${minutes} MINUTES`;
+	}
+};
+
+export const truncateToDecimals = (value: string, decimals: number) => {
+	if (parseFloat(value) === 0) return '0'
+    const [integerPart, decimalPart] = value.split('.');
+    if (!decimalPart || decimalPart.length <= decimals) {
+      return value;
+    }
+    return `${integerPart}.${decimalPart.slice(0, decimals)}`;
+};
+
+export const fetchLoyaltyProgramCIDs = async () => {
+	try {
+		const response = await axios.get(`${process.env.REACT_APP_LOYALTY_PROGRAM_API_URL}`);
+		return response.data;
+	} catch (error) {
+		console.error("Error fetching CIDs:", error);
+		throw new Error("Failed to fetch CIDs");
+	}
+};
+  
+export const fetchIPFSData = async (cid: string) => {
+	try {
+		const response = await axios.get(`${process.env.REACT_APP_IPFS_RETRIEVER_URL}${cid}`);
+		return response.data;
+	} catch (error) {
+		console.error("Error fetching IPFS data:", error);
+		throw new Error("Failed to fetch data from IPFS");
 	}
 };
 
