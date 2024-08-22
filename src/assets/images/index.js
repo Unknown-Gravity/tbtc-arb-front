@@ -1,5 +1,7 @@
 import DarkBackground from './darkBackground.svg';
 import LightBackground from './lightBackground.svg';
+import DarkLoyaltyProgramGrid from './darkLoyaltyProgramGrid.svg';
+import LightLoyaltyProgramGrid from './lightLoyaltyProgramGrid.svg';
 import DarkGridBackground from './darkGridBackground.svg';
 import LightGridBackground from './lightGridBackground.svg';
 import DarkCoins from './darkCoins.svg';
@@ -34,17 +36,19 @@ import LightInfoResumeImage from './lightInfoResumeImage.svg';
 import DarkInfoResumeImage from './darkInfoResumeImage.svg';
 
 export {
+	DarkBackground,
+	LightBackground,
+	DarkLoyaltyProgramGrid,
+	LightLoyaltyProgramGrid,
+	DarkGridBackground,
+	LightGridBackground,
+	DarkCoins,
+	LightCoins,
+	DarkPointBackground,
+	LightPointBackground,
 	Bridge,
 	AtomImage,
 	AccountImageExample,
-	LightBackground,
-	DarkBackground,
-	LightGridBackground,
-	DarkGridBackground,
-	LightCoins,
-	DarkCoins,
-	LightPointBackground,
-	DarkPointBackground,
 	LightJsonImage,
 	DarkJsonImage,
 	LightMintingActivity,

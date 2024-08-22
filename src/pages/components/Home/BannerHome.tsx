@@ -84,7 +84,7 @@ const BannerHome = ({ onClick }: ComponentProps) => {
 				</Flex>
 				<Button
 					variant='whiteFilled'
-					onClick={() => navigate(`/${PublicRoutes.Mintin}`)}
+					onClick={() => navigate(`/${PublicRoutes.Minting}`)}
 					justifySelf='end'
 				>
 					Mint tBTC

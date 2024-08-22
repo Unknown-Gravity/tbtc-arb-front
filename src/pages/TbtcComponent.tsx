@@ -35,7 +35,7 @@ const TbtcComponent = (props: Props) => {
 				maxW='1120px'
 				minH='720px'
 				mx='auto'
-				mt={isConnected ? '0px' : '64px'}
+				mt='64px'
 				gap='20px'
 				templateColumns={{
 					base: 'minmax(0, 1fr)',

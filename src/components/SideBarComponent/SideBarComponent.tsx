@@ -5,17 +5,17 @@ import {
 	useColorModeValue,
 	useTheme,
 } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import IconSideBar from './IconSideBar';
-import { GitHubIcon } from '../../assets/icons/GitHubIcon';
-import { DiscorIcon } from '../../assets/icons/DiscordIcon';
-import { SidebarArrow } from '../../assets/icons/SidebarArrow';
-import { LogoAloneIcon } from '../../assets/icons/LogoAlone';
-import LogoIcon from '../../assets/icons/LogoIcon';
 import { useNavigate } from 'react-router-dom';
 import { ExternalRoutes } from '../../Routes/Routes';
 import { publicLinks } from '../../Routes/Routes';
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { SidebarArrow } from '../../assets/icons/SidebarArrow';
+import { LogoAloneIcon } from '../../assets/icons/LogoAlone';
+import LogoIcon from '../../assets/icons/LogoIcon';
+import IconSideBar from './IconSideBar';
+import { GitHubIcon } from '../../assets/icons/GitHubIcon';
+import { DiscorIcon } from '../../assets/icons/DiscordIcon';
 
 const MotionBox = motion(Box);
 
@@ -38,7 +38,7 @@ const SideBarComponent = (props: Props) => {
 	};
 
 	useEffect(() => {
-		props.isOpen ? setSideBarWidth('155px') : setSideBarWidth('55px');
+		props.isOpen ? setSideBarWidth('200px') : setSideBarWidth('57px');
 		if (!hasAnimated) {
 			setHasAnimated(true);
 		}
@@ -57,7 +57,7 @@ const SideBarComponent = (props: Props) => {
 			top='0'
 			left='0'
 			py='28px'
-			transition='width 0.2s'
+			transition='width 0.1s'
 			justifyContent='space-between'
 			zIndex={20}
 		>
@@ -121,7 +121,7 @@ const SideBarComponent = (props: Props) => {
 						transition={{ duration: 0.2, delay: 0.2 }}
 						mx='auto'
 					>
-						<LogoIcon color={logoColor} boxSize='121px' h='10px' />
+						<LogoIcon color={logoColor} boxSize='121px' h='37px' />
 					</MotionBox>
 				)}
 				{props.isOpen && hasAnimated && (
@@ -132,17 +132,18 @@ const SideBarComponent = (props: Props) => {
 						transition={{ duration: 0.2, delay: 0.1 }}
 						mx='auto'
 					>
-						<LogoIcon color={logoColor} boxSize='121px' h='10px' />
+						<LogoIcon color={logoColor} boxSize='121px' h='37px' />
 					</MotionBox>
 				)}
 
-				<Stack>
+				<Stack mt='25px'>
 					{publicLinks.map((link, index) => {
 						return (
 							<IconSideBar
+								key={index}
 								icon={link.icon ?? Icon}
 								isOpen={props.isOpen}
-								text='Explorer'
+								text={link.title}
 								filled={props.path === link.link}
 								onClick={() => navigate(`/${link.link}`)}
 							/>

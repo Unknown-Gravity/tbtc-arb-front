@@ -19,7 +19,7 @@ import HeaderComponent from '../components/HeaderComponent';
 
 //TODO mirar el problema del fondo
 
-const AppLayout = ({ component }: AppLayoutProps) => {
+const AppLayout = ({ component, headerTitle }: AppLayoutProps) => {
 	const [isMobile] = useMediaQuery('(min-width: 768px)');
 	const { colorMode } = useColorMode();
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,7 +31,6 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 	const path = window.location.pathname.slice(1);
 
 	const backgroundImage = useColorModeValue(LightBackground, DarkBackground);
-
 	return (
 		<Flex
 			minHeight='100vh'
@@ -42,8 +41,8 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 				colorMode === 'light' ? LightGridBackground : DarkGridBackground
 			}
 			bgRepeat='no-repeat'
+			bgPosition='top'
 			bgSize='cover'
-			bgPos='bottom'
 		>
 			{path === 'home' && (
 				<Box
@@ -80,11 +79,17 @@ const AppLayout = ({ component }: AppLayoutProps) => {
 				pr={{ base: 3.5, xl: 0 }}
 			>
 				<HeaderComponent
+				 	title={headerTitle} 
 					isOpen={isOpen}
 					onOpen={onOpen}
 					isMobile={isMobile}
 				/>
-				<Box w='100%' py={'64px'} pl={{ base: 4, xl: 18 }}>
+				<Box 
+					w='100%' 
+					py={4} 
+					pl={{ base: 4, xl: 18 }} 
+					pr={{ base: 0, xl: 10 }}
+				>
 					{component}
 				</Box>
 			</Flex>

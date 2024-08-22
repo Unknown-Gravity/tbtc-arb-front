@@ -8,6 +8,7 @@ import AppLayout from '../Layout/AppLayout';
 import Home from '../pages/Home';
 import Minting from '../pages/TbtcComponent';
 import Explore from '../pages/Explore';
+import Loyalty from '../pages/Loyalty';
 
 // import AppLayout from '../layouts/AppLayout';
 
@@ -30,12 +31,16 @@ const AppRoutes = memo(() => {
 				element={<AppLayout component={<Home />} />}
 			/>
 			<Route
-				path={PublicRoutes.Mintin}
-				element={<AppLayout component={<Minting />} />}
+				path={PublicRoutes.Minting}
+				element={<AppLayout component={<Minting />} headerTitle="tBTC | Minting" />}
 			/>
 			<Route
 				path={PublicRoutes.Explore}
 				element={<AppLayout component={<Explore />} />}
+			/>
+			<Route
+				path={PublicRoutes.Loyalty}
+				element={<AppLayout component={<Loyalty />} headerTitle="Loyalty Program" />}
 			/>
 
 			{/* Private Routes */}
