@@ -121,7 +121,7 @@ const SideBarComponent = (props: Props) => {
 						transition={{ duration: 0.2, delay: 0.2 }}
 						mx='auto'
 					>
-						<LogoIcon color={logoColor} boxSize='121px' h='10px' />
+						<LogoIcon color={logoColor} boxSize='121px' h='37px' />
 					</MotionBox>
 				)}
 				{props.isOpen && hasAnimated && (
@@ -132,11 +132,11 @@ const SideBarComponent = (props: Props) => {
 						transition={{ duration: 0.2, delay: 0.1 }}
 						mx='auto'
 					>
-						<LogoIcon color={logoColor} boxSize='121px' h='10px' />
+						<LogoIcon color={logoColor} boxSize='121px' h='37px' />
 					</MotionBox>
 				)}
 
-				<Stack>
+				<Stack mt='25px'>
 					{publicLinks.map((link, index) => {
 						return (
 							<IconSideBar
