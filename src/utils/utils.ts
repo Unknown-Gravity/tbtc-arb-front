@@ -134,7 +134,7 @@ export const fetchLoyaltyProgramCIDs = async () => {
 		return response.data;
 	} catch (error) {
 		console.error("Error fetching CIDs:", error);
-		throw new Error("Failed to fetch CIDs");
+		return null;
 	}
 };
   
@@ -144,7 +144,7 @@ export const fetchIPFSData = async (cid: string) => {
 		return response.data;
 	} catch (error) {
 		console.error("Error fetching IPFS data:", error);
-		throw new Error("Failed to fetch data from IPFS");
+		return null;
 	}
 };
 
