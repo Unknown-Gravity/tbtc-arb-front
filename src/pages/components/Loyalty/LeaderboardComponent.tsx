@@ -212,8 +212,8 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({ searchQuery }) => {
   const [expandedRow, setExpandedRow] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [rewardsData, setRewardsData] = useState<Reward[]>([]);
-  const [eventsData, setEventsData] = useState<Event[]>([]);
+  const [rewardsData, setRewardsData] = useState<Reward[]>();
+  const [eventsData, setEventsData] = useState<Event[]>();
   const [isLoading, setIsLoading] = useState(true);
   const isSmallScreen = useBreakpointValue({ base: true, md: false });
 
@@ -225,8 +225,8 @@ const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({ searchQuery
           fetchIPFSData(cids.rewards_cid),
           fetchIPFSData(cids.events_cid),
         ]);
-        setRewardsData(rewards.rewards);
-        setEventsData(events.events);
+        setRewardsData(rewards?.rewards);
+        setEventsData(events?.events);
       } catch (error) {
         console.error("Failed to fetch leaderboard data:", error);
       } finally {
@@ -245,6 +245,14 @@ const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({ searchQuery
     return (
       <Box display="flex" justifyContent="center" alignItems="center" minHeight="480px">
         <Spinner size="lg" />
+      </Box>
+    );
+  }
+
+  if (!rewardsData || !eventsData) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="480px">
+        Failed to load leaderboard data, please try again later.
       </Box>
     );
   }

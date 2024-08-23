@@ -51,7 +51,7 @@ const EventRow: React.FC<EventRowProps> = ({ event, isSmallScreen }) => {
 
   const renderToken = (amount: string, token: Token) => {
     return Number(token.amount) > 0 ? (
-      <Tooltip label={`${parseFloat(ethers.utils.formatUnits(token.amount, token.decimals))} ${token.symbol}`} fontSize="xs">
+      <Tooltip label={`${ethers.utils.formatUnits(token.amount, token.decimals)} ${token.symbol}`} fontSize="xs">
         {`${amount} ${token.symbol}`}
       </Tooltip>
     ) : null;
@@ -70,7 +70,7 @@ const EventRow: React.FC<EventRowProps> = ({ event, isSmallScreen }) => {
       <GridItem colSpan={isSmallScreen ? 1 : 2}>
         <Text fontSize='12px' variant='gray'>
           {renderToken(token1Amount, token1)}
-          {(parseFloat(token1Amount) > 0 && parseFloat(token2Amount) > 0) && " and "}
+          {ethers.utils.parseUnits(token1.amount, token1.decimals).gt(0) && ethers.utils.parseUnits(token2.amount, token2.decimals).gt(0) && " and "}
           {renderToken(token2Amount, token2)}
         </Text>
       </GridItem>
