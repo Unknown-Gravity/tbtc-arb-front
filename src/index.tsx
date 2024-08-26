@@ -20,7 +20,7 @@ const sepolia = {
 	name: 'Arbitrum Sepolia',
 	currency: 'ETH',
 	explorerUrl: 'https://sepolia.etherscan.io/',
-	rpcUrl: 'https://go.getblock.io/c37b6ab2f1f542fa8cfb88cf03d797c8',
+	rpcUrl: 'https://arbitrum-sepolia.blockpi.network/v1/rpc/public',
 };
 
 const arbitrum = {
@@ -33,7 +33,7 @@ const arbitrum = {
 
 // 3. Create a metadata object
 const metadata = {
-	name: 'My Website',
+	name: 'tBTC Minting Portal',
 	description: 'My Website description',
 	url: 'https://mywebsite.com', // origin must match your domain & subdomain
 	icons: ['https://avatars.mywebsite.com/'],
