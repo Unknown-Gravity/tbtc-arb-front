@@ -7,10 +7,8 @@ export const getTransactionHistory = async (
 	try {
 		const address = await data.signer.getAddress();
 
-		console.log(`Address: ${address}`);
-
-		// Obtén el historial de transacciones (esto es un ejemplo simplificado)
 		const network = await data.provider?.getNetwork();
+		console.log('🚀 ~ network:', network?.chainId);
 		const etherscanProvider = new ethers.providers.EtherscanProvider(
 			network,
 		);

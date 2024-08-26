@@ -23,12 +23,12 @@ const sepolia = {
 	rpcUrl: 'https://go.getblock.io/c37b6ab2f1f542fa8cfb88cf03d797c8',
 };
 
-const sepolia2 = {
-	chainId: 11155111,
-	name: 'Sepolia',
+const arbitrum = {
+	chainId: 42161,
+	name: 'Arbitrum One',
 	currency: 'ETH',
-	explorerUrl: 'https://sepolia.etherscan.io/',
-	rpcUrl: 'https://ethereum-sepolia.rpc.subquery.network/public',
+	explorerUrl: 'https://arbiscan.io/',
+	rpcUrl: 'https://arbitrum.llamarpc.com',
 };
 
 // 3. Create a metadata object
@@ -55,7 +55,7 @@ const ethersConfig = defaultConfig({
 // 5. Create a Web3Modal instance
 createWeb3Modal({
 	ethersConfig,
-	chains: [sepolia, sepolia2],
+	chains: [sepolia, arbitrum],
 	projectId,
 	enableAnalytics: true, // Optional - defaults to your Cloud configuration
 });

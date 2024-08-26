@@ -18,16 +18,16 @@ const MyActivityComponent = (props: BasicComponentProps) => {
 	const [transactions, setTransactions] = useState<Array<Transaction>>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 
-	useEffect(() => {
-		const getTransactions = async () => {
-			const history = await getTransactionHistory(accountInfo);
-			if (history && history.length > 0) {
-				setTransactions(history);
-				setLoading(false);
-			}
-		};
-		getTransactions();
-	}, [accountInfo]);
+	// useEffect(() => {
+	// 	const getTransactions = async () => {
+	// 		const history = await getTransactionHistory(accountInfo);
+	// 		if (history && history.length > 0) {
+	// 			setTransactions(history);
+	// 			setLoading(false);
+	// 		}
+	// 	};
+	// 	getTransactions();
+	// }, [accountInfo]);
 
 	const renderedTransactions = useMemo(() => {
 		return transactions

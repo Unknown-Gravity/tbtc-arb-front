@@ -29,17 +29,18 @@ const ConnectButton = (props: ButtonProps) => {
 				);
 				const signer = await provider.getSigner();
 				const network = await provider.getNetwork();
+				console.log('🚀 ~ getBalance ~ network:', network);
 				const balanceBigInt = await provider.getBalance(address);
 				const ethBalance = ethers.utils.formatEther(balanceBigInt);
 				dispatch(addAccount(provider, signer, ethBalance));
 				setNeedRefresh(false);
-				// let networkName = network.name;
-				// if (networkName === 'unknown') {
-				// 	if (network.chainId === 421614) {
-				// 		networkName = 'Arbitrum Sepolia';
-				// 	}
-				// }
-				setNetWorkName(network.name);
+				let networkName = network.name;
+				if (networkName === 'unknown') {
+					if (network.chainId === 421614) {
+						networkName = 'Arbitrum Sepolia';
+					}
+				}
+				setNetWorkName(networkName);
 
 				const handleChainChanged = (chainId: string) => {
 					console.log(`Chain changed to ${chainId}`);

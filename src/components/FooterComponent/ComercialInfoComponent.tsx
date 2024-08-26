@@ -39,7 +39,7 @@ const ComercialInfoComponent: FC = () => {
 				fontWeight={400}
 				mt='23px'
 			>
-				Curated by Threshold DAO Developed by Unknown Gravity
+				nCurated by Threshold DAO Developed by Uknown Gravity
 			</Text>
 			<Flex gap='12px' mt='20px'>
 				<FooterIcon link={ExternalRoutes.Youtube} icon={BsYoutube} />
