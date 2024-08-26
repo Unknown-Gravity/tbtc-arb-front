@@ -8,11 +8,11 @@ import {
 	Text,
 	Tooltip,
 } from '@chakra-ui/react';
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useEffect } from 'react';
 import { InfoIcon } from '../../../../../assets/icons/InfoIcon';
 import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import { useSdk } from '../../../../../context/SDKProvider';
-import { useNavigate } from 'react-router-dom';
+import { getLocalDepositVariable } from '../../../../../services/getLocalDepositVariable';
 
 type Props = {
 	onClick: () => void;
@@ -34,6 +34,14 @@ const Step1MintingProcess = ({
 	const { address } = useWeb3ModalAccount();
 	const { initializing } = useSdk();
 	console.log('🚀 ~ initializing:', initializing);
+
+	useEffect(() => {
+		const deposit = getLocalDepositVariable();
+		console.log('🚀 ~ useEffect ~ deposit:', deposit);
+		if (deposit) {
+			setStep(2);
+		}
+	}, []);
 
 	return (
 		<Box h={{ base: 'auto', xl: '555px' }} zIndex={10}>
@@ -80,6 +88,7 @@ const Step1MintingProcess = ({
 					<Input
 						name='ArbitrumAdress'
 						value={address ? address : 'Loading...'}
+						readOnly
 					/>
 				</Stack>
 				<Stack spacing='8px'>

@@ -20,13 +20,12 @@ import { TbCopy } from 'react-icons/tb';
 import ConfirmationsEstimatedComponents from './ConfirmationsEstimatedComponents';
 import { formatAddress } from '../../../../../../utils/utils';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
-import { Deposit } from '@keep-network/tbtc-v2.ts';
+import { getLocalDepositVariable } from '../../../../../../services/getLocalDepositVariable';
 
 type Props = {
 	onClick: Dispatch<SetStateAction<number>>;
 	btcDepositAddress: string;
 	btcRecoveryAddress: string;
-	deposit: Deposit | null;
 };
 
 const cardsInfo = [
@@ -51,7 +50,6 @@ const Step2ProvideDataComponent = ({
 	onClick,
 	btcDepositAddress,
 	btcRecoveryAddress,
-	deposit,
 }: Props) => {
 	const { address } = useWeb3ModalAccount();
 	const { colorMode } = useColorMode();
@@ -64,6 +62,7 @@ const Step2ProvideDataComponent = ({
 	const { onCopy: onCopyBtcAddress } = useClipboard(btcRecoveryAddress);
 
 	useEffect(() => {
+		const deposit = getLocalDepositVariable();
 		const intervalId = setInterval(async () => {
 			try {
 				const existDeposit = await deposit?.detectFunding();
@@ -79,7 +78,7 @@ const Step2ProvideDataComponent = ({
 
 		// Clean up the interval on component unmount
 		return () => clearInterval(intervalId);
-	}, [deposit]);
+	}, []);
 
 	return (
 		<Box maxW={{ xl: '448.28px' }}>

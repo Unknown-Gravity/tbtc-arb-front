@@ -2,6 +2,10 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import HeaderStepsMintingComponent from '../MintingProcess/HeaderStepsMintingComponent';
 import { Button, Link, Stack, Text } from '@chakra-ui/react';
 import DragAndDropComponent from './DragAndDropComponent';
+import { useSdk } from '../../../../../context/SDKProvider';
+import { JsonData } from '../../../../../interfaces/JsonData.interface';
+import { getDepositInfo } from '../../../../../services/getDepositInfo';
+import { setLocalVariable } from '../../../../../services/setLocalVariable';
 
 type Props = {
 	setTabSelected: Dispatch<SetStateAction<number>>;
@@ -10,14 +14,21 @@ type Props = {
 
 const ResumeMintingProcess = ({ setTabSelected, setStep }: Props) => {
 	const [fileName, setFileName] = useState<string | null>(null);
-	const [fileContent, setFileContent] =
-		useState<SetStateAction<string | ArrayBuffer | null>>();
+	const [fileContent, setFileContent] = useState<JsonData>();
 	console.log('🚀 ~ ResumeMintingProcess ~ fileContent:', fileContent);
+	const { sdk } = useSdk();
 
-	const handleClick = () => {
-		if (fileName !== null) {
-			setTabSelected(1);
-			setStep(3);
+	const handleClick = async () => {
+		if (fileName !== null && fileContent && sdk) {
+			const utxos =
+				await sdk.bitcoinClient.findAllUnspentTransactionOutputs(
+					fileContent.btcDepositAddress,
+				);
+			console.log('🚀 ~ handleClick ~ utxos:', utxos);
+			const deposit = await getDepositInfo(fileContent, sdk);
+			setLocalVariable('deposit', JSON.stringify(deposit));
+			// setTabSelected(1);
+			// setStep(3);
 		}
 	};
 	return (

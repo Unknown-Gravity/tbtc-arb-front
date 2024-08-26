@@ -28,7 +28,7 @@ const arbitrum = {
 	name: 'Arbitrum One',
 	currency: 'ETH',
 	explorerUrl: 'https://arbiscan.io/',
-	rpcUrl: 'https://arbitrum.llamarpc.com',
+	rpcUrl: 'https://arb1.arbitrum.io/rpc',
 };
 
 // 3. Create a metadata object

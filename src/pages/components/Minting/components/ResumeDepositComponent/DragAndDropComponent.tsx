@@ -18,11 +18,13 @@ import {
 	useState,
 } from 'react';
 import DragAndDropIcon from '../../../../../assets/icons/DragAndDropIcon';
+import { ChainIdentifier, Hex } from '@keep-network/tbtc-v2.ts';
+import { JsonData } from '../../../../../interfaces/JsonData.interface';
 
 interface Props {
 	fileName: string | null;
 	setFileName: Dispatch<SetStateAction<string | null>>;
-	setFileContent: Dispatch<SetStateAction<string | ArrayBuffer | null>>; // Añadimos prop para manejar el contenido del archivo
+	setFileContent: Dispatch<JsonData>; // Añadimos prop para manejar el contenido del archivo
 }
 
 const DragAndDropComponent = ({
@@ -47,30 +49,62 @@ const DragAndDropComponent = ({
 	const handleDrop = (event: DragEvent<HTMLDivElement>) => {
 		event.preventDefault();
 		setIsDraggingInsise(false);
-
-		const files = event.dataTransfer.files;
-		if (files.length > 0) {
-			const file = files[0];
-			setFileName(file.name);
-			readFileContent(file); // Leemos el contenido del archivo
-		}
 	};
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const files = event.target.files;
 		if (files && files.length > 0) {
 			const file = files[0];
+			console.log('🚀 ~ handleChange ~ file:', file);
 			setFileName(file.name);
-			readFileContent(file); // Leemos el contenido del archivo
+			readFileContent(file);
 		}
 	};
 
 	const readFileContent = (file: File) => {
 		const reader = new FileReader();
+
 		reader.onload = e => {
-			setFileContent(e.target?.result || null); // Guardamos el contenido del archivo
+			try {
+				// Parse the JSON content from the file
+				const parsedContent = JSON.parse(e.target?.result as string);
+				console.log(
+					'🚀 ~ readFileContent ~ parsedContent:',
+					parsedContent,
+				);
+
+				// Validate and cast the parsed content to the Receipt type
+				const fileContent = {
+					depositor: {
+						identifierHex: parsedContent.depositor.identifierHex,
+						equals: (identifier: ChainIdentifier) => {
+							return (
+								parsedContent.depositor.identifierHex ===
+								identifier.identifierHex
+							);
+						},
+					},
+					refundLocktime: Hex.from(parsedContent.refundLocktime),
+					refundPublicKeyHash: Hex.from(
+						parsedContent.refundPublicKeyHash,
+					),
+					blindingFactor: Hex.from(parsedContent.blindingFactor),
+					ethAddress: parsedContent.ethAddress,
+					walletPublicKeyHash: Hex.from(
+						parsedContent.walletPublicKeyHash,
+					),
+					btcRecoveryAddress: parsedContent.btcRecoveryAddress,
+					btcDepositAddress: parsedContent.btcDepositAddress,
+				};
+				console.log('🚀 ~ readFileContent ~ receipt:', fileContent);
+				// Set the file content in the correct format
+				setFileContent(fileContent);
+			} catch (error) {
+				console.error('Error parsing file content:', error);
+				// You can also handle errors here, like showing an alert or setting an error state
+			}
 		};
-		reader.readAsText(file); // Puedes cambiar readAsText a readAsDataURL o readAsArrayBuffer dependiendo de tus necesidades
+		reader.readAsText(file);
 	};
 
 	const bgColor = useColorModeValue('gray.100', 'gray');
@@ -136,7 +170,9 @@ const DragAndDropComponent = ({
 					{fileName && (
 						<Text mt='4'>
 							Selected file:{' '}
-							<Text variant='purple'>{fileName}</Text>
+							<Text as='span' variant='purple'>
+								{fileName}
+							</Text>
 						</Text>
 					)}
 				</Box>

@@ -90,7 +90,12 @@ const MintComponent = ({
 				downloadJson(
 					depositInstance.getReceipt(),
 					btcRecoveryAddress,
+					btcAddress,
 					address,
+				);
+				localStorage.setItem(
+					'deposit',
+					JSON.stringify(depositInstance),
 				);
 				setStep(2);
 			}
@@ -104,7 +109,12 @@ const MintComponent = ({
 	const handleClickGenerateDepositAddress = async () => {
 		await initializeDeposit();
 		if (deposit) {
-			downloadJson(deposit.getReceipt(), btcRecoveryAddress, address);
+			downloadJson(
+				deposit.getReceipt(),
+				btcRecoveryAddress,
+				depositAddress,
+				address,
+			);
 		}
 	};
 
@@ -147,13 +157,12 @@ const MintComponent = ({
 							btcRecoveryAddress={btcRecoveryAddress}
 							errorMsg={errorMsg}
 							initializingDeposit={initilizingDeposit}
-							setStep={setTabSelected}
+							setStep={setStep}
 						/>
 					)}
 					{isConnected && step === 2 && (
 						<Step2MintingProcess
 							onClick={setStep}
-							deposit={deposit}
 							btcDepositAddress={depositAddress}
 							btcRecoveryAddress={btcRecoveryAddress}
 						/>
