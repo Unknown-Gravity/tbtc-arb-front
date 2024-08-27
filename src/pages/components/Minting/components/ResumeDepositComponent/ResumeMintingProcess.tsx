@@ -5,7 +5,6 @@ import DragAndDropComponent from './DragAndDropComponent';
 import { useSdk } from '../../../../../context/SDKProvider';
 import { JsonData } from '../../../../../interfaces/JsonData.interface';
 import { getDepositInfo } from '../../../../../services/getDepositInfo';
-import { setLocalVariable } from '../../../../../services/setLocalVariable';
 import { useDispatch } from 'react-redux';
 import { addDeposit } from '../../../../../redux/reducers/DepositReducer';
 
@@ -22,15 +21,25 @@ const ResumeMintingProcess = ({ setTabSelected, setStep }: Props) => {
 
 	const handleClick = async () => {
 		if (fileName !== null && fileContent && sdk) {
-			const utxos =
-				await sdk.bitcoinClient.findAllUnspentTransactionOutputs(
-					fileContent.btcDepositAddress,
-				);
 			const deposit = await getDepositInfo(fileContent, sdk);
-			const { btcDepositAddress, btcRecoveryAddress } = fileContent;
-			dispatch(
-				addDeposit(deposit, btcDepositAddress, btcRecoveryAddress),
-			);
+			const utxos = await deposit?.detectFunding();
+			const { btcDepositAddress, btcRecoveryAddress, ethAddress } =
+				fileContent;
+			if (deposit && utxos) {
+				dispatch(
+					addDeposit(
+						deposit,
+						btcDepositAddress,
+						btcRecoveryAddress,
+						ethAddress,
+					),
+				);
+				if (utxos.length === 0) {
+					setStep(2);
+				} else {
+					setStep(3);
+				}
+			}
 			setTabSelected(1);
 			// setStep(3);
 		}

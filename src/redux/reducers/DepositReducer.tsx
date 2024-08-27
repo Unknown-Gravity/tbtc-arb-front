@@ -5,12 +5,14 @@ interface DepositState {
 	deposit: Deposit | null;
 	btcRecoveryAddress: string | null;
 	btcDepositAddress: string | null;
+	ethAddress: string | null;
 }
 
 const initialState: DepositState = {
 	deposit: null,
 	btcRecoveryAddress: null,
 	btcDepositAddress: null,
+	ethAddress: null,
 };
 
 /**
@@ -27,22 +29,29 @@ export const depositSlice = createSlice({
 		eraseDeposit: () => initialState,
 		addDeposit: {
 			reducer: (state, action: PayloadAction<DepositState>) => {
-				const { deposit, btcDepositAddress, btcRecoveryAddress } =
-					action.payload;
+				const {
+					deposit,
+					btcDepositAddress,
+					btcRecoveryAddress,
+					ethAddress,
+				} = action.payload;
 				state.deposit = deposit;
 				state.btcDepositAddress = btcDepositAddress;
 				state.btcRecoveryAddress = btcRecoveryAddress;
+				state.ethAddress = ethAddress;
 			},
 			prepare: (
 				deposit: Deposit,
 				btcDepositAddress: string,
 				btcRecoveryAddress: string,
+				ethAddress: string,
 			) => {
 				return {
 					payload: {
 						deposit,
 						btcDepositAddress,
 						btcRecoveryAddress,
+						ethAddress,
 					},
 				};
 			},

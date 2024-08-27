@@ -1,6 +1,7 @@
 import { DepositReceipt, Hex } from '@keep-network/tbtc-v2.ts';
 import axios from 'axios';
 import blockies from 'ethereum-blockies';
+import { ethers } from 'ethers';
 
 const COINDESK_API_URL = 'https://api.coindesk.com/v1/bpi/currentprice.json';
 
@@ -164,4 +165,31 @@ export const serializeReceipt = (receipt: DepositReceipt) => {
 	return serializedReceipt;
 };
 
-export { millisecondsToTimeString };
+const getDepositId = (
+	fundingTxHash: string,
+	fundingOutputIndex: number,
+): string => {
+	// Asegúrate de que fundingTxHash es una cadena de 64 caracteres hexadecimales
+	if (fundingTxHash.length !== 64) {
+		throw new Error('Invalid fundingTxHash');
+	}
+
+	// Convertir el fundingTxHash a un formato de bytes32 esperado por ethers.js
+	const fundingTxHashBytes = '0x' + fundingTxHash;
+
+	// Codifica los datos de manera similar a abi.encodePacked en Solidity
+	const encodedData = ethers.utils.solidityPack(
+		['bytes32', 'uint32'],
+		[fundingTxHashBytes, fundingOutputIndex],
+	);
+
+	// Calcula el hash keccak256
+	const hash = ethers.utils.keccak256(encodedData);
+
+	// Convierte el- hash a un entero sin signo de 256 bits (uint256)
+	const depositKey = ethers.BigNumber.from(hash).toString();
+
+	return depositKey;
+};
+
+export { millisecondsToTimeString, getDepositId };

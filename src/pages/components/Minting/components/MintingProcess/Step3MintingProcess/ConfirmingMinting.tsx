@@ -42,74 +42,64 @@ const ConfirmingMinting = ({
 			alignItems='center'
 			maxW='458.46px'
 		>
-			{!finalizedMinting ? (
-				<>
-					<Text
-						fontSize='12px'
-						lineHeight='14.52px'
-						textAlign='center'
-					>
-						{msg.header}
-					</Text>
+			<Text fontSize='12px' lineHeight='14.52px' textAlign='center'>
+				{msg.header}
+			</Text>
 
-					{isLoading ? (
-						<CustomSpinner />
-					) : (
-						<Box
-							boxSize='160px'
-							bg={
-								colorMode === 'light'
-									? 'brand.purple.900'
-									: 'linear-gradient(to right, #EDC6FF, #AB5AFA)'
-							}
-							display='flex'
-							alignItems='center'
-							justifyContent='center'
-							borderRadius='full'
-						>
-							<IoCheckmark
-								size='120px'
-								color={
-									colorMode === 'light'
-										? 'white'
-										: theme.colors.dark.primaryGray
-								}
-							/>
-						</Box>
-					)}
-
-					<Stack gap='10px'>
-						{!initializedMint && (
-							<Flex
-								gap='4px'
-								color={
-									colorMode === 'light'
-										? 'light.coolGray2'
-										: 'white'
-								}
-								alignItems='center'
-								justifyContent='center'
-							>
-								<BsFillCheckCircleFill size='14.67px' />
-							</Flex>
-						)}
-						<Text
-							variant='coolGray'
-							textAlign='center'
-							fontSize='14px'
-							lineHeight='24px'
-						>
-							{msg.body}
-						</Text>
-					</Stack>
-					<Text variant='coolGray' fontSize='14px' lineHeight='20px'>
-						See transaction on{' '}
-						<Link href={msg.transaction.link}>
-							{msg.transaction.label}
-						</Link>
-					</Text>
-				</>
+			{isLoading ? (
+				<CustomSpinner />
 			) : (
+				<Box
+					boxSize='160px'
+					bg={
+						colorMode === 'light'
+							? 'brand.purple.900'
+							: 'linear-gradient(to right, #EDC6FF, #AB5AFA)'
+					}
+					display='flex'
+					alignItems='center'
+					justifyContent='center'
+					borderRadius='full'
+				>
+					<IoCheckmark
+						size='120px'
+						color={
+							colorMode === 'light'
+								? 'white'
+								: theme.colors.dark.primaryGray
+						}
+					/>
+				</Box>
+			)}
+
+			<Stack gap='10px'>
+				{!initializedMint && (
+					<Flex
+						gap='4px'
+						color={
+							colorMode === 'light' ? 'light.coolGray2' : 'white'
+						}
+						alignItems='center'
+						justifyContent='center'
+					>
+						<BsFillCheckCircleFill size='14.67px' />
+					</Flex>
+				)}
+				<Text
+					variant='coolGray'
+					textAlign='center'
+					fontSize='14px'
+					lineHeight='24px'
+				>
+					{msg.body}
+				</Text>
+			</Stack>
+			<Text variant='coolGray' fontSize='14px' lineHeight='20px'>
+				See transaction on{' '}
+				<Link href={msg.transaction.link}>{msg.transaction.label}</Link>
+			</Text>
+
+			{/* ) : (
 				<>
 					<Stack gap='10px' alignItems='center'>
 						<Text
@@ -128,7 +118,7 @@ const ConfirmingMinting = ({
 						New Mint
 					</Button>
 				</>
-			)}
+			) */}
 		</Stack>
 	);
 };

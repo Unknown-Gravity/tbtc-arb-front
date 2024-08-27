@@ -12,7 +12,6 @@ import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { useWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../types/RootState';
-import { Deposit } from '@keep-network/tbtc-v2.ts';
 import HeaderStepsMintingComponent from './components/MintingProcess/HeaderStepsMintingComponent';
 import ModalMinting from './components/ModalMinting';
 import Step1MintingProcess from './components/MintingProcess/Step1MintingProcess';
@@ -31,7 +30,6 @@ import {
 	addDeposit,
 	eraseDeposit,
 } from '../../../redux/reducers/DepositReducer';
-
 type Props = {
 	isConnected: boolean;
 	step: number;
@@ -53,8 +51,6 @@ const MintComponent = ({
 	const [depositAddress, setDepositAdress] = useState('');
 	const [initilizingDeposit, setInitializingDeposit] =
 		useState<boolean>(false);
-	const [deposit, setDeposit] = useState<Deposit | null>(null);
-
 	// Hooks de Chakra y Web3
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { open } = useWeb3Modal();
@@ -88,26 +84,32 @@ const MintComponent = ({
 						btcRecoveryAddress,
 						'Arbitrum',
 					);
+				console.log(
+					'🚀 ~ initializeDeposit ~ depositInstance:',
+					depositInstance,
+				);
 				setInitializingDeposit(false);
 				const btcDepositAddress =
 					await depositInstance.getBitcoinAddress();
 				setDepositAdress(btcDepositAddress);
-				setDeposit(depositInstance);
 				console.log(
 					depositInstance.getReceipt().blindingFactor.toString()
 						.length,
 				);
+
 				downloadJson(
 					depositInstance.getReceipt(),
-					btcRecoveryAddress,
 					btcDepositAddress,
+					btcRecoveryAddress,
 					address,
 				);
+				const ethAddress = address;
 				dispatch(
 					addDeposit(
 						depositInstance,
-						btcRecoveryAddress,
 						btcDepositAddress,
+						btcRecoveryAddress,
+						ethAddress,
 					),
 				);
 
@@ -125,7 +127,6 @@ const MintComponent = ({
 	};
 
 	const goBack = () => {
-		localStorage.removeItem('deposit');
 		dispatch(eraseDeposit());
 		setStep(1);
 		onClose();
@@ -176,9 +177,7 @@ const MintComponent = ({
 							btcRecoveryAddress={btcRecoveryAddress}
 						/>
 					)}
-					{isConnected && step === 3 && deposit && (
-						<Step3MintingProcess deposit={deposit} />
-					)}
+					{isConnected && step === 3 && <Step3MintingProcess />}
 				</Stack>
 
 				<DividerCustom />

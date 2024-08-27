@@ -28,6 +28,7 @@ const ConnectButton = (props: ButtonProps) => {
 					walletProvider,
 				);
 				const signer = await provider.getSigner();
+				console.log('🚀 ~ getBalance ~ signer:', signer);
 				const network = await provider.getNetwork();
 				const balanceBigInt = await provider.getBalance(address);
 				const ethBalance = ethers.utils.formatEther(balanceBigInt);

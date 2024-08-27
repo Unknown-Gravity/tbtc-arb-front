@@ -47,8 +47,13 @@ const DragAndDropComponent = ({
 	};
 
 	const handleDrop = (event: DragEvent<HTMLDivElement>) => {
+		const file = event.dataTransfer.files[0];
 		event.preventDefault();
 		setIsDraggingInsise(false);
+		if (file) {
+			setFileName(file.name);
+			readFileContent(file);
+		}
 	};
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -83,6 +88,7 @@ const DragAndDropComponent = ({
 					refundPublicKeyHash: Hex.from(
 						parsedContent.refundPublicKeyHash,
 					),
+					extraData: Hex.from(parsedContent.extraData),
 					blindingFactor: Hex.from(parsedContent.blindingFactor),
 					ethAddress: parsedContent.ethAddress,
 					walletPublicKeyHash: Hex.from(

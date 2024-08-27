@@ -68,6 +68,11 @@ const Step2ProvideDataComponent = ({ onClick }: Props) => {
 
 	useEffect(() => {
 		const intervalId = setInterval(async () => {
+			const btcTestAddress = await deposit.deposit?.getBitcoinAddress();
+			console.log(
+				'🚀 ~ Step2ProvideDataComponent ~ btcTestAddress:',
+				btcTestAddress,
+			);
 			try {
 				const existDeposit = await deposit.deposit?.detectFunding();
 				console.log('🚀 ~ intervalId ~ existDeposit:', existDeposit);

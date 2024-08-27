@@ -10,7 +10,7 @@
 		"@emotion/react": "^11.11.4",
 		"@emotion/styled": "^11.11.5",
 		"@ethersproject/providers": "^5.7.2",
-		"@keep-network/tbtc-v2.ts": "./keep-network-tbtc-v2.ts-v2.5.0-dev.tgz",
+		"@keep-network/tbtc-v2.ts": "./keep-network-tbtc-v2.ts-v2.5.1-dev.tgz",
 		"@reduxjs/toolkit": "^2.2.6",
 		"@web3modal/ethers5": "5.0.11",
 		"assert": "^2.1.0",

@@ -1,4 +1,5 @@
 import {
+	Box,
 	Center,
 	Divider,
 	Flex,
@@ -77,7 +78,18 @@ const UnmintComponent = ({ isConnected, setTabSelected }: Props) => {
 	);
 
 	return (
-		<CustomBox h={{ xl: containerHeight }} w='100%' p='26px'>
+		<CustomBox
+			h={{ xl: containerHeight }}
+			w='100%'
+			p='26px'
+			position='relative'
+		>
+			<Box
+				h={{ xl: containerHeight }}
+				w='100%'
+				position='absolute'
+				backdropFilter={'blur(2px); brightness(0.2)'}
+			></Box>
 			<Flex
 				flexDirection={{ base: 'column', xl: 'row' }}
 				h={{ base: 'auto', xl: '580px' }}

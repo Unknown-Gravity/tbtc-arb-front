@@ -1,37 +1,46 @@
 import { DepositReceipt } from '@keep-network/tbtc-v2.ts';
 
 export const normalizeData = (
-	data: DepositReceipt,
-	btcRecoveryAddress: string,
+	receipt: DepositReceipt,
 	btcDepositAddress: string,
+	btcRecoveryAddress: string,
 	ethAddress: any,
 ) => {
+	console.log('🚀 ~ receipt:', receipt);
 	return {
-		depositor: { identifierHex: data.depositor.identifierHex.toString() },
-		refundLocktime: data.refundLocktime.toString(),
-		refundPublicKeyHash: data.refundPublicKeyHash.toString(),
-		blindingFactor: data.blindingFactor.toString(),
+		depositor: {
+			identifierHex: receipt.depositor.identifierHex.toString(),
+		},
+		refundLocktime: receipt.refundLocktime.toString(),
+		refundPublicKeyHash: receipt.refundPublicKeyHash.toString(),
+		blindingFactor: receipt.blindingFactor.toString(),
+		walletPublicKeyHash: receipt.walletPublicKeyHash.toString(),
+		extraData: receipt.extraData?.toString(),
 		ethAddress: ethAddress,
-		walletPublicKeyHash: data.walletPublicKeyHash.toString(),
 		btcRecoveryAddress: btcRecoveryAddress,
 		btcDepositAddress: btcDepositAddress,
 	};
 };
 
 const downloadJson = (
-	data: DepositReceipt,
-	btcRecoveryAddress: string,
+	receipt: DepositReceipt,
 	btcDepositAddress: string,
+	btcRecoveryAddress: string,
 	ethAddress: any,
 ): void => {
 	const json = JSON.stringify(
-		normalizeData(data, btcRecoveryAddress, btcDepositAddress, ethAddress),
+		normalizeData(
+			receipt,
+			btcRecoveryAddress,
+			btcDepositAddress,
+			ethAddress,
+		),
 		null,
 		2,
 	);
 	const blob = new Blob([json], { type: 'application/json' });
 	const url = URL.createObjectURL(blob);
-	const operationId = data.depositor.identifierHex.toString();
+	const operationId = receipt.depositor.identifierHex.toString();
 
 	const link = document.createElement('a');
 	link.href = url;
