@@ -7,7 +7,6 @@ const initiateSDK = async (data: InfoAccount): Promise<TBTC> => {
 
 	const signer: ethers.Signer | null = data.signer;
 	const chainId = await signer?.getChainId();
-	console.log('🚀 ~ initiateSDK ~ chainId:', chainId);
 	let ethRPC;
 	if (chainId === 421614) {
 		ethRPC = process.env.REACT_APP_ETH_RPC;
@@ -15,7 +14,6 @@ const initiateSDK = async (data: InfoAccount): Promise<TBTC> => {
 		ethRPC = ethRPC = process.env.REACT_APP_ETH_MAINNET_RPC;
 	}
 
-	console.log('🚀 ~ initiateSDK ~ signer:', await signer?.getChainId());
 	if (!ethRPC) {
 		throw new Error('Missing environment variables.');
 	}

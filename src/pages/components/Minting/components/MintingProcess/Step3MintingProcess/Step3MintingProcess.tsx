@@ -38,7 +38,6 @@ const Step3MintingProcess = ({ deposit }: Props) => {
 		const intiateMinting = async () => {
 			try {
 				const txHash = await deposit?.initiateMinting();
-				console.log('🚀 ~ intiateMinting ~ txHash:', txHash);
 			} catch (error) {
 				console.log(error);
 			}

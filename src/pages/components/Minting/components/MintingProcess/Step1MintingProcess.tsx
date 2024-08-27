@@ -12,7 +12,8 @@ import { ChangeEvent, Dispatch, SetStateAction, useEffect } from 'react';
 import { InfoIcon } from '../../../../../assets/icons/InfoIcon';
 import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import { useSdk } from '../../../../../context/SDKProvider';
-import { getLocalDepositVariable } from '../../../../../services/getLocalDepositVariable';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../../types/RootState';
 
 type Props = {
 	onClick: () => void;
@@ -21,6 +22,7 @@ type Props = {
 	errorMsg: string;
 	initializingDeposit: boolean;
 	setStep: Dispatch<SetStateAction<number>>;
+	setTabSelected: Dispatch<SetStateAction<number>>;
 };
 
 const Step1MintingProcess = ({
@@ -30,15 +32,14 @@ const Step1MintingProcess = ({
 	btcRecoveryAddress,
 	errorMsg,
 	initializingDeposit,
+	setTabSelected,
 }: Props) => {
+	const deposit = useSelector((state: RootState) => state.deposit);
 	const { address } = useWeb3ModalAccount();
 	const { initializing } = useSdk();
-	console.log('🚀 ~ initializing:', initializing);
 
 	useEffect(() => {
-		const deposit = getLocalDepositVariable();
-		console.log('🚀 ~ useEffect ~ deposit:', deposit);
-		if (deposit) {
+		if (deposit.deposit !== null) {
 			setStep(2);
 		}
 	}, []);
@@ -139,7 +140,7 @@ const Step1MintingProcess = ({
 					<Button
 						variant='purpleOutlined'
 						h='48px'
-						onClick={() => setStep(3)}
+						onClick={() => setTabSelected(3)}
 					>
 						Resume Deposit
 					</Button>

@@ -14,7 +14,7 @@ export const getDepositInfo = async (receipt: DepositReceipt, sdk: TBTC) => {
 		depositor,
 		...restReceipt
 	} = receipt;
-	console.log('🚀 ~ getDepositInfo ~ depositor:', depositor);
+	console.log('🚀 ~ getDepositInfo ~ blindingFactor:', blindingFactor);
 
 	const depositReceipt: DepositReceipt = {
 		depositor: {

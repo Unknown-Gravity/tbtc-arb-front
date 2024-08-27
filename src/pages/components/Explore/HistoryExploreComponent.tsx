@@ -18,7 +18,6 @@ import { Transactions } from '../../../interfaces/Transactions.interface';
 
 const HistoryExploreComponent = () => {
 	const [history, setHistory] = useState<Array<Transactions>>([]);
-	console.log('🚀 ~ HistoryExploreComponent ~ history:', history);
 	const apikey = process.env.REACT_APP_API_KEY || '';
 
 	useEffect(() => {

@@ -55,7 +55,6 @@ const DragAndDropComponent = ({
 		const files = event.target.files;
 		if (files && files.length > 0) {
 			const file = files[0];
-			console.log('🚀 ~ handleChange ~ file:', file);
 			setFileName(file.name);
 			readFileContent(file);
 		}
@@ -68,10 +67,6 @@ const DragAndDropComponent = ({
 			try {
 				// Parse the JSON content from the file
 				const parsedContent = JSON.parse(e.target?.result as string);
-				console.log(
-					'🚀 ~ readFileContent ~ parsedContent:',
-					parsedContent,
-				);
 
 				// Validate and cast the parsed content to the Receipt type
 				const fileContent = {
@@ -96,7 +91,6 @@ const DragAndDropComponent = ({
 					btcRecoveryAddress: parsedContent.btcRecoveryAddress,
 					btcDepositAddress: parsedContent.btcDepositAddress,
 				};
-				console.log('🚀 ~ readFileContent ~ receipt:', fileContent);
 				// Set the file content in the correct format
 				setFileContent(fileContent);
 			} catch (error) {

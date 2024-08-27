@@ -10,7 +10,7 @@ import {
 import { CustomBox } from '../../../components/CustomBox';
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { useWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers5/react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../types/RootState';
 import { Deposit } from '@keep-network/tbtc-v2.ts';
 import HeaderStepsMintingComponent from './components/MintingProcess/HeaderStepsMintingComponent';
@@ -27,6 +27,10 @@ import { DarkStep1Timeline, LightStep1Timeline } from '../../../assets/images';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { useSdk } from '../../../context/SDKProvider';
 import { downloadJson } from '../../../utils/jsonUtils';
+import {
+	addDeposit,
+	eraseDeposit,
+} from '../../../redux/reducers/DepositReducer';
 
 type Props = {
 	isConnected: boolean;
@@ -55,8 +59,9 @@ const MintComponent = ({
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { open } = useWeb3Modal();
 	const { address } = useWeb3ModalAccount();
-	const provider = useSelector((state: RootState) => state.account.provider);
-	const chainId = provider?._network.chainId.toString();
+	const account = useSelector((state: RootState) => state.account);
+	const chainId = account.provider?._network.chainId.toString();
+	const dispatch = useDispatch();
 
 	// Funciones Auxiliares
 	const handleBtcAddressChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -84,19 +89,28 @@ const MintComponent = ({
 						'Arbitrum',
 					);
 				setInitializingDeposit(false);
-				const btcAddress = await depositInstance.getBitcoinAddress();
-				setDepositAdress(btcAddress);
+				const btcDepositAddress =
+					await depositInstance.getBitcoinAddress();
+				setDepositAdress(btcDepositAddress);
 				setDeposit(depositInstance);
+				console.log(
+					depositInstance.getReceipt().blindingFactor.toString()
+						.length,
+				);
 				downloadJson(
 					depositInstance.getReceipt(),
 					btcRecoveryAddress,
-					btcAddress,
+					btcDepositAddress,
 					address,
 				);
-				localStorage.setItem(
-					'deposit',
-					JSON.stringify(depositInstance),
+				dispatch(
+					addDeposit(
+						depositInstance,
+						btcRecoveryAddress,
+						btcDepositAddress,
+					),
 				);
+
 				setStep(2);
 			}
 		} catch (error) {
@@ -108,18 +122,12 @@ const MintComponent = ({
 
 	const handleClickGenerateDepositAddress = async () => {
 		await initializeDeposit();
-		if (deposit) {
-			downloadJson(
-				deposit.getReceipt(),
-				btcRecoveryAddress,
-				depositAddress,
-				address,
-			);
-		}
 	};
 
 	const goBack = () => {
-		setStep(prevStep => prevStep - 1);
+		localStorage.removeItem('deposit');
+		dispatch(eraseDeposit());
+		setStep(1);
 		onClose();
 		setBtcAdress('');
 	};
@@ -158,6 +166,7 @@ const MintComponent = ({
 							errorMsg={errorMsg}
 							initializingDeposit={initilizingDeposit}
 							setStep={setStep}
+							setTabSelected={setTabSelected}
 						/>
 					)}
 					{isConnected && step === 2 && (

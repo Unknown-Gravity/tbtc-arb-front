@@ -29,7 +29,6 @@ const ConnectButton = (props: ButtonProps) => {
 				);
 				const signer = await provider.getSigner();
 				const network = await provider.getNetwork();
-				console.log('🚀 ~ getBalance ~ network:', network);
 				const balanceBigInt = await provider.getBalance(address);
 				const ethBalance = ethers.utils.formatEther(balanceBigInt);
 				dispatch(addAccount(provider, signer, ethBalance));
@@ -43,7 +42,6 @@ const ConnectButton = (props: ButtonProps) => {
 				setNetWorkName(networkName);
 
 				const handleChainChanged = (chainId: string) => {
-					console.log(`Chain changed to ${chainId}`);
 					if (chainId.toString() !== '421614') {
 						open({ view: 'Networks' });
 					}

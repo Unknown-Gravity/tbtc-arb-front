@@ -6,6 +6,8 @@ import { useSdk } from '../../../../../context/SDKProvider';
 import { JsonData } from '../../../../../interfaces/JsonData.interface';
 import { getDepositInfo } from '../../../../../services/getDepositInfo';
 import { setLocalVariable } from '../../../../../services/setLocalVariable';
+import { useDispatch } from 'react-redux';
+import { addDeposit } from '../../../../../redux/reducers/DepositReducer';
 
 type Props = {
 	setTabSelected: Dispatch<SetStateAction<number>>;
@@ -15,7 +17,7 @@ type Props = {
 const ResumeMintingProcess = ({ setTabSelected, setStep }: Props) => {
 	const [fileName, setFileName] = useState<string | null>(null);
 	const [fileContent, setFileContent] = useState<JsonData>();
-	console.log('🚀 ~ ResumeMintingProcess ~ fileContent:', fileContent);
+	const dispatch = useDispatch();
 	const { sdk } = useSdk();
 
 	const handleClick = async () => {
@@ -24,10 +26,12 @@ const ResumeMintingProcess = ({ setTabSelected, setStep }: Props) => {
 				await sdk.bitcoinClient.findAllUnspentTransactionOutputs(
 					fileContent.btcDepositAddress,
 				);
-			console.log('🚀 ~ handleClick ~ utxos:', utxos);
 			const deposit = await getDepositInfo(fileContent, sdk);
-			setLocalVariable('deposit', JSON.stringify(deposit));
-			// setTabSelected(1);
+			const { btcDepositAddress, btcRecoveryAddress } = fileContent;
+			dispatch(
+				addDeposit(deposit, btcDepositAddress, btcRecoveryAddress),
+			);
+			setTabSelected(1);
 			// setStep(3);
 		}
 	};

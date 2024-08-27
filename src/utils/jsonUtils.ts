@@ -1,6 +1,6 @@
 import { DepositReceipt } from '@keep-network/tbtc-v2.ts';
 
-const normalizeData = (
+export const normalizeData = (
 	data: DepositReceipt,
 	btcRecoveryAddress: string,
 	btcDepositAddress: string,
@@ -29,7 +29,6 @@ const downloadJson = (
 		null,
 		2,
 	);
-	console.log('🚀 ~ json:', json);
 	const blob = new Blob([json], { type: 'application/json' });
 	const url = URL.createObjectURL(blob);
 	const operationId = data.depositor.identifierHex.toString();

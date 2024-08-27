@@ -26,7 +26,6 @@ const HeaderExploreComponent = () => {
 	const [data, setData] = useState(initialValue);
 
 	const apikey = process.env.REACT_APP_API_KEY || '';
-	console.log('🚀 ~ Explore ~ apikey:', apikey);
 	useEffect(() => {
 		const urls = [
 			'https://api.dune.com/api/v1/query/1964092/results?limit=1',
@@ -50,7 +49,6 @@ const HeaderExploreComponent = () => {
 					tbtc: tbtc.data.result.rows[0]._col0,
 					addresses: addresses.data.result.rows[0].Holders,
 				});
-				console.log('supply', mints.data.result.rows[0]);
 			} catch (error) {
 				console.error('Error fetching data: ', error);
 			}

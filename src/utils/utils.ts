@@ -1,3 +1,4 @@
+import { DepositReceipt, Hex } from '@keep-network/tbtc-v2.ts';
 import axios from 'axios';
 import blockies from 'ethereum-blockies';
 
@@ -23,7 +24,7 @@ const currencyLocales: { [key in Currency]: string } = {
 
 export const generateIdenticon = (address: string) => {
 	return blockies.create({ seed: address.toLowerCase() }).toDataURL();
-  };
+};
 
 export const currencyFormatter = (
 	money: number,
@@ -120,32 +121,47 @@ const millisecondsToTimeString = (milliseconds: number): string => {
 };
 
 export const truncateToDecimals = (value: string, decimals: number) => {
-	if (parseFloat(value) === 0) return '0'
-    const [integerPart, decimalPart] = value.split('.');
-    if (!decimalPart || decimalPart.length <= decimals) {
-      return value;
-    }
-    return `${integerPart}.${decimalPart.slice(0, decimals)}`;
+	if (parseFloat(value) === 0) return '0';
+	const [integerPart, decimalPart] = value.split('.');
+	if (!decimalPart || decimalPart.length <= decimals) {
+		return value;
+	}
+	return `${integerPart}.${decimalPart.slice(0, decimals)}`;
 };
 
 export const fetchLoyaltyProgramCIDs = async () => {
 	try {
-		const response = await axios.get(`${process.env.REACT_APP_LOYALTY_PROGRAM_API_URL}`);
+		const response = await axios.get(
+			`${process.env.REACT_APP_LOYALTY_PROGRAM_API_URL}`,
+		);
 		return response.data;
 	} catch (error) {
-		console.error("Error fetching CIDs:", error);
+		console.error('Error fetching CIDs:', error);
 		return null;
 	}
 };
-  
+
 export const fetchIPFSData = async (cid: string) => {
 	try {
-		const response = await axios.get(`${process.env.REACT_APP_IPFS_RETRIEVER_URL}${cid}`);
+		const response = await axios.get(
+			`${process.env.REACT_APP_IPFS_RETRIEVER_URL}${cid}`,
+		);
 		return response.data;
 	} catch (error) {
-		console.error("Error fetching IPFS data:", error);
+		console.error('Error fetching IPFS data:', error);
 		return null;
 	}
+};
+
+export const serializeReceipt = (receipt: DepositReceipt) => {
+	const serializedReceipt = {
+		...receipt,
+		blindingFactor: Hex.from(receipt.blindingFactor.toString()),
+		refundLocktime: Hex.from(receipt.refundLocktime.toString()),
+		refundPublicKeyHash: Hex.from(receipt.refundPublicKeyHash.toString()),
+		walletPublicKeyHash: Hex.from(receipt.walletPublicKeyHash.toString()),
+	};
+	return serializedReceipt;
 };
 
 export { millisecondsToTimeString };
