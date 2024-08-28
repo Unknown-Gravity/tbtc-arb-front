@@ -12,22 +12,13 @@ import {
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { formatAddress, truncateToDecimals } from '../../../utils/utils';
 import { formatDate, getRelativeTime } from '../../../utils/date';
+import { Event } from './LeaderboardComponent';
 
 interface Token {
   amount: string;
   symbol: string;
   decimals: number;
 }
-
-interface Event {
-  provider: string;
-  event: string;
-  token1: Token;
-  token2: Token;
-  transactionHash: string;
-  timestamp: number;
-}
-
 interface EventRowProps {
   event: Event;
   isSmallScreen: boolean;
@@ -37,20 +28,20 @@ const arbscanBaseUrl = 'https://arbiscan.io';
 
 const EventRow: React.FC<EventRowProps> = ({ event, isSmallScreen }) => {
   const { colorMode } = useColorMode();
-  const { token1, token2, transactionHash, timestamp } = event;
+  const { token0, token1, transactionHash, timestamp } = event;
 
+  const token0Amount = useMemo(() => 
+    truncateToDecimals(
+      ethers.utils.formatUnits(token0.amount, token0.decimals), 4
+    ), [token0?.amount, token0?.decimals]);
+    
   const token1Amount = useMemo(() => 
     truncateToDecimals(
       ethers.utils.formatUnits(token1.amount, token1.decimals), 4
-    ), [token1.amount, token1.decimals]);
-    
-  const token2Amount = useMemo(() => 
-    truncateToDecimals(
-      ethers.utils.formatUnits(token2.amount, token2.decimals), 4
-    ), [token2.amount, token2.decimals]);
+    ), [token1?.amount, token1?.decimals]);
 
-  const renderToken = (amount: string, token: Token) => {
-    return Number(token.amount) > 0 ? (
+  const renderToken = (amount: string, token: Token | undefined) => {
+    return token && Number(token.amount) > 0 ? (
       <Tooltip label={`${ethers.utils.formatUnits(token.amount, token.decimals)} ${token.symbol}`} fontSize="xs">
         {`${amount} ${token.symbol}`}
       </Tooltip>
@@ -66,12 +57,12 @@ const EventRow: React.FC<EventRowProps> = ({ event, isSmallScreen }) => {
       pl={{ sm: 8, lg: 24 }}
       py={2.5}
     >
-      <Text fontSize='12px' variant='gray' textTransform='uppercase'>{event.event}</Text>
+      <Text fontSize='12px' variant='gray' textTransform='uppercase'>{event.action}</Text>
       <GridItem colSpan={isSmallScreen ? 1 : 2}>
         <Text fontSize='12px' variant='gray'>
+          {renderToken(token0Amount, token0)}
+          {ethers.utils.parseUnits(token0.amount, token0.decimals).gt(0) && ethers.utils.parseUnits(token1.amount, token1.decimals).gt(0) && " and "}
           {renderToken(token1Amount, token1)}
-          {ethers.utils.parseUnits(token1.amount, token1.decimals).gt(0) && ethers.utils.parseUnits(token2.amount, token2.decimals).gt(0) && " and "}
-          {renderToken(token2Amount, token2)}
         </Text>
       </GridItem>
       {!isSmallScreen && 
