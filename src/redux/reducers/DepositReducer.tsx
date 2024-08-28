@@ -1,4 +1,4 @@
-import { Deposit } from '@keep-network/tbtc-v2.ts';
+import { BitcoinUtxo, Deposit } from '@keep-network/tbtc-v2.ts';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface DepositState {
@@ -6,6 +6,8 @@ interface DepositState {
 	btcRecoveryAddress: string | null;
 	btcDepositAddress: string | null;
 	ethAddress: string | null;
+	utxo?: BitcoinUtxo | null;
+	status?: number | null;
 }
 
 const initialState: DepositState = {
@@ -13,6 +15,8 @@ const initialState: DepositState = {
 	btcRecoveryAddress: null,
 	btcDepositAddress: null,
 	ethAddress: null,
+	utxo: null,
+	status: null,
 };
 
 /**
@@ -56,8 +60,29 @@ export const depositSlice = createSlice({
 				};
 			},
 		},
+		addUtxo: {
+			reducer: (state, action: PayloadAction<BitcoinUtxo>) => {
+				state.utxo = action.payload;
+			},
+			prepare: (utxo: BitcoinUtxo) => {
+				return {
+					payload: utxo,
+				};
+			},
+		},
+		addStatus: {
+			reducer: (state, action: PayloadAction<number>) => {
+				state.status = action.payload;
+			},
+			prepare: (status: number) => {
+				return {
+					payload: status,
+				};
+			},
+		},
 	},
 });
 
-export const { eraseDeposit, addDeposit } = depositSlice.actions;
+export const { eraseDeposit, addDeposit, addUtxo, addStatus } =
+	depositSlice.actions;
 export default depositSlice.reducer;

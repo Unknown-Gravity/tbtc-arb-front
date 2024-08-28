@@ -17,8 +17,6 @@ import {
 import SideBarMenu from '../components/SideBarMenu';
 import HeaderComponent from '../components/HeaderComponent';
 
-//TODO mirar el problema del fondo
-
 const AppLayout = ({ component, headerTitle }: AppLayoutProps) => {
 	const [isMobile] = useMediaQuery('(min-width: 768px)');
 	const { colorMode } = useColorMode();
@@ -79,15 +77,15 @@ const AppLayout = ({ component, headerTitle }: AppLayoutProps) => {
 				pr={{ base: 3.5, xl: 0 }}
 			>
 				<HeaderComponent
-				 	title={headerTitle} 
+					title={headerTitle}
 					isOpen={isOpen}
 					onOpen={onOpen}
 					isMobile={isMobile}
 				/>
-				<Box 
-					w='100%' 
-					py={4} 
-					pl={{ base: 4, xl: 18 }} 
+				<Box
+					w='100%'
+					py={4}
+					pl={{ base: 4, xl: 18 }}
 					pr={{ base: 0, xl: 10 }}
 				>
 					{component}

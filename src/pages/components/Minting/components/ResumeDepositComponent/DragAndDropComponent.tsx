@@ -97,7 +97,6 @@ const DragAndDropComponent = ({
 					btcRecoveryAddress: parsedContent.btcRecoveryAddress,
 					btcDepositAddress: parsedContent.btcDepositAddress,
 				};
-				console.log(fileContent);
 				// Set the file content in the correct format
 				setFileContent(fileContent);
 			} catch (error) {
@@ -169,9 +168,14 @@ const DragAndDropComponent = ({
 						<Input type='file' hidden onChange={handleChange} />
 					</FormControl>
 					{fileName && (
-						<Text mt='4'>
+						<Text mt='4' maxW='450px'>
 							Selected file:{' '}
-							<Text as='span' variant='purple'>
+							<Text
+								as='span'
+								variant='purple'
+								maxW='200px'
+								whiteSpace='collapse'
+							>
 								{fileName}
 							</Text>
 						</Text>

@@ -6,7 +6,6 @@ const initiateSDK = async (data: InfoAccount): Promise<TBTC> => {
 	let sdk: TBTC | null = null;
 
 	const signer: ethers.Signer | null = data.signer;
-	console.log('🚀 ~ initiateSDK ~ signer:', signer);
 	const chainId = await signer?.getChainId();
 	let ethRPC;
 	if (chainId === 421614) {
@@ -28,7 +27,7 @@ const initiateSDK = async (data: InfoAccount): Promise<TBTC> => {
 		await sdk.initializeCrossChain('Arbitrum', signer);
 	}
 
-	console.log('SDK initialized successfully:', sdk);
+	console.log('SDK initialized successfully:');
 
 	if (!sdk) throw new Error('SDK not initialized yet.');
 	return sdk;

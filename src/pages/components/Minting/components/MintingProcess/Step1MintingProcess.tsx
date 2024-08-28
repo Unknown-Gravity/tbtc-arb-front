@@ -42,7 +42,7 @@ const Step1MintingProcess = ({
 		if (deposit.deposit !== null) {
 			setStep(2);
 		}
-	}, []);
+	}, [deposit.deposit, setStep]);
 
 	return (
 		<Box h={{ base: 'auto', xl: '555px' }} zIndex={10}>

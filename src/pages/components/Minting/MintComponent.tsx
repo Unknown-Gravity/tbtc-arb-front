@@ -44,22 +44,22 @@ const MintComponent = ({
 	setTabSelected,
 }: Props) => {
 	const { sdk } = useSdk();
-	// Hooks de Estado
 	const { colorMode } = useColorMode();
 	const [btcRecoveryAddress, setBtcAdress] = useState('');
 	const [errorMsg, setErrorMsg] = useState('');
 	const [depositAddress, setDepositAdress] = useState('');
 	const [initilizingDeposit, setInitializingDeposit] =
 		useState<boolean>(false);
-	// Hooks de Chakra y Web3
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { open } = useWeb3Modal();
 	const { address } = useWeb3ModalAccount();
 	const account = useSelector((state: RootState) => state.account);
 	const chainId = account.provider?._network.chainId.toString();
+	const deposit = useSelector((state: RootState) => state.deposit);
+	const btcTxHash = deposit.utxo?.transactionHash.toString();
+
 	const dispatch = useDispatch();
 
-	// Funciones Auxiliares
 	const handleBtcAddressChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setErrorMsg('');
 		setBtcAdress(event.target.value);
@@ -84,18 +84,10 @@ const MintComponent = ({
 						btcRecoveryAddress,
 						'Arbitrum',
 					);
-				console.log(
-					'🚀 ~ initializeDeposit ~ depositInstance:',
-					depositInstance,
-				);
 				setInitializingDeposit(false);
 				const btcDepositAddress =
 					await depositInstance.getBitcoinAddress();
 				setDepositAdress(btcDepositAddress);
-				console.log(
-					depositInstance.getReceipt().blindingFactor.toString()
-						.length,
-				);
 
 				downloadJson(
 					depositInstance.getReceipt(),
@@ -177,7 +169,9 @@ const MintComponent = ({
 							btcRecoveryAddress={btcRecoveryAddress}
 						/>
 					)}
-					{isConnected && step === 3 && <Step3MintingProcess />}
+					{isConnected && step === 3 && (
+						<Step3MintingProcess setStep={setStep} />
+					)}
 				</Stack>
 
 				<DividerCustom />
@@ -217,7 +211,9 @@ const MintComponent = ({
 						</Text>
 					</TimeLineTemplate>
 				)}
-				{isConnected && step === 3 && <TransactionHistory />}
+				{isConnected && step === 3 && (
+					<TransactionHistory btcTxHash={btcTxHash} />
+				)}
 			</Flex>
 		</CustomBox>
 	);

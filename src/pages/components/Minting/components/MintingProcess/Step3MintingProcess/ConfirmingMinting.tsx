@@ -11,9 +11,13 @@ import {
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { IoCheckmark } from 'react-icons/io5';
 import CustomSpinner from '../../../../../../components/CustomSpinner';
+import { Dispatch, SetStateAction } from 'react';
+import { useDispatch } from 'react-redux';
+import { eraseDeposit } from '../../../../../../redux/reducers/DepositReducer';
 
 type Props = {
 	step: number;
+	setStep: Dispatch<SetStateAction<number>>;
 	msg: {
 		header: string;
 		body: string;
@@ -25,21 +29,28 @@ type Props = {
 	};
 };
 
-const ConfirmingMinting = ({ msg, step }: Props) => {
+const ConfirmingMinting = ({ msg, step, setStep }: Props) => {
 	const { colorMode } = useColorMode();
 	const theme = useTheme();
+	const dispatch = useDispatch();
 
-	const handleClick = () => {};
+	const handleClick = () => {
+		dispatch(eraseDeposit());
+		setStep(1);
+	};
 
 	return (
 		<Stack
 			gap={step !== 3 ? '35px' : '20px'}
 			alignItems='center'
-			maxW='458.46px'
+			maxW={{ xl: '458.46px' }}
+			placeItems='center'
 		>
-			<Text fontSize='12px' lineHeight='14.52px' textAlign='center'>
-				{msg.header}
-			</Text>
+			{step !== 3 && (
+				<Text fontSize='12px' lineHeight='14.52px' textAlign='center'>
+					{msg.header}
+				</Text>
+			)}
 
 			{step !== 3 ? (
 				<CustomSpinner />
@@ -113,7 +124,12 @@ const ConfirmingMinting = ({ msg, step }: Props) => {
 							Add the tBTC token address to your Ethereum wallet
 						</Text>
 					</Stack>
-					<Button variant='purple' w='100%' h='48px'>
+					<Button
+						variant='purple'
+						w='100%'
+						h='48px'
+						onClick={handleClick}
+					>
 						New Mint
 					</Button>
 				</>

@@ -16,9 +16,10 @@ type Props = {
 const initialValue = { amount: 0, btcRecoveryAddress: '' };
 
 const Step1UnmintingProcess = (props: Props) => {
-	const balance = useSelector((state: RootState) => state.account.balance);
+	const balance = useSelector(
+		(state: RootState) => state.account.tbtcBalance,
+	);
 	const [unmint, setUnmint] = useState(initialValue);
-	const [errorMsg, setErrorMsg] = useState();
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;

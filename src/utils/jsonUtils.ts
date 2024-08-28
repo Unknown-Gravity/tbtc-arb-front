@@ -6,7 +6,6 @@ export const normalizeData = (
 	btcRecoveryAddress: string,
 	ethAddress: any,
 ) => {
-	console.log('🚀 ~ receipt:', receipt);
 	return {
 		depositor: {
 			identifierHex: receipt.depositor.identifierHex.toString(),

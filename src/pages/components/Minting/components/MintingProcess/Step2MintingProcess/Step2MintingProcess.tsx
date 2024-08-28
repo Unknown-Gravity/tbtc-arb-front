@@ -21,8 +21,9 @@ import ConfirmationsEstimatedComponents from './ConfirmationsEstimatedComponents
 import { formatAddress } from '../../../../../../utils/utils';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { useSdk } from '../../../../../../context/SDKProvider';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../../../types/RootState';
+import { addUtxo } from '../../../../../../redux/reducers/DepositReducer';
 
 type Props = {
 	onClick: Dispatch<SetStateAction<number>>;
@@ -63,20 +64,19 @@ const Step2ProvideDataComponent = ({ onClick }: Props) => {
 	const { onCopy: onCopyDepositAddress } = useClipboard(
 		deposit.btcDepositAddress || '',
 	);
+	const dispatch = useDispatch();
 	const { sdk } = useSdk();
-	console.log('🚀 ~ deposit:', deposit);
 
 	useEffect(() => {
+		if (deposit.utxo) {
+			onClick(3);
+		}
 		const intervalId = setInterval(async () => {
-			const btcTestAddress = await deposit.deposit?.getBitcoinAddress();
-			console.log(
-				'🚀 ~ Step2ProvideDataComponent ~ btcTestAddress:',
-				btcTestAddress,
-			);
 			try {
 				const existDeposit = await deposit.deposit?.detectFunding();
-				console.log('🚀 ~ intervalId ~ existDeposit:', existDeposit);
+
 				if (existDeposit && existDeposit.length > 0) {
+					dispatch(addUtxo(existDeposit[0]));
 					setDepositExist(true);
 					clearInterval(intervalId);
 				}
@@ -86,7 +86,8 @@ const Step2ProvideDataComponent = ({ onClick }: Props) => {
 		}, 5000); // Check every 5 seconds
 		return () => clearInterval(intervalId);
 		// Clean up the interval on component unmount
-	}, [deposit.deposit, sdk]);
+		// TODO Revisar dependencias
+	}, [deposit.deposit, deposit.utxo, dispatch, onClick, sdk]);
 
 	return (
 		<Box maxW={{ xl: '448.28px' }}>

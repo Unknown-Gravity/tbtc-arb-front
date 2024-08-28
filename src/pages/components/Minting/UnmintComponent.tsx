@@ -1,10 +1,8 @@
 import {
 	Box,
-	Center,
-	Divider,
 	Flex,
 	Stack,
-	useBreakpointValue,
+	Text,
 	useDisclosure,
 	useSteps,
 } from '@chakra-ui/react';
@@ -88,8 +86,19 @@ const UnmintComponent = ({ isConnected, setTabSelected }: Props) => {
 				h={{ xl: containerHeight }}
 				w='100%'
 				position='absolute'
-				backdropFilter={'blur(2px); brightness(0.2)'}
-			></Box>
+				top={0}
+				left={0}
+				backdropFilter={'blur(10px); brightness(0.2)'}
+				borderRadius='14px'
+				zIndex={15}
+				display='flex'
+				justifyContent='center'
+				alignItems='center'
+			>
+				<Text fontSize='50px' variant='purple'>
+					SOON
+				</Text>
+			</Box>
 			<Flex
 				flexDirection={{ base: 'column', xl: 'row' }}
 				h={{ base: 'auto', xl: '580px' }}

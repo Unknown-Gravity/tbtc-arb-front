@@ -91,7 +91,8 @@ const TransactionHistory = (props: Props) => {
 						BTC confirmations{' '}
 						<Link
 							variant='purpleDarkGradient'
-							href={props.btcTxHash}
+							href={`https://blockstream.info/testnet/tx/${props.btcTxHash}`}
+							isExternal={true}
 						>
 							{' '}
 							transactions

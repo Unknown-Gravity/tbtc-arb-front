@@ -168,7 +168,7 @@ export const serializeReceipt = (receipt: DepositReceipt) => {
 const getDepositId = (
 	fundingTxHash: string,
 	fundingOutputIndex: number,
-): Hex => {
+): string => {
 	// Asegúrate de que fundingTxHash es una cadena de 64 caracteres hexadecimales
 	if (fundingTxHash.length !== 64) {
 		throw new Error('Invalid fundingTxHash');
@@ -189,7 +189,18 @@ const getDepositId = (
 	// Convierte el- hash a un entero sin signo de 256 bits (uint256)
 	const depositKey = ethers.BigNumber.from(hash).toString();
 
-	return Hex.from(depositKey);
+	return depositKey;
 };
 
-export { millisecondsToTimeString, getDepositId };
+const reverseString = (str: string) => {
+	let interleaved = '';
+
+	// Recorre el string en pares desde el final hasta el principio
+	for (let i = str.length - 2; i >= 0; i -= 2) {
+		interleaved += str[i] + str[i + 1];
+	}
+
+	return interleaved;
+};
+
+export { millisecondsToTimeString, getDepositId, reverseString };
