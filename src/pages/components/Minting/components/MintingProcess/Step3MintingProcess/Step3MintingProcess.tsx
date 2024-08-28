@@ -1,33 +1,57 @@
 import { Box, Flex, useSteps } from '@chakra-ui/react';
-import { useEffect, useState, useMemo } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import ConfirmingMinting from './ConfirmingMinting';
 import Step3HeaderComponent from './Step3HeaderComponent';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../../../../types/RootState';
+import { useSdk } from '../../../../../../context/SDKProvider';
+import { checkDepositStatus } from '../../../../../../services/depositServices';
+import { addStatus } from '../../../../../../redux/reducers/DepositReducer';
 import { Deposit } from '@keep-network/tbtc-v2.ts';
 
-type Props = { deposit?: Deposit };
+type Props = { setStep: Dispatch<SetStateAction<number>> };
 
-const Step3MintingProcess = ({ deposit }: Props) => {
-	const [initializedMint, setInitializedMint] = useState<boolean>(false);
-	const [finalizedMint, setFinalizedMint] = useState<boolean>(false);
-	const [isLoading, setIsLoading] = useState<boolean>(true);
-	const [msg, setMsg] = useState({
-		header: 'Waiting for the Bitcoin Network confirmations',
-		body: 'Your Bitcoin deposit transaction requires 6 confirmations on the Bitcoin network before initiating the minting process.',
-		transaction: {
-			label: 'blockstream',
-			link: 'link',
-		},
-	});
+const initialMsg = {
+	header: 'Waiting for the Bitcoin Network confirmations',
+	body: 'Your Bitcoin deposit transaction requires 6 confirmations on the Bitcoin network before initiating the minting process.',
+	transaction: {
+		label: 'blockstream',
+		link: 'link',
+	},
+};
 
-	const steps = useMemo(
-		() => [
-			{ title: 'First', description: 'Contact Info' },
-			{ title: 'Second', description: 'Date & Time' },
-			{ title: 'Third', description: 'Select Rooms' },
-		],
+const mintingMsg = {
+	header: 'Initializing minting',
+	body: 'A Minter is assessing the minting initialization. Minters are a small group of experts who monitor BTC deposits on the chain.',
+	transaction: {
+		label: 'etherScan',
+		link: 'link',
+	},
+};
 
-		[],
-	);
+const finalizingMinting = {
+	header: 'Minting in progress',
+	body: 'The contract is minting your tBTC tokens.',
+	transaction: {
+		label: 'etherScan',
+		link: 'link',
+	},
+};
+
+const Step3MintingProcess = ({ setStep }: Props) => {
+	const depositInfo = useSelector((state: RootState) => state.deposit);
+	const [status, setStatus] = useState(depositInfo.status);
+	const dispatch = useDispatch();
+
+	const { sdk } = useSdk();
+
+	const [msg, setMsg] = useState(initialMsg);
+
+	const steps = [
+		{ title: 'First', description: 'Contact Info' },
+		{ title: 'Second', description: 'Date & Time' },
+		{ title: 'Third', description: 'Select Rooms' },
+	];
 
 	const { activeStep, setActiveStep } = useSteps({
 		index: 0,
@@ -35,26 +59,51 @@ const Step3MintingProcess = ({ deposit }: Props) => {
 	});
 
 	useEffect(() => {
-		const intiateMinting = async () => {
+		const deposit = depositInfo.deposit;
+		if (!deposit || !sdk) {
+			return;
+		}
+		const initiateMinting = async (deposit: Deposit) => {
 			try {
-				const txHash = await deposit?.initiateMinting();
-				console.log('🚀 ~ intiateMinting ~ txHash:', txHash);
-			} catch (error) {
-				console.log(error);
+				const fundingUxtos = await deposit?.detectFunding();
+				if (fundingUxtos) {
+					await deposit?.initiateMinting(fundingUxtos[0]);
+				}
+			} catch (error) {}
+		};
+
+		const changeStep = async () => {
+			switch (status) {
+				case 0:
+					setActiveStep(1);
+					setMsg(mintingMsg);
+					break;
+				case 1:
+					setActiveStep(2);
+					setMsg(finalizingMinting);
+					break;
+				case 2:
+					setActiveStep(3);
+					break;
+			}
+			const depositStatus = await checkDepositStatus(deposit, sdk);
+			if (depositStatus !== status && depositStatus) {
+				dispatch(addStatus(depositStatus));
+				setStatus(depositStatus);
 			}
 		};
-		intiateMinting();
-	}, [deposit]);
+		initiateMinting(deposit);
+		changeStep();
+	}, [depositInfo, dispatch, sdk, setActiveStep, status]);
 
 	return (
 		<Flex>
 			<Box h={{ base: 'auto', xl: '555px' }}>
 				<Step3HeaderComponent activeStep={activeStep} steps={steps} />
 				<ConfirmingMinting
-					isLoading={isLoading}
-					initializedMint={initializedMint}
+					step={activeStep}
 					msg={msg}
-					finalizedMinting={finalizedMint}
+					setStep={setStep}
 				/>
 			</Box>
 		</Flex>

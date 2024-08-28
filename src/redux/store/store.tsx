@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../reducers/AuthReducer';
 import accountReducer from '../reducers/AccountReducer';
+import depositReducer from '../reducers/DepositReducer'; // Importa el reducer de deposit
 
 /**
  * @name store
@@ -23,9 +24,9 @@ export const store = configureStore({
 				ignoredPaths: ['account.provider', 'account.signer'],
 			},
 		}),
-
 	reducer: {
 		auth: authReducer,
 		account: accountReducer,
+		deposit: depositReducer, // Añade el deposit reducer aquí
 	},
 });

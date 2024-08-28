@@ -10,9 +10,8 @@ import {
 import { CustomBox } from '../../../components/CustomBox';
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { useWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers5/react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../types/RootState';
-import { Deposit } from '@keep-network/tbtc-v2.ts';
 import HeaderStepsMintingComponent from './components/MintingProcess/HeaderStepsMintingComponent';
 import ModalMinting from './components/ModalMinting';
 import Step1MintingProcess from './components/MintingProcess/Step1MintingProcess';
@@ -27,7 +26,10 @@ import { DarkStep1Timeline, LightStep1Timeline } from '../../../assets/images';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { useSdk } from '../../../context/SDKProvider';
 import { downloadJson } from '../../../utils/jsonUtils';
-
+import {
+	addDeposit,
+	eraseDeposit,
+} from '../../../redux/reducers/DepositReducer';
 type Props = {
 	isConnected: boolean;
 	step: number;
@@ -42,23 +44,22 @@ const MintComponent = ({
 	setTabSelected,
 }: Props) => {
 	const { sdk } = useSdk();
-	// Hooks de Estado
 	const { colorMode } = useColorMode();
 	const [btcRecoveryAddress, setBtcAdress] = useState('');
 	const [errorMsg, setErrorMsg] = useState('');
 	const [depositAddress, setDepositAdress] = useState('');
 	const [initilizingDeposit, setInitializingDeposit] =
 		useState<boolean>(false);
-	const [deposit, setDeposit] = useState<Deposit | null>(null);
-
-	// Hooks de Chakra y Web3
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { open } = useWeb3Modal();
 	const { address } = useWeb3ModalAccount();
-	const provider = useSelector((state: RootState) => state.account.provider);
-	const chainId = provider?._network.chainId.toString();
+	const account = useSelector((state: RootState) => state.account);
+	const chainId = account.provider?._network.chainId.toString();
+	const deposit = useSelector((state: RootState) => state.deposit);
+	const btcTxHash = deposit.utxo?.transactionHash.toString();
 
-	// Funciones Auxiliares
+	const dispatch = useDispatch();
+
 	const handleBtcAddressChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setErrorMsg('');
 		setBtcAdress(event.target.value);
@@ -84,14 +85,26 @@ const MintComponent = ({
 						'Arbitrum',
 					);
 				setInitializingDeposit(false);
-				const btcAddress = await depositInstance.getBitcoinAddress();
-				setDepositAdress(btcAddress);
-				setDeposit(depositInstance);
+				const btcDepositAddress =
+					await depositInstance.getBitcoinAddress();
+				setDepositAdress(btcDepositAddress);
+
 				downloadJson(
 					depositInstance.getReceipt(),
+					btcDepositAddress,
 					btcRecoveryAddress,
 					address,
 				);
+				const ethAddress = address;
+				dispatch(
+					addDeposit(
+						depositInstance,
+						btcDepositAddress,
+						btcRecoveryAddress,
+						ethAddress,
+					),
+				);
+
 				setStep(2);
 			}
 		} catch (error) {
@@ -103,13 +116,11 @@ const MintComponent = ({
 
 	const handleClickGenerateDepositAddress = async () => {
 		await initializeDeposit();
-		if (deposit) {
-			downloadJson(deposit.getReceipt(), btcRecoveryAddress, address);
-		}
 	};
 
 	const goBack = () => {
-		setStep(prevStep => prevStep - 1);
+		dispatch(eraseDeposit());
+		setStep(1);
 		onClose();
 		setBtcAdress('');
 	};
@@ -147,19 +158,19 @@ const MintComponent = ({
 							btcRecoveryAddress={btcRecoveryAddress}
 							errorMsg={errorMsg}
 							initializingDeposit={initilizingDeposit}
-							setStep={setTabSelected}
+							setStep={setStep}
+							setTabSelected={setTabSelected}
 						/>
 					)}
 					{isConnected && step === 2 && (
 						<Step2MintingProcess
 							onClick={setStep}
-							deposit={deposit}
 							btcDepositAddress={depositAddress}
 							btcRecoveryAddress={btcRecoveryAddress}
 						/>
 					)}
-					{isConnected && step === 3 && deposit && (
-						<Step3MintingProcess deposit={deposit} />
+					{isConnected && step === 3 && (
+						<Step3MintingProcess setStep={setStep} />
 					)}
 				</Stack>
 
@@ -200,7 +211,9 @@ const MintComponent = ({
 						</Text>
 					</TimeLineTemplate>
 				)}
-				{isConnected && step === 3 && <TransactionHistory />}
+				{isConnected && step === 3 && (
+					<TransactionHistory btcTxHash={btcTxHash} />
+				)}
 			</Flex>
 		</CustomBox>
 	);

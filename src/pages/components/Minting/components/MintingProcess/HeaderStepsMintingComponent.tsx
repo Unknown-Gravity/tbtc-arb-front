@@ -1,5 +1,4 @@
 import { Flex, Text, useColorMode } from '@chakra-ui/react';
-import React from 'react';
 import { BitcoinFilledIcon } from '../../../../../assets/icons/BitcoinFilledIcon';
 
 type Props = {

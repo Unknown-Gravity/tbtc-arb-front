@@ -4,5 +4,6 @@ import { ethers } from 'ethers';
 export type InfoAccount = {
 	provider: ethers.providers.Web3Provider | null;
 	signer: EthereumSigner | any | null;
-	balance: string;
+	ethBalance: string;
+	tbtcBalance: string;
 };

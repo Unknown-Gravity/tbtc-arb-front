@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { addAccount } from '../redux/reducers/AccountReducer';
 import { normalizeNetWorkNames } from '../utils/utils';
 import { ArbitrumIcon } from '../assets/icons/ArbitrumIcon';
+import { tbtcContractABI } from '../contracts/tbtcContract';
 
 const ConnectButton = (props: ButtonProps) => {
 	const { address, isConnected } = useWeb3ModalAccount();
@@ -20,6 +21,8 @@ const ConnectButton = (props: ButtonProps) => {
 	const { open } = useWeb3Modal();
 	const { disconnect } = useDisconnect();
 	const dispatch = useDispatch();
+	const tbtcAddress = '0xb8f31A249bcb45267d06b9E51252c4793B917Cd0';
+	const L1BitcoinDepositor = tbtcContractABI;
 
 	useEffect(() => {
 		const getBalance = async () => {
@@ -28,21 +31,35 @@ const ConnectButton = (props: ButtonProps) => {
 					walletProvider,
 				);
 				const signer = await provider.getSigner();
+				const tbtcContract = new ethers.Contract(
+					tbtcAddress,
+					L1BitcoinDepositor,
+					signer,
+				);
+				const tbtcBalance = await tbtcContract.balanceOf(address);
+				const tbtcBalanceFormated =
+					ethers.utils.formatEther(tbtcBalance);
 				const network = await provider.getNetwork();
 				const balanceBigInt = await provider.getBalance(address);
 				const ethBalance = ethers.utils.formatEther(balanceBigInt);
-				dispatch(addAccount(provider, signer, ethBalance));
+				dispatch(
+					addAccount(
+						provider,
+						signer,
+						ethBalance,
+						tbtcBalanceFormated,
+					),
+				);
 				setNeedRefresh(false);
-				// let networkName = network.name;
-				// if (networkName === 'unknown') {
-				// 	if (network.chainId === 421614) {
-				// 		networkName = 'Arbitrum Sepolia';
-				// 	}
-				// }
-				setNetWorkName(network.name);
+				let networkName = network.name;
+				if (networkName === 'unknown') {
+					if (network.chainId === 421614) {
+						networkName = 'Arbitrum Sepolia';
+					}
+				}
+				setNetWorkName(networkName);
 
 				const handleChainChanged = (chainId: string) => {
-					console.log(`Chain changed to ${chainId}`);
 					if (chainId.toString() !== '421614') {
 						open({ view: 'Networks' });
 					}
@@ -63,7 +80,16 @@ const ConnectButton = (props: ButtonProps) => {
 		};
 
 		getBalance();
-	}, [address, walletProvider, needRefresh, dispatch, disconnect]);
+		// TODO Revisar dependencias
+	}, [
+		address,
+		walletProvider,
+		needRefresh,
+		dispatch,
+		disconnect,
+		L1BitcoinDepositor,
+		open,
+	]);
 
 	const handleConnectWallet = async () => {
 		if (!isConnected) {

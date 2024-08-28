@@ -8,8 +8,7 @@ import {
 } from '../../../assets/images';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../types/RootState';
-import { useEffect, useState, useMemo } from 'react';
-import { getTransactionHistory } from '../../../services/getTransactionHistory';
+import { useState, useMemo } from 'react';
 import { Transaction } from '@ethersproject/transactions';
 
 const MyActivityComponent = (props: BasicComponentProps) => {
@@ -18,7 +17,7 @@ const MyActivityComponent = (props: BasicComponentProps) => {
 	const [transactions, setTransactions] = useState<Array<Transaction>>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 
-	useEffect(() => {
+	/* useEffect(() => {
 		const getTransactions = async () => {
 			const history = await getTransactionHistory(accountInfo);
 			if (history && history.length > 0) {
@@ -27,7 +26,7 @@ const MyActivityComponent = (props: BasicComponentProps) => {
 			}
 		};
 		getTransactions();
-	}, [accountInfo]);
+	}, [accountInfo]); */
 
 	const renderedTransactions = useMemo(() => {
 		return transactions

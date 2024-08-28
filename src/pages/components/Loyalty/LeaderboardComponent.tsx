@@ -29,11 +29,12 @@ type Token = {
   decimals: number;
 }
 
-interface Event {
+export interface Event {
   provider: string;
   event: string;
+  action: string
+  token0: Token
   token1: Token
-  token2: Token
   transactionHash: string;
   timestamp: number;
 }
@@ -94,8 +95,8 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
   const sharePercentage = ((points / totalPoints) * 100).toFixed(2);
 
   const sortedEvents = events
-    .filter(event => event.provider.toLowerCase() === reward.provider.toLowerCase() && 
-    !(Number(event.token1.amount) === 0 && Number(event.token2.amount) === 0))
+    .filter(event => event.provider.toLowerCase() === reward.provider.toLowerCase() &&
+    !(Number(event.token0.amount) === 0 && Number(event.token1.amount) === 0))
     .sort((a, b) => b.timestamp - a.timestamp);
 
   const { colorMode } = useColorMode();
@@ -222,8 +223,8 @@ const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({ searchQuery
       try {
         const cids = await fetchLoyaltyProgramCIDs();
         const [rewards, events] = await Promise.all([
-          fetchIPFSData(cids.rewards_cid),
-          fetchIPFSData(cids.events_cid),
+          fetchIPFSData(cids?.rewards_cid),
+          fetchIPFSData(cids?.events_cid),
         ]);
         setRewardsData(rewards?.rewards);
         setEventsData(events?.events);
@@ -249,10 +250,10 @@ const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({ searchQuery
     );
   }
 
-  if (!rewardsData || !eventsData) {
+  if (!rewardsData || !eventsData || rewardsData.length === 0) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="480px">
-        Failed to load leaderboard data, please try again later.
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="420px">
+        No data is available at the moment.
       </Box>
     );
   }
@@ -280,19 +281,18 @@ const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({ searchQuery
     <Box p='10px' w='100%' borderRadius='5px'>
       <LeaderboardHeader isSmallScreen={isSmallScreen ?? false} />
       {paginatedRewards.map((reward, index) => (
-          <LeaderboardRow
-            key={filteredRewards.indexOf(reward)}
-            totalPoints={totalPoints}
-            events={eventsData}
-            index={sortedRewards.indexOf(reward)}
-            reward={reward}
-            isSmallScreen={isSmallScreen ?? false}
-            expandedRow={expandedRow}
-            onExpand={() => handleExpand(index)}
-            isExpanded={expandedRow === index}
-          />
-        )
-      )}
+        <LeaderboardRow
+          key={filteredRewards.indexOf(reward)}
+          totalPoints={totalPoints}
+          events={eventsData}
+          index={sortedRewards.indexOf(reward)}
+          reward={reward}
+          isSmallScreen={isSmallScreen ?? false}
+          expandedRow={expandedRow}
+          onExpand={() => handleExpand(index)}
+          isExpanded={expandedRow === index}
+        />
+      ))}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

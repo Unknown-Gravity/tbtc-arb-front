@@ -5,14 +5,16 @@ import { ethers } from 'ethers';
 interface AccountState {
 	provider: ethers.providers.Web3Provider | null;
 	signer: ethers.Signer | null;
-	balance: string;
+	ethBalance: string;
+	tbtcBalance: string;
 }
 
 // Define the initial state
 const initialState: AccountState = {
 	provider: null,
 	signer: null,
-	balance: '0',
+	ethBalance: '0',
+	tbtcBalance: '0',
 };
 
 /**
@@ -29,21 +31,25 @@ export const accountSlice = createSlice({
 		reset: () => initialState,
 		addAccount: {
 			reducer: (state, action: PayloadAction<AccountState>) => {
-				const { provider, signer, balance } = action.payload;
+				const { provider, signer, ethBalance, tbtcBalance } =
+					action.payload;
 				state.provider = provider;
 				state.signer = signer;
-				state.balance = balance;
+				state.ethBalance = ethBalance;
+				state.tbtcBalance = tbtcBalance;
 			},
 			prepare: (
 				provider: ethers.providers.Web3Provider,
 				signer: ethers.Signer,
-				balance: string,
+				ethBalance: string,
+				tbtcBalance: string,
 			) => {
 				return {
 					payload: {
 						provider,
 						signer,
-						balance,
+						ethBalance,
+						tbtcBalance,
 					},
 				};
 			},

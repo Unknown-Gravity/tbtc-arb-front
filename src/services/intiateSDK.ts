@@ -5,7 +5,14 @@ import { InfoAccount } from '../interfaces/InfoAccount.type';
 const initiateSDK = async (data: InfoAccount): Promise<TBTC> => {
 	let sdk: TBTC | null = null;
 
-	const ethRPC = process.env.REACT_APP_ETH_RPC;
+	const signer: ethers.Signer | null = data.signer;
+	const chainId = await signer?.getChainId();
+	let ethRPC;
+	if (chainId === 421614) {
+		ethRPC = process.env.REACT_APP_ETH_RPC;
+	} else {
+		ethRPC = ethRPC = process.env.REACT_APP_ETH_MAINNET_RPC;
+	}
 
 	if (!ethRPC) {
 		throw new Error('Missing environment variables.');
@@ -15,12 +22,12 @@ const initiateSDK = async (data: InfoAccount): Promise<TBTC> => {
 
 	console.log('Initializing SDK');
 
-	if (data.signer) {
+	if (signer) {
 		sdk = await TBTC.initializeSepolia(ethProvider, true);
-		await sdk.initializeCrossChain('Arbitrum', data.signer);
+		await sdk.initializeCrossChain('Arbitrum', signer);
 	}
 
-	console.log('SDK initialized successfully:', sdk);
+	console.log('SDK initialized successfully:');
 
 	if (!sdk) throw new Error('SDK not initialized yet.');
 	return sdk;

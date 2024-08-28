@@ -1,4 +1,3 @@
-import React from 'react';
 import { CustomBox } from '../../../../components/CustomBox';
 import { Stack, Text } from '@chakra-ui/react';
 import { reports } from '../../../../data/mockData';

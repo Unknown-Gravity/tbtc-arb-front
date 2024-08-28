@@ -1,5 +1,7 @@
+import { DepositReceipt, Hex } from '@keep-network/tbtc-v2.ts';
 import axios from 'axios';
 import blockies from 'ethereum-blockies';
+import { ethers } from 'ethers';
 
 const COINDESK_API_URL = 'https://api.coindesk.com/v1/bpi/currentprice.json';
 
@@ -23,7 +25,7 @@ const currencyLocales: { [key in Currency]: string } = {
 
 export const generateIdenticon = (address: string) => {
 	return blockies.create({ seed: address.toLowerCase() }).toDataURL();
-  };
+};
 
 export const currencyFormatter = (
 	money: number,
@@ -120,32 +122,85 @@ const millisecondsToTimeString = (milliseconds: number): string => {
 };
 
 export const truncateToDecimals = (value: string, decimals: number) => {
-	if (parseFloat(value) === 0) return '0'
-    const [integerPart, decimalPart] = value.split('.');
-    if (!decimalPart || decimalPart.length <= decimals) {
-      return value;
-    }
-    return `${integerPart}.${decimalPart.slice(0, decimals)}`;
+	if (parseFloat(value) === 0) return '0';
+	const [integerPart, decimalPart] = value.split('.');
+	if (!decimalPart || decimalPart.length <= decimals) {
+		return value;
+	}
+	return `${integerPart}.${decimalPart.slice(0, decimals)}`;
 };
 
 export const fetchLoyaltyProgramCIDs = async () => {
 	try {
-		const response = await axios.get(`${process.env.REACT_APP_LOYALTY_PROGRAM_API_URL}`);
+		const response = await axios.get(
+			`${process.env.REACT_APP_LOYALTY_PROGRAM_API_URL}`,
+		);
 		return response.data;
 	} catch (error) {
-		console.error("Error fetching CIDs:", error);
-		return null;
-	}
-};
-  
-export const fetchIPFSData = async (cid: string) => {
-	try {
-		const response = await axios.get(`${process.env.REACT_APP_IPFS_RETRIEVER_URL}${cid}`);
-		return response.data;
-	} catch (error) {
-		console.error("Error fetching IPFS data:", error);
+		console.error('Error fetching CIDs:', error);
 		return null;
 	}
 };
 
-export { millisecondsToTimeString };
+export const fetchIPFSData = async (cid: string) => {
+	try {
+		const response = await axios.get(
+			`${process.env.REACT_APP_IPFS_RETRIEVER_URL}${cid}`,
+		);
+		return response.data;
+	} catch (error) {
+		console.error('Error fetching IPFS data:', error);
+		return null;
+	}
+};
+
+export const serializeReceipt = (receipt: DepositReceipt) => {
+	const serializedReceipt = {
+		...receipt,
+		blindingFactor: Hex.from(receipt.blindingFactor.toString()),
+		refundLocktime: Hex.from(receipt.refundLocktime.toString()),
+		refundPublicKeyHash: Hex.from(receipt.refundPublicKeyHash.toString()),
+		walletPublicKeyHash: Hex.from(receipt.walletPublicKeyHash.toString()),
+	};
+	return serializedReceipt;
+};
+
+const getDepositId = (
+	fundingTxHash: string,
+	fundingOutputIndex: number,
+): string => {
+	// Asegúrate de que fundingTxHash es una cadena de 64 caracteres hexadecimales
+	if (fundingTxHash.length !== 64) {
+		throw new Error('Invalid fundingTxHash');
+	}
+
+	// Convertir el fundingTxHash a un formato de bytes32 esperado por ethers.js
+	const fundingTxHashBytes = '0x' + fundingTxHash;
+
+	// Codifica los datos de manera similar a abi.encodePacked en Solidity
+	const encodedData = ethers.utils.solidityPack(
+		['bytes32', 'uint32'],
+		[fundingTxHashBytes, fundingOutputIndex],
+	);
+
+	// Calcula el hash keccak256
+	const hash = ethers.utils.keccak256(encodedData);
+
+	// Convierte el- hash a un entero sin signo de 256 bits (uint256)
+	const depositKey = ethers.BigNumber.from(hash).toString();
+
+	return depositKey;
+};
+
+const reverseString = (str: string) => {
+	let interleaved = '';
+
+	// Recorre el string en pares desde el final hasta el principio
+	for (let i = str.length - 2; i >= 0; i -= 2) {
+		interleaved += str[i] + str[i + 1];
+	}
+
+	return interleaved;
+};
+
+export { millisecondsToTimeString, getDepositId, reverseString };

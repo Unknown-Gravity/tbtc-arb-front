@@ -1,9 +1,9 @@
 import { Box, Flex, Grid, Text, useColorMode } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { getTransactionInfo } from '../../../../services/getTransactionInfo';
 import { Web3Provider } from '@ethersproject/providers';
 import { Transaction } from 'ethers';
 import { TxInfo } from '../../../../interfaces/TxInfo.interface';
+import { getTransactionInfo } from '../../../../services/transactionServices';
 
 type Props = {
 	transaction?: Transaction;
