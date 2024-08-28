@@ -31,8 +31,8 @@ const downloadJson = (
 	const json = JSON.stringify(
 		normalizeData(
 			receipt,
-			btcRecoveryAddress,
 			btcDepositAddress,
+			btcRecoveryAddress,
 			ethAddress,
 		),
 		null,
@@ -44,7 +44,7 @@ const downloadJson = (
 
 	const link = document.createElement('a');
 	link.href = url;
-	link.download = `${operationId}.json`;
+	link.download = `${operationId}_${btcRecoveryAddress}_${new Date().toLocaleDateString()}.json`;
 	document.body.appendChild(link);
 	link.click();
 

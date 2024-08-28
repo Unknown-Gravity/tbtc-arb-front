@@ -5,13 +5,12 @@ import Step3HeaderComponent from './Step3HeaderComponent';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../../../types/RootState';
 import { useSdk } from '../../../../../../context/SDKProvider';
+import { Deposit } from '@keep-network/tbtc-v2.ts';
+import { checkDepositStatus } from '../../../../../../services/depositServices';
 
 type Props = {};
 
 const Step3MintingProcess = () => {
-	const [initializedMint, setInitializedMint] = useState<boolean>(false);
-	const [finalizedMint, setFinalizedMint] = useState<boolean>(false);
-	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const depositInfo = useSelector((state: RootState) => state.deposit);
 	const { sdk } = useSdk();
 
@@ -36,22 +35,14 @@ const Step3MintingProcess = () => {
 	});
 
 	useEffect(() => {
-		const intiateMinting = async () => {
+		const deposit = depositInfo.deposit;
+		if (!deposit || !sdk) {
+			return;
+		}
+		const intiateMinting = async (deposit: Deposit) => {
 			try {
-				const deposit = depositInfo.deposit;
 				const fundingUxtos = await deposit?.detectFunding();
 				if (fundingUxtos) {
-					const { outputIndex, transactionHash } = fundingUxtos[0];
-					const depositState =
-						await sdk?.tbtcContracts.bridge.deposits(
-							transactionHash,
-							outputIndex,
-						);
-					console.log(
-						'🚀 ~ intiateMinting ~ depositState:',
-						depositState,
-					);
-
 					const txHash = await deposit?.initiateMinting(
 						fundingUxtos[0],
 					);
@@ -60,19 +51,28 @@ const Step3MintingProcess = () => {
 				console.log(error);
 			}
 		};
-		intiateMinting();
-	}, [depositInfo]);
+		const changeStep = async () => {
+			const depositStatus = await checkDepositStatus(deposit, sdk);
+			switch (depositStatus) {
+				case 0:
+					setActiveStep(1);
+					break;
+				case 1:
+					setActiveStep(2);
+					break;
+				case 2:
+					setActiveStep(3);
+					break;
+			}
+		};
+		changeStep();
+	}, [depositInfo, sdk, setActiveStep]);
 
 	return (
 		<Flex>
 			<Box h={{ base: 'auto', xl: '555px' }}>
 				<Step3HeaderComponent activeStep={activeStep} steps={steps} />
-				<ConfirmingMinting
-					isLoading={isLoading}
-					initializedMint={initializedMint}
-					msg={msg}
-					finalizedMinting={finalizedMint}
-				/>
+				<ConfirmingMinting step={activeStep} msg={msg} />
 			</Box>
 		</Flex>
 	);

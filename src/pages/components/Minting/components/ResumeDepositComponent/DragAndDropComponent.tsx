@@ -97,6 +97,7 @@ const DragAndDropComponent = ({
 					btcRecoveryAddress: parsedContent.btcRecoveryAddress,
 					btcDepositAddress: parsedContent.btcDepositAddress,
 				};
+				console.log(fileContent);
 				// Set the file content in the correct format
 				setFileContent(fileContent);
 			} catch (error) {

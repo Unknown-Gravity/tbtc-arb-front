@@ -1,12 +1,27 @@
 import {
 	ChainIdentifier,
-	Deposit,
 	CrossChainDepositor,
+	Deposit,
 	DepositReceipt,
 	TBTC,
 } from '@keep-network/tbtc-v2.ts';
+import { getDepositId } from '../utils/utils';
 
-export const getDepositInfo = async (receipt: DepositReceipt, sdk: TBTC) => {
+const checkDepositStatus = async (deposit: Deposit, sdk: TBTC) => {
+	const fundingUxtos = await deposit?.detectFunding();
+	if (!fundingUxtos) {
+		return;
+	}
+	const { outputIndex, transactionHash } = fundingUxtos[0];
+	const depositState = await sdk
+		?.crossChainContracts('Arbitrum')
+		?.l1BitcoinDepositor.getDepositStatus(
+			getDepositId(transactionHash.toString(), outputIndex),
+		);
+	return depositState;
+};
+
+const getDepositInfo = async (receipt: DepositReceipt, sdk: TBTC) => {
 	const {
 		blindingFactor,
 		walletPublicKeyHash,
@@ -50,3 +65,5 @@ export const getDepositInfo = async (receipt: DepositReceipt, sdk: TBTC) => {
 
 	return deposit;
 };
+
+export { checkDepositStatus, getDepositInfo };

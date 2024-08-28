@@ -4,9 +4,9 @@ import { Button, Link, Stack, Text } from '@chakra-ui/react';
 import DragAndDropComponent from './DragAndDropComponent';
 import { useSdk } from '../../../../../context/SDKProvider';
 import { JsonData } from '../../../../../interfaces/JsonData.interface';
-import { getDepositInfo } from '../../../../../services/getDepositInfo';
 import { useDispatch } from 'react-redux';
 import { addDeposit } from '../../../../../redux/reducers/DepositReducer';
+import { getDepositInfo } from '../../../../../services/depositServices';
 
 type Props = {
 	setTabSelected: Dispatch<SetStateAction<number>>;

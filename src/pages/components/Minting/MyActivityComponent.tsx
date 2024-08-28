@@ -8,8 +8,7 @@ import {
 } from '../../../assets/images';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../types/RootState';
-import { useEffect, useState, useMemo } from 'react';
-import { getTransactionHistory } from '../../../services/getTransactionHistory';
+import { useState, useMemo } from 'react';
 import { Transaction } from '@ethersproject/transactions';
 
 const MyActivityComponent = (props: BasicComponentProps) => {
