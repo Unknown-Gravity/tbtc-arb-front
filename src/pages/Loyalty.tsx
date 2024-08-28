@@ -52,20 +52,25 @@ const Loyalty = (props: Props) => {
 						justifyContent='space-between'
 						gap={{ base: 8 }}
 					>
-						<Stack gap='15px' maxW='567px'>
+						<Stack gap='15px' maxW='720px'>
 							<Text fontSize='24px' fontWeight={600}>
-								Total Arbitrum Rewards
+								Claim Your Share of the 50,000 ARB Treasure
+								Chest
 							</Text>
 							<Text fontSize='15px' fontWeight={300} mt='16px'>
-								The tiered loyalty program rewards liquidity
-								providers based on their weighted average
-								liquidity.
+								Unlock your share of the Treasure Chest—50,000
+								ARB + 25% boost in T is up for grabs! This
+								loyalty program rewards liquidity providers not
+								just for their participation but for their
+								commitment.
 							</Text>
 							<Text fontSize='15px' fontWeight={300} mb='12px'>
-								The program considers the liquidity provided by
-								users in Curve and Uniswap V3 pools, it
-								calculates the total value of the tokens
-								involved, and distributes rewards accordingly.
+								Points are assigned based on your weighted
+								average liquidity across Curve and Uniswap V3
+								pools on Arbitrum. When the program concludes,
+								the points determine your cut of the treasure.
+								The more liquidity you provide, the more
+								treasure you’ll claim.
 							</Text>
 						</Stack>
 					</Flex>
@@ -89,8 +94,7 @@ const Loyalty = (props: Props) => {
 								fontSize='12px'
 							/>
 						</Flex>
-						<LeaderboardComponent searchQuery={searchQuery} />{' '}
-						{/* Pass searchQuery as a prop */}
+						<LeaderboardComponent searchQuery={searchQuery} />
 					</Stack>
 				</CustomBox>
 			</Stack>
