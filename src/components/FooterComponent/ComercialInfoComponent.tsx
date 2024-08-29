@@ -29,7 +29,7 @@ const ComercialInfoComponent: FC = () => {
 				<BitcoinFilledIcon
 					color='brand.purple.900'
 					boxSize='56px'
-					fill={colorMode === 'light' ? 'white' : 'dark.primaryGray'}
+					fill='white'
 				/>
 			</Flex>
 			<Text
@@ -39,7 +39,7 @@ const ComercialInfoComponent: FC = () => {
 				fontWeight={400}
 				mt='23px'
 			>
-				nCurated by Threshold DAO Developed by Uknown Gravity
+				Curated by Threshold DAO Developed by Uknown Gravity
 			</Text>
 			<Flex gap='12px' mt='20px'>
 				<FooterIcon link={ExternalRoutes.Youtube} icon={BsYoutube} />

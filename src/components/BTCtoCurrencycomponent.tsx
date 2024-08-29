@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Text } from '@chakra-ui/react';
+import { Spinner, Text } from '@chakra-ui/react';
 import { convertBTCToCurrency, Currency } from '../utils/utils';
 
 const BTCtoCurrencyComponent: FC<{
@@ -27,7 +27,7 @@ const BTCtoCurrencyComponent: FC<{
 	}, [btcAmount, currency]);
 
 	if (loading) {
-		return <Text>Loading...</Text>;
+		return <Spinner />;
 	}
 
 	if (error) {
@@ -35,11 +35,7 @@ const BTCtoCurrencyComponent: FC<{
 	}
 
 	return (
-		<Text
-			fontSize={variant === 'gray' ? '14px' : '16px'}
-			variant={variant}
-			lineHeight='10px'
-		>
+		<Text fontSize={variant === 'gray' ? '14px' : '16px'} variant={variant}>
 			{convertedAmount}
 		</Text>
 	);
