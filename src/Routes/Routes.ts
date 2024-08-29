@@ -18,6 +18,9 @@ export const ExternalRoutes = {
 	Github: 'https://github.com/threshold-network',
 	X: 'https://x.com/TheTNetwork',
 	Forum: 'https://forum.threshold.network/',
+	Website: 'https://threshold.network/',
+	Blog: 'https://blog.threshold.network/',
+	Documentation: 'https://docs.threshold.network/',
 };
 
 export const PrivateRoutes = {};
@@ -47,27 +50,53 @@ export const publicLinks: Array<LinkType> = [
 
 export const externalLinks: Array<LinkType> = [
 	{
-		title: 'youtube',
+		title: 'Youtube',
 		link: ExternalRoutes.Youtube,
 	},
 	{
-		title: 'discord',
-		link: ExternalRoutes.Discord,
-	},
-	{
-		title: 'x',
-		link: ExternalRoutes.X,
-	},
-	{
-		title: 'github',
-		link: ExternalRoutes.Github,
-	},
-	{
-		title: 'forum',
+		title: 'Forum',
 		link: ExternalRoutes.Forum,
 	},
 	{
-		title: 'loyalty',
+		title: 'Loyalty',
 		link: PublicRoutes.Loyalty,
+	},
+];
+
+export const connectWithUsLinks: Array<LinkType> = [
+	{
+		title: 'Dao Forum',
+		link: ExternalRoutes.Forum,
+	},
+	{
+		title: 'Github',
+		link: ExternalRoutes.Github,
+	},
+	{
+		title: 'Discord',
+		link: ExternalRoutes.Discord,
+	},
+	{
+		title: 'X',
+		link: ExternalRoutes.X,
+	},
+];
+
+export const thresholdLinks: Array<LinkType> = [
+	{
+		title: 'Website',
+		link: ExternalRoutes.Website,
+	},
+	{
+		title: 'Blog',
+		link: ExternalRoutes.Blog,
+	},
+	{
+		title: 'Forum',
+		link: ExternalRoutes.Forum,
+	},
+	{
+		title: 'Documentation',
+		link: ExternalRoutes.Documentation,
 	},
 ];

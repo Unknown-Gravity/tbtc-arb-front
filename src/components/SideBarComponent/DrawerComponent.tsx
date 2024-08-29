@@ -7,6 +7,7 @@ import {
 	DrawerFooter,
 	Flex,
 	Text,
+	useColorModeValue,
 } from '@chakra-ui/react';
 import LogoIcon from '../../assets/icons/LogoIcon';
 import IconSideBar from './IconSideBar';
@@ -26,17 +27,13 @@ type Props = {
 
 const DrawerComponent = (props: Props) => {
 	const navigate = useNavigate();
-
+	const drawerBgColor = useColorModeValue('white', 'dark.primaryGray');
 	return (
 		<Drawer isOpen={props.isOpen} placement='left' onClose={props.onClose}>
 			<DrawerOverlay />
-			<DrawerContent>
+			<DrawerContent bgColor={drawerBgColor}>
 				<DrawerHeader w='100%' display='flex' justifyContent='center'>
-					<LogoIcon
-						color='brand.purple.900'
-						boxSize='160px'
-						h='20px'
-					/>
+					<LogoIcon color='white' boxSize='160px' h='20px' />
 				</DrawerHeader>
 
 				<DrawerBody display='flex' flexDir='column' gap='20px'>

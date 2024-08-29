@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import MintComponent from './components/Minting/MintComponent';
 import UnmintComponent from './components/Minting/UnmintComponent';
 import ResumeDepositComponent from './components/Minting/ResumeDepositComponent';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {};
 
@@ -18,6 +19,8 @@ const TbtcComponent = (props: Props) => {
 	const [tabSelected, setTabSelected] = useState<number>(1);
 	const accountInfo = useSelector((state: RootState) => state.account);
 	const { isConnected } = useWeb3ModalAccount();
+	const acceptedTerms = localStorage.getItem('acceptedTerms');
+	const navigate = useNavigate();
 
 	const handleClick = (tab: number): void => {
 		setTabSelected(tab);
@@ -25,8 +28,12 @@ const TbtcComponent = (props: Props) => {
 	};
 
 	useEffect(() => {
+		if (!acceptedTerms) {
+			navigate('/');
+		}
 		const tab = localStorage.getItem('tab');
 		tab && setTabSelected(parseInt(tab));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
@@ -53,27 +60,26 @@ const TbtcComponent = (props: Props) => {
 					/>
 				</Stack>
 				<Stack gap='20px'>
-					<CustomBox h='fit-content' p='5px'>
-						<Grid
-							templateColumns='repeat(2, minmax(0, 1fr))'
-							gap='12px'
-						>
-							<Button
-								variant='lightpurple'
-								isActive={tabSelected === 1 && true}
-								onClick={() => handleClick(1)}
-							>
-								Mint
-							</Button>
-							<Button
+					{tabSelected !== 3 && (
+						<CustomBox h='fit-content' p='5px'>
+							<Grid templateColumns='minmax(0, 1fr)' gap='12px'>
+								<Button
+									variant='lightpurple'
+									isActive={tabSelected === 1 && true}
+									onClick={() => handleClick(1)}
+								>
+									Mint
+								</Button>
+								{/* <Button
 								variant='lightpurple'
 								isActive={tabSelected === 2 && true}
 								onClick={() => handleClick(2)}
 							>
 								Unmint
-							</Button>
-						</Grid>
-					</CustomBox>
+							</Button> */}
+							</Grid>
+						</CustomBox>
+					)}
 					{tabSelected === 1 ? (
 						<MintComponent
 							isConnected={isConnected}
@@ -81,12 +87,12 @@ const TbtcComponent = (props: Props) => {
 							setStep={setStep}
 							setTabSelected={setTabSelected}
 						/>
-					) : tabSelected === 2 ? (
-						<UnmintComponent
-							isConnected={isConnected}
-							setTabSelected={setTabSelected}
-						/>
 					) : (
+						// <UnmintComponent
+						// 	isConnected={isConnected}
+						// 	setTabSelected={setTabSelected}
+						// />
+
 						<ResumeDepositComponent
 							setTabSelected={setTabSelected}
 							setStep={setStep}
