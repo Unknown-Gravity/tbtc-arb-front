@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import MintComponent from './components/Minting/MintComponent';
 import UnmintComponent from './components/Minting/UnmintComponent';
 import ResumeDepositComponent from './components/Minting/ResumeDepositComponent';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {};
 
@@ -18,6 +19,8 @@ const TbtcComponent = (props: Props) => {
 	const [tabSelected, setTabSelected] = useState<number>(1);
 	const accountInfo = useSelector((state: RootState) => state.account);
 	const { isConnected } = useWeb3ModalAccount();
+	const acceptedTerms = localStorage.getItem('acceptedTerms');
+	const navigate = useNavigate();
 
 	const handleClick = (tab: number): void => {
 		setTabSelected(tab);
@@ -25,6 +28,9 @@ const TbtcComponent = (props: Props) => {
 	};
 
 	useEffect(() => {
+		if (!acceptedTerms) {
+			navigate('/');
+		}
 		const tab = localStorage.getItem('tab');
 		tab && setTabSelected(parseInt(tab));
 	}, []);
