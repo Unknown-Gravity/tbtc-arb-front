@@ -106,7 +106,13 @@ const ConfirmingMinting = ({ msg, step, setStep }: Props) => {
 			)}
 			<Text variant='coolGray' fontSize='14px' lineHeight='20px'>
 				See transaction on{' '}
-				<Link href={msg.transaction.link}>{msg.transaction.label}</Link>
+				<Link
+					href={msg.transaction.link}
+					isExternal={true}
+					variant={'purpleDarkGradient'}
+				>
+					{msg.transaction.label}
+				</Link>
 			</Text>
 
 			{step === 3 && (
