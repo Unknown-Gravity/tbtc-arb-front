@@ -1,7 +1,5 @@
 # Threshold tBTC minting portal. 💱
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 This platform allows you to efficiently mint Bitcoin on the Arbitrum network. Leverage Arbitrum’s scalability and low transaction fees to optimize your Bitcoin transactions. Our portal provides a streamlined experience for those looking to bridge Bitcoin into the Arbitrum ecosystem quickly and securely.
 
 ## How to start 💪
@@ -25,7 +23,7 @@ REACT_API_ROUTE='http://localhost:3333'
 GENERATE_SOURCEMAP=false
 
 # API Keys and Endpoints
-REACT_APP_API_KEY='bRZv5V7XLoVjdEtbF9MWxjrwLVnfaipN' #Dune API Key
+REACT_APP_API_KEY='<YOUR_DUNE_API_KEY>' #Dune API Key
 
 # RPC Endpoints
 REACT_APP_ETH_RPC='<YOUR_ETH_SEPOLIA_RPC>'
@@ -39,8 +37,8 @@ REACT_APP_BTC_EXPLORER='https://blockstream.info/testnet/address/'
 REACT_APP_ARB_EXPLORER='https://sepolia.arbiscan.io/address/'
 
 # IPFS Loyalty Program Endpoints
-REACT_APP_IPFS_RETRIEVER_URL='https://blush-mad-ox-324.mypinata.cloud/ipfs/'
-REACT_APP_LOYALTY_PROGRAM_API_URL='https://thresholdtlp.com/api/latest-cids'
+REACT_APP_IPFS_RETRIEVER_URL='<YOUR_IPFS_RETRIEVER_URL>'
+REACT_APP_LOYALTY_PROGRAM_API_URL='<YOUR_LOYALTY_PROGRAM_API_URL>'
 
 REACT_APP_CHAINID=421614
 ```
