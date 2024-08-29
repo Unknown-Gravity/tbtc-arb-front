@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import HeaderExploreComponent from './components/Explore/HeaderExploreComponent';
 import { CustomBox } from '../components/CustomBox';
 import { Stack } from '@chakra-ui/react';
