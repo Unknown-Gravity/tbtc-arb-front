@@ -7,10 +7,10 @@ This platform allows you to efficiently mint Bitcoin on the Arbitrum network. Le
 ## How to start
 
 -   Clone repository
-    ´git clone https://github.com/Unknown-Gravity/tbtc-arb-front.git´
+    `git clone https://github.com/Unknown-Gravity/tbtc-arb-front.git`
 
 -   install all the packages
-    ´yarn´
+    `yarn`
 
 > If you encounter an error installing the packages, just erase yarn.lock file and try again the yarn command
 
@@ -18,9 +18,9 @@ This platform allows you to efficiently mint Bitcoin on the Arbitrum network. Le
 
 ### Env file
 
-´
+`
 
-# General Configuration
+// General Configuration
 
 REACT_API_ROUTE='http://localhost:3333'
 GENERATE_SOURCEMAP=false
@@ -49,4 +49,4 @@ REACT_APP_IPFS_RETRIEVER_URL='https://blush-mad-ox-324.mypinata.cloud/ipfs/'
 REACT_APP_LOYALTY_PROGRAM_API_URL='https://thresholdtlp.com/api/latest-cids'
 
 REACT_APP_CHAINID=421614
-´
+`
