@@ -18,7 +18,7 @@ This platform allows you to efficiently mint Bitcoin on the Arbitrum network. Le
 
 ### Env file
 
-`
+\```
 
 // General Configuration
 
@@ -49,4 +49,4 @@ REACT_APP_IPFS_RETRIEVER_URL='https://blush-mad-ox-324.mypinata.cloud/ipfs/'
 REACT_APP_LOYALTY_PROGRAM_API_URL='https://thresholdtlp.com/api/latest-cids'
 
 REACT_APP_CHAINID=421614
-`
+\```
