@@ -55,12 +55,7 @@ const AppLayout = ({ component, headerTitle }: AppLayoutProps) => {
 						maskImage: mask,
 					}}
 				>
-					<Image
-						src={backgroundImage}
-						w='100%'
-						h='100%'
-						position='absolute'
-					/>
+					<Image src={backgroundImage} w='100%' position='absolute' />
 				</Box>
 			)}
 
