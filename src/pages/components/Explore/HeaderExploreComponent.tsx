@@ -2,6 +2,7 @@ import {
 	Button,
 	Flex,
 	Link,
+	Skeleton,
 	Spinner,
 	Stack,
 	Text,
@@ -120,7 +121,7 @@ const HeaderExploreComponent = () => {
 							errorMsg
 						)
 					) : (
-						<Spinner />
+						<Skeleton />
 					)}
 				</Text>
 
