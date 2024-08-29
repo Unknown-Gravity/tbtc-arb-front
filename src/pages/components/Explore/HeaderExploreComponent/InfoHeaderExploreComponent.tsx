@@ -1,4 +1,10 @@
-import { Spinner, Stack, Text, useColorModeValue } from '@chakra-ui/react';
+import {
+	Skeleton,
+	Spinner,
+	Stack,
+	Text,
+	useColorModeValue,
+} from '@chakra-ui/react';
 import { CustomBox } from '../../../../components/CustomBox';
 import { currencyFormatter } from '../../../../utils/utils';
 
@@ -18,7 +24,7 @@ const InfoHeaderExploreComponent = ({ info, label, symbol }: Props) => {
 					{info !== 0 ? (
 						currencyFormatter(info, 'USD', symbol)
 					) : (
-						<Spinner />
+						<Skeleton h='40px' />
 					)}
 				</Text>
 				<Text variant='gray' fontSize='16px' lineHeight='24px'>

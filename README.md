@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+# Threshold tBTC minting portal.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+This platform allows you to efficiently mint Bitcoin on the Arbitrum network. Leverage Arbitrum’s scalability and low transaction fees to optimize your Bitcoin transactions. Our portal provides a streamlined experience for those looking to bridge Bitcoin into the Arbitrum ecosystem quickly and securely.
 
-In the project directory, you can run:
+## How to start
 
-### `npm start`
+-   Clone repository
+    ´git clone https://github.com/Unknown-Gravity/tbtc-arb-front.git´
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+-   install all the packages
+    ´yarn´
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+> If you encounter an error installing the packages, just erase yarn.lock file and try again the yarn command
 
-### `npm test`
+> Important: Please note that for now, the SDK must be installed locally within the project. However, after the official release, you will need to update your package.json to reflect the new package location and version. Make sure to adjust accordingly to stay up-to-date with the latest changes.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Env file
 
-### `npm run build`
+´
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# General Configuration
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+REACT_API_ROUTE='http://localhost:3333'
+GENERATE_SOURCEMAP=false
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# API Keys and Endpoints
 
-### `npm run eject`
+REACT_APP_API_KEY='bRZv5V7XLoVjdEtbF9MWxjrwLVnfaipN'
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# RPC Endpoints
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+REACT_APP_ETH_RPC='https://go.getblock.io/15037027e0e9491e9fc275c993f14328'
+REACT_APP_ETH_MAINNET_RPC='https://go.getblock.io/54800df3e763479c9d61bff9c05b2386'
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# API URLs
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+COINGECKO_API_URL='https://api.coingecko.com/api/v3/simple/price'
 
-## Learn More
+# Explorer URLs
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+REACT_APP_BTC_EXPLORER='https://blockstream.info/testnet/address/'
+REACT_APP_ARB_EXPLORER='https://sepolia.arbiscan.io/address/'
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# IPFS Loyalty Program Endpoints
+
+REACT_APP_IPFS_RETRIEVER_URL='https://blush-mad-ox-324.mypinata.cloud/ipfs/'
+REACT_APP_LOYALTY_PROGRAM_API_URL='https://thresholdtlp.com/api/latest-cids'
+
+REACT_APP_CHAINID=421614
+´
