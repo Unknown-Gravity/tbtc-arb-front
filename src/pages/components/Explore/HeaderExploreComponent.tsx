@@ -2,6 +2,7 @@ import {
 	Button,
 	Flex,
 	Link,
+	Spinner,
 	Stack,
 	Text,
 	useColorModeValue,
@@ -14,6 +15,7 @@ import {
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { currencyFormatter } from '../../../utils/utils';
+import { useNavigate } from 'react-router-dom';
 
 const initialValue = {
 	supply: 0,
@@ -24,6 +26,12 @@ const initialValue = {
 
 const HeaderExploreComponent = () => {
 	const [data, setData] = useState(initialValue);
+	const [errorMsg, setErrorMsg] = useState('');
+	const navigate = useNavigate();
+
+	const handleClickStartMinting = () => {
+		navigate('/minting');
+	};
 
 	const apikey = process.env.REACT_APP_API_KEY || '';
 	useEffect(() => {
@@ -50,11 +58,13 @@ const HeaderExploreComponent = () => {
 					addresses: addresses.data.result.rows[0].Holders,
 				});
 			} catch (error) {
+				setErrorMsg('No data is avaliable yet, please try again later');
 				console.error('Error fetching data: ', error);
 			}
 		};
 		fetchData();
-	}, [apikey, data]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	const backgroundImage = useColorModeValue(
 		`url(${LightExploreBackground})`,
 		`url(${DarkExploreBackground})`,
@@ -77,7 +87,12 @@ const HeaderExploreComponent = () => {
 				<Text fontSize='24px' lineHeight='32px' fontWeight={600}>
 					tBTC TVL
 				</Text>
-				<Button variant='purple' h='48px' w='161.6px'>
+				<Button
+					variant='purple'
+					h='48px'
+					w='161.6px'
+					onClick={handleClickStartMinting}
+				>
 					Start Minting
 				</Button>
 			</Flex>
@@ -90,12 +105,25 @@ const HeaderExploreComponent = () => {
 				flexDir={{ base: 'column', xl: 'row' }}
 			>
 				<Text
-					fontSize={{ base: '45px', xl: '60px' }}
+					fontSize={{
+						base: '45px',
+						xl: errorMsg === '' ? '60px' : '45px',
+					}}
 					lineHeight='64px'
 					fontWeight={700}
+					textAlign='center'
 				>
-					{currencyFormatter(data.supply)}
+					{data.supply !== 0 ? (
+						errorMsg === '' ? (
+							currencyFormatter(data.supply)
+						) : (
+							errorMsg
+						)
+					) : (
+						<Spinner />
+					)}
 				</Text>
+
 				<Button
 					as={Link}
 					href='https://dune.com/threshold/tbtc'
@@ -106,30 +134,32 @@ const HeaderExploreComponent = () => {
 					View On Dune Analytics
 				</Button>
 			</Flex>
-			<Flex
-				mt='48px'
-				justifyContent='space-between'
-				gap='25px'
-				alignItems='center'
-				flexDir={{ base: 'column', xl: 'row' }}
-			>
-				<InfoHeaderExploreComponent
-					info={data.tbtc}
-					label='tBTC'
-					symbol='none'
-				/>
+			{errorMsg === '' && (
+				<Flex
+					mt='48px'
+					justifyContent='space-between'
+					gap='25px'
+					alignItems='center'
+					flexDir={{ base: 'column', xl: 'row' }}
+				>
+					<InfoHeaderExploreComponent
+						info={data.tbtc}
+						label='tBTC'
+						symbol='none'
+					/>
 
-				<InfoHeaderExploreComponent
-					info={data.minting}
-					label='Total mints'
-					symbol='none'
-				/>
-				<InfoHeaderExploreComponent
-					info={data.addresses}
-					label='tBTC Holding Addresses'
-					symbol='none'
-				/>
-			</Flex>
+					<InfoHeaderExploreComponent
+						info={data.minting}
+						label='Total mints'
+						symbol='none'
+					/>
+					<InfoHeaderExploreComponent
+						info={data.addresses}
+						label='tBTC Holding Addresses'
+						symbol='none'
+					/>
+				</Flex>
+			)}
 		</Stack>
 	);
 };

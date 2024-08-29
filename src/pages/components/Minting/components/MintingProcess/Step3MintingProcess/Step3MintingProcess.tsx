@@ -16,7 +16,7 @@ const initialMsg = {
 	body: 'Your Bitcoin deposit transaction requires 6 confirmations on the Bitcoin network before initiating the minting process.',
 	transaction: {
 		label: 'blockstream',
-		link: 'link',
+		link: 'https://blockstream.info/testnet/tx/',
 	},
 };
 
@@ -40,12 +40,19 @@ const finalizingMinting = {
 
 const Step3MintingProcess = ({ setStep }: Props) => {
 	const depositInfo = useSelector((state: RootState) => state.deposit);
+	const [txHash, setTxHash] = useState(depositInfo.utxo?.transactionHash);
 	const [status, setStatus] = useState(depositInfo.status);
 	const dispatch = useDispatch();
 
 	const { sdk } = useSdk();
 
-	const [msg, setMsg] = useState(initialMsg);
+	const [msg, setMsg] = useState({
+		...initialMsg,
+		transaction: {
+			...initialMsg.transaction,
+			link: `${initialMsg.transaction.link}${txHash}`,
+		},
+	});
 
 	const steps = [
 		{ title: 'First', description: 'Contact Info' },

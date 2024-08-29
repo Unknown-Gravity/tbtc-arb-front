@@ -12,7 +12,7 @@ const ComercialInfoComponent: FC = () => {
 
 	return (
 		<Stack spacing={0}>
-			<Flex gap={2} justifyContent='center' alignItems='center'>
+			<Flex gap={2} justifyContent='flex-start' alignItems='center'>
 				<Stack gap={0} alignItems='flex-end'>
 					<ThresholdIcon
 						color={
@@ -29,7 +29,7 @@ const ComercialInfoComponent: FC = () => {
 				<BitcoinFilledIcon
 					color='brand.purple.900'
 					boxSize='56px'
-					fill={colorMode === 'light' ? 'white' : 'dark.primaryGray'}
+					fill='white'
 				/>
 			</Flex>
 			<Text
@@ -39,9 +39,9 @@ const ComercialInfoComponent: FC = () => {
 				fontWeight={400}
 				mt='23px'
 			>
-				nCurated by Threshold DAO Developed by Uknown Gravity
+				Curated by Threshold DAO Developed by Uknown Gravity
 			</Text>
-			<Flex gap='12px' mt='20px'>
+			<Flex gap='12px' mt='20px' justifyContent='center'>
 				<FooterIcon link={ExternalRoutes.Youtube} icon={BsYoutube} />
 				<FooterIcon link={ExternalRoutes.X} icon={BsTwitterX} />
 				<FooterIcon link={ExternalRoutes.Discord} icon={BsDiscord} />

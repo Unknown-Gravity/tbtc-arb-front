@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Box, Flex, ButtonProps } from '@chakra-ui/react';
+import { Button, Box, Flex, ButtonProps, Icon, Image } from '@chakra-ui/react';
 import {
 	useDisconnect,
 	useWeb3Modal,
@@ -9,7 +9,7 @@ import {
 import { ethers } from 'ethers';
 import { useDispatch } from 'react-redux';
 import { addAccount } from '../redux/reducers/AccountReducer';
-import { normalizeNetWorkNames } from '../utils/utils';
+import { generateIdenticon, normalizeNetWorkNames } from '../utils/utils';
 import { ArbitrumIcon } from '../assets/icons/ArbitrumIcon';
 import { tbtcContractABI } from '../contracts/tbtcContract';
 
@@ -123,6 +123,12 @@ const ConnectButton = (props: ButtonProps) => {
 						variant='purple'
 						onClick={handleConnectWallet}
 						fontSize={{ base: '12px', md: '16px' }}
+						leftIcon={
+							<Image
+								w={{ base: '14px', xl: '18px' }}
+								src={generateIdenticon(address)}
+							/>
+						}
 					>
 						{address?.slice(0, 5)}...{address?.slice(-4)}
 					</Button>

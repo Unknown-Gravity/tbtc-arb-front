@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Flex, Stack, Text, Input, useColorMode } from '@chakra-ui/react';
 import { CustomBox } from '../components/CustomBox';
 import {
@@ -6,12 +6,21 @@ import {
 	DarkLoyaltyProgramGrid,
 } from '../assets/images';
 import LeaderboardComponent from './components/Loyalty/LeaderboardComponent';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {};
 
 const Loyalty = (props: Props) => {
 	const { colorMode } = useColorMode();
 	const [searchQuery, setSearchQuery] = useState(''); // New state for search query
+	const acceptedTerms = localStorage.getItem('acceptedTerms');
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!acceptedTerms) {
+			navigate('/');
+		}
+	}, []);
 
 	return (
 		<Box

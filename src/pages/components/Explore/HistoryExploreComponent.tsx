@@ -8,12 +8,16 @@ import {
 	Text,
 	Th,
 	Thead,
+	Tooltip,
 	Tr,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { AccountImageExample } from '../../../assets/images';
-import { formatAddress, getDifferenceInMinutes } from '../../../utils/utils';
+import {
+	formatAddress,
+	generateIdenticon,
+	getDifferenceInMinutes,
+} from '../../../utils/utils';
 import { Transactions } from '../../../interfaces/Transactions.interface';
 
 const HistoryExploreComponent = () => {
@@ -59,18 +63,28 @@ const HistoryExploreComponent = () => {
 								<Td px={{ base: '10px', xl: '24px' }}>
 									<Flex gap={'8px'}>
 										<Image
-											src={AccountImageExample}
+											src={generateIdenticon(
+												transaction.Wallet_Address,
+											)}
 											w='16px'
 											h='16px'
 										/>
-										{formatAddress(
-											transaction.Wallet_Address,
-										)}
+										<Tooltip
+											label={transaction.Wallet_Address}
+										>
+											{formatAddress(
+												transaction.Wallet_Address,
+											)}
+										</Tooltip>
 									</Flex>
 								</Td>
-								<Td px={{ base: '10px', xl: '24px' }}>
-									{formatAddress(transaction.Latest_Tx_Hash)}
-								</Td>
+								<Tooltip label={transaction.Latest_Tx_Hash}>
+									<Td px={{ base: '10px', xl: '24px' }}>
+										{formatAddress(
+											transaction.Latest_Tx_Hash,
+										)}
+									</Td>
+								</Tooltip>
 								<Td px={{ base: '10px', xl: '24px' }}>
 									{transaction.Latest_Date &&
 										getDifferenceInMinutes(

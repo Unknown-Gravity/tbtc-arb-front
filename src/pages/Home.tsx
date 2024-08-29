@@ -6,6 +6,7 @@ import BridgeStatsComponent from './components/Home/BridgeStatsComponent';
 import InfoSectionComponent from './components/Home/InfoSectionComponent';
 import JoinComponent from './components/Home/JoinComponent';
 import FooterComponent from '../components/FooterComponent';
+import WelcomeModalComponent from '../components/WelcomeModalComponent';
 
 const Home: FC = () => {
 	const [showMintWindow, setShowMintWindow] = useState(true);
@@ -16,6 +17,7 @@ const Home: FC = () => {
 
 	return (
 		<Stack gap={10} position='relative'>
+			<WelcomeModalComponent />
 			<HomeHeader />
 
 			<Stack gap={10} w='100%'>

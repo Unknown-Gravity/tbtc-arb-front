@@ -34,6 +34,8 @@ import LightExploreBackground from './lightExploreBackground.svg';
 import DarkExploreBackground from './darkExploreBackground.svg';
 import LightInfoResumeImage from './lightInfoResumeImage.svg';
 import DarkInfoResumeImage from './darkInfoResumeImage.svg';
+import LightWelcomeImage from './lightWelcomeImage.svg';
+import DarkWelcomeImage from './darkWelcomeImage.svg';
 
 export {
 	DarkBackground,
@@ -72,4 +74,6 @@ export {
 	DarkExploreBackground,
 	LightInfoResumeImage,
 	DarkInfoResumeImage,
+	LightWelcomeImage,
+	DarkWelcomeImage,
 };

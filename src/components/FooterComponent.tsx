@@ -5,7 +5,8 @@ import LinksComponent from './FooterComponent/LinksComponent';
 const FooterComponent = () => {
 	return (
 		<Flex
-			minW={{ base: '100%', xl: '1184px' }}
+			w='100%'
+			maxW='1134px'
 			mx='auto'
 			justifyContent='space-between'
 			pb={{ xl: '218px' }}

@@ -33,7 +33,7 @@ const AppLayout = ({ component, headerTitle }: AppLayoutProps) => {
 		<Flex
 			minHeight='100vh'
 			position='relative'
-			pl={isMobile ? (isOpen ? '155px' : '55px') : '0px'}
+			pl={isMobile ? (isOpen ? '200px' : '55px') : '0px'}
 			transition='padding 0.2s'
 			bgImage={
 				colorMode === 'light' ? LightGridBackground : DarkGridBackground
@@ -55,12 +55,7 @@ const AppLayout = ({ component, headerTitle }: AppLayoutProps) => {
 						maskImage: mask,
 					}}
 				>
-					<Image
-						src={backgroundImage}
-						w='100%'
-						h='100%'
-						position='absolute'
-					/>
+					<Image src={backgroundImage} w='100%' position='absolute' />
 				</Box>
 			)}
 

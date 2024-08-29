@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import HeaderStepsMintingComponent from '../MintingProcess/HeaderStepsMintingComponent';
-import { Button, Link, Spinner, Stack, Text } from '@chakra-ui/react';
+import { Button, Flex, Link, Spinner, Stack, Text } from '@chakra-ui/react';
 import DragAndDropComponent from './DragAndDropComponent';
 import { useSdk } from '../../../../../context/SDKProvider';
 import { JsonData } from '../../../../../interfaces/JsonData.interface';
@@ -12,6 +12,7 @@ import {
 } from '../../../../../redux/reducers/DepositReducer';
 import { getDepositInfo } from '../../../../../services/depositServices';
 import { getDepositId, reverseString } from '../../../../../utils/utils';
+import { ArrowBackIcon } from '@chakra-ui/icons';
 
 type Props = {
 	setTabSelected: Dispatch<SetStateAction<number>>;
@@ -66,7 +67,20 @@ const ResumeMintingProcess = ({ setTabSelected, setStep }: Props) => {
 	};
 	return (
 		<Stack spacing='25px' w={{ base: '100%', xl: '456px' }}>
-			<HeaderStepsMintingComponent label='tBTC - MINTING PROCESS' />
+			<Flex alignItems='center' gap='9px' zIndex={10}>
+				<ArrowBackIcon
+					boxSize='24px'
+					p='0.5px'
+					transition='transform 0.1s'
+					cursor='pointer'
+					_hover={{ transform: 'scale(1.2)' }}
+					_active={{ transform: 'scale(1)' }}
+					onClick={() => setTabSelected(1)}
+				/>
+
+				<HeaderStepsMintingComponent label='tBTC - MINTING PROCESS' />
+			</Flex>
+			{/* <HeaderStepsMintingComponent label='tBTC - MINTING PROCESS' /> */}
 			<Text fontSize='18px' lineHeight='28px' fontWeight={400}>
 				<Text fontWeight={600} as='span' variant='purpleDarkGradient'>
 					Resume minting
