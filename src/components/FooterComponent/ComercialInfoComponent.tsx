@@ -12,7 +12,7 @@ const ComercialInfoComponent: FC = () => {
 
 	return (
 		<Stack spacing={0}>
-			<Flex gap={2} justifyContent='center' alignItems='center'>
+			<Flex gap={2} justifyContent='flex-start' alignItems='center'>
 				<Stack gap={0} alignItems='flex-end'>
 					<ThresholdIcon
 						color={
@@ -41,7 +41,7 @@ const ComercialInfoComponent: FC = () => {
 			>
 				Curated by Threshold DAO Developed by Uknown Gravity
 			</Text>
-			<Flex gap='12px' mt='20px'>
+			<Flex gap='12px' mt='20px' justifyContent='center'>
 				<FooterIcon link={ExternalRoutes.Youtube} icon={BsYoutube} />
 				<FooterIcon link={ExternalRoutes.X} icon={BsTwitterX} />
 				<FooterIcon link={ExternalRoutes.Discord} icon={BsDiscord} />
