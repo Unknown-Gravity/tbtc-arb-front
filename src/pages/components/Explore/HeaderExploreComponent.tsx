@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { currencyFormatter } from '../../../utils/utils';
-import { error } from 'console';
+import { useNavigate } from 'react-router-dom';
 
 const initialValue = {
 	supply: 0,
@@ -27,7 +27,11 @@ const initialValue = {
 const HeaderExploreComponent = () => {
 	const [data, setData] = useState(initialValue);
 	const [errorMsg, setErrorMsg] = useState('');
-	console.log('🚀 ~ HeaderExploreComponent ~ data:', data);
+	const navigate = useNavigate();
+
+	const handleClickStartMinting = () => {
+		navigate('/minting');
+	};
 
 	const apikey = process.env.REACT_APP_API_KEY || '';
 	useEffect(() => {
@@ -83,7 +87,12 @@ const HeaderExploreComponent = () => {
 				<Text fontSize='24px' lineHeight='32px' fontWeight={600}>
 					tBTC TVL
 				</Text>
-				<Button variant='purple' h='48px' w='161.6px'>
+				<Button
+					variant='purple'
+					h='48px'
+					w='161.6px'
+					onClick={handleClickStartMinting}
+				>
 					Start Minting
 				</Button>
 			</Flex>
