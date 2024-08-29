@@ -1,10 +1,10 @@
-import { Stack, Text, useColorModeValue } from '@chakra-ui/react';
+import { Spinner, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import { CustomBox } from '../../../../components/CustomBox';
 import { currencyFormatter } from '../../../../utils/utils';
 
 type Props = { info: number; label: string; symbol?: string };
 
-const InfoHeaderExploreComponent = (props: Props) => {
+const InfoHeaderExploreComponent = ({ info, label, symbol }: Props) => {
 	const bgBox = useColorModeValue('white', 'dark.focusGray');
 	return (
 		<CustomBox w='294px' h='170px' bg={bgBox}>
@@ -15,10 +15,14 @@ const InfoHeaderExploreComponent = (props: Props) => {
 				h='100%'
 			>
 				<Text fontSize='36px' lineHeight='40px' fontWeight={600}>
-					{currencyFormatter(props.info, 'USD', props.symbol)}
+					{info !== 0 ? (
+						currencyFormatter(info, 'USD', symbol)
+					) : (
+						<Spinner />
+					)}
 				</Text>
 				<Text variant='gray' fontSize='16px' lineHeight='24px'>
-					{props.label}
+					{label}
 				</Text>
 			</Stack>
 		</CustomBox>
