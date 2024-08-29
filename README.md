@@ -18,8 +18,6 @@ This platform allows you to efficiently mint Bitcoin on the Arbitrum network. Le
 
 ### Env file
 
-\`
-
-aSDASDASD
-
-\`
+```javascript
+aSDASDASD;
+```
