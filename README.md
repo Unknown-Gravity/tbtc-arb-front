@@ -18,6 +18,27 @@ This platform allows you to efficiently mint Bitcoin on the Arbitrum network. Le
 
 ### Env file
 
-```javascript
-aSDASDASD;
+```
+REACT_API_ROUTE='http://localhost:3333'
+GENERATE_SOURCEMAP=false
+
+# API Keys and Endpoints
+REACT_APP_API_KEY='bRZv5V7XLoVjdEtbF9MWxjrwLVnfaipN' #Dune API Key
+
+# RPC Endpoints
+REACT_APP_ETH_RPC='<YOUR_ETH_SEPOLIA_RPC>'
+REACT_APP_ETH_MAINNET_RPC='<YOUR_ETH_MAINNET_RPC>'
+
+# API URLs
+COINGECKO_API_URL='https://api.coingecko.com/api/v3/simple/price'
+
+# Explorer URLs
+REACT_APP_BTC_EXPLORER='https://blockstream.info/testnet/address/'
+REACT_APP_ARB_EXPLORER='https://sepolia.arbiscan.io/address/'
+
+# IPFS Loyalty Program Endpoints
+REACT_APP_IPFS_RETRIEVER_URL='https://blush-mad-ox-324.mypinata.cloud/ipfs/'
+REACT_APP_LOYALTY_PROGRAM_API_URL='https://thresholdtlp.com/api/latest-cids'
+
+REACT_APP_CHAINID=421614
 ```
