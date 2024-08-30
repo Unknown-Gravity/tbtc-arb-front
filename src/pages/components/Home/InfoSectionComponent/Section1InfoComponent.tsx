@@ -1,6 +1,6 @@
-import { Flex, Stack, Text } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { CustomBox } from '../../../../components/CustomBox';
-import { BsFillArrowRightCircleFill } from 'react-icons/bs';
+import InfoSection from './InfoSection';
 
 const Section1InfoComponent = () => {
 	return (
@@ -14,50 +14,18 @@ const Section1InfoComponent = () => {
 				gap={{ base: 5 }}
 				justifyContent='space-between'
 			>
-				<Stack gap='15px' maxW='463px'>
-					<Text fontSize='24px' fontWeight={700}>
-						Bridging duration
-					</Text>
-					<Flex
-						color={'brand.purple.900'}
-						alignItems='center'
-						gap={2}
-					>
-						<BsFillArrowRightCircleFill
-							style={{ minWidth: '16px' }}
-						/>
-						<Text fontSize='16px'>
-							Your tBTC token will arrive in{' '}
-							<Text as='span' variant='purpleDarkGradient'>
-								~ 1 to 3 hours
-							</Text>{' '}
-							after you initiate minting, depending on your
-							deposited amount.
-						</Text>
-					</Flex>
-				</Stack>
-				<Stack gap='15px' maxW='463px'>
-					<Text fontSize='24px' fontWeight={700}>
-						Minimum deposit
-					</Text>
-					<Flex
-						color={'brand.purple.900'}
-						alignItems='center'
-						gap={2}
-					>
-						<BsFillArrowRightCircleFill
-							style={{ minWidth: '16px' }}
-						/>
-						<Text fontSize='16px'>
-							The minimum deposit at launch is{' '}
-							<Text as='span' variant='purpleDarkGradient'>
-								0.01 BTC.
-							</Text>{' '}
-							Depositing less than the minimum can mean losing
-							access to your funds.
-						</Text>
-					</Flex>
-				</Stack>
+				<InfoSection
+					title='Bridging duration'
+					content='Your tBTC token will arrive in'
+					highlight='~ 1 to 3 hours'
+					postContent='after you initiate minting, depending on your deposited amount.'
+				/>
+				<InfoSection
+					title='Minimum deposit'
+					content='The minimum deposit at launch is'
+					highlight='0.01 BTC.'
+					postContent='Depositing less than the minimum can mean losing access to your funds.'
+				/>
 			</Flex>
 		</CustomBox>
 	);

@@ -3,7 +3,6 @@ import {
 	Flex,
 	Link,
 	Skeleton,
-	Spinner,
 	Stack,
 	Text,
 	useColorModeValue,
@@ -14,9 +13,9 @@ import {
 	LightExploreBackground,
 } from '../../../assets/images';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { currencyFormatter } from '../../../utils/utils';
 import { useNavigate } from 'react-router-dom';
+import { fetchHeaderExploreData } from '../../../services/fetchServices';
 
 const initialValue = {
 	supply: 0,
@@ -27,43 +26,27 @@ const initialValue = {
 
 const HeaderExploreComponent = () => {
 	const [data, setData] = useState(initialValue);
+	console.log('🚀 ~ HeaderExploreComponent ~ data:', data);
 	const [errorMsg, setErrorMsg] = useState('');
 	const navigate = useNavigate();
 
 	const handleClickStartMinting = () => {
 		navigate('/minting');
 	};
-
-	const apikey = process.env.REACT_APP_API_KEY || '';
 	useEffect(() => {
-		const urls = [
-			'https://api.dune.com/api/v1/query/1964092/results?limit=1',
-			'https://api.dune.com/api/v1/query/2610107/results?limit=1',
-			'https://api.dune.com/api/v1/query/3965411/results?limit=1',
-			'https://api.dune.com/api/v1/query/1964103/results?limit=1',
-		];
 		const fetchData = async () => {
-			try {
-				const [supply, tbtc, mints, addresses] = await Promise.all(
-					urls.map(url =>
-						axios.get(url, {
-							headers: { 'X-Dune-API-Key': apikey },
-						}),
-					),
-				);
-				setData({
-					...data,
-					supply: supply.data.result.rows[0].tvl,
-					minting: mints.data.result.rows[0].total_mint,
-					tbtc: tbtc.data.result.rows[0]._col0,
-					addresses: addresses.data.result.rows[0].Holders,
-				});
-			} catch (error) {
-				setErrorMsg('No data is avaliable yet, please try again later');
-				console.error('Error fetching data: ', error);
+			const fetchedData = await fetchHeaderExploreData();
+			if (fetchedData !== null) {
+				setData(fetchedData);
 			}
 		};
-		fetchData();
+		try {
+			fetchData();
+		} catch (error) {
+			setErrorMsg('No data available now. Please try again later');
+			console.error('Error fetching data');
+		}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	const backgroundImage = useColorModeValue(

@@ -15,34 +15,48 @@ type Props = {
 	activeStep: number;
 	steps: Array<{ step: string }>;
 };
-const HeaderStep2UnmintingProcess = (props: Props) => {
+
+const StepLabel = ({ text }: { text: string }) => (
+	<Text fontSize='12px' lineHeight='16px' textAlign='center'>
+		{text}
+	</Text>
+);
+
+const HeaderText = ({ children }: { children: React.ReactNode }) => (
+	<Text fontSize='14px' lineHeight='28px'>
+		{children}
+	</Text>
+);
+
+const HeaderStep2UnmintingProcess = ({ activeStep, steps }: Props) => {
 	return (
-		<Box mt={'20px'} w={{ base: '100%', xl: '458.46px' }}>
+		<Box mt='20px' w={{ base: '100%', xl: '458.46px' }}>
 			<Stack gap='20px' mb='35px'>
 				<Flex justifyContent='space-between'>
-					<Text fontSize='14px' lineHeight='28px'>
+					<HeaderText>
 						<Text
-							as={'span'}
+							as='span'
 							variant='purpleDarkGradient'
 							fontWeight={600}
 						>
 							Unminting
 						</Text>{' '}
 						- in progress...
-					</Text>
-					<Text fontSize='14px' fontWeight={400} lineHeight='28px'>
+					</HeaderText>
+					<Text fontSize='14px' lineHeight='28px' fontWeight={400}>
 						1.2tBTC
 					</Text>
 				</Flex>
+
 				<Stepper
 					w='100%'
-					index={props.activeStep}
+					index={activeStep}
 					gap='0'
 					variant='progress'
 					mx='auto'
 					px='25px'
 				>
-					{props.steps.map((step, index) => (
+					{steps.map((step, index) => (
 						<Step key={index}>
 							<StepIndicator>
 								<StepStatus complete={<StepIcon />} />
@@ -53,7 +67,7 @@ const HeaderStep2UnmintingProcess = (props: Props) => {
 											w='16px'
 											h='16px'
 											borderRadius='full'
-										></Box>
+										/>
 									}
 								/>
 							</StepIndicator>
@@ -61,15 +75,9 @@ const HeaderStep2UnmintingProcess = (props: Props) => {
 						</Step>
 					))}
 				</Stepper>
+
 				<Flex justifyContent='space-between'>
-					<Text
-						w='74.35px'
-						fontSize='12px'
-						lineHeight='16px'
-						textAlign='center'
-					>
-						tBTC unwrapped
-					</Text>
+					<StepLabel text='tBTC unwrapped' />
 					<Text
 						fontSize='10px'
 						lineHeight='12px'
@@ -81,9 +89,7 @@ const HeaderStep2UnmintingProcess = (props: Props) => {
 					>
 						USUAL DURATION ~ 3-5 HOURS
 					</Text>
-					<Text fontSize='12px' lineHeight='16px' textAlign='center'>
-						BTC Sent
-					</Text>
+					<StepLabel text='BTC Sent' />
 				</Flex>
 			</Stack>
 		</Box>
