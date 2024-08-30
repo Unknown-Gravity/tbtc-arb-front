@@ -25,7 +25,7 @@ GENERATE_SOURCEMAP=false
 REACT_APP_API_KEY='<YOUR_DUNE_API_KEY>' #Dune API Key
 
 # RPC Endpoints
-REACT_APP_ETH_RPC='<YOUR_ETH_SEPOLIA_RPC>'
+REACT_APP_ETH_SEPOLIA_RPC='<YOUR_ETH_SEPOLIA_RPC>'
 REACT_APP_ETH_MAINNET_RPC='<YOUR_ETH_MAINNET_RPC>'
 
 # API URLs
@@ -45,6 +45,10 @@ REACT_APP_CHAINID=421614
 ## Start the project 👌
 
 Run `yarn start` and a window will automatically open to with the project. You can also open http://localhost:3000/
+
+### Home page
+
+[Homepage_image](./public/home.png)
 
 # Build Project 🏗️
 
