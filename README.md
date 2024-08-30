@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+# Threshold tBTC minting portal. 💱
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This platform allows you to efficiently mint Bitcoin on the Arbitrum network. Leverage Arbitrum’s scalability and low transaction fees to optimize your Bitcoin transactions. Our portal provides a streamlined experience for those looking to bridge Bitcoin into the Arbitrum ecosystem quickly and securely.
 
-## Available Scripts
+## How to start 💪
 
-In the project directory, you can run:
+-   Clone repository with
+    `git clone https://github.com/Unknown-Gravity/tbtc-arb-front.git`
 
-### `npm start`
+-   install all the packages with
+    `yarn`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+> If you encounter an error installing the packages, just erase yarn.lock file and try again the yarn command
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+> Important: Please note that for now, the SDK must be installed locally within the project. However, after the official release, you will need to update your package.json to reflect the new package location and version. Make sure to adjust accordingly to stay up-to-date with the latest changes.
 
-### `npm test`
+## Env file ❗
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To get started, please copy the code block below into your project. Make sure to replace the placeholder RPC URLs with your own. This step is crucial for ensuring that your application connects to the correct network endpoints.
 
-### `npm run build`
+```
+REACT_API_ROUTE='http://localhost:3333'
+GENERATE_SOURCEMAP=false
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# API Keys and Endpoints
+REACT_APP_API_KEY='<YOUR_DUNE_API_KEY>' #Dune API Key
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# RPC Endpoints
+REACT_APP_ETH_RPC='<YOUR_ETH_SEPOLIA_RPC>'
+REACT_APP_ETH_MAINNET_RPC='<YOUR_ETH_MAINNET_RPC>'
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# API URLs
+COINGECKO_API_URL='https://api.coingecko.com/api/v3/simple/price'
 
-### `npm run eject`
+# Explorer URLs
+REACT_APP_BTC_EXPLORER='https://blockstream.info/testnet/address/'
+REACT_APP_ARB_EXPLORER='https://sepolia.arbiscan.io/address/'
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# IPFS Loyalty Program Endpoints
+REACT_APP_IPFS_RETRIEVER_URL='<YOUR_IPFS_RETRIEVER_URL>'
+REACT_APP_LOYALTY_PROGRAM_API_URL='<YOUR_LOYALTY_PROGRAM_API_URL>'
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+REACT_APP_CHAINID=421614
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Start the project 👌
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Run `yarn start` and a window will automatically open to with the project. You can also open http://localhost:3000/
 
-## Learn More
+# Build Project 🏗️
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Run `yarn build`
