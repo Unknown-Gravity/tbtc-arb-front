@@ -48,7 +48,9 @@ Run `yarn start` and a window will automatically open to with the project. You c
 
 ### Home page
 
-[Homepage_image](./public/home.png)
+<picture>
+   <img src="./public/home.png">
+</picture>
 
 # Build Project 🏗️
 
