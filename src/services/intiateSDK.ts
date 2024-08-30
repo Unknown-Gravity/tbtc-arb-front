@@ -9,7 +9,7 @@ const initiateSDK = async (data: InfoAccount): Promise<TBTC> => {
 	const chainId = await signer?.getChainId();
 	let ethRPC;
 	if (chainId === 421614) {
-		ethRPC = process.env.REACT_APP_ETH_RPC;
+		ethRPC = process.env.REACT_APP_ETH_SEPOLIA_RPC;
 	} else {
 		ethRPC = ethRPC = process.env.REACT_APP_ETH_MAINNET_RPC;
 	}

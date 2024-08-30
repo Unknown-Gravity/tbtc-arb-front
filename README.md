@@ -19,7 +19,6 @@ This platform allows you to efficiently mint Bitcoin on the Arbitrum network. Le
 To get started, please copy the code block below into your project. Make sure to replace the placeholder RPC URLs with your own. This step is crucial for ensuring that your application connects to the correct network endpoints.
 
 ```
-REACT_API_ROUTE='http://localhost:3333'
 GENERATE_SOURCEMAP=false
 
 # API Keys and Endpoints
