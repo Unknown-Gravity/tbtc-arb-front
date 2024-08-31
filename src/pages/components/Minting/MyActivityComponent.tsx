@@ -1,5 +1,5 @@
 import { CustomBox } from '../../../components/CustomBox';
-import { Flex, Grid, Image, Stack, Text, useColorMode } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import { BasicComponentProps } from '../../../interfaces/BasicComponentProps';
 import TransactionComponent from './components/TransactionComponent';
 
@@ -11,7 +11,6 @@ import RenderedTransactionsComponent from './components/MyActivityComponent/Rend
 import NotRenderedTransactionsComponent from './components/MyActivityComponent/NotRenderedTransactionsComponent';
 
 const MyActivityComponent = (props: BasicComponentProps) => {
-	const { colorMode } = useColorMode();
 	const accountInfo = useSelector((state: RootState) => state.account);
 	const [transactions, setTransactions] = useState<Array<Transaction>>([]);
 	const [loading, setLoading] = useState<boolean>(true);

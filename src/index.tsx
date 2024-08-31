@@ -34,9 +34,9 @@ const arbitrum = {
 // 3. Create a metadata object
 const metadata = {
 	name: 'tBTC Minting Portal',
-	description: 'My Website description',
-	url: 'https://mywebsite.com', // origin must match your domain & subdomain
-	icons: ['https://avatars.mywebsite.com/'],
+	description: 'Bridge your Bitcoin and start earning in Arbitrum',
+	url: 'https://threshold.network/',
+	icons: [''],
 };
 
 // 4. Create Ethers config
@@ -57,7 +57,7 @@ createWeb3Modal({
 	ethersConfig,
 	chains: [sepolia, arbitrum],
 	projectId,
-	enableAnalytics: true, // Optional - defaults to your Cloud configuration
+	enableAnalytics: false, // Optional - defaults to your Cloud configuration
 });
 
 const root = ReactDOM.createRoot(

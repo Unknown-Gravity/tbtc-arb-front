@@ -26,7 +26,6 @@ const initialValue = {
 
 const HeaderExploreComponent = () => {
 	const [data, setData] = useState(initialValue);
-	console.log('🚀 ~ HeaderExploreComponent ~ data:', data);
 	const [errorMsg, setErrorMsg] = useState('');
 	const navigate = useNavigate();
 

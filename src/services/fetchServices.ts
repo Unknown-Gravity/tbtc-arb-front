@@ -42,7 +42,6 @@ const fetchHeaderExploreData = async () => {
 			addresses: addresses.data.result.rows[0].Holders,
 		};
 
-		console.log('🚀 ~ fetchHeaderExploreData ~ headerData:', headerData);
 		return headerData;
 	} catch (error) {
 		console.error('Error fetching header data:', error);

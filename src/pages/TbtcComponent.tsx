@@ -8,7 +8,6 @@ import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import MyActivityComponent from './components/Minting/MyActivityComponent';
 import { useEffect, useState } from 'react';
 import MintComponent from './components/Minting/MintComponent';
-import UnmintComponent from './components/Minting/UnmintComponent';
 import ResumeDepositComponent from './components/Minting/ResumeDepositComponent';
 import { useNavigate } from 'react-router-dom';
 
