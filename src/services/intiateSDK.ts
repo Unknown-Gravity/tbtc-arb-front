@@ -7,12 +7,11 @@ const initiateSDK = async (data: InfoAccount): Promise<TBTC> => {
 
 	const signer: ethers.Signer | null = data.signer;
 	const chainId = await signer?.getChainId();
-	let ethRPC;
-	if (chainId === 421614) {
-		ethRPC = process.env.REACT_APP_ETH_SEPOLIA_RPC;
-	} else {
-		ethRPC = ethRPC = process.env.REACT_APP_ETH_MAINNET_RPC;
-	}
+	const isMainnet =
+		chainId?.toString() === process.env.REACT_APP_MAINNET_CHAINID;
+	const ethRPC = isMainnet
+		? process.env.REACT_APP_ETH_MAINNET_RPC
+		: process.env.REACT_APP_ETH_SEPOLIA_RPC;
 
 	if (!ethRPC) {
 		throw new Error('Missing environment variables.');
@@ -23,7 +22,9 @@ const initiateSDK = async (data: InfoAccount): Promise<TBTC> => {
 	console.log('Initializing SDK');
 
 	if (signer) {
-		sdk = await TBTC.initializeSepolia(ethProvider, true);
+		sdk = isMainnet
+			? await TBTC.initializeMainnet(ethProvider, true)
+			: await TBTC.initializeSepolia(ethProvider, true);
 		await sdk.initializeCrossChain('Arbitrum', signer);
 	}
 
