@@ -14,15 +14,17 @@ type Props = {
 	time: Date;
 };
 
-const TxInfoComponent = (props: Props) => {
+const TxInfoComponent = ({ amount, address, time }: Props) => {
 	const theme = useTheme();
+	const { colorMode } = useColorMode();
 	const borderColor = useColorModeValue(
 		theme.colors.light.gray,
 		'transparent',
 	);
-	const { colorMode } = useColorMode();
+	const bgColor = colorMode === 'light' ? 'white' : 'dark.focusGray';
 
-	getDifferenceInMinutes(props.time, new Date());
+	const formattedAddress = `${address.slice(0, 6)}....${address.slice(-4)}`;
+	const timeDifference = getDifferenceInMinutes(time, new Date());
 
 	return (
 		<Box
@@ -30,10 +32,10 @@ const TxInfoComponent = (props: Props) => {
 			p='10px'
 			w='100%'
 			borderRadius='5px'
-			bg={colorMode === 'light' ? 'white' : 'dark.focusGray'}
+			bg={bgColor}
 		>
 			<Grid
-				templateColumns={'repeat(3, minmax(0, 1fr))'}
+				templateColumns='repeat(3, minmax(0, 1fr))'
 				placeItems='center'
 			>
 				<Text
@@ -42,7 +44,7 @@ const TxInfoComponent = (props: Props) => {
 					lineHeight='18px'
 					variant='purpleDarkGradient'
 				>
-					{props.amount} tBTC
+					{amount} tBTC
 				</Text>
 
 				<Text
@@ -51,15 +53,16 @@ const TxInfoComponent = (props: Props) => {
 					variant='gray'
 					lineHeight='18px'
 				>
-					{props.address.slice(0, 6)}....${props.address.slice(-4)}
+					{formattedAddress}
 				</Text>
+
 				<Text
 					fontSize='12px'
 					fontWeight={500}
 					variant='gray'
 					lineHeight='18px'
 				>
-					{getDifferenceInMinutes(props.time, new Date())} minutes ago
+					{timeDifference} mins ago
 				</Text>
 			</Grid>
 		</Box>

@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { CustomBox } from '../../../components/CustomBox';
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
-import { useWeb3Modal, useWeb3ModalAccount } from '@web3modal/ethers5/react';
+import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../types/RootState';
 import HeaderStepsMintingComponent from './components/MintingProcess/HeaderStepsMintingComponent';
@@ -51,10 +51,7 @@ const MintComponent = ({
 	const [initilizingDeposit, setInitializingDeposit] =
 		useState<boolean>(false);
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { open } = useWeb3Modal();
 	const { address } = useWeb3ModalAccount();
-	const account = useSelector((state: RootState) => state.account);
-	const chainId = account.provider?._network.chainId.toString();
 	const deposit = useSelector((state: RootState) => state.deposit);
 	const btcTxHash = deposit.utxo?.transactionHash.toString();
 
@@ -68,11 +65,6 @@ const MintComponent = ({
 	const initializeDeposit = async () => {
 		if (!btcRecoveryAddress) {
 			setErrorMsg("The recovery address can't be empty");
-			return;
-		}
-
-		if (chainId !== '421614') {
-			open({ view: 'Networks' });
 			return;
 		}
 

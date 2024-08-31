@@ -20,6 +20,7 @@ const Loyalty = (props: Props) => {
 		if (!acceptedTerms) {
 			navigate('/');
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

@@ -132,9 +132,9 @@ const Step1MintingProcess = ({
 						{initializing ? (
 							<Spinner />
 						) : initializingDeposit ? (
-							'Generating Deposit Address'
+							'Generating deposit address...'
 						) : (
-							'Generate Desposit Address'
+							'Generate Deposit Address'
 						)}
 					</Button>
 					<Button
