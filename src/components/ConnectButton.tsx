@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Button, Box, Flex, ButtonProps, Icon, Image } from '@chakra-ui/react';
+import { Button, Box, Flex, ButtonProps, Image } from '@chakra-ui/react';
 import {
-	useDisconnect,
 	useWeb3Modal,
 	useWeb3ModalAccount,
 	useWeb3ModalProvider,
@@ -11,85 +10,52 @@ import { useDispatch } from 'react-redux';
 import { addAccount } from '../redux/reducers/AccountReducer';
 import { generateIdenticon, normalizeNetWorkNames } from '../utils/utils';
 import { ArbitrumIcon } from '../assets/icons/ArbitrumIcon';
-import { tbtcContractABI } from '../contracts/tbtcContract';
+import { getTbtcBalance } from '../services/tbtcServices';
 
 const ConnectButton = (props: ButtonProps) => {
-	const { address, isConnected } = useWeb3ModalAccount();
+	const { address, isConnected, chainId } = useWeb3ModalAccount();
 	const { walletProvider } = useWeb3ModalProvider();
 	const [networkName, setNetWorkName] = useState('');
 	const [needRefresh, setNeedRefresh] = useState(true);
 	const { open } = useWeb3Modal();
-	const { disconnect } = useDisconnect();
 	const dispatch = useDispatch();
-	const tbtcAddress = '0xb8f31A249bcb45267d06b9E51252c4793B917Cd0';
-	const L1BitcoinDepositor = tbtcContractABI;
+	const isMainnet =
+		chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
+
+	const getNetworkName = (isMainnet: boolean): string => {
+		return isMainnet ? 'Arbitrum One' : 'Arbitrum Sepolia';
+	};
 
 	useEffect(() => {
 		const getBalance = async () => {
+			setNeedRefresh(false);
+
 			if (walletProvider && address) {
 				const provider = new ethers.providers.Web3Provider(
 					walletProvider,
 				);
-				const signer = await provider.getSigner();
-				const tbtcContract = new ethers.Contract(
-					tbtcAddress,
-					L1BitcoinDepositor,
-					signer,
-				);
-				const tbtcBalance = await tbtcContract.balanceOf(address);
-				const tbtcBalanceFormated =
-					ethers.utils.formatEther(tbtcBalance);
-				const network = await provider.getNetwork();
-				const balanceBigInt = await provider.getBalance(address);
+
+				const [signer, balanceBigInt, tbtcBalance] = await Promise.all([
+					provider.getSigner(),
+					provider.getBalance(address),
+					getTbtcBalance(isMainnet, provider, address),
+				]);
+
+				setNetWorkName(getNetworkName(isMainnet));
+
 				const ethBalance = ethers.utils.formatEther(balanceBigInt);
-				dispatch(
-					addAccount(
-						provider,
-						signer,
-						ethBalance,
-						tbtcBalanceFormated,
-					),
-				);
-				setNeedRefresh(false);
-				let networkName = network.name;
-				if (networkName === 'unknown') {
-					if (network.chainId === 421614) {
-						networkName = 'Arbitrum Sepolia';
-					}
-				}
-				setNetWorkName(networkName);
 
-				const handleChainChanged = (chainId: string) => {
-					if (chainId.toString() !== '421614') {
-						open({ view: 'Networks' });
-					}
-				};
-
-				(walletProvider as any).on('chainChanged', handleChainChanged);
-
-				// Clean up listeners on component unmount
-				return () => {
-					if ((walletProvider as any)?.removeListener) {
-						(walletProvider as any).removeListener(
-							'chainChanged',
-							handleChainChanged,
-						);
-					}
-				};
+				dispatch(addAccount(provider, signer, ethBalance, tbtcBalance));
 			}
 		};
 
 		getBalance();
-		// TODO Revisar dependencias
-	}, [
-		address,
-		walletProvider,
-		needRefresh,
-		dispatch,
-		disconnect,
-		L1BitcoinDepositor,
-		open,
-	]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [address, walletProvider, needRefresh]);
+
+	useEffect(() => {
+		setNetWorkName(getNetworkName(isMainnet));
+	}, [isMainnet]);
 
 	const handleConnectWallet = async () => {
 		if (!isConnected) {

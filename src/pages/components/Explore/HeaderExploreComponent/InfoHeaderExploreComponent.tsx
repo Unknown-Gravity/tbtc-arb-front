@@ -1,10 +1,4 @@
-import {
-	Skeleton,
-	Spinner,
-	Stack,
-	Text,
-	useColorModeValue,
-} from '@chakra-ui/react';
+import { Skeleton, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import { CustomBox } from '../../../../components/CustomBox';
 import { currencyFormatter } from '../../../../utils/utils';
 

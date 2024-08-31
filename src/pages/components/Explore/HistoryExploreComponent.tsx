@@ -12,30 +12,23 @@ import {
 	Tr,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import {
 	formatAddress,
 	generateIdenticon,
 	getDifferenceInMinutes,
 } from '../../../utils/utils';
 import { Transactions } from '../../../interfaces/Transactions.interface';
+import { fetchExploreHistory } from '../../../services/fetchServices';
 
 const HistoryExploreComponent = () => {
 	const [history, setHistory] = useState<Array<Transactions>>([]);
-	const apikey = process.env.REACT_APP_API_KEY || '';
 
 	useEffect(() => {
-		axios
-			.get('https://api.dune.com/api/v1/query/3965425/results?limit=20', {
-				headers: { 'X-Dune-API-Key': apikey },
-			})
-			.then(res => {
-				setHistory(res.data.result.rows);
-			})
-			.catch(error => {
-				console.error('Error fetching data:', error);
-			});
-	}, [apikey]);
+		const history = fetchExploreHistory();
+		if (history != null) {
+			setHistory(history);
+		}
+	}, []);
 
 	return (
 		<Stack spacing='24px'>
