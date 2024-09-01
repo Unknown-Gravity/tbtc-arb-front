@@ -20,6 +20,7 @@ const ConnectButton = (props: ButtonProps) => {
 	const { open } = useWeb3Modal();
 	const dispatch = useDispatch();
 	const isMainnet =
+		isConnected &&
 		chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
 
 	const getNetworkName = (isMainnet: boolean): string => {
