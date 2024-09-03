@@ -17,8 +17,13 @@ import LogoIcon from '../../assets/icons/LogoIcon';
 import IconSideBar from './IconSideBar';
 import { GitHubIcon } from '../../assets/icons/GitHubIcon';
 import { DiscorIcon } from '../../assets/icons/DiscordIcon';
+import { forwardRef } from 'react';
 
-const MotionBox = motion<BoxProps>(Box);
+const MotionBox = motion(
+  forwardRef<HTMLDivElement, BoxProps>((props, ref) => (
+    <Box ref={ref} {...props} />
+  ))
+);	
 
 type Props = {
 	isOpen: boolean;
