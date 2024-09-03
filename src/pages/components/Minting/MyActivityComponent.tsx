@@ -12,7 +12,9 @@ import NotRenderedTransactionsComponent from './components/MyActivityComponent/N
 
 const MyActivityComponent = (props: BasicComponentProps) => {
 	const accountInfo = useSelector((state: RootState) => state.account);
+	// eslint-disable-next-line
 	const [transactions, setTransactions] = useState<Array<Transaction>>([]);
+	// eslint-disable-next-line
 	const [loading, setLoading] = useState<boolean>(true);
 
 	/* useEffect(() => {

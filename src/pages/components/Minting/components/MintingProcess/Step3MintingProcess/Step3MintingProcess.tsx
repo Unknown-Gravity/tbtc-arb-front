@@ -40,6 +40,7 @@ const finalizingMinting = {
 
 const Step3MintingProcess = ({ setStep }: Props) => {
 	const depositInfo = useSelector((state: RootState) => state.deposit);
+	// eslint-disable-next-line
 	const [txHash, setTxHash] = useState(depositInfo.utxo?.transactionHash);
 	const [status, setStatus] = useState(depositInfo.status);
 	const dispatch = useDispatch();
