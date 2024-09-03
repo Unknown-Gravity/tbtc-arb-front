@@ -47,7 +47,9 @@ const TransactionComponent = ({ transaction }: Props) => {
 						fontWeight={400}
 						variant='gray'
 					>
-						{transaction?.value.toString()}
+						{transaction.value !== null
+							? transaction?.value.toString()
+							: '-.--'}
 					</Text>
 					<Text
 						fontSize='14px'
