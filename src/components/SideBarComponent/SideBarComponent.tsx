@@ -4,6 +4,7 @@ import {
 	Stack,
 	useColorModeValue,
 	useTheme,
+	BoxProps,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { ExternalRoutes } from '../../Routes/Routes';
@@ -17,7 +18,7 @@ import IconSideBar from './IconSideBar';
 import { GitHubIcon } from '../../assets/icons/GitHubIcon';
 import { DiscorIcon } from '../../assets/icons/DiscordIcon';
 
-const MotionBox = motion(Box);
+const MotionBox = motion<BoxProps>(Box);
 
 type Props = {
 	isOpen: boolean;
