@@ -5,26 +5,37 @@ import TransactionComponent from './components/TransactionComponent';
 
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../types/RootState';
-import { useState, useMemo } from 'react';
-import { Transaction } from '@ethersproject/transactions';
+import { useState, useMemo, useEffect } from 'react';
 import RenderedTransactionsComponent from './components/MyActivityComponent/RenderedTransactionsComponent';
 import NotRenderedTransactionsComponent from './components/MyActivityComponent/NotRenderedTransactionsComponent';
+import {
+	getEtherScanTransactions,
+	getTbtcTransactions,
+} from '../../../services/tbtcServices';
+import { CustomTransaction } from '../../../interfaces/CustomTransaction.interface';
 
 const MyActivityComponent = (props: BasicComponentProps) => {
 	const accountInfo = useSelector((state: RootState) => state.account);
-	const [transactions, setTransactions] = useState<Array<Transaction>>([]);
+	const [transactions, setTransactions] = useState<Array<CustomTransaction>>(
+		[],
+	);
 	const [loading, setLoading] = useState<boolean>(true);
 
-	/* useEffect(() => {
+	useEffect(() => {
 		const getTransactions = async () => {
-			const history = await getTransactionHistory(accountInfo);
-			if (history && history.length > 0) {
-				setTransactions(history);
-				setLoading(false);
-			}
+			const address = await accountInfo.signer?.getAddress();
+			if (!address) return;
+			const transactionsFromTBTC = await getTbtcTransactions(address);
+			setTransactions(transactionsFromTBTC);
+			setLoading(false);
+			const transactionsFromEtherScan = await getEtherScanTransactions();
+			console.log(
+				'🚀 ~ getTransactions ~ transactionsFromEtherScan:',
+				transactionsFromEtherScan,
+			);
 		};
 		getTransactions();
-	}, [accountInfo]); */
+	}, [accountInfo]);
 
 	const renderedTransactions = useMemo(() => {
 		return transactions
