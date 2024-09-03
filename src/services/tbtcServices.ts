@@ -100,10 +100,8 @@ export const getEtherScanTransactions = async (
 ): Promise<any[]> => {
 	const apiKey = process.env.REACT_APP_ETHERSCAN_API_KEY;
 	const contractAddress = isMainnet
-		? process.env.REACT_APP_L1DEPOSITOR_MAINNET
-		: process.env.REACT_APP_L1DEPOSITOR_SEPOLIA;
-
-	if (!contractAddress) return [];
+		? process.env.REACT_APP_L1BITCOIN_MAINNET
+		: process.env.REACT_APP_L1BITCOIN_SEPOLIA;
 
 	const urlHeader = isMainnet
 		? 'https://api.etherscan.io'
@@ -111,9 +109,11 @@ export const getEtherScanTransactions = async (
 
 	const url = `${urlHeader}/api?module=account&action=txlist&contractaddress=${contractAddress}&address=${address}&page=1&offset=50&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`;
 
-	const { data: response } = await axios.get(url);
+	let data: any = (await axios.get(url)).data.result;
 
-	const myData = response.result.filter((tx: any) =>
+	if (!contractAddress) return [];
+
+	const myData = data.filter((tx: any) =>
 		checkNormalTx(tx, address, contractAddress),
 	);
 

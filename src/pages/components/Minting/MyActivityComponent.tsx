@@ -1,5 +1,5 @@
 import { CustomBox } from '../../../components/CustomBox';
-import { Skeleton, Stack, Text } from '@chakra-ui/react';
+import { Skeleton, Text } from '@chakra-ui/react';
 import { BasicComponentProps } from '../../../interfaces/BasicComponentProps';
 import TransactionComponent from './components/TransactionComponent';
 
@@ -11,6 +11,16 @@ import NotRenderedTransactionsComponent from './components/MyActivityComponent/N
 import { getWalletTransactions } from '../../../services/tbtcServices';
 import { CustomTransaction } from '../../../interfaces/CustomTransaction.interface';
 
+const loadingTransactions = [
+	<Skeleton height='50px' borderRadius='10px' />,
+	<Skeleton height='50px' borderRadius='10px' />,
+	<Skeleton height='50px' borderRadius='10px' />,
+	<Skeleton height='50px' borderRadius='10px' />,
+	<Skeleton height='50px' borderRadius='10px' />,
+	<Skeleton height='50px' borderRadius='10px' />,
+	<Skeleton height='50px' borderRadius='10px' />,
+];
+
 const MyActivityComponent = (props: BasicComponentProps) => {
 	const accountInfo = useSelector((state: RootState) => state.account);
 	const [transactions, setTransactions] = useState<Array<CustomTransaction>>(
@@ -21,8 +31,13 @@ const MyActivityComponent = (props: BasicComponentProps) => {
 	useEffect(() => {
 		const getTransactions = async () => {
 			const address = await accountInfo.signer?.getAddress();
+			const network = accountInfo.provider?.network.chainId;
+			const isMainnet = network === 42161;
 			if (!address) return;
-			const transactions = await getWalletTransactions(true, address);
+			const transactions = await getWalletTransactions(
+				isMainnet,
+				address,
+			);
 			console.log('🚀 ~ getTransactions ~ transactions:', transactions);
 
 			setTransactions(transactions);
@@ -49,15 +64,7 @@ const MyActivityComponent = (props: BasicComponentProps) => {
 				MY ACTIVITY
 			</Text>
 			{loading ? (
-				<Stack mt='60px'>
-					<Skeleton height='50px' borderRadius='10px' />
-					<Skeleton height='50px' borderRadius='10px' />
-					<Skeleton height='50px' borderRadius='10px' />
-					<Skeleton height='50px' borderRadius='10px' />
-					<Skeleton height='50px' borderRadius='10px' />
-					<Skeleton height='50px' borderRadius='10px' />
-					<Skeleton height='50px' borderRadius='10px' />
-				</Stack>
+				<RenderedTransactionsComponent data={loadingTransactions} />
 			) : !props.isConnected || transactions.length === 0 ? (
 				<NotRenderedTransactionsComponent />
 			) : (
