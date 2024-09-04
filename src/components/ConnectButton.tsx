@@ -35,6 +35,7 @@ const ConnectButton = (props: ButtonProps) => {
 				const provider = new ethers.providers.Web3Provider(
 					walletProvider,
 				);
+				const network = await provider.getNetwork();
 
 				const [signer, balanceBigInt, tbtcBalance] = await Promise.all([
 					provider.getSigner(),
@@ -52,7 +53,7 @@ const ConnectButton = (props: ButtonProps) => {
 
 		getBalance();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [address, walletProvider, needRefresh]);
+	}, [address, walletProvider, needRefresh, networkName]);
 
 	useEffect(() => {
 		setNetWorkName(getNetworkName(isMainnet));

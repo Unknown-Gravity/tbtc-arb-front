@@ -76,7 +76,7 @@ export const convertBTCToCurrency = async (
 };
 
 export const getDifferenceInMinutes = (date1: Date, date2: Date) => {
-	const diffInMs = date2?.getTime() - date1.getTime();
+	const diffInMs = date2.getTime() - date1.getTime();
 	const diffInMinutes = Math.floor(diffInMs / 60000);
 
 	if (diffInMinutes < 60) {

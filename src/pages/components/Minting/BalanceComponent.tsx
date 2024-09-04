@@ -5,12 +5,24 @@ import { BasicComponentProps } from '../../../interfaces/BasicComponentProps';
 import BTCtoCurrencyComponent from '../../../components/BTCtoCurrencycomponent';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../types/RootState';
+import { parse } from 'path';
 
+/**
+ * @name BalanceComponent
+ * @description Displays the user's tBTC balance with a Bitcoin icon and conditional formatting based on connection status and color mode.
+ *
+ * @param {BasicComponentProps} props - The properties passed to the component, including connection status.
+ *
+ * @returns {JSX.Element} A component that shows the tBTC balance and a Bitcoin icon.
+ *
+ * @throws {Error} If the tbtcBalance is not available in the Redux store.
+ */
 const BalanceComponent = (props: BasicComponentProps) => {
 	const { colorMode } = useColorMode();
 	const tbtcBalance = useSelector(
 		(state: RootState) => state.account.tbtcBalance,
 	);
+
 	return (
 		<CustomBox h='fit-content' p='25px'>
 			<Stack gap='16px'>
@@ -29,7 +41,9 @@ const BalanceComponent = (props: BasicComponentProps) => {
 				<Stack gap='10px' padding={props.isConnected ? '10px' : 0}>
 					<Text fontSize='32px' lineHeight='32px' fontWeight={500}>
 						{props.isConnected
-							? parseFloat(tbtcBalance).toFixed(5)
+							? parseFloat(tbtcBalance) === 0
+								? 0
+								: tbtcBalance.slice(0, 7)
 							: '--'}{' '}
 						<Text
 							as='span'

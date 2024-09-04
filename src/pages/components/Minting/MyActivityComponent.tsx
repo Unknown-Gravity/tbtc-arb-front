@@ -1,30 +1,51 @@
 import { CustomBox } from '../../../components/CustomBox';
-import { Text } from '@chakra-ui/react';
+import { Skeleton, Text } from '@chakra-ui/react';
 import { BasicComponentProps } from '../../../interfaces/BasicComponentProps';
 import TransactionComponent from './components/TransactionComponent';
 
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../types/RootState';
-import { useState, useMemo } from 'react';
-import { Transaction } from '@ethersproject/transactions';
+import { useState, useMemo, useEffect } from 'react';
 import RenderedTransactionsComponent from './components/MyActivityComponent/RenderedTransactionsComponent';
 import NotRenderedTransactionsComponent from './components/MyActivityComponent/NotRenderedTransactionsComponent';
+import { getWalletTransactions } from '../../../services/tbtcServices';
+import { CustomTransaction } from '../../../interfaces/CustomTransaction.interface';
+import { useSdk } from '../../../context/SDKProvider';
+
+const loadingTransactions = [
+	<Skeleton height='50px' borderRadius='10px' />,
+	<Skeleton height='50px' borderRadius='10px' />,
+	<Skeleton height='50px' borderRadius='10px' />,
+	<Skeleton height='50px' borderRadius='10px' />,
+	<Skeleton height='50px' borderRadius='10px' />,
+	<Skeleton height='50px' borderRadius='10px' />,
+	<Skeleton height='50px' borderRadius='10px' />,
+];
 
 const MyActivityComponent = (props: BasicComponentProps) => {
 	const accountInfo = useSelector((state: RootState) => state.account);
-	const [transactions, setTransactions] = useState<Array<Transaction>>([]);
+	const [transactions, setTransactions] = useState<Array<CustomTransaction>>(
+		[],
+	);
 	const [loading, setLoading] = useState<boolean>(true);
+	const { sdk } = useSdk();
 
-	/* useEffect(() => {
+	useEffect(() => {
 		const getTransactions = async () => {
-			const history = await getTransactionHistory(accountInfo);
-			if (history && history.length > 0) {
-				setTransactions(history);
-				setLoading(false);
-			}
+			const address = await accountInfo.signer?.getAddress();
+			const network = accountInfo.provider?.network.chainId;
+			const isMainnet = network === 42161;
+			if (!address) return;
+			const transactions = await getWalletTransactions(
+				isMainnet,
+				address,
+			);
+
+			setTransactions(transactions);
+			setLoading(false);
 		};
 		getTransactions();
-	}, [accountInfo]); */
+	}, [accountInfo]);
 
 	const renderedTransactions = useMemo(() => {
 		return transactions
@@ -44,11 +65,17 @@ const MyActivityComponent = (props: BasicComponentProps) => {
 				MY ACTIVITY
 			</Text>
 			{loading ? (
-				<Text>Loading...</Text>
+				<RenderedTransactionsComponent
+					data={loadingTransactions}
+					key={1}
+				/>
 			) : !props.isConnected || transactions.length === 0 ? (
 				<NotRenderedTransactionsComponent />
 			) : (
-				<RenderedTransactionsComponent data={renderedTransactions} />
+				<RenderedTransactionsComponent
+					data={renderedTransactions}
+					key={2}
+				/>
 			)}
 		</CustomBox>
 	);
