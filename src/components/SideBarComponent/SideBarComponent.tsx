@@ -101,7 +101,7 @@ const SideBarComponent = (props: Props) => {
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
-						transition={{ duration: 0.5, delay: 1 }}
+						transition={{ duration: 0.5, delay: 1 } as any}
 					>
 						<LogoAloneIcon
 							color={logoColor}
@@ -124,7 +124,7 @@ const SideBarComponent = (props: Props) => {
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
-						transition={{ duration: 0.2, delay: 0.2 }}
+						transition={{ duration: 0.2, delay: 0.2 } as any}
 						mx='auto'
 					>
 						<LogoIcon color={logoColor} boxSize='121px' h='37px' />
@@ -135,7 +135,7 @@ const SideBarComponent = (props: Props) => {
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
-						transition={{ duration: 0.2, delay: 0.1 }}
+						transition={{ duration: 0.2, delay: 0.1 } as any}
 						mx='auto'
 					>
 						<LogoIcon color={logoColor} boxSize='121px' h='37px' />

@@ -61,7 +61,7 @@ const LeaderboardHeader: React.FC<{ isSmallScreen: boolean }> = ({ isSmallScreen
   <Grid
     templateColumns={isSmallScreen ? 'repeat(5, 1fr)' : 'repeat(7, 1fr)'}
     alignItems='center'
-    pl={{ sm: 12, md: 16 }}
+    pl={[12, 12, 16]}
     py={4}
     textTransform='uppercase'
   >
@@ -126,7 +126,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
             : "transparent"}
         rounded='md'
         onClick={onExpand}
-        pl={{ sm: 12, md: 16 }}
+        pl={[12, 12, 16]}
         py={5}
       >
         <Text fontSize='12px' variant='gray'>{index + 1}</Text>

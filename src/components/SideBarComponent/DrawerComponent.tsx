@@ -16,6 +16,7 @@ import { BitcoinIcon } from '../../assets/icons/BitcoinIcon';
 import { SearchIcon } from '../../assets/icons/SearchIcon';
 import { GitHubIcon } from '../../assets/icons/GitHubIcon';
 import { DiscorIcon } from '../../assets/icons/DiscordIcon';
+import { LoyaltyIcon } from '../../assets/icons/LoyaltyIcon';
 import { ExternalRoutes, PublicRoutes } from '../../Routes/Routes';
 import { useNavigate } from 'react-router-dom';
 
@@ -57,6 +58,13 @@ const DrawerComponent = (props: Props) => {
 						text='Explorer'
 						filled={props.path === PublicRoutes.Explore}
 						onClick={() => navigate(`/${PublicRoutes.Explore}`)}
+					/>
+					<IconSideBar
+						icon={LoyaltyIcon}
+						isOpen={props.isOpen}
+						text='Loyalty Program'
+						filled={props.path === PublicRoutes.Loyalty}
+						onClick={() => navigate(`/${PublicRoutes.Loyalty}`)}
 					/>
 				</DrawerBody>
 				<DrawerFooter justifyContent='center' flexDir='column'>
