@@ -69,6 +69,7 @@ const TbtcComponent = (props: Props) => {
 								>
 									Mint
 								</Button>
+								{/* Uncomment this to show the unmint Button */}
 								{/* <Button
 								variant='lightpurple'
 								isActive={tabSelected === 2 && true}
