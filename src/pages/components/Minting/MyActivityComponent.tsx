@@ -10,6 +10,7 @@ import RenderedTransactionsComponent from './components/MyActivityComponent/Rend
 import NotRenderedTransactionsComponent from './components/MyActivityComponent/NotRenderedTransactionsComponent';
 import { getWalletTransactions } from '../../../services/tbtcServices';
 import { CustomTransaction } from '../../../interfaces/CustomTransaction.interface';
+import { useSdk } from '../../../context/SDKProvider';
 
 const loadingTransactions = [
 	<Skeleton height='50px' borderRadius='10px' />,
@@ -27,6 +28,7 @@ const MyActivityComponent = (props: BasicComponentProps) => {
 		[],
 	);
 	const [loading, setLoading] = useState<boolean>(true);
+	const { sdk } = useSdk();
 
 	useEffect(() => {
 		const getTransactions = async () => {
@@ -38,7 +40,6 @@ const MyActivityComponent = (props: BasicComponentProps) => {
 				isMainnet,
 				address,
 			);
-			console.log('🚀 ~ getTransactions ~ transactions:', transactions);
 
 			setTransactions(transactions);
 			setLoading(false);
@@ -64,11 +65,17 @@ const MyActivityComponent = (props: BasicComponentProps) => {
 				MY ACTIVITY
 			</Text>
 			{loading ? (
-				<RenderedTransactionsComponent data={loadingTransactions} />
+				<RenderedTransactionsComponent
+					data={loadingTransactions}
+					key={1}
+				/>
 			) : !props.isConnected || transactions.length === 0 ? (
 				<NotRenderedTransactionsComponent />
 			) : (
-				<RenderedTransactionsComponent data={renderedTransactions} />
+				<RenderedTransactionsComponent
+					data={renderedTransactions}
+					key={2}
+				/>
 			)}
 		</CustomBox>
 	);

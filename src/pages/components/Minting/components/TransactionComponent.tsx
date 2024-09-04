@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, Text, useColorMode } from '@chakra-ui/react';
+import { Box, Flex, Grid, Link, Text, useColorMode } from '@chakra-ui/react';
 import { Web3Provider } from '@ethersproject/providers';
 import { CustomTransaction } from '../../../../interfaces/CustomTransaction.interface';
 
@@ -9,7 +9,6 @@ type Props = {
 
 const TransactionComponent = ({ transaction }: Props) => {
 	const { colorMode } = useColorMode();
-
 	return (
 		<Box
 			p='12px 10px 12px 25px'
@@ -51,14 +50,16 @@ const TransactionComponent = ({ transaction }: Props) => {
 							? transaction?.value.toString()
 							: '-.--'}
 					</Text>
-					<Text
+					<Link
 						fontSize='14px'
 						lineHeight='24px'
 						fontWeight={400}
-						variant='grayPurpleGradient'
+						variant='lightGrayDarkPurple'
+						isExternal
+						href={transaction.link}
 					>
 						{transaction?.hash.slice(0, 5)}...
-					</Text>
+					</Link>
 					<Text
 						fontSize='10px'
 						lineHeight='24px'

@@ -1,30 +1,36 @@
 import {
 	Box,
 	Grid,
+	Link,
 	Text,
 	useColorMode,
 	useColorModeValue,
 	useTheme,
 } from '@chakra-ui/react';
-import { getDifferenceInMinutes } from '../../../../utils/utils';
+import { formatAddress, getDifferenceInMinutes } from '../../../../utils/utils';
+import { link } from 'fs';
 
 type Props = {
-	amount: number;
-	address: string;
-	time: Date;
+	value: number;
+	hash: string;
+	timeStamp: string;
+	link: string;
 };
 
-const TxInfoComponent = ({ amount, address, time }: Props) => {
+const TxInfoComponent = ({ value, hash, timeStamp, link }: Props) => {
 	const theme = useTheme();
 	const { colorMode } = useColorMode();
 	const borderColor = useColorModeValue(
 		theme.colors.light.gray,
 		'transparent',
 	);
+
 	const bgColor = colorMode === 'light' ? 'white' : 'dark.focusGray';
 
-	const formattedAddress = `${address.slice(0, 6)}....${address.slice(-4)}`;
-	const timeDifference = getDifferenceInMinutes(time, new Date());
+	const formattedAddress = formatAddress(hash);
+	const newDate = new Date(parseInt(timeStamp) * 1000);
+	const newDate2 = new Date();
+	const timeDifference = getDifferenceInMinutes(newDate, newDate2);
 
 	return (
 		<Box
@@ -44,17 +50,19 @@ const TxInfoComponent = ({ amount, address, time }: Props) => {
 					lineHeight='18px'
 					variant='purpleDarkGradient'
 				>
-					{amount} tBTC
+					{value} tBTC
 				</Text>
 
-				<Text
+				<Link
 					fontSize='12px'
 					fontWeight={500}
-					variant='gray'
+					variant='lightGrayDarkPurple'
 					lineHeight='18px'
+					isExternal
+					href={link}
 				>
 					{formattedAddress}
-				</Text>
+				</Link>
 
 				<Text
 					fontSize='12px'
@@ -62,7 +70,7 @@ const TxInfoComponent = ({ amount, address, time }: Props) => {
 					variant='gray'
 					lineHeight='18px'
 				>
-					{timeDifference} mins ago
+					{timeDifference}
 				</Text>
 			</Grid>
 		</Box>

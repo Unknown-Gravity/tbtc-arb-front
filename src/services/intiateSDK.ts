@@ -19,16 +19,12 @@ const initiateSDK = async (data: InfoAccount): Promise<TBTC> => {
 
 	const ethProvider = new ethers.providers.JsonRpcProvider(ethRPC);
 
-	console.log('Initializing SDK');
-
 	if (signer) {
 		sdk = isMainnet
 			? await TBTC.initializeMainnet(ethProvider, true)
 			: await TBTC.initializeSepolia(ethProvider, true);
 		await sdk.initializeCrossChain('Arbitrum', signer);
 	}
-
-	console.log('SDK initialized successfully:');
 
 	if (!sdk) throw new Error('SDK not initialized yet.');
 	return sdk;

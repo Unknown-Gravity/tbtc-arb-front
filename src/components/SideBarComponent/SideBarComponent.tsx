@@ -4,6 +4,7 @@ import {
 	Stack,
 	useColorModeValue,
 	useTheme,
+	chakra,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { ExternalRoutes } from '../../Routes/Routes';
@@ -17,7 +18,7 @@ import IconSideBar from './IconSideBar';
 import { GitHubIcon } from '../../assets/icons/GitHubIcon';
 import { DiscorIcon } from '../../assets/icons/DiscordIcon';
 
-const MotionBox = motion(Box);
+const MotionBox = motion(Box as any);
 
 type Props = {
 	isOpen: boolean;
@@ -48,7 +49,7 @@ const SideBarComponent = (props: Props) => {
 		<Stack
 			w={sideBarWidth}
 			borderRightRadius='20px'
-			h='90vh'
+			h='100vh'
 			minH='520px'
 			borderRight={`0.5px solid ${borderColor}`}
 			borderBottom={`0.5px solid ${borderColor}`}

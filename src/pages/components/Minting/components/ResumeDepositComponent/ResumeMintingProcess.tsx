@@ -1,11 +1,12 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import HeaderStepsMintingComponent from '../MintingProcess/HeaderStepsMintingComponent';
 import { Button, Flex, Link, Spinner, Stack, Text } from '@chakra-ui/react';
 import DragAndDropComponent from './DragAndDropComponent';
 import { useSdk } from '../../../../../context/SDKProvider';
 import { JsonData } from '../../../../../interfaces/JsonData.interface';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
+	addArbTxHash,
 	addDeposit,
 	addStatus,
 	addUtxo,
@@ -13,6 +14,11 @@ import {
 import { getDepositInfo } from '../../../../../services/depositServices';
 import { getDepositId, reverseString } from '../../../../../utils/utils';
 import { ArrowBackIcon } from '@chakra-ui/icons';
+import { checkTransactionExist } from '../../../../../services/tbtcServices';
+import { RootState } from '../../../../../types/RootState';
+import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
+import { extractBitcoinRawTxVectors } from '@keep-network/tbtc-v2.ts';
+import { get } from 'http';
 
 type Props = {
 	setTabSelected: Dispatch<SetStateAction<number>>;
@@ -20,11 +26,15 @@ type Props = {
 };
 
 const ResumeMintingProcess = ({ setTabSelected, setStep }: Props) => {
+	const accountInfo = useSelector((state: RootState) => state.account);
+	const { address } = useWeb3ModalAccount();
 	const [fileName, setFileName] = useState<string | null>(null);
 	const [fileContent, setFileContent] = useState<JsonData>();
 	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useDispatch();
 	const { sdk } = useSdk();
+
+	useEffect(() => {}, []);
 
 	const handleClick = async () => {
 		if (fileName !== null && fileContent && sdk) {
@@ -58,13 +68,27 @@ const ResumeMintingProcess = ({ setTabSelected, setStep }: Props) => {
 					if (status) {
 						dispatch(addStatus(status));
 					}
+
+					const bitcoinRawTx =
+						await sdk.bitcoinClient?.getRawTransaction(
+							transactionHash,
+						);
+
+					const fundingTxVectors =
+						extractBitcoinRawTxVectors(bitcoinRawTx);
+					const arbitrumTx = await checkTransactionExist(
+						fundingTxVectors,
+						address,
+					);
+					dispatch(addArbTxHash(arbitrumTx.hash));
+
 					setStep(3);
 				}
 			}
 			setTabSelected(1);
-			// setStep(3);
 		}
 	};
+
 	return (
 		<Stack spacing='25px' w={{ base: '100%', xl: '456px' }}>
 			<Flex alignItems='center' gap='9px' zIndex={10}>
@@ -80,7 +104,6 @@ const ResumeMintingProcess = ({ setTabSelected, setStep }: Props) => {
 
 				<HeaderStepsMintingComponent label='tBTC - MINTING PROCESS' />
 			</Flex>
-			{/* <HeaderStepsMintingComponent label='tBTC - MINTING PROCESS' /> */}
 			<Text fontSize='18px' lineHeight='28px' fontWeight={400}>
 				<Text fontWeight={600} as='span' variant='purpleDarkGradient'>
 					Resume minting

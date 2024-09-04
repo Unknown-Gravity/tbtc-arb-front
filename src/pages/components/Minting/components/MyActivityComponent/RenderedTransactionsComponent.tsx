@@ -40,7 +40,11 @@ const RenderedTransactionsComponent = ({ data }: Props) => {
 					STATE
 				</Text>
 			</Grid>
-			<Stack>{data}</Stack>
+			<Stack>
+				{data.map((item, index) => (
+					<React.Fragment key={index}>{item}</React.Fragment>
+				))}
+			</Stack>
 		</Stack>
 	);
 };

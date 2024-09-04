@@ -6,7 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../../../types/RootState';
 import { useSdk } from '../../../../../../context/SDKProvider';
 import { checkDepositStatus } from '../../../../../../services/depositServices';
-import { addStatus } from '../../../../../../redux/reducers/DepositReducer';
+import {
+	addArbTxHash,
+	addStatus,
+} from '../../../../../../redux/reducers/DepositReducer';
 import { Deposit } from '@keep-network/tbtc-v2.ts';
 
 type Props = { setStep: Dispatch<SetStateAction<number>> };
@@ -74,7 +77,12 @@ const Step3MintingProcess = ({ setStep }: Props) => {
 			try {
 				const fundingUxtos = await deposit?.detectFunding();
 				if (fundingUxtos) {
-					await deposit?.initiateMinting(fundingUxtos[0]);
+					if (depositInfo.arbTxHash === null) {
+						const arbTxHash = await deposit.initiateMinting(
+							fundingUxtos[0],
+						);
+						dispatch(addArbTxHash(arbTxHash.toString()));
+					}
 				}
 			} catch (error) {}
 		};

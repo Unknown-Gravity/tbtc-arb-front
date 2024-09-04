@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { CustomBox } from '../../../components/CustomBox';
 import {
 	Box,
@@ -11,9 +11,19 @@ import {
 import { currencyFormatter } from '../../../utils/utils';
 import BTCtoCurrencyComponent from '../../../components/BTCtoCurrencycomponent';
 import TxInfoComponent from './BidgeStatsComponent/TxInfoComponent';
-import { transactions } from '../../../data/mockData';
+import { getTbtcTransactions } from '../../../services/tbtcServices';
 
 const BridgeStatsComponent: FC = () => {
+	const [tbtcTransactions, setTbtcTransactions] = useState<Array<any>>([]);
+	useEffect(() => {
+		const getTransactions = async () => {
+			const transactions2 = await getTbtcTransactions(false);
+			setTbtcTransactions(
+				transactions2.sort((a, b) => b.timeStamp - a.timeStamp),
+			);
+		};
+		getTransactions();
+	}, []);
 	const { colorMode } = useColorMode();
 	return (
 		<Stack gap={5}>
@@ -55,16 +65,18 @@ const BridgeStatsComponent: FC = () => {
 						gap=' 20px'
 						pt='20px'
 					>
-						{transactions.map((tx, index) => {
-							return (
-								<TxInfoComponent
-									key={index}
-									amount={tx.amount}
-									address={tx.address}
-									time={tx.time}
-								/>
-							);
-						})}
+						{tbtcTransactions &&
+							tbtcTransactions.map((tx, index) => {
+								return (
+									<TxInfoComponent
+										key={index}
+										value={tx.value}
+										hash={tx.hash}
+										timeStamp={tx.timeStamp}
+										link={tx.link}
+									/>
+								);
+							})}
 					</Grid>
 				</Stack>
 			</CustomBox>
