@@ -38,7 +38,7 @@ const BridgeStatsComponent: FC = () => {
 		};
 		getTbtcSupply();
 		getTransactions();
-	}, []);
+	}, [isConnected, isMainnet]);
 	const { colorMode } = useColorMode();
 	return (
 		<Stack gap={5}>
