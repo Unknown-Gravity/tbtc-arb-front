@@ -205,20 +205,20 @@ const reverseString = (str: string) => {
 
 const getBtcBlockExplorerUrl = (isMainnet: boolean, txHash: string) => {
 	return isMainnet
-		? `https://blockstream.info/tx/${txHash}`
-		: `https://blockstream.info/testnet/tx/${txHash}`;
+		? `${process.env.REACT_APP_BTC_EXPLORER_MAINNET}/tx/${txHash}`
+		: `${process.env.REACT_APP_BTC_EXPLORER_SEPOLIA}/tx/${txHash}`;
 };
 
 const getArbBlockExplorerUrl = (isMainnet: boolean, txHash: string) => {
 	return isMainnet
-		? `https://arbiscan.io/tx/${txHash}`
-		: `https://sepolia.arbiscan.io/tx/${txHash}`;
+		? `${process.env.REACT_APP_ARB_EXPLORER_MAINNET}/tx/${txHash}`
+		: `${process.env.REACT_APP_ARB_EXPLORER_SEPOLIA}/tx/${txHash}`;
 };
 
 const getEthBlockExplorerUrl = (isMainnet: boolean, txHash: string) => {
 	return isMainnet
-		? `https://etherscan.io/tx/${txHash}`
-		: `https://sepolia.etherscan.io/tx/${txHash}`;
+		? `${process.env.REACT_APP_ETH_EXPLORER_MAINNET}/tx/${txHash}`
+		: `${process.env.REACT_APP_ETH_EXPLORER_SEPOLIA}/tx/${txHash}`;
 };
 
 const getBlockExplorerUrl = (

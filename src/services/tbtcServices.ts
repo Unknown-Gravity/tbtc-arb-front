@@ -26,21 +26,21 @@ const getContractAddress = (isMainnet: boolean, contract: string) => {
 const getUrlHeader = (isMainnet: boolean, blockExplorer: string) => {
 	return isMainnet
 		? blockExplorer === 'ETHERSCAN'
-			? 'https://api.etherscan.io'
-			: 'https://api.arbiscan.io'
+			? process.env.REACT_APP_ETHERSCAN_API_URL_MAINNET
+			: process.env.REACT_APP_ARBISCAN_API_URL_MAINNET
 		: blockExplorer === 'ETHERSCAN'
-		? 'https://api-sepolia.etherscan.io'
-		: 'https://api-sepolia.arbiscan.io';
+		? process.env.REACT_APP_ETHERSCAN_API_URL_SEPOLIA
+		: process.env.REACT_APP_ARBISCAN_API_URL_SEPOLIA;
 };
 
 const getUrlTxHeader = (isMainnet: boolean, blockExplorer: string) => {
 	return isMainnet
 		? blockExplorer === 'ETHERSCAN'
-			? 'https://etherscan.io/tx'
-			: 'https://arbiscan.io/tx'
+			? `${process.env.REACT_APP_ETH_EXPLORER_MAINNET}/tx`
+			: `${process.env.REACT_APP_ARB_EXPLORER_MAINNET}/tx`
 		: blockExplorer === 'ETHERSCAN'
-		? 'https://sepolia.etherscan.io/tx'
-		: 'https://sepolia.arbiscan.io/tx';
+		? `${process.env.REACT_APP_ETH_EXPLORER_SEPOLIA}/tx`
+		: `${process.env.REACT_APP_ARB_EXPLORER_SEPOLIA}/tx`;
 };
 
 const initializeTbtcContract = (
@@ -174,7 +174,6 @@ export const getTbtcTransactions = async (
 	const {
 		data: { result },
 	} = await axios.get(url);
-	console.log('🚀 ~ result:', result);
 	const urlTxHeader = getUrlTxHeader(isMainnet, 'ARBISCAN');
 	return result
 		.map((tx: any) => ({

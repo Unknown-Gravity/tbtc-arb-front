@@ -35,6 +35,7 @@ const MintingProcessComponent = () => {
 			const response = await fetchTbtcSupply();
 			setSupply(response);
 		};
+		getTbtcSupply();
 		getTransactions();
 	}, [isMainnet]);
 	return (
