@@ -41,7 +41,6 @@ const getUrlHeader = (isMainnet: boolean, blockExplorer: string) => {
 };
 
 const getUrlTxHeader = (isMainnet: boolean, blockExplorer: string) => {
-	console.log('🚀 ~ getUrlTxHeader ~ blockExplorer:', blockExplorer);
 	const etherscanExplorer = isMainnet
 		? process.env.REACT_APP_ETH_EXPLORER_MAINNET
 		: process.env.REACT_APP_ETH_EXPLORER_TESTNET;
@@ -184,7 +183,6 @@ export const getTbtcTransactions = async (
 		data: { result },
 	} = await axios.get(url);
 	const urlTxHeader = getUrlTxHeader(isMainnet, 'ARBISCAN');
-	console.log('🚀 ~ urlTxHeader:', urlTxHeader);
 	return result
 		.map((tx: any) => ({
 			value: parseFloat(ethers.utils.formatEther(tx.value)).toFixed(3),
