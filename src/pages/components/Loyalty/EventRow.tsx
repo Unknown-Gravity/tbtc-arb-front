@@ -54,7 +54,7 @@ const EventRow: React.FC<EventRowProps> = ({ event, isSmallScreen }) => {
       gap={4} 
       alignItems='center' 
       mt={2}
-      pl={{ sm: 8, lg: 24 }}
+      pl={[ 8, 12, 24 ]}
       py={2.5}
     >
       <Text fontSize='12px' variant='gray' textTransform='uppercase'>{event.action}</Text>
