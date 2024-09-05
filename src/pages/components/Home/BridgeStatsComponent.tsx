@@ -13,13 +13,20 @@ import BTCtoCurrencyComponent from '../../../components/BTCtoCurrencycomponent';
 import TxInfoComponent from './BidgeStatsComponent/TxInfoComponent';
 import { getTbtcTransactions } from '../../../services/tbtcServices';
 import { fetchTbtcSupply } from '../../../services/fetchServices';
+import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 
 const BridgeStatsComponent: FC = () => {
 	const [tbtcSupply, setTbtcSupply] = useState<number>(0);
 	const [tbtcTransactions, setTbtcTransactions] = useState<Array<any>>([]);
+	const { isConnected, chainId } = useWeb3ModalAccount();
+	const isMainnet =
+		isConnected &&
+		chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
 	useEffect(() => {
 		const getTransactions = async () => {
-			const transactions2 = await getTbtcTransactions(false);
+			const transactions2 = isConnected
+				? await getTbtcTransactions(isMainnet)
+				: await getTbtcTransactions(true);
 			setTbtcTransactions(
 				transactions2.sort((a, b) => b.timeStamp - a.timeStamp),
 			);
@@ -31,7 +38,7 @@ const BridgeStatsComponent: FC = () => {
 		};
 		getTbtcSupply();
 		getTransactions();
-	}, []);
+	}, [isConnected, isMainnet]);
 	const { colorMode } = useColorMode();
 	return (
 		<Stack gap={5}>

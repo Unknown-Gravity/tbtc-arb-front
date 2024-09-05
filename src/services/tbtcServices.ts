@@ -34,19 +34,20 @@ const getUrlHeader = (isMainnet: boolean, blockExplorer: string) => {
 	const arbiscanApiExplorer = isMainnet
 		? process.env.REACT_APP_ARBISCAN_API_URL_MAINNET
 		: process.env.REACT_APP_ARBISCAN_API_URL_SEPOLIA;
+
 	return blockExplorer === 'ETHERSCAN'
 		? etherscanApiExplorer
 		: arbiscanApiExplorer;
 };
 
 const getUrlTxHeader = (isMainnet: boolean, blockExplorer: string) => {
-	console.log('🚀 ~ getUrlTxHeader ~ blockExplorer:', blockExplorer);
 	const etherscanExplorer = isMainnet
 		? process.env.REACT_APP_ETH_EXPLORER_MAINNET
 		: process.env.REACT_APP_ETH_EXPLORER_TESTNET;
 	const arbiscanExplorer = isMainnet
 		? process.env.REACT_APP_ARB_EXPLORER_MAINNET
 		: process.env.REACT_APP_ARB_EXPLORER_TESTNET;
+
 	return blockExplorer === 'ETHERSCAN' ? etherscanExplorer : arbiscanExplorer;
 };
 
@@ -182,7 +183,6 @@ export const getTbtcTransactions = async (
 		data: { result },
 	} = await axios.get(url);
 	const urlTxHeader = getUrlTxHeader(isMainnet, 'ARBISCAN');
-	console.log('🚀 ~ urlTxHeader:', urlTxHeader);
 	return result
 		.map((tx: any) => ({
 			value: parseFloat(ethers.utils.formatEther(tx.value)).toFixed(3),
