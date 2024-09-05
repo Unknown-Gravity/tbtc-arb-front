@@ -24,7 +24,9 @@ const BridgeStatsComponent: FC = () => {
 		chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
 	useEffect(() => {
 		const getTransactions = async () => {
-			const transactions2 = await getTbtcTransactions(isMainnet);
+			const transactions2 = isConnected
+				? await getTbtcTransactions(isMainnet)
+				: await getTbtcTransactions(true);
 			setTbtcTransactions(
 				transactions2.sort((a, b) => b.timeStamp - a.timeStamp),
 			);
