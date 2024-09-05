@@ -21,6 +21,12 @@ export const ExternalRoutes = {
 	Website: 'https://threshold.network/',
 	Blog: 'https://blog.threshold.network/',
 	Documentation: 'https://docs.threshold.network/',
+	Curve: 'https://curve.fi/#/arbitrum/pools/factory-stable-ng-69/deposit',
+	TBTCPool:
+		'https://merkl.angle.money/arbitrum/pool/0xe9e6b9aAAfaf6816C3364345F6eF745CcFC8660a',
+	ETHPool:
+		'https://merkl.angle.money/arbitrum/pool/2/0xCb198a55e2a88841E855bE4EAcaad99422416b33',
+	GMX: 'https://app.gmx.io/#/trade',
 };
 
 export const PrivateRoutes = {};
@@ -84,19 +90,19 @@ export const connectWithUsLinks: Array<LinkType> = [
 
 export const thresholdLinks: Array<LinkType> = [
 	{
-		title: 'Website',
-		link: ExternalRoutes.Website,
+		title: 'Curve tBTC/WBTC Pool',
+		link: ExternalRoutes.Curve,
 	},
 	{
-		title: 'Blog',
-		link: ExternalRoutes.Blog,
+		title: 'Uniswap V3 tBTC/WBTC Pool',
+		link: ExternalRoutes.TBTCPool,
 	},
 	{
-		title: 'Forum',
-		link: ExternalRoutes.Forum,
+		title: 'Uniswap V3 tBTC/ETH Pool',
+		link: ExternalRoutes.ETHPool,
 	},
 	{
-		title: 'Documentation',
-		link: ExternalRoutes.Documentation,
+		title: 'GMX',
+		link: ExternalRoutes.GMX,
 	},
 ];
