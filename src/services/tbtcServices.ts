@@ -10,37 +10,44 @@ import {
 const { BTCUtils, utils } = require('@summa-tx/bitcoin-spv-js');
 
 const getContractAddress = (isMainnet: boolean, contract: string) => {
-	return isMainnet
-		? contract === 'TBTC'
-			? process.env.REACT_APP_TBTC_MAINNET
-			: contract === 'L1BITCOIN'
-			? process.env.REACT_APP_L1BITCOIN_MAINNET
-			: process.env.REACT_APP_L2BITCOIN_MAINNET
-		: contract === 'TBTC'
-		? process.env.REACT_APP_TBTC_TESTNET
-		: contract === 'L1BITCOIN'
-		? process.env.REACT_APP_L1BITCOIN_SEPOLIA
+	const tbtcContractAddress = isMainnet
+		? process.env.REACT_APP_TBTC_MAINNET
+		: process.env.REACT_APP_TBTC_TESTNET;
+	const L1BitcoinAddress = isMainnet
+		? process.env.REACT_APP_L1BITCOIN_MAINNET
+		: process.env.REACT_APP_L1BITCOIN_SEPOLIA;
+	const L2BitcoinAddress = isMainnet
+		? process.env.REACT_APP_L2BITCOIN_MAINNET
 		: process.env.REACT_APP_L2BITCOIN_SEPOLIA;
+
+	return contract === 'TBTC'
+		? tbtcContractAddress
+		: contract === 'L1BITCOIN'
+		? L1BitcoinAddress
+		: L2BitcoinAddress;
 };
 
 const getUrlHeader = (isMainnet: boolean, blockExplorer: string) => {
-	return isMainnet
-		? blockExplorer === 'ETHERSCAN'
-			? process.env.REACT_APP_ETHERSCAN_API_URL_MAINNET
-			: process.env.REACT_APP_ARBISCAN_API_URL_MAINNET
-		: blockExplorer === 'ETHERSCAN'
-		? process.env.REACT_APP_ETHERSCAN_API_URL_SEPOLIA
+	const etherscanApiExplorer = isMainnet
+		? process.env.REACT_APP_ETHERSCAN_API_URL_MAINNET
+		: process.env.REACT_APP_ETHERSCAN_API_URL_SEPOLIA;
+	const arbiscanApiExplorer = isMainnet
+		? process.env.REACT_APP_ARBISCAN_API_URL_MAINNET
 		: process.env.REACT_APP_ARBISCAN_API_URL_SEPOLIA;
+	return blockExplorer === 'ETHERSCAN'
+		? etherscanApiExplorer
+		: arbiscanApiExplorer;
 };
 
 const getUrlTxHeader = (isMainnet: boolean, blockExplorer: string) => {
-	return isMainnet
-		? blockExplorer === 'ETHERSCAN'
-			? `${process.env.REACT_APP_ETH_EXPLORER_MAINNET}/tx`
-			: `${process.env.REACT_APP_ARB_EXPLORER_MAINNET}/tx`
-		: blockExplorer === 'ETHERSCAN'
-		? `${process.env.REACT_APP_ETH_EXPLORER_SEPOLIA}/tx`
-		: `${process.env.REACT_APP_ARB_EXPLORER_SEPOLIA}/tx`;
+	console.log('🚀 ~ getUrlTxHeader ~ blockExplorer:', blockExplorer);
+	const etherscanExplorer = isMainnet
+		? process.env.REACT_APP_ETH_EXPLORER_MAINNET
+		: process.env.REACT_APP_ETH_EXPLORER_TESTNET;
+	const arbiscanExplorer = isMainnet
+		? process.env.REACT_APP_ARB_EXPLORER_MAINNET
+		: process.env.REACT_APP_ARB_EXPLORER_TESTNET;
+	return blockExplorer === 'ETHERSCAN' ? etherscanExplorer : arbiscanExplorer;
 };
 
 const initializeTbtcContract = (
@@ -175,6 +182,7 @@ export const getTbtcTransactions = async (
 		data: { result },
 	} = await axios.get(url);
 	const urlTxHeader = getUrlTxHeader(isMainnet, 'ARBISCAN');
+	console.log('🚀 ~ urlTxHeader:', urlTxHeader);
 	return result
 		.map((tx: any) => ({
 			value: parseFloat(ethers.utils.formatEther(tx.value)).toFixed(3),
