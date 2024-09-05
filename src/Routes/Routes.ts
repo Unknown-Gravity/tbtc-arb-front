@@ -90,15 +90,15 @@ export const connectWithUsLinks: Array<LinkType> = [
 
 export const thresholdLinks: Array<LinkType> = [
 	{
-		title: 'Curve tBTC/WBTC Pool',
+		title: 'Curve tBTC/WBTC',
 		link: ExternalRoutes.Curve,
 	},
 	{
-		title: 'Uniswap V3 tBTC/WBTC Pool',
+		title: 'Uniswap tBTC/WBTC',
 		link: ExternalRoutes.TBTCPool,
 	},
 	{
-		title: 'Uniswap V3 tBTC/ETH Pool',
+		title: 'Uniswap tBTC/ETH',
 		link: ExternalRoutes.ETHPool,
 	},
 	{
