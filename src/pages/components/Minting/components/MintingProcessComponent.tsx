@@ -96,7 +96,13 @@ const MintingProcessComponent = () => {
 				></Box>
 			</Box>
 			<Flex w='100%' justifyContent='center' mt='32px'>
-				<Link variant='purpleDarkGradient'>View on Dune Analytics</Link>
+				<Link
+					variant='purpleDarkGradient'
+					href={process.env.REACT_APP_DUNE_URL}
+					isExternal
+				>
+					View on Dune Analytics
+				</Link>
 			</Flex>
 		</Box>
 	);

@@ -5,7 +5,7 @@ import LinkComponent from './LinkComponent';
 const LinksComponent = () => {
 	return (
 		<Flex gap='64px'>
-			<Stack gap='20px' w='155px'>
+			<Stack gap='20px' w='165px'>
 				<Text lineHeight='27px' fontSize='17.9px' fontWeight={600}>
 					THRESHOLD
 				</Text>
