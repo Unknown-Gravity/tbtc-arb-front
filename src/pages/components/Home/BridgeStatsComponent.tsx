@@ -19,11 +19,9 @@ const BridgeStatsComponent: FC = () => {
 	const [tbtcSupply, setTbtcSupply] = useState<number>(0);
 	const [tbtcTransactions, setTbtcTransactions] = useState<Array<any>>([]);
 	const { isConnected, chainId } = useWeb3ModalAccount();
-	console.log('🚀 ~ chainId:', chainId);
 	const isMainnet =
 		isConnected &&
 		chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
-	console.log('🚀 ~ isMainnet:', isMainnet);
 	useEffect(() => {
 		const getTransactions = async () => {
 			const transactions2 = await getTbtcTransactions(isMainnet);
