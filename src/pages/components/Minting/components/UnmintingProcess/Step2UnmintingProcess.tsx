@@ -10,17 +10,22 @@ type Props = {
 	onClick: () => void;
 };
 
-const Step2UnmintingProcess = (props: Props) => {
+const Step2UnmintingProcess = ({
+	isSent,
+	steps,
+	activeStep,
+	onClick,
+}: Props) => {
 	return (
-		<Box h={{ xl: props.isSent ? 'auto' : '558px' }}>
+		<Box h={{ xl: isSent ? 'auto' : '558px' }}>
 			<HeaderStep2UnmintingProcess
-				activeStep={props.activeStep}
-				steps={props.steps}
+				activeStep={activeStep}
+				steps={steps}
 			/>
-			{!props.isSent ? (
+			{!isSent ? (
 				<UnmintingInProgressComponent />
 			) : (
-				<UnmintingDoneComponent onClick={props.onClick} />
+				<UnmintingDoneComponent onClick={onClick} />
 			)}
 		</Box>
 	);

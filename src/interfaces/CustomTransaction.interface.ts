@@ -7,4 +7,5 @@ export interface CustomTransaction {
 	blockExplorer: string;
 	timeStamp: number;
 	link: string;
+	address: string;
 }

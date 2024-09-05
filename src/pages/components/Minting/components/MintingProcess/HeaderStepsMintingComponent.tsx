@@ -5,7 +5,7 @@ type Props = {
 	label: string;
 };
 
-const HeaderStepsMintingComponent = (props: Props) => {
+const HeaderStepsMintingComponent = ({ label }: Props) => {
 	const { colorMode } = useColorMode();
 	return (
 		<Flex alignItems='center' gap={5}>
@@ -15,7 +15,7 @@ const HeaderStepsMintingComponent = (props: Props) => {
 				boxSize='22px'
 			/>
 			<Text fontSize='16px' lineHeight='24px' fontWeight={600}>
-				{props.label}
+				{label}
 			</Text>
 		</Flex>
 	);

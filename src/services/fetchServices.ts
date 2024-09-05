@@ -17,6 +17,19 @@ const fetchExploreHistory = () => {
 	return history;
 };
 
+export const fetchTbtcSupply = async () => {
+	const apikey = process.env.REACT_APP_API_KEY;
+	const url = 'https://api.dune.com/api/v1/query/2610107/results?limit=1000';
+	try {
+		const response = await axios.get(url, {
+			headers: { 'X-Dune-API-Key': apikey },
+		});
+		return response.data.result.rows[0]._col0;
+	} catch (error) {
+		console.error('Error fetching tbtc supply:', error);
+	}
+};
+
 const fetchHeaderExploreData = async () => {
 	const apikey = process.env.REACT_APP_API_KEY;
 	const urls = [

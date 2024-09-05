@@ -4,7 +4,7 @@ import { Button, Flex, Link, Spinner, Stack, Text } from '@chakra-ui/react';
 import DragAndDropComponent from './DragAndDropComponent';
 import { useSdk } from '../../../../../context/SDKProvider';
 import { JsonData } from '../../../../../interfaces/JsonData.interface';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
 	addArbTxHash,
 	addDeposit,
@@ -15,10 +15,8 @@ import { getDepositInfo } from '../../../../../services/depositServices';
 import { getDepositId, reverseString } from '../../../../../utils/utils';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { checkTransactionExist } from '../../../../../services/tbtcServices';
-import { RootState } from '../../../../../types/RootState';
 import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import { extractBitcoinRawTxVectors } from '@keep-network/tbtc-v2.ts';
-import { get } from 'http';
 
 type Props = {
 	setTabSelected: Dispatch<SetStateAction<number>>;
@@ -26,7 +24,6 @@ type Props = {
 };
 
 const ResumeMintingProcess = ({ setTabSelected, setStep }: Props) => {
-	const accountInfo = useSelector((state: RootState) => state.account);
 	const { address } = useWeb3ModalAccount();
 	const [fileName, setFileName] = useState<string | null>(null);
 	const [fileContent, setFileContent] = useState<JsonData>();
@@ -63,7 +60,7 @@ const ResumeMintingProcess = ({ setTabSelected, setStep }: Props) => {
 					const depositId = getDepositId(fundingTxHash, outputIndex);
 					const status = await sdk
 						.crossChainContracts('Arbitrum')
-						?.l1BitcoinDepositor.getDepositStatus(depositId);
+						?.l1BitcoinDepositor.getDepositState(depositId);
 
 					if (status) {
 						dispatch(addStatus(status));

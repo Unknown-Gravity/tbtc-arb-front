@@ -35,7 +35,6 @@ const ConnectButton = (props: ButtonProps) => {
 				const provider = new ethers.providers.Web3Provider(
 					walletProvider,
 				);
-				const network = await provider.getNetwork();
 
 				const [signer, balanceBigInt, tbtcBalance] = await Promise.all([
 					provider.getSigner(),

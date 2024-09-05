@@ -12,11 +12,11 @@ const config: ThemeConfig = {
 };
 
 const styles: ThemeOverride['styles'] = {
-	global: props => ({
+	global: ({ colorMode }: StyleFunctionProps) => ({
 		body: {
 			height: '100vh',
 			width: '100%',
-			bg: props.colorMode === 'dark' && 'dark.background',
+			bg: colorMode === 'dark' && 'dark.background',
 		},
 	}),
 };
@@ -81,90 +81,78 @@ const fonts: ThemeOverride['fonts'] = {
 
 const components: ThemeOverride['components'] = {
 	Text: {
-		baseStyle: (props: StyleFunctionProps) => ({
-			color: props.colorMode === 'dark' ? 'white' : 'light.primaryGray',
+		baseStyle: ({ colorMode }: StyleFunctionProps) => ({
+			color: colorMode === 'dark' ? 'white' : 'light.primaryGray',
 		}),
 
 		variants: {
-			gray: (props: StyleFunctionProps) => ({
-				color:
-					props.colorMode === 'dark' ? 'dark.coolGray' : 'light.gray',
+			gray: ({ colorMode }: StyleFunctionProps) => ({
+				color: colorMode === 'dark' ? 'dark.coolGray' : 'light.gray',
 			}),
 
-			gray2: (props: StyleFunctionProps) => ({
+			gray2: ({ colorMode }: StyleFunctionProps) => ({
 				color:
-					props.colorMode === 'light'
+					colorMode === 'light'
 						? 'light.primaryGray'
 						: 'dark.coolGray',
 			}),
 
-			secondary: (props: StyleFunctionProps) => ({
-				color:
-					props.colorMode === 'light'
-						? 'light.secondaryGray'
-						: 'white',
+			secondary: ({ colorMode }: StyleFunctionProps) => ({
+				color: colorMode === 'light' ? 'light.secondaryGray' : 'white',
 			}),
 
-			coolGray: (props: StyleFunctionProps) => ({
+			coolGray: ({ colorMode }: StyleFunctionProps) => ({
 				color:
-					props.colorMode === 'light'
-						? 'light.coolGray2'
-						: 'dark.coolGray',
+					colorMode === 'light' ? 'light.coolGray2' : 'dark.coolGray',
 			}),
 
-			coolGray2: (props: StyleFunctionProps) => ({
-				color:
-					props.colorMode === 'light' ? 'light.coolGray2' : 'white',
+			coolGray2: ({ colorMode }: StyleFunctionProps) => ({
+				color: colorMode === 'light' ? 'light.coolGray2' : 'white',
 			}),
 
-			lightCoolGray: (props: StyleFunctionProps) => ({
-				color:
-					props.colorMode === 'light' ? 'light.coolGray2' : 'white',
+			lightCoolGray: ({ colorMode }: StyleFunctionProps) => ({
+				color: colorMode === 'light' ? 'light.coolGray2' : 'white',
 			}),
 
-			purpleDarkGradient: (props: StyleFunctionProps) => ({
+			purpleDarkGradient: ({ colorMode }: StyleFunctionProps) => ({
 				transition: 'text-decoration 0.2s',
-				color:
-					props.colorMode === 'light' ? 'brand.purple.900' : 'none',
+				color: colorMode === 'light' ? 'brand.purple.900' : 'none',
 				bg:
-					props.colorMode === 'dark' &&
+					colorMode === 'dark' &&
 					'linear-gradient(113.75deg, #EDC6FF 0%, #AB5AFA 100%)',
 
-				backgroundClip: props.colorMode === 'dark' && 'text',
-				fill: props.colorMode === 'dark' && 'transparent',
+				backgroundClip: colorMode === 'dark' && 'text',
+				fill: colorMode === 'dark' && 'transparent',
 			}),
 
-			grayPurpleGradient: (props: StyleFunctionProps) => ({
-				color: props.colorMode === 'light' ? 'light.gray' : 'none',
+			grayPurpleGradient: ({ colorMode }: StyleFunctionProps) => ({
+				color: colorMode === 'light' ? 'light.gray' : 'none',
 				bg:
-					props.colorMode === 'dark' &&
+					colorMode === 'dark' &&
 					`linear-gradient(113.75deg, #EDC6FF 0%, #AB5AFA 100%);`,
-				backgroundClip: props.colorMode === 'dark' && 'text',
-				fill: props.colorMode === 'dark' && 'transparent',
+				backgroundClip: colorMode === 'dark' && 'text',
+				fill: colorMode === 'dark' && 'transparent',
 				textDecorationLine: 'underline',
 				WebkitBackgroundClip: 'text',
 			}),
 
-			purple: (props: StyleFunctionProps) => ({
-				color:
-					props.colorMode === 'light' ? 'brand.purple.900' : 'white',
+			purple: ({ colorMode }: StyleFunctionProps) => ({
+				color: colorMode === 'light' ? 'brand.purple.900' : 'white',
 			}),
 
-			darkPurpleGradient: (props: StyleFunctionProps) => ({
+			darkPurpleGradient: ({ colorMode }: StyleFunctionProps) => ({
 				color:
-					props.colorMode === 'light'
-						? 'brand.purple.1000'
-						: 'transparent',
+					colorMode === 'light' ? 'brand.purple.1000' : 'transparent',
 				bg:
-					props.colorMode === 'dark' &&
+					colorMode === 'dark' &&
 					'linear-gradient(113.75deg, #EDC6FF 0%, #AB5AFA 100%)',
-				backgroundClip: props.colorMode === 'dark' && 'text',
-				fill: props.colorMode === 'dark' && 'transparent',
+				backgroundClip: colorMode === 'dark' && 'text',
+				fill: colorMode === 'dark' && 'transparent',
 			}),
 
-			grayPurple: (props: StyleFunctionProps) => ({
+			grayPurple: ({ colorMode }: StyleFunctionProps) => ({
 				color:
-					props.colorMode === 'light'
+					colorMode === 'light'
 						? 'brand.purple.900'
 						: 'dark.coolGray',
 			}),
@@ -172,12 +160,12 @@ const components: ThemeOverride['components'] = {
 	},
 	Button: {
 		variants: {
-			purple: (props: StyleFunctionProps) => ({
+			purple: ({ colorMode }: StyleFunctionProps) => ({
 				p: '0px 16px 0px 16px',
 				fontWeight: 600,
 				fontSize: '16px',
 				bg: 'brand.purple.900',
-				color: props.colorMode === 'light' ? 'white' : 'inherit',
+				color: colorMode === 'light' ? 'white' : 'inherit',
 				transition: 'background-color 0.1s, filter 0.1s',
 
 				_hover: {
@@ -203,65 +191,62 @@ const components: ThemeOverride['components'] = {
 				},
 			},
 
-			lightpurple: (props: StyleFunctionProps) => ({
-				bg: props.colorMode === 'dark' ? 'dark.primaryGray' : 'white',
+			lightpurple: ({ colorMode }: StyleFunctionProps) => ({
+				bg: colorMode === 'dark' ? 'dark.primaryGray' : 'white',
 				_active: {
 					bg:
-						props.colorMode === 'dark'
+						colorMode === 'dark'
 							? 'dark.focusGray'
 							: 'brand.purple.910',
 					color: 'brand.purple.900',
 				},
 				_hover: {
-					bg: props.colorMode === 'dark' ? 'dark.focusGray' : 'white',
+					bg: colorMode === 'dark' ? 'dark.focusGray' : 'white',
 				},
 			}),
 
-			purpleOutlined: (props: StyleFunctionProps) => ({
+			purpleOutlined: ({ colorMode }: StyleFunctionProps) => ({
 				bg: 'linear-gradient(113.75deg, #EDC6FF 0%, #AB5AFA 100%)',
 				bgClip: 'text',
 				color:
-					props.colorMode === 'light'
-						? 'brand.purple.900'
-						: 'transparent',
+					colorMode === 'light' ? 'brand.purple.900' : 'transparent',
 				border: `1px solid ${theme.colors.brand.purple[900]}`,
 			}),
 
-			grayOutlined: (props: StyleFunctionProps) => ({
+			grayOutlined: ({ colorMode }: StyleFunctionProps) => ({
 				bg: 'none',
 				color:
-					props.colorMode === 'light'
+					colorMode === 'light'
 						? 'light.primaryGray'
 						: 'dark.coolGray',
 				border: `1px solid ${theme.colors.light.coolGray}`,
 
 				_hover: {
 					bg:
-						props.colorMode === 'light'
+						colorMode === 'light'
 							? 'light.lightGray'
 							: 'dark.secondaryGray',
 				},
 			}),
 
-			grayOutlined2: (props: StyleFunctionProps) => ({
-				bg: props.colorMode === 'light' ? 'white' : 'dark.focusGray',
-				color:
-					props.colorMode === 'light' ? 'light.primaryGray' : 'white',
+			grayOutlined2: ({ colorMode }: StyleFunctionProps) => ({
+				bg: colorMode === 'light' ? 'white' : 'dark.focusGray',
+				color: colorMode === 'light' ? 'light.primaryGray' : 'white',
 				border: `1px solid ${theme.colors.light.coolGray}`,
 			}),
 		},
 	},
 
 	Stepper: {
-		baseStyle: (props: StyleFunctionProps) => ({
+		baseStyle: ({ colorMode }: StyleFunctionProps) => ({
 			indicator: {
 				'&[data-status=complete]': {
 					bg: 'none',
 					w: '24px',
 					h: '24px',
 					border:
-						props.colorMode === 'light'
-							? `2px solid ${props.theme.colors.light.coolGray}`
+						colorMode === 'light'
+							? `2px solid ${theme.colors.light.coolGray}`
 							: 'none',
 				},
 				'&[data-status=active]': {
@@ -269,8 +254,8 @@ const components: ThemeOverride['components'] = {
 					w: '24px',
 					h: '24px',
 					border:
-						props.colorMode === 'light'
-							? `2px solid ${props.theme.colors.light.coolGray}`
+						colorMode === 'light'
+							? `2px solid ${theme.colors.light.coolGray}`
 							: 'none',
 				},
 				'&[data-status=incomplete]': {
@@ -278,7 +263,7 @@ const components: ThemeOverride['components'] = {
 					w: '24px',
 					h: '24px',
 					border:
-						props.colorMode === 'light'
+						colorMode === 'light'
 							? `2px solid ${theme.colors.light.coolGray}`
 							: 'none',
 				},
@@ -290,15 +275,15 @@ const components: ThemeOverride['components'] = {
 		}),
 
 		variants: {
-			main: (props: StyleFunctionProps) => ({
+			main: ({ colorMode }: StyleFunctionProps) => ({
 				indicator: {
 					'&[data-status=complete]': {
 						bg: 'none',
 						w: '24px',
 						h: '24px',
 						border:
-							props.colorMode === 'light'
-								? `2px solid ${props.theme.colors.light.coolGray}`
+							colorMode === 'light'
+								? `2px solid ${theme.colors.light.coolGray}`
 								: 'none',
 					},
 					'&[data-status=active]': {
@@ -306,8 +291,8 @@ const components: ThemeOverride['components'] = {
 						w: '24px',
 						h: '24px',
 						border:
-							props.colorMode === 'light'
-								? `2px solid ${props.theme.colors.light.coolGray}`
+							colorMode === 'light'
+								? `2px solid ${theme.colors.light.coolGray}`
 								: 'none',
 					},
 					'&[data-status=incomplete]': {
@@ -315,7 +300,7 @@ const components: ThemeOverride['components'] = {
 						w: '24px',
 						h: '24px',
 						border:
-							props.colorMode === 'light'
+							colorMode === 'light'
 								? `2px solid ${theme.colors.light.coolGray}`
 								: 'none',
 					},
@@ -337,7 +322,7 @@ const components: ThemeOverride['components'] = {
 				w: '100%',
 			}),
 
-			minting: (props: StyleFunctionProps) => ({
+			minting: ({ colorMode }: StyleFunctionProps) => ({
 				step: {
 					fontSize: '14px',
 					maxW: '235px',
@@ -352,14 +337,11 @@ const components: ThemeOverride['components'] = {
 
 				description: {
 					lineHeight: '20px',
-					color: props.colorMode === 'dark' && 'white',
+					color: colorMode === 'dark' && 'white',
 					w: '213px',
 				},
 				number: {
-					color:
-						props.colorMode === 'dark'
-							? 'white'
-							: 'brand.purple.900',
+					color: colorMode === 'dark' ? 'white' : 'brand.purple.900',
 					fontWeight: 700,
 				},
 				separator: {
@@ -368,7 +350,7 @@ const components: ThemeOverride['components'] = {
 				},
 			}),
 
-			progress: (props: StyleFunctionProps) => ({
+			progress: ({ colorMode }: StyleFunctionProps) => ({
 				stepper: {
 					justifyContent: 'space-between',
 				},
@@ -379,7 +361,7 @@ const components: ThemeOverride['components'] = {
 				separator: {
 					'&[data-status=complete]': {
 						bg:
-							props.colorMode === 'light'
+							colorMode === 'light'
 								? 'brand.purple.900'
 								: 'linear-gradient(113.75deg, #EDC6FF 0%, #AB5AFA 100%)',
 					},
@@ -399,7 +381,7 @@ const components: ThemeOverride['components'] = {
 				indicator: {
 					'&[data-status=complete]': {
 						bg:
-							props.colorMode === 'light'
+							colorMode === 'light'
 								? 'brand.purple.900'
 								: 'linear-gradient(113.75deg, #EDC6FF 0%, #AB5AFA 100%)',
 						border: 'none',
@@ -418,10 +400,7 @@ const components: ThemeOverride['components'] = {
 					},
 				},
 				icon: {
-					color:
-						props.colorMode === 'light'
-							? 'white'
-							: 'dark.primaryGray',
+					color: colorMode === 'light' ? 'white' : 'dark.primaryGray',
 				},
 			}),
 		},
@@ -429,23 +408,21 @@ const components: ThemeOverride['components'] = {
 
 	Link: {
 		variants: {
-			purpleDarkGradient: (props: StyleFunctionProps) => ({
+			purpleDarkGradient: ({ colorMode }: StyleFunctionProps) => ({
 				transition: 'text-decoration 0.2s',
 				color:
-					props.colorMode === 'light'
+					colorMode === 'light'
 						? 'brand.purple.900'
 						: 'brand.purple.700',
 			}),
 
-			lightGrayDarkPurple: (props: StyleFunctionProps) => ({
+			lightGrayDarkPurple: ({ colorMode }: StyleFunctionProps) => ({
 				color:
-					props.colorMode === 'light'
-						? 'light.gray'
-						: 'brand.purple.700',
+					colorMode === 'light' ? 'light.gray' : 'brand.purple.700',
 			}),
-			grayPurple: (props: StyleFunctionProps) => ({
+			grayPurple: ({ colorMode }: StyleFunctionProps) => ({
 				color:
-					props.colorMode === 'light'
+					colorMode === 'light'
 						? 'brand.purple.900'
 						: 'dark.coolGray',
 			}),
@@ -453,7 +430,7 @@ const components: ThemeOverride['components'] = {
 	},
 
 	Input: {
-		baseStyle: props => ({
+		baseStyle: ({ colorMode }: StyleFunctionProps) => ({
 			field: {
 				fontSize: '18px',
 				lineHeight: '24px',
@@ -486,22 +463,22 @@ const components: ThemeOverride['components'] = {
 	},
 
 	Modal: {
-		baseStyle: (props: StyleFunctionProps) => ({
+		baseStyle: ({ colorMode }: StyleFunctionProps) => ({
 			dialog: {
-				bg: props.colorMode === 'light' ? 'white' : 'dark.focusGray',
+				bg: colorMode === 'light' ? 'white' : 'dark.focusGray',
 			},
 		}),
 	},
 
 	Divider: {
-		baseStyle: (props: StyleFunctionProps) => ({
+		baseStyle: ({ colorMode }: StyleFunctionProps) => ({
 			opacity: 1,
 			borderColor:
-				props.colorMode === 'light' ? 'light.superLightGray' : 'white',
+				colorMode === 'light' ? 'light.superLightGray' : 'white',
 		}),
 	},
 	Table: {
-		baseStyle: (props: StyleFunctionProps) => ({
+		baseStyle: ({ colorMode }: StyleFunctionProps) => ({
 			tbody: {
 				tr: {
 					td: {
@@ -510,7 +487,7 @@ const components: ThemeOverride['components'] = {
 					'&:nth-of-type(odd)': {
 						'th, td': {
 							bg:
-								props.colorMode === 'light'
+								colorMode === 'light'
 									? 'light.lightGray'
 									: 'dark.focusGray',
 						},

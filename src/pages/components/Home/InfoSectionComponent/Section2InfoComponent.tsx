@@ -13,11 +13,11 @@ const Section2InfoComponent = () => {
 			>
 				<Stack gap='15px' maxW='567px'>
 					<Text fontSize='24px' fontWeight={700}>
-						tBTC BRIDGE
+						tBTC Bridge
 					</Text>
 					<Text>
-						The second generation of tBTC is a truly decentralized
-						bridge between Bitcoin and Ethereum.
+						tBTC is a truly decentralized bridge between Bitcoin and
+						DeFi.
 					</Text>
 					<Text>
 						It provides Bitcoin holders permissionless access to

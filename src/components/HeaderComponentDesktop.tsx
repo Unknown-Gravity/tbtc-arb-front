@@ -15,7 +15,7 @@ type Props = {
 	title: string | undefined;
 };
 
-const HeaderComponentDesktop = (props: Props) => {
+const HeaderComponentDesktop = ({ isOpen, title }: Props) => {
 	const theme = useTheme();
 	const { colorMode, toggleColorMode } = useColorMode();
 	const borderColor = theme.colors.brand.purple[940];
@@ -27,11 +27,7 @@ const HeaderComponentDesktop = (props: Props) => {
 			position='fixed'
 			top={0}
 			right={0}
-			w={
-				props.isOpen === false
-					? 'calc(100% - 37px)'
-					: 'calc(100% - 185px)'
-			}
+			w={isOpen === false ? 'calc(100% - 37px)' : 'calc(100% - 185px)'}
 			transition='width 0.2s'
 			p='10px 60px 10px 60px'
 			borderBottom={`1px solid ${borderColor}`}
@@ -46,7 +42,7 @@ const HeaderComponentDesktop = (props: Props) => {
 					lineHeight='36px'
 					variant='gray'
 				>
-					{props.title}
+					{title}
 				</Text>
 				<Flex alignItems='center' gap='10px'>
 					{colorMode === 'light' ? (

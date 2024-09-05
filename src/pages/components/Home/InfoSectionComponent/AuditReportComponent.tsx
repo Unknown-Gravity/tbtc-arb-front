@@ -1,22 +1,24 @@
 import { CustomBox } from '../../../../components/CustomBox';
 import { Stack, Text } from '@chakra-ui/react';
-import { reports } from '../../../../data/mockData';
 import DocumentBoxComponent from './DocumentBoxComponent';
+
+const reports = [
+	{
+		id: 1,
+		name: 'Least Authority Report',
+		description: 'tBTC Bridge v2 Security',
+		link: 'https://leastauthority.com/blog/audits/audit-of-keep-network-tbtc-bridge-v2/',
+	},
+];
 
 const AuditReportComponent = () => {
 	return (
-		<CustomBox
-			h={{ base: 'auto', xl: '504px' }}
-			w='100%'
-			as={Stack}
-			justifyContent='space-between'
-			p='25px'
-		>
+		<CustomBox w='100%' as={Stack} justifyContent='space-between' p='25px'>
 			<Text fontSize='24px' fontWeight={700}>
-				AUDIT REPORT
+				Audit Report
 			</Text>
 
-			<Stack gap='8px'>
+			<Stack gap='8px' mt='10px'>
 				{reports.map(report => {
 					return (
 						<DocumentBoxComponent key={report.id} report={report} />

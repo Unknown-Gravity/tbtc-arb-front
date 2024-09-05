@@ -9,22 +9,24 @@ type Props = {
 	onClick: () => void;
 };
 
-const ModalUnmintComponent = (props: Props) => {
+const ModalUnmintComponent = ({
+	isOpen,
+	onClose,
+	isUnminting,
+	onClick,
+}: Props) => {
 	return (
-		<Modal isOpen={props.isOpen} onClose={props.onClose}>
+		<Modal isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
 			<ModalContent
 				maxW='512px'
 				borderRadius='14px'
-				p={props.isUnminting ? '24px' : '20px'}
+				p={isUnminting ? '24px' : '20px'}
 			>
-				{!props.isUnminting ? (
-					<ReceiptModalUnmint
-						onClick={props.onClick}
-						onClose={props.onClose}
-					/>
+				{!isUnminting ? (
+					<ReceiptModalUnmint onClick={onClick} onClose={onClose} />
 				) : (
-					<ConfirmActionModalUnmint onClose={props.onClose} />
+					<ConfirmActionModalUnmint onClose={onClose} />
 				)}
 			</ModalContent>
 		</Modal>

@@ -12,7 +12,7 @@ type Props = {
 	onClose: () => void;
 };
 
-const ConfirmActionModalUnmint = (props: Props) => {
+const ConfirmActionModalUnmint = ({ onClose }: Props) => {
 	const logocolor = useColorModeValue('white', 'dark.primaryGray');
 	const boxcolor = useColorModeValue('brand.purple.910', 'dark.primaryGray');
 	const emptyColorValue = useColorModeValue('white', 'dark.focusGray');
@@ -20,7 +20,7 @@ const ConfirmActionModalUnmint = (props: Props) => {
 	return (
 		<Stack spacing={0}>
 			<CloseButton
-				onClick={props.onClose}
+				onClick={onClose}
 				position='absolute'
 				top='16px'
 				right='16px'

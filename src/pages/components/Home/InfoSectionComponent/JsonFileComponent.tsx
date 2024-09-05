@@ -10,12 +10,12 @@ const JsonFileComponent = () => {
 		<CustomBox
 			as={Stack}
 			maxW='100%'
-			gap='20px'
+			gap='30px'
 			p='25px'
-			h={{ base: 'auto', xl: '738px' }}
+			h={{ base: 'auto', xl: '698px' }}
 		>
 			<Text fontSize='24px' fontWeight={700} lineHeight='16px'>
-				JSON file for fund recoveries
+				JSON File for Fund Recoveries
 			</Text>
 			<Text fontSize='14px'>
 				The JSON file is important to save in case you need to recover
@@ -42,11 +42,10 @@ const JsonFileComponent = () => {
 					<UpRightIcon />
 				</Link>
 			</Text>
-			<Flex h={'100%'} alignItems='center' justifyContent='center'>
+			<Flex h={'100%'} alignItems='flex-end' justifyContent='center'>
 				<Image
 					src={colorMode === 'light' ? LightJsonImage : DarkJsonImage}
-					maxW={'256.63px'}
-					alignSelf='center'
+					maxW={'200px'}
 				/>
 			</Flex>
 		</CustomBox>

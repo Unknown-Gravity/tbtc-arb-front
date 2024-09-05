@@ -15,13 +15,13 @@ const Section1InfoComponent = () => {
 				justifyContent='space-between'
 			>
 				<InfoSection
-					title='Bridging duration'
+					title='Bridging Duration'
 					content='Your tBTC token will arrive in'
 					highlight='~ 1 to 3 hours'
-					postContent='after you initiate minting, depending on your deposited amount.'
+					postContent='after you Initiate Minting, depending on your deposited amount.'
 				/>
 				<InfoSection
-					title='Minimum deposit'
+					title='Minimum Deposit'
 					content='The minimum deposit at launch is'
 					highlight='0.01 BTC.'
 					postContent='Depositing less than the minimum can mean losing access to your funds.'

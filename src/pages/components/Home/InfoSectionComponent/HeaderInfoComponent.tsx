@@ -7,18 +7,18 @@ import LittleInfoComponent from './LittleInfoComponent';
 
 const infos = [
 	{
-		header: 'Audited Contracts',
-		body: 'Our smart contracts have undergone rigorous security audits conducted by the reputable firms Mixbytes and Cantina. We invite you to check out our app which is now fully operational and accessible.',
+		header: 'Battle-tested',
+		body: 'tBTC on Threshold has securely bridged over 11,000 BTC. tBTC smart contracts have undergone rigorous security reviews conducted by Mixbytes and Cantina. Threshold offers a $500k bug bounty program to encourage ongoing scrutiny of the protocol.',
 		icon: TbDeviceIpadHorizontalSearch,
 	},
 	{
-		header: 'A Bitcoin-backed',
-		body: 'tBTC is a decentralized, BTC-backed token with 1-1 price peg to Bitcoin. It allows holders to use Bitcoin on DeFi.',
+		header: 'Decentralized ',
+		body: 'tBTC is decentralized Threshold’s decentralized bridge to bring BTC to Decentralized Finance (DeFi) without reliance on centralized entities. It allows holders to permissionlessly use Bitcoin in DeFi. Redeemable by anyone, 1-1 for BTC.',
 		icon: BsCurrencyBitcoin,
 	},
 	{
 		header: 'Open-source',
-		body: 'tBTC is an open-source project created by Thesis and operated by the Threshold Network.',
+		body: 'tBTC is an open-source project developed by Thesis and operated by the Threshold Network.',
 		icon: FiDatabase,
 	},
 ];
@@ -32,7 +32,7 @@ const HeaderInfoComponent: FC = () => {
 			my={10}
 		>
 			<Text fontSize='40px' fontWeight={700} mb={10} textAlign='center'>
-				Trustless and Unstoppable
+				Trust-minimized and Permissionless
 			</Text>
 			<Grid
 				gridTemplateColumns={{ xl: 'repeat(3, minmax(0 ,1fr))' }}

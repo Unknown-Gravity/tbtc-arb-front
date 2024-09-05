@@ -7,9 +7,10 @@ import {
 	useColorModeValue,
 } from '@chakra-ui/react';
 import { IoMdLink } from 'react-icons/io';
-import { Contract, Report } from '../../../../data/mockData';
+import { Contract } from '../../../../interfaces/Contract.interface';
 import { BiSolidFileBlank } from 'react-icons/bi';
 import { UpRightIcon } from '../../../../assets/icons/UpRightIcon';
+import { Report } from '../../../../interfaces/Report.interface';
 
 type Props = {
 	contract?: Contract;

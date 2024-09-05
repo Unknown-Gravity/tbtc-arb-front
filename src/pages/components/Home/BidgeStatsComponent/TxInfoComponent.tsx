@@ -8,7 +8,6 @@ import {
 	useTheme,
 } from '@chakra-ui/react';
 import { formatAddress, getDifferenceInMinutes } from '../../../../utils/utils';
-import { link } from 'fs';
 
 type Props = {
 	value: number;

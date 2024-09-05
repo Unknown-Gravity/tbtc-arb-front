@@ -3,7 +3,7 @@ import { Fragment } from 'react/jsx-runtime';
 
 type Props = { onClick: () => void };
 
-const UnmintingDoneComponent = (props: Props) => {
+const UnmintingDoneComponent = ({ onClick }: Props) => {
 	return (
 		<Fragment>
 			<Text
@@ -39,7 +39,7 @@ const UnmintingDoneComponent = (props: Props) => {
 				mt='35px'
 				h='48px'
 				w='100%'
-				onClick={props.onClick}
+				onClick={onClick}
 			>
 				New Mint
 			</Button>

@@ -2,7 +2,11 @@ import { Box, Stack, Text, useColorMode } from '@chakra-ui/react';
 
 type Props = { time: number; confirmations: number; btc: string };
 
-const ConfirmationsEstimatedComponents = (props: Props) => {
+const ConfirmationsEstimatedComponents = ({
+	time,
+	confirmations,
+	btc,
+}: Props) => {
 	const { colorMode } = useColorMode();
 	return (
 		<Stack
@@ -29,7 +33,7 @@ const ConfirmationsEstimatedComponents = (props: Props) => {
 						lineHeight='32px'
 						variant='darkPurpleGradient'
 					>
-						{props.time} hour
+						{time} hour
 					</Text>
 					<Text
 						fontSize='10px'
@@ -37,13 +41,13 @@ const ConfirmationsEstimatedComponents = (props: Props) => {
 						lineHeight='16px'
 						variant='darkPurpleGradient'
 					>
-						+ {props.confirmations} confirmations
+						+ {confirmations} confirmations
 					</Text>
 				</Stack>
 			</Box>
 			<Stack alignItems='center' justifyContent='center' h='100%'>
 				<Text fontSize='24px' fontWeight={500} lineHeight='32px'>
-					{props.btc}
+					{btc}
 				</Text>
 				<Text fontSize='12px' fontWeight={400} lineHeight='16px'>
 					BTC

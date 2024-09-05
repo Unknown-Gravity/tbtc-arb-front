@@ -203,4 +203,41 @@ const reverseString = (str: string) => {
 	return interleaved;
 };
 
-export { millisecondsToTimeString, getDepositId, reverseString };
+const getBtcBlockExplorerUrl = (isMainnet: boolean, txHash: string) => {
+	return isMainnet
+		? `${process.env.REACT_APP_BTC_EXPLORER_MAINNET}/tx/${txHash}`
+		: `${process.env.REACT_APP_BTC_EXPLORER_SEPOLIA}/tx/${txHash}`;
+};
+
+const getArbBlockExplorerUrl = (isMainnet: boolean, txHash: string) => {
+	return isMainnet
+		? `${process.env.REACT_APP_ARB_EXPLORER_MAINNET}/tx/${txHash}`
+		: `${process.env.REACT_APP_ARB_EXPLORER_SEPOLIA}/tx/${txHash}`;
+};
+
+const getEthBlockExplorerUrl = (isMainnet: boolean, txHash: string) => {
+	return isMainnet
+		? `${process.env.REACT_APP_ETH_EXPLORER_MAINNET}/tx/${txHash}`
+		: `${process.env.REACT_APP_ETH_EXPLORER_SEPOLIA}/tx/${txHash}`;
+};
+
+const getBlockExplorerUrl = (
+	isMainnet: boolean,
+	txHash: string,
+	blockExplorer: string,
+) => {
+	if (blockExplorer === 'ETHERSCAN') {
+		return getEthBlockExplorerUrl(isMainnet, txHash);
+	} else if (blockExplorer === 'ARBISCAN') {
+		return getArbBlockExplorerUrl(isMainnet, txHash);
+	} else {
+		return getBtcBlockExplorerUrl(isMainnet, txHash);
+	}
+};
+
+export {
+	millisecondsToTimeString,
+	getDepositId,
+	reverseString,
+	getBlockExplorerUrl,
+};

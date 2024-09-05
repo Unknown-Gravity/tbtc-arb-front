@@ -17,7 +17,7 @@ type Props = {
 	onOpen: () => void;
 };
 
-const HeaderComponentMobile = (props: Props) => {
+const HeaderComponentMobile = ({ isOpen, onOpen }: Props) => {
 	const theme = useTheme();
 	const borderColor = theme.colors.brand.purple[900];
 	const { colorMode, toggleColorMode } = useColorMode();
@@ -41,7 +41,7 @@ const HeaderComponentMobile = (props: Props) => {
 						as={HamburgerIcon}
 						cursor='pointer'
 						p='8px'
-						onClick={props.onOpen}
+						onClick={onOpen}
 					/>
 				</Box>
 				<LogoAloneIcon color={logoColor} boxSize='25px' />

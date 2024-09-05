@@ -15,7 +15,13 @@ type Props = {
 
 const initialValue = { amount: 0, btcRecoveryAddress: '' };
 
-const Step1UnmintingProcess = (props: Props) => {
+const Step1UnmintingProcess = ({
+	onOpen,
+	onClose,
+	onClick,
+	isOpen,
+	isUnminting,
+}: Props) => {
 	const balance = useSelector(
 		(state: RootState) => state.account.tbtcBalance,
 	);
@@ -29,10 +35,10 @@ const Step1UnmintingProcess = (props: Props) => {
 	return (
 		<Box w={{ base: '100%', xl: '448px' }} mx='auto'>
 			<ModalUnmintComponent
-				isOpen={props.isOpen}
-				onClose={props.onClose}
-				isUnminting={props.isUnminting}
-				onClick={props.onClick}
+				isOpen={isOpen}
+				onClose={onClose}
+				isUnminting={isUnminting}
+				onClick={onClick}
 			/>
 			<Stack spacing='24px' mt='24px' w='100%'>
 				<Text fontSize='16px' lineHeight='28px' fontWeight={600}>
@@ -73,7 +79,7 @@ const Step1UnmintingProcess = (props: Props) => {
 					h='48px'
 					w='100%'
 					mt='26px'
-					onClick={props.onOpen}
+					onClick={onOpen}
 				>
 					Unmint
 				</Button>

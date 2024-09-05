@@ -10,7 +10,6 @@ import RenderedTransactionsComponent from './components/MyActivityComponent/Rend
 import NotRenderedTransactionsComponent from './components/MyActivityComponent/NotRenderedTransactionsComponent';
 import { getWalletTransactions } from '../../../services/tbtcServices';
 import { CustomTransaction } from '../../../interfaces/CustomTransaction.interface';
-import { useSdk } from '../../../context/SDKProvider';
 
 const loadingTransactions = [
 	<Skeleton height='50px' borderRadius='10px' />,
@@ -22,13 +21,12 @@ const loadingTransactions = [
 	<Skeleton height='50px' borderRadius='10px' />,
 ];
 
-const MyActivityComponent = (props: BasicComponentProps) => {
+const MyActivityComponent = ({ isConnected }: BasicComponentProps) => {
 	const accountInfo = useSelector((state: RootState) => state.account);
 	const [transactions, setTransactions] = useState<Array<CustomTransaction>>(
 		[],
 	);
 	const [loading, setLoading] = useState<boolean>(true);
-	const { sdk } = useSdk();
 
 	useEffect(() => {
 		const getTransactions = async () => {
@@ -64,12 +62,12 @@ const MyActivityComponent = (props: BasicComponentProps) => {
 			<Text fontSize='16px' lineHeight='16px' fontWeight='600'>
 				MY ACTIVITY
 			</Text>
-			{loading ? (
+			{isConnected && loading ? (
 				<RenderedTransactionsComponent
 					data={loadingTransactions}
 					key={1}
 				/>
-			) : !props.isConnected || transactions.length === 0 ? (
+			) : !isConnected || transactions.length === 0 ? (
 				<NotRenderedTransactionsComponent />
 			) : (
 				<RenderedTransactionsComponent

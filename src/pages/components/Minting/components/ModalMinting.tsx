@@ -20,10 +20,10 @@ type Props = {
 	goBack: () => void;
 };
 
-const ModalMinting = (props: Props) => {
+const ModalMinting = ({ isOpen, onClose, goBack }: Props) => {
 	const { colorMode } = useColorMode();
 	return (
-		<Modal isOpen={props.isOpen} onClose={props.onClose}>
+		<Modal isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
 			<ModalContent maxW='512px' h='685px' borderRadius='14px' p='20px'>
 				<Stack gap='10px'>
@@ -35,7 +35,7 @@ const ModalMinting = (props: Props) => {
 						>
 							Take Note
 						</Text>
-						<CloseButton onClick={props.onClose} />
+						<CloseButton onClick={onClose} />
 					</Flex>
 					<Stack
 						p='24px'
@@ -102,10 +102,10 @@ const ModalMinting = (props: Props) => {
 					/>
 				</Stack>
 				<Flex mt='24px' gap='12px' justifyContent='flex-end'>
-					<Button variant='grayOutlined' onClick={props.goBack}>
+					<Button variant='grayOutlined' onClick={goBack}>
 						Generate New Address
 					</Button>
-					<Button variant='purple' onClick={props.onClose}>
+					<Button variant='purple' onClick={onClose}>
 						Dismiss
 					</Button>
 				</Flex>

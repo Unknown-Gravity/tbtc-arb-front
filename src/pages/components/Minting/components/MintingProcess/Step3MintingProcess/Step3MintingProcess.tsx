@@ -15,8 +15,8 @@ import { Deposit } from '@keep-network/tbtc-v2.ts';
 type Props = { setStep: Dispatch<SetStateAction<number>> };
 
 const initialMsg = {
-	header: 'Waiting for the Bitcoin Network confirmations',
-	body: 'Your Bitcoin deposit transaction requires 6 confirmations on the Bitcoin network before initiating the minting process.',
+	header: 'Waiting for the initialization of the deposit',
+	body: 'The deposit is being initialized. This process can take a few minutes.',
 	transaction: {
 		label: 'blockstream',
 		link: 'https://blockstream.info/testnet/tx/',

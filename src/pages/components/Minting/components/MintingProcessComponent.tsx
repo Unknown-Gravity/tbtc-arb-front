@@ -10,13 +10,34 @@ import ConnectButton from '../../../../components/ConnectButton';
 import { currencyFormatter } from '../../../../utils/utils';
 import BTCtoCurrencyComponent from '../../../../components/BTCtoCurrencycomponent';
 import TransactionMinting from './TransactionMinting';
-import { transactionsMint } from '../../../../data/mockData';
+import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
+import { useEffect, useState } from 'react';
+import { getTbtcTransactions } from '../../../../services/tbtcServices';
+import { fetchTbtcSupply } from '../../../../services/fetchServices';
 
 const MintingProcessComponent = () => {
 	const bgGradient = useColorModeValue(
 		'linear-gradient(to top, white, transparent)',
 		`linear-gradient(to top, #1D2229, transparent)`,
 	);
+	const [transactions, setTransactions] = useState<any[]>([]);
+	const [supply, setSupply] = useState<number>(0);
+	const { isConnected, chainId } = useWeb3ModalAccount();
+	const isMainnet =
+		isConnected && chainId === process.env.REACT_APP_MAINNET_CHAINID;
+
+	useEffect(() => {
+		const getTransactions = async () => {
+			const response = await getTbtcTransactions(isMainnet);
+			setTransactions(response.slice(0, 3));
+		};
+		const getTbtcSupply = async () => {
+			const response = await fetchTbtcSupply();
+			setSupply(response);
+		};
+		getTbtcSupply();
+		getTransactions();
+	}, [isMainnet]);
 	return (
 		<Box w={{ base: 'auto', xl: '470px' }}>
 			<Text
@@ -40,7 +61,7 @@ const MintingProcessComponent = () => {
 					textAlign='center'
 					mt='6px'
 				>
-					{currencyFormatter(3342.22, 'USD', 'none')}
+					{currencyFormatter(supply, 'USD', 'none')}
 					<Text
 						as='span'
 						fontSize='24px'
@@ -51,14 +72,14 @@ const MintingProcessComponent = () => {
 						tBTC
 					</Text>
 				</Text>
-				<BTCtoCurrencyComponent btcAmount={3342.22} currency='USD' />
+				<BTCtoCurrencyComponent btcAmount={supply} currency='USD' />
 			</Stack>
 			<Box position='relative'>
 				<Text mt='32px' fontSize='15px'>
 					Protocol History
 				</Text>
 				<Stack mt='12px'>
-					{transactionsMint.map((tx, index) => {
+					{transactions.map((tx, index) => {
 						return (
 							<TransactionMinting key={index} transaction={tx} />
 						);
