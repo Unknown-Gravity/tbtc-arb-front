@@ -34,6 +34,7 @@ const getUrlHeader = (isMainnet: boolean, blockExplorer: string) => {
 	const arbiscanApiExplorer = isMainnet
 		? process.env.REACT_APP_ARBISCAN_API_URL_MAINNET
 		: process.env.REACT_APP_ARBISCAN_API_URL_SEPOLIA;
+
 	return blockExplorer === 'ETHERSCAN'
 		? etherscanApiExplorer
 		: arbiscanApiExplorer;
@@ -47,6 +48,7 @@ const getUrlTxHeader = (isMainnet: boolean, blockExplorer: string) => {
 	const arbiscanExplorer = isMainnet
 		? process.env.REACT_APP_ARB_EXPLORER_MAINNET
 		: process.env.REACT_APP_ARB_EXPLORER_TESTNET;
+
 	return blockExplorer === 'ETHERSCAN' ? etherscanExplorer : arbiscanExplorer;
 };
 
