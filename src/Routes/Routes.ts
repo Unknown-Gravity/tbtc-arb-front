@@ -65,7 +65,7 @@ export const externalLinks: Array<LinkType> = [
 
 export const connectWithUsLinks: Array<LinkType> = [
 	{
-		title: 'Dao Forum',
+		title: 'DAO Forum',
 		link: ExternalRoutes.Forum,
 	},
 	{

@@ -14,7 +14,7 @@ type Props = {
 	onClose: () => void;
 };
 
-const ReceiptModalUnmint = (props: Props) => {
+const ReceiptModalUnmint = ({ onClick, onClose }: Props) => {
 	const boxcolor = useColorModeValue('brand.purple.910', 'dark.primaryGray');
 	const borderColor = useColorModeValue(
 		'light.superLightGray',
@@ -100,10 +100,10 @@ const ReceiptModalUnmint = (props: Props) => {
 				<Divider opacity={1} borderColor={borderColor} />
 			</Stack>
 			<Flex mt='24px' gap='12px' justifyContent='flex-end'>
-				<Button variant='grayOutlined2' onClick={props.onClose}>
+				<Button variant='grayOutlined2' onClick={onClose}>
 					Cancel
 				</Button>
-				<Button variant='purple' onClick={props.onClick}>
+				<Button variant='purple' onClick={onClick}>
 					Unmint
 				</Button>
 			</Flex>

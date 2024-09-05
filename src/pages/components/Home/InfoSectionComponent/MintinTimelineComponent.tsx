@@ -19,7 +19,7 @@ const MintinTimelineComponent = () => {
 	};
 
 	return (
-		<CustomBox w='100%' fontSize='14px' h={{ xl: '993px' }} p='25px'>
+		<CustomBox w='100%' fontSize='14px' h={{ xl: '1177px' }} p='25px'>
 			<Text fontSize='24px' fontWeight={700} lineHeight='16px' mb='16px'>
 				Bridging duration
 			</Text>
@@ -31,7 +31,7 @@ const MintinTimelineComponent = () => {
 				w={{ base: '100%', xl: '502px' }}
 				variant='main'
 			>
-				<StepContent stepNumber={1} title='PROVIDE A DEPOSIT ADDRESS'>
+				<StepContent stepNumber={1} title='Provide a Deposit Address'>
 					<Text lineHeight='24px'>
 						Provide an ETH address and a BTC Return address to
 						generate a unique BTC deposit address.
@@ -42,7 +42,7 @@ const MintinTimelineComponent = () => {
 					</Link>
 				</StepContent>
 
-				<Stack w='100%' gap='16px' fontSize='16px'>
+				<Stack w='100%' gap='35px' fontSize='16px'>
 					<Text {...addressBoxStyle}>ETH Address</Text>
 					<BulletPoint>
 						This is where your tBTC (ERC20) will be sent after
@@ -88,12 +88,12 @@ const MintinTimelineComponent = () => {
 					</BulletPoint>
 				</Stack>
 
-				<StepContent stepNumber={2} title='Make a BTC deposit'>
+				<StepContent stepNumber={2} title='Make a BTC Deposit'>
 					Send any amount larger than 0.01 BTC to this unique BTC
 					Deposit Address. The amount sent will be used to mint tBTC.
 				</StepContent>
 
-				<StepContent stepNumber={3} title='Initiate minting'>
+				<StepContent stepNumber={3} title='Initiate Minting'>
 					Minting tBTC does not require you to wait for the Bitcoin
 					confirmations. Sign an Ethereum transaction in your wallet
 					and your tBTC will arrive in around 1 to 3 hours.

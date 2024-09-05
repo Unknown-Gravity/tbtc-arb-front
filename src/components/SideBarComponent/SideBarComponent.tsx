@@ -31,7 +31,7 @@ type Props = {
 	path: string;
 };
 
-const SideBarComponent = (props: Props) => {
+const SideBarComponent = ({ isOpen, onOpen, path }: Props) => {
 	const [sideBarWidth, setSideBarWidth] = useState('');
 	const [hasAnimated, setHasAnimated] = useState(false);
 	const navigate = useNavigate();
@@ -40,15 +40,15 @@ const SideBarComponent = (props: Props) => {
 	const sidebarBG = useColorModeValue('white', 'dark.primaryGray');
 	const logoColor = useColorModeValue('brand.purple.900', 'white');
 	const handleClick = () => {
-		props.onOpen();
+		onOpen();
 	};
 
 	useEffect(() => {
-		props.isOpen ? setSideBarWidth('200px') : setSideBarWidth('57px');
+		isOpen ? setSideBarWidth('200px') : setSideBarWidth('57px');
 		if (!hasAnimated) {
 			setHasAnimated(true);
 		}
-	}, [hasAnimated, props.isOpen]);
+	}, [hasAnimated, isOpen]);
 
 	return (
 		<Stack
@@ -79,24 +79,24 @@ const SideBarComponent = (props: Props) => {
 					right={0}
 					top='40px'
 					transform={`translateX(50%) ${
-						props.isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+						isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
 					}`}
 					boxSize='20px'
 					transition='transform 0.1s ease'
 					_hover={{
 						transform: `translateX(50%) scale(1.1) ${
-							props.isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+							isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
 						}`,
 					}}
 					_active={{
 						transform: `translateX(50%) scale(1) ${
-							props.isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+							isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
 						}`,
 					}}
 					zIndex={1000}
 					onClick={handleClick}
 				/>
-				{!props.isOpen && !hasAnimated && (
+				{!isOpen && !hasAnimated && (
 					<MotionBox
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
@@ -110,7 +110,7 @@ const SideBarComponent = (props: Props) => {
 						/>
 					</MotionBox>
 				)}
-				{!props.isOpen && hasAnimated && (
+				{!isOpen && hasAnimated && (
 					<Box>
 						<LogoAloneIcon
 							color={logoColor}
@@ -119,7 +119,7 @@ const SideBarComponent = (props: Props) => {
 						/>
 					</Box>
 				)}
-				{props.isOpen && !hasAnimated && (
+				{isOpen && !hasAnimated && (
 					<MotionBox
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
@@ -130,7 +130,7 @@ const SideBarComponent = (props: Props) => {
 						<LogoIcon color={logoColor} boxSize='121px' h='37px' />
 					</MotionBox>
 				)}
-				{props.isOpen && hasAnimated && (
+				{isOpen && hasAnimated && (
 					<MotionBox
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
@@ -148,9 +148,9 @@ const SideBarComponent = (props: Props) => {
 							<IconSideBar
 								key={index}
 								icon={link.icon ?? Icon}
-								isOpen={props.isOpen}
+								isOpen={isOpen}
 								text={link.title}
-								filled={props.path === link.link}
+								filled={path === link.link}
 								onClick={() => navigate(`/${link.link}`)}
 							/>
 						);
@@ -160,13 +160,13 @@ const SideBarComponent = (props: Props) => {
 			<Stack>
 				<IconSideBar
 					icon={GitHubIcon}
-					isOpen={props.isOpen}
+					isOpen={isOpen}
 					text='GitHub'
 					link={ExternalRoutes.Github}
 				/>
 				<IconSideBar
 					icon={DiscorIcon}
-					isOpen={props.isOpen}
+					isOpen={isOpen}
 					text='Discord'
 					link={ExternalRoutes.Discord}
 				/>

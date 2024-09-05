@@ -7,16 +7,13 @@ type Props = {
 	onOpen: () => void;
 	isMobile: boolean;
 };
-const HeaderComponent = (props: Props) => {
+const HeaderComponent = ({ title, isOpen, onOpen, isMobile }: Props) => {
 	return (
 		<>
-			{props.isMobile ? (
-				<HeaderComponentDesktop isOpen={props.isOpen} title={props.title} />
+			{isMobile ? (
+				<HeaderComponentDesktop isOpen={isOpen} title={title} />
 			) : (
-				<HeaderComponentMobile
-					isOpen={props.isOpen}
-					onOpen={props.onOpen}
-				/>
+				<HeaderComponentMobile isOpen={isOpen} onOpen={onOpen} />
 			)}
 		</>
 	);

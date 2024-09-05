@@ -28,7 +28,6 @@ const InfoSectionComponent: FC = () => {
 					gap={4}
 				>
 					<MintinTimelineComponent />
-					<ContractsSectionComponent />
 				</Stack>
 				<Stack
 					alignItems='center'
@@ -37,6 +36,7 @@ const InfoSectionComponent: FC = () => {
 				>
 					<JsonFileComponent />
 					<AuditReportComponent />
+					<ContractsSectionComponent />
 				</Stack>
 			</Flex>
 		</Stack>

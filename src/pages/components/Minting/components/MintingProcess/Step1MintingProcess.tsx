@@ -49,7 +49,7 @@ const Step1MintingProcess = ({
 			<Stack spacing='24px' mt='24px'>
 				<Text fontSize='16px' lineHeight='28px' fontWeight={600}>
 					<Text variant='purpleDarkGradient' as={'span'}>
-						STEP 1
+						STEP 1{' '}
 					</Text>
 					- PROVIDE DATA
 				</Text>

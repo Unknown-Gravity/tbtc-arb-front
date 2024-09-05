@@ -13,24 +13,24 @@ type Props = {
 	link: string;
 };
 
-const IconJoincomponent = (props: Props) => {
+const IconJoincomponent = ({ label, icon, link }: Props) => {
 	return (
 		<Stack
 			alignItems='center'
 			as={Link}
-			href={props.link}
+			href={link}
 			isExternal={true}
 			role='group'
 		>
 			<Icon
-				as={props.icon}
+				as={icon}
 				color='brand.purple.900'
 				boxSize='41px'
 				transition='filter 0.2'
 				_groupHover={{ filter: 'brightness(1.25)' }}
 			/>
 			<Text fontSize='13.9' lineHeight='21px' fontWeight={700}>
-				{props.label}
+				{label}
 			</Text>
 		</Stack>
 	);

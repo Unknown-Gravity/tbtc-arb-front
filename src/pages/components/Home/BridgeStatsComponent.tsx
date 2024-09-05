@@ -12,8 +12,10 @@ import { currencyFormatter } from '../../../utils/utils';
 import BTCtoCurrencyComponent from '../../../components/BTCtoCurrencycomponent';
 import TxInfoComponent from './BidgeStatsComponent/TxInfoComponent';
 import { getTbtcTransactions } from '../../../services/tbtcServices';
+import { fetchTbtcSupply } from '../../../services/fetchServices';
 
 const BridgeStatsComponent: FC = () => {
+	const [tbtcSupply, setTbtcSupply] = useState<number>(0);
 	const [tbtcTransactions, setTbtcTransactions] = useState<Array<any>>([]);
 	useEffect(() => {
 		const getTransactions = async () => {
@@ -22,6 +24,12 @@ const BridgeStatsComponent: FC = () => {
 				transactions2.sort((a, b) => b.timeStamp - a.timeStamp),
 			);
 		};
+
+		const getTbtcSupply = async () => {
+			const supply = await fetchTbtcSupply();
+			setTbtcSupply(supply);
+		};
+		getTbtcSupply();
 		getTransactions();
 	}, []);
 	const { colorMode } = useColorMode();
@@ -38,13 +46,13 @@ const BridgeStatsComponent: FC = () => {
 
 					<Stack alignItems='center' spacing={0}>
 						<Text fontSize='54px' fontWeight={700}>
-							{currencyFormatter(3355.58, 'USD', 'none')}{' '}
+							{currencyFormatter(tbtcSupply, 'USD', 'none')}{' '}
 							<Box as='span' fontSize='20px' fontWeight={400}>
 								tBTC
 							</Box>
 						</Text>
 						<BTCtoCurrencyComponent
-							btcAmount={3355.85}
+							btcAmount={tbtcSupply}
 							currency='USD'
 							variant='gray'
 						/>
@@ -78,28 +86,6 @@ const BridgeStatsComponent: FC = () => {
 								);
 							})}
 					</Grid>
-				</Stack>
-			</CustomBox>
-			<CustomBox minW={{ base: '100%', xl: '1134px' }} mx='auto'>
-				{' '}
-				<Stack alignItems='center' spacing={0}>
-					<Text fontSize='14px' fontWeight={700} variant='gray'>
-						TOTAL TVL (BTC)
-					</Text>
-
-					<Stack alignItems='center' spacing={0}>
-						<Text fontSize='54px' fontWeight={700}>
-							{currencyFormatter(3355.58, 'USD', 'none')}{' '}
-							<Box as='span' fontSize='20px' fontWeight={400}>
-								tBTC
-							</Box>
-						</Text>
-						<BTCtoCurrencyComponent
-							btcAmount={3355.85}
-							currency='USD'
-							variant='grayPurpleGradient'
-						/>
-					</Stack>
 				</Stack>
 			</CustomBox>
 		</Stack>

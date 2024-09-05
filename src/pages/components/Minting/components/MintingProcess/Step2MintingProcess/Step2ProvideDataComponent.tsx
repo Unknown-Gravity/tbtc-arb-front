@@ -42,7 +42,7 @@ const cardsInfo = [
 	},
 ];
 
-const Step2ProvideDataComponent = (props: Props) => {
+const Step2ProvideDataComponent = ({ onClick, btcRecoveryAddress }: Props) => {
 	const { address } = useWeb3ModalAccount();
 	const { colorMode } = useColorMode();
 	const theme = useTheme();
@@ -53,9 +53,8 @@ const Step2ProvideDataComponent = (props: Props) => {
 		'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
 	);
 	const { onCopy: onCopyEthAddress } = useClipboard(address || '');
-	const { onCopy: onCopybtcRecoveryAddress } = useClipboard(
-		props.btcRecoveryAddress,
-	);
+	const { onCopy: onCopybtcRecoveryAddress } =
+		useClipboard(btcRecoveryAddress);
 
 	return (
 		<Box maxW='448.28px'>
@@ -198,7 +197,7 @@ const Step2ProvideDataComponent = (props: Props) => {
 					</Box>
 					<Flex gap='9px'>
 						<Text variant='grayPurple' textDecor='underline'>
-							{formatAddress(props.btcRecoveryAddress)}
+							{formatAddress(btcRecoveryAddress)}
 						</Text>
 						<Icon
 							as={TbCopy}
@@ -226,7 +225,7 @@ const Step2ProvideDataComponent = (props: Props) => {
 					variant='purple'
 					h='48px'
 					fontSize='18px'
-					onClick={() => props.onClick(3)}
+					onClick={() => onClick(3)}
 				>
 					I sent the BTC
 				</Button>

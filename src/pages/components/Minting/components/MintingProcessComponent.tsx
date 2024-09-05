@@ -10,13 +10,28 @@ import ConnectButton from '../../../../components/ConnectButton';
 import { currencyFormatter } from '../../../../utils/utils';
 import BTCtoCurrencyComponent from '../../../../components/BTCtoCurrencycomponent';
 import TransactionMinting from './TransactionMinting';
-import { transactionsMint } from '../../../../data/mockData';
+import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
+import { useEffect, useState } from 'react';
+import { getTbtcTransactions } from '../../../../services/tbtcServices';
 
 const MintingProcessComponent = () => {
 	const bgGradient = useColorModeValue(
 		'linear-gradient(to top, white, transparent)',
 		`linear-gradient(to top, #1D2229, transparent)`,
 	);
+	const [transactions, setTransactions] = useState<any[]>([]);
+	const { isConnected, chainId } = useWeb3ModalAccount();
+	const isMainnet =
+		isConnected && chainId === process.env.REACT_APP_MAINNET_CHAINID;
+
+	useEffect(() => {
+		const getTransactions = async () => {
+			const response = await getTbtcTransactions(isMainnet);
+			setTransactions(response.slice(0, 3));
+		};
+		getTransactions();
+	}, [isMainnet]);
+	console.log('🚀 ~ MintingProcessComponent ~ transactions:', transactions);
 	return (
 		<Box w={{ base: 'auto', xl: '470px' }}>
 			<Text
@@ -58,7 +73,7 @@ const MintingProcessComponent = () => {
 					Protocol History
 				</Text>
 				<Stack mt='12px'>
-					{transactionsMint.map((tx, index) => {
+					{transactions.map((tx, index) => {
 						return (
 							<TransactionMinting key={index} transaction={tx} />
 						);

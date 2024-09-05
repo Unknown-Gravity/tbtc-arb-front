@@ -1,6 +1,7 @@
 import { Box, BoxProps, useColorMode } from '@chakra-ui/react';
 
 export const CustomBox = (props: BoxProps) => {
+	const { bg, p } = props;
 	const { colorMode } = useColorMode();
 
 	return (
@@ -8,11 +9,8 @@ export const CustomBox = (props: BoxProps) => {
 			{...props}
 			borderRadius='14px'
 			boxShadow={colorMode === 'light' ? '0px 0px 7px #00000025' : 'none'}
-			bg={
-				props.bg ||
-				(colorMode === 'light' ? 'white' : 'dark.primaryGray')
-			}
-			p={props.p || 5}
+			bg={bg || (colorMode === 'light' ? 'white' : 'dark.primaryGray')}
+			p={p || 5}
 		></Box>
 	);
 };

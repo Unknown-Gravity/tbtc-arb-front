@@ -8,24 +8,24 @@ type Props = {
 	isMobile: boolean;
 };
 
-const SideBarMenu = (props: Props) => {
+const SideBarMenu = ({ isOpen, onOpen, onClose, isMobile }: Props) => {
 	const path = window.location.pathname.slice(1);
 
 	const handleOpen = () => {
-		props.isOpen ? props.onClose() : props.onOpen();
+		isOpen ? onClose() : onOpen();
 	};
 	return (
 		<>
-			{props.isMobile ? (
+			{isMobile ? (
 				<SideBarComponent
-					isOpen={props.isOpen}
+					isOpen={isOpen}
 					onOpen={handleOpen}
 					path={path}
 				/>
 			) : (
 				<DrawerComponent
-					onClose={props.onClose}
-					isOpen={props.isOpen}
+					onClose={onClose}
+					isOpen={isOpen}
 					path={path}
 				/>
 			)}

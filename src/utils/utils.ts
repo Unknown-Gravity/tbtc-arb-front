@@ -203,4 +203,41 @@ const reverseString = (str: string) => {
 	return interleaved;
 };
 
-export { millisecondsToTimeString, getDepositId, reverseString };
+const getBtcBlockExplorerUrl = (isMainnet: boolean, txHash: string) => {
+	return isMainnet
+		? `https://blockstream.info/tx/${txHash}`
+		: `https://blockstream.info/testnet/tx/${txHash}`;
+};
+
+const getArbBlockExplorerUrl = (isMainnet: boolean, txHash: string) => {
+	return isMainnet
+		? `https://arbiscan.io/tx/${txHash}`
+		: `https://sepolia.arbiscan.io/tx/${txHash}`;
+};
+
+const getEthBlockExplorerUrl = (isMainnet: boolean, txHash: string) => {
+	return isMainnet
+		? `https://etherscan.io/tx/${txHash}`
+		: `https://sepolia.etherscan.io/tx/${txHash}`;
+};
+
+const getBlockExplorerUrl = (
+	isMainnet: boolean,
+	txHash: string,
+	blockExplorer: string,
+) => {
+	if (blockExplorer === 'ETHERSCAN') {
+		return getEthBlockExplorerUrl(isMainnet, txHash);
+	} else if (blockExplorer === 'ARBISCAN') {
+		return getArbBlockExplorerUrl(isMainnet, txHash);
+	} else {
+		return getBtcBlockExplorerUrl(isMainnet, txHash);
+	}
+};
+
+export {
+	millisecondsToTimeString,
+	getDepositId,
+	reverseString,
+	getBlockExplorerUrl,
+};

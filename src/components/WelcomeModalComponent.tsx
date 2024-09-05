@@ -69,7 +69,7 @@ const WelcomeModalComponent = (props: Props) => {
 									header='BRIDGING DURATION'
 									info1='Your tBTC token will arrive in'
 									purpleInfo='~ 1 to 3 hours'
-									info2='after you initiate minting, depending on your deposited amount.'
+									info2='after you Initiate Minting, depending on your deposited amount.'
 								/>
 								<InfoWelcomeModalComponent
 									header='MINIMUM DEPOSIT'

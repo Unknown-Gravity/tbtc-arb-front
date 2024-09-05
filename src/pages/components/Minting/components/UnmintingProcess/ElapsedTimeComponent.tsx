@@ -14,7 +14,7 @@ import TransactionCompletedImage from '../../../../../assets/icons/TransactionCo
 
 type Props = { isSent: boolean };
 
-const ElapsedTimeComponent = (props: Props) => {
+const ElapsedTimeComponent = ({ isSent }: Props) => {
 	const bgColor = 'linear-gradient(122.36deg, #B62CFF 0%, #7D00FF 100%)';
 	const iconBgcolor = useColorModeValue('white', 'dark.primaryGray');
 	const [ellapsedTime, setEllapsedTime] = useState(
@@ -83,7 +83,7 @@ const ElapsedTimeComponent = (props: Props) => {
 					</Text>
 				</Stack>
 			</Box>
-			{!props.isSent ? (
+			{!isSent ? (
 				<SideInformationComponent
 					header='Minters and a secure tBTC'
 					body='A phased approach with one main function: Minters'

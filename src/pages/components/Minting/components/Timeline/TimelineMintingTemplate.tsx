@@ -7,7 +7,7 @@ type Props = {
 	unmint?: boolean;
 };
 
-const TimelineTemplate = (props: Props) => {
+const TimelineTemplate = ({ step, label, children, unmint }: Props) => {
 	const theme = useTheme();
 	const borderColor = theme.colors.brand.purple[900];
 	const { colorMode } = useColorMode();
@@ -18,13 +18,13 @@ const TimelineTemplate = (props: Props) => {
 				lineHeight='16px'
 				fontWeight={600}
 				mb='15px'
-				px={props.unmint ? 0 : '20px'}
+				px={unmint ? 0 : '20px'}
 			>
 				TIMELINE
 			</Text>
 			<Stack
 				spacing='15px'
-				p={props.unmint ? '2px 0px 2px 15px' : '2px 18px 15px 18px'}
+				p={unmint ? '2px 0px 2px 15px' : '2px 18px 15px 18px'}
 				borderLeft={`5px solid ${borderColor}`}
 			>
 				<Text
@@ -33,9 +33,9 @@ const TimelineTemplate = (props: Props) => {
 					fontWeight={500}
 					lineHeight='16px'
 				>
-					STEP {props.step}
+					STEP {step}
 				</Text>
-				{props.unmint && (
+				{unmint && (
 					<>
 						<Box
 							bg={
@@ -78,9 +78,9 @@ const TimelineTemplate = (props: Props) => {
 					</>
 				)}
 				<Text fontSize='14px' lineHeight='16px' fontWeight={600}>
-					{props.label}
+					{label}
 				</Text>
-				{props.children}
+				{children}
 			</Stack>
 		</Box>
 	);

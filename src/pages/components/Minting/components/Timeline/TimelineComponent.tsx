@@ -46,7 +46,7 @@ const TimelineComponent = () => {
 					</StepIndicator>
 					<Box maxW='213px'>
 						<StepTitle>
-							<Text w='203px'>PROVIDE A DEPOSIT ADDRESS</Text>
+							<Text w='203px'>Provide a Deposit Address</Text>
 						</StepTitle>
 						<StepDescription>
 							Provide an ETH address and a BTC Return address to
@@ -66,7 +66,7 @@ const TimelineComponent = () => {
 					</StepIndicator>
 					<Box maxW='213px'>
 						<StepTitle>
-							<Text w='203px'>MAKE A BTC DEPOSIT</Text>
+							<Text w='203px'>Make a BTC Deposit</Text>
 						</StepTitle>
 					</Box>
 					<StepSeparator />
@@ -81,7 +81,7 @@ const TimelineComponent = () => {
 					</StepIndicator>
 					<Box maxW='213px'>
 						<StepTitle>
-							<Text w='203px'>INITIATE MINTING</Text>
+							<Text w='203px'>Initiate Minting</Text>
 						</StepTitle>
 					</Box>
 					<StepSeparator />

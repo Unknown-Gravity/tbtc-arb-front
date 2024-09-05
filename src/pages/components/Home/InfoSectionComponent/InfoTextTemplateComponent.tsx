@@ -7,19 +7,19 @@ type Props = {
 	flexDir?: FlexProps['flexDirection'];
 };
 
-const InfoTextTemplateComponent = (props: Props) => {
+const InfoTextTemplateComponent = ({ title, children, flexDir }: Props) => {
 	return (
 		<Stack gap='15px'>
 			<Text fontSize='24px' fontWeight={700}>
-				{props.title}
+				{title}
 			</Text>
 			<Flex
 				color={'brand.purple.900'}
 				alignItems='center'
 				gap={2}
-				flexDir={props.flexDir}
+				flexDir={flexDir}
 			>
-				{props.children}
+				{children}
 			</Flex>
 		</Stack>
 	);

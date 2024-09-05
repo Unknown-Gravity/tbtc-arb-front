@@ -12,7 +12,7 @@ import {
 
 type Props = { header: string; body: string };
 
-const SideInformationComponent = (props: Props) => {
+const SideInformationComponent = ({ header, body }: Props) => {
 	const theme = useTheme();
 	const image = useColorModeValue(
 		LightTransactionBoxImage,
@@ -41,7 +41,7 @@ const SideInformationComponent = (props: Props) => {
 				fontSize='18px'
 				lineHeight='26px'
 			>
-				{props.header}
+				{header}
 			</Text>
 			<Text
 				color='white'
@@ -49,7 +49,7 @@ const SideInformationComponent = (props: Props) => {
 				lineHeight='20px'
 				fontWeight={400}
 			>
-				{props.body}
+				{body}
 			</Text>
 		</Stack>
 	);

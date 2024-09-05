@@ -10,8 +10,7 @@ import {
 import { CustomBox } from '../../../components/CustomBox';
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../types/RootState';
+import { useDispatch } from 'react-redux';
 import HeaderStepsMintingComponent from './components/MintingProcess/HeaderStepsMintingComponent';
 import ModalMinting from './components/ModalMinting';
 import Step1MintingProcess from './components/MintingProcess/Step1MintingProcess';
@@ -52,8 +51,6 @@ const MintComponent = ({
 		useState<boolean>(false);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { address } = useWeb3ModalAccount();
-	const deposit = useSelector((state: RootState) => state.deposit);
-	const btcTxHash = deposit.utxo?.transactionHash.toString();
 
 	const dispatch = useDispatch();
 
@@ -170,7 +167,7 @@ const MintComponent = ({
 				{!isConnected && <TimelineComponent />}
 				{isConnected && step === 1 && (
 					<TimeLineTemplate
-						label='PROVIDE A DEPOSIT ADDRESS'
+						label='Provide a Deposit Address'
 						step={1}
 					>
 						<Text
@@ -195,7 +192,7 @@ const MintComponent = ({
 					</TimeLineTemplate>
 				)}
 				{isConnected && step === 2 && (
-					<TimeLineTemplate step={2} label='MAKE A BTC DEPOSIT'>
+					<TimeLineTemplate step={2} label='Make a BTC Deposit'>
 						<Text fontSize='14px'>
 							Send any amount larger than 0.01 BTC to this unique
 							BTC Deposit Address. The amount sent will be used to
@@ -203,9 +200,7 @@ const MintComponent = ({
 						</Text>
 					</TimeLineTemplate>
 				)}
-				{isConnected && step === 3 && (
-					<TransactionHistory btcTxHash={btcTxHash} />
-				)}
+				{isConnected && step === 3 && <TransactionHistory />}
 			</Flex>
 		</CustomBox>
 	);

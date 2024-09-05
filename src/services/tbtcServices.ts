@@ -9,13 +9,45 @@ import {
 } from '@keep-network/tbtc-v2.ts';
 const { BTCUtils, utils } = require('@summa-tx/bitcoin-spv-js');
 
+const getContractAddress = (isMainnet: boolean, contract: string) => {
+	return isMainnet
+		? contract === 'TBTC'
+			? process.env.REACT_APP_TBTC_MAINNET
+			: contract === 'L1BITCOIN'
+			? process.env.REACT_APP_L1BITCOIN_MAINNET
+			: process.env.REACT_APP_L2BITCOIN_MAINNET
+		: contract === 'TBTC'
+		? process.env.REACT_APP_TBTC_TESTNET
+		: contract === 'L1BITCOIN'
+		? process.env.REACT_APP_L1BITCOIN_SEPOLIA
+		: process.env.REACT_APP_L2BITCOIN_SEPOLIA;
+};
+
+const getUrlHeader = (isMainnet: boolean, blockExplorer: string) => {
+	return isMainnet
+		? blockExplorer === 'ETHERSCAN'
+			? 'https://api.etherscan.io'
+			: 'https://api.arbiscan.io'
+		: blockExplorer === 'ETHERSCAN'
+		? 'https://api-sepolia.etherscan.io'
+		: 'https://api-sepolia.arbiscan.io';
+};
+
+const getUrlTxHeader = (isMainnet: boolean, blockExplorer: string) => {
+	return isMainnet
+		? blockExplorer === 'ETHERSCAN'
+			? 'https://etherscan.io/tx'
+			: 'https://arbiscan.io/tx'
+		: blockExplorer === 'ETHERSCAN'
+		? 'https://sepolia.etherscan.io/tx'
+		: 'https://sepolia.arbiscan.io/tx';
+};
+
 const initializeTbtcContract = (
 	isMainnet: boolean,
 	providerOrSigner: ethers.Signer | ethers.providers.Web3Provider,
 ) => {
-	const tbtcAddress = isMainnet
-		? process.env.REACT_APP_TBTC_MAINNET
-		: process.env.REACT_APP_TBTC_TESTNET;
+	const tbtcAddress = getContractAddress(isMainnet, 'TBTC');
 
 	if (!tbtcAddress) return null;
 	return new ethers.Contract(tbtcAddress, tbtcContractABI, providerOrSigner);
@@ -71,21 +103,16 @@ export const checkTransactionExist = async (
 	fundingTx: any,
 	address: string,
 ) => {
-	// Obtener las transacciones
 	const arbTransactions = await getArbTransactionsByAddress(false, address);
 	const { result } = arbTransactions.data;
 
-	// Buscar la transacción que coincida
-	const matchingTransaction = result.find((transaction: any) => {
+	return result.find((transaction: any) => {
 		const decodedInput = decodeInputData(transaction);
 		return (
 			decodedInput &&
 			checkTransactionCoindiceFundingVectors(fundingTx, decodedInput)
 		);
 	});
-
-	// Retornar la transacción coincidente o undefined
-	return matchingTransaction;
 };
 
 const checkTransactionCoindiceFundingVectors = (
@@ -108,12 +135,8 @@ const getArbTransactionsByAddress = async (
 	address: string,
 ) => {
 	const apiKey = process.env.REACT_APP_ARBISCAN_API_KEY;
-	const contractAddress = isMainnet
-		? process.env.REACT_APP_L2BITCOIN_MAINNET
-		: process.env.REACT_APP_L2BITCOIN_SEPOLIA;
-	const urlHeader = isMainnet
-		? 'https://api.arbiscan.io'
-		: 'https://api-sepolia.arbiscan.io';
+	const contractAddress = getContractAddress(isMainnet, 'L2BITCOIN');
+	const urlHeader = getUrlHeader(isMainnet, 'ARBISCAN');
 	const url = `${urlHeader}/api?module=account&action=txlist&contractaddress=${contractAddress}&address=${address}&page=1&offset=100&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`;
 	const res = await axios.get(url);
 	return res;
@@ -124,14 +147,11 @@ export const getTbtcTransactionsbyAddress = async (
 	address: string,
 ) => {
 	const apiKey = process.env.REACT_APP_ARBISCAN_API_KEY;
-	const contractAddress = isMainnet
-		? process.env.REACT_APP_TBTC_MAINNET
-		: process.env.REACT_APP_TBTC_TESTNET;
-	const urlHeader = isMainnet
-		? 'https://api.arbiscan.io'
-		: 'https://api-sepolia.arbiscan.io';
+	const contractAddress = getContractAddress(isMainnet, 'TBTC');
+	const urlHeader = getUrlHeader(isMainnet, 'ARBISCAN');
 	const url = `${urlHeader}/api?module=account&action=tokentx&contractaddress=${contractAddress}&address=${address}&page=1&offset=100&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`;
 	const res = await axios.get(url);
+	const urlTxHeader = getUrlTxHeader(isMainnet, 'ARBISCAN');
 	const formatted = res.data.result.map((tx: any) => ({
 		value: parseFloat(ethers.utils.formatEther(tx.value)).toFixed(3),
 		hash: tx.hash,
@@ -139,9 +159,7 @@ export const getTbtcTransactionsbyAddress = async (
 		timeStamp: tx.timeStamp,
 		date: new Date(tx.timeStamp * 1000).toLocaleString(),
 		isError: '0',
-		link: isMainnet
-			? `https://arbiscan.io/tx/${tx.hash}`
-			: `https://sepolia.arbiscan.io/tx/${tx.hash}`,
+		link: `${urlTxHeader}/tx/${tx.hash}`,
 	}));
 	return formatted;
 };
@@ -150,31 +168,26 @@ export const getTbtcTransactions = async (
 	isMainnet: boolean,
 ): Promise<any[]> => {
 	const apiKey = process.env.REACT_APP_ARBISCAN_API_KEY;
-	const contractAddress = isMainnet
-		? process.env.REACT_APP_TBTC_MAINNET
-		: process.env.REACT_APP_TBTC_TESTNET;
-	const urlHeader = isMainnet
-		? 'https://api.arbiscan.io'
-		: 'https://api-sepolia.arbiscan.io';
-
+	const contractAddress = getContractAddress(isMainnet, 'TBTC');
+	const urlHeader = getUrlHeader(isMainnet, 'ARBISCAN');
 	const url = `${urlHeader}/api?module=account&action=tokentx&contractaddress=${contractAddress}&page=1&offset=100&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`;
-
 	const {
 		data: { result },
 	} = await axios.get(url);
-
+	console.log('🚀 ~ result:', result);
+	const urlTxHeader = getUrlTxHeader(isMainnet, 'ARBISCAN');
 	return result
 		.map((tx: any) => ({
 			value: parseFloat(ethers.utils.formatEther(tx.value)).toFixed(3),
 			hash: tx.hash,
 			status: 'MINTED',
 			timeStamp: tx.timeStamp,
-			date: new Date(tx.timeStamp * 1000).toLocaleString(),
+			date: new Date(tx.timeStamp * 1000),
 			isError: '0',
-			link: isMainnet
-				? `https://arbiscan.io/tx/${tx.hash}`
-				: `https://sepolia.arbiscan.io/tx/${tx.hash}`,
+			link: `${urlTxHeader}/tx/${tx.hash}`,
+			address: tx.to,
 		}))
+		.sort((a: any, b: any) => b.timeStamp - a.timeStamp)
 		.slice(0, 8);
 };
 
@@ -183,14 +196,9 @@ export const getEtherScanTransactions = async (
 	address: string,
 ): Promise<any[]> => {
 	const apiKey = process.env.REACT_APP_ETHERSCAN_API_KEY;
-	const contractAddress = isMainnet
-		? process.env.REACT_APP_L1BITCOIN_MAINNET
-		: process.env.REACT_APP_L1BITCOIN_SEPOLIA;
+	const contractAddress = getContractAddress(isMainnet, 'L1BITCOIN');
 
-	const urlHeader = isMainnet
-		? 'https://api.etherscan.io'
-		: 'https://api-sepolia.etherscan.io';
-
+	const urlHeader = getUrlHeader(isMainnet, 'ETHERSCAN');
 	const url = `${urlHeader}/api?module=account&action=txlist&contractaddress=${contractAddress}&address=${address}&page=1&offset=50&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`;
 
 	let data: any = (await axios.get(url)).data.result;
@@ -205,6 +213,7 @@ export const getEtherScanTransactions = async (
 };
 
 const normalizeEtherScanData = (isMainnet: boolean, data: any[]): any[] => {
+	const urlTxHeader = getUrlTxHeader(isMainnet, 'ETHERSCAN');
 	return data
 		.filter(tx => checkErrorTx(tx) || isPending(tx, data))
 		.map(tx => ({
@@ -215,9 +224,7 @@ const normalizeEtherScanData = (isMainnet: boolean, data: any[]): any[] => {
 			date: new Date(tx.timeStamp * 1000).toLocaleString(),
 			isError: tx.isError,
 			blockExplorer: 'ETHERSCAN',
-			link: isMainnet
-				? `https://etherscan.io/tx/${tx.hash}`
-				: `https://sepolia.etherscan.io/tx/${tx.hash}`,
+			link: `${urlTxHeader}/tx/${tx.hash}`,
 			input: tx.input,
 		}));
 };

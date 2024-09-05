@@ -14,15 +14,15 @@ type Props = {
 	solid?: boolean;
 };
 
-const FooterIcon = (props: Props) => {
+const FooterIcon = ({ link, icon, solid }: Props) => {
 	return (
 		<Link
-			href={props.link}
+			href={link}
 			isExternal={true}
 			_hover={{ filter: 'brightness(1.3)' }}
 			transition='filter 0.2s'
 		>
-			{!props.solid ? (
+			{!solid ? (
 				<Flex
 					w='24px'
 					aspectRatio={1}
@@ -31,7 +31,7 @@ const FooterIcon = (props: Props) => {
 					borderRadius='50%'
 					alignItems='center'
 				>
-					<Icon as={props.icon} boxSize='14px' color='white' />
+					<Icon as={icon} boxSize='14px' color='white' />
 				</Flex>
 			) : (
 				<Box
@@ -43,7 +43,7 @@ const FooterIcon = (props: Props) => {
 					transform='translateY(2px)'
 				>
 					<Icon
-						as={props.icon}
+						as={icon}
 						borderRadius='50%'
 						boxSize='24px'
 						color='brand.purple.900'

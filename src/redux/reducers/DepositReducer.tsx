@@ -1,6 +1,5 @@
 import { BitcoinUtxo, Deposit } from '@keep-network/tbtc-v2.ts';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { stat } from 'fs';
 
 interface DepositState {
 	deposit: Deposit | null;
@@ -9,6 +8,8 @@ interface DepositState {
 	ethAddress: string | null;
 	utxo?: BitcoinUtxo | null;
 	arbTxHash?: string | null;
+	initializedEthTxHash?: string | null;
+	finalizedEthTxHash?: string | null;
 	status?: number | null;
 }
 

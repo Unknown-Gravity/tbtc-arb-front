@@ -5,7 +5,6 @@ import { BasicComponentProps } from '../../../interfaces/BasicComponentProps';
 import BTCtoCurrencyComponent from '../../../components/BTCtoCurrencycomponent';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../types/RootState';
-import { parse } from 'path';
 
 /**
  * @name BalanceComponent
@@ -17,7 +16,7 @@ import { parse } from 'path';
  *
  * @throws {Error} If the tbtcBalance is not available in the Redux store.
  */
-const BalanceComponent = (props: BasicComponentProps) => {
+const BalanceComponent = ({ isConnected }: BasicComponentProps) => {
 	const { colorMode } = useColorMode();
 	const tbtcBalance = useSelector(
 		(state: RootState) => state.account.tbtcBalance,
@@ -38,9 +37,9 @@ const BalanceComponent = (props: BasicComponentProps) => {
 						tBTC BALANCE
 					</Text>
 				</Flex>
-				<Stack gap='10px' padding={props.isConnected ? '10px' : 0}>
+				<Stack gap='10px' padding={isConnected ? '10px' : 0}>
 					<Text fontSize='32px' lineHeight='32px' fontWeight={500}>
-						{props.isConnected
+						{isConnected
 							? parseFloat(tbtcBalance) === 0
 								? 0
 								: tbtcBalance.slice(0, 7)
@@ -55,7 +54,7 @@ const BalanceComponent = (props: BasicComponentProps) => {
 							tBTC
 						</Text>
 					</Text>
-					{props.isConnected && (
+					{isConnected && (
 						<BTCtoCurrencyComponent
 							btcAmount={parseFloat(tbtcBalance)}
 							currency='USD'
