@@ -33,14 +33,13 @@ export const fetchTbtcSupply = async () => {
 const fetchHeaderExploreData = async () => {
 	const apikey = process.env.REACT_APP_API_KEY;
 	const urls = [
-		'https://api.dune.com/api/v1/query/1964092/results?limit=1',
 		'https://api.dune.com/api/v1/query/2610107/results?limit=1',
 		'https://api.dune.com/api/v1/query/3965411/results?limit=1',
 		'https://api.dune.com/api/v1/query/1964103/results?limit=1',
 	];
 
 	try {
-		const [supply, tbtc, mints, addresses] = await Promise.all(
+		const [tbtc, mints, addresses] = await Promise.all(
 			urls.map(url =>
 				axios.get(url, {
 					headers: { 'X-Dune-API-Key': apikey },
@@ -49,7 +48,6 @@ const fetchHeaderExploreData = async () => {
 		);
 
 		const headerData = {
-			supply: supply.data.result.rows[0].tvl,
 			minting: mints.data.result.rows[0].total_mint,
 			tbtc: tbtc.data.result.rows[0]._col0,
 			addresses: addresses.data.result.rows[0].Holders,

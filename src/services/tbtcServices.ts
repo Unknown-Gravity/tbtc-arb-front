@@ -3,10 +3,22 @@ import { tbtcContractABI } from '../contracts/tbtcContract';
 import axios from 'axios';
 import { L1BitcoinDepositor } from '../contracts/L1BitcoinDepositor';
 import {
+	BitcoinRawTxVectors,
 	BitcoinTxHash,
+	BitcoinUtxo,
+	Deposit,
 	extractBitcoinRawTxVectors,
 	TBTC,
 } from '@keep-network/tbtc-v2.ts';
+import {
+	addArbTxHash,
+	addFinalizedEthTxHash,
+	addInitializedEthTxHash,
+	addStatus,
+	addUtxo,
+} from '../redux/reducers/DepositReducer';
+import { Dispatch } from '@reduxjs/toolkit';
+import { getDepositId, reverseString } from '../utils/utils';
 const { BTCUtils, utils } = require('@summa-tx/bitcoin-spv-js');
 
 const getContractAddress = (isMainnet: boolean, contract: string) => {
@@ -115,7 +127,7 @@ export const checkTransactionExist = async (
 	const { result } = arbTransactions.data;
 
 	return result.find((transaction: any) => {
-		const decodedInput = decodeInputData(transaction);
+		const decodedInput = decodeInputDataInitialize(transaction);
 		return (
 			decodedInput &&
 			checkTransactionCoindiceFundingVectors(fundingTx, decodedInput)
@@ -136,6 +148,69 @@ const checkTransactionCoindiceFundingVectors = (
 		outputVector === `0x${fundingTx.outputs.toString()}` &&
 		version === `0x${fundingTx.version.toString()}`
 	);
+};
+
+export const getInitializedTxHash = async (
+	isMainnet: boolean,
+	address: string,
+	fundingTx: BitcoinRawTxVectors,
+) => {
+	const etherScanTransactions = await getEtherScanTransactions(
+		isMainnet,
+		address,
+	);
+	const initializedTx = etherScanTransactions.filter(tx => {
+		const decodedInput = decodeInputDataInitialize(tx);
+		return (
+			decodedInput &&
+			checkTransactionCoindiceFundingVectors(fundingTx, decodedInput)
+		);
+	});
+
+	return initializedTx.length > 0 ? initializedTx[0].hash : null;
+};
+export const handleCrossChainTransactions = async (
+	fundingTxVectors: BitcoinRawTxVectors,
+	address: string,
+	isMainnet: boolean,
+	dispatch: Dispatch,
+) => {
+	const arbitrumTx = await checkTransactionExist(fundingTxVectors, address);
+	if (arbitrumTx?.hash) dispatch(addArbTxHash(arbitrumTx.hash));
+
+	const initializedTx = await getInitializedTxHash(
+		isMainnet,
+		address,
+		fundingTxVectors,
+	);
+	if (initializedTx) dispatch(addInitializedEthTxHash(initializedTx));
+
+	const finalizedTx = await getFinalizedTxHash(
+		isMainnet,
+		address,
+		fundingTxVectors,
+	);
+	if (finalizedTx) dispatch(addFinalizedEthTxHash(finalizedTx));
+};
+
+export const getFinalizedTxHash = async (
+	isMainnet: boolean,
+	address: string,
+	fundingTx: BitcoinRawTxVectors,
+) => {
+	const etherScanTransactions = await getEtherScanTransactions(
+		isMainnet,
+		address,
+	);
+	const finalizedTx = etherScanTransactions.filter(tx => {
+		const decodedInput = decodedInputDataFinalize(tx);
+		return (
+			decodedInput &&
+			checkTransactionCoindiceFundingVectors(fundingTx, decodedInput)
+		);
+	});
+
+	return finalizedTx.length > 0 ? finalizedTx[0].hash : null;
 };
 
 const getArbTransactionsByAddress = async (
@@ -233,6 +308,7 @@ const normalizeEtherScanData = (isMainnet: boolean, data: any[]): any[] => {
 			blockExplorer: 'ETHERSCAN',
 			link: `${urlTxHeader}/tx/${tx.hash}`,
 			input: tx.input,
+			functionName: tx.functionName,
 		}));
 };
 
@@ -271,10 +347,18 @@ const getOutputVector = (tx: any) => {
 	return input.fundingTx.outputVector;
 };
 
-const decodeInputData = (tx: any) => {
+const decodeInputDataInitialize = (tx: any) => {
 	if (tx.functionName.includes('initializeDeposit')) {
 		const iface = new ethers.utils.Interface(L1BitcoinDepositor);
 		const input = iface.decodeFunctionData('initializeDeposit', tx.input);
+		return input;
+	}
+};
+
+const decodedInputDataFinalize = (tx: any) => {
+	if (tx.functionName.includes('finalizeDeposit')) {
+		const iface = new ethers.utils.Interface(L1BitcoinDepositor);
+		const input = iface.decodeFunctionData('finalizeDeposit', tx.input);
 		return input;
 	}
 };
@@ -284,4 +368,30 @@ const getTbtcValue = (outputVector: string) => {
 	const fundingOutput = BTCUtils.extractOutputAtIndex(voutBytes, 1);
 	const satoshi = BTCUtils.extractValue(fundingOutput);
 	return satoshi.toString(10) / 1e8;
+};
+
+export const getFundingTxVectors = async (
+	transactionHash: BitcoinTxHash,
+	sdk: TBTC,
+) => {
+	// Handle Bitcoin transaction vectors and Arbitrum transaction
+	const bitcoinRawTx = await sdk.bitcoinClient?.getRawTransaction(
+		transactionHash,
+	);
+	const fundingTxVectors = extractBitcoinRawTxVectors(bitcoinRawTx);
+	return fundingTxVectors;
+};
+
+export const setDepositStatus = async (
+	transactionHash: BitcoinTxHash,
+	outputIndex: number,
+	sdk: TBTC,
+	dispatch: Dispatch,
+) => {
+	const fundingTxHash = reverseString(transactionHash.toString());
+	const depositId = getDepositId(fundingTxHash, outputIndex);
+	const status = await sdk
+		.crossChainContracts('Arbitrum')
+		?.l1BitcoinDepositor.getDepositState(depositId);
+	if (status) dispatch(addStatus(status));
 };

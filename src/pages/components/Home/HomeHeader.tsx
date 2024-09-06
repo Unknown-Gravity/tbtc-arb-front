@@ -15,11 +15,11 @@ const HomeHeader: FC = () => {
 	const coins = useColorModeValue(LightCoins, DarkCoins);
 
 	return (
-		<Flex px='72px' pt='48px' zIndex='1'>
+		<Flex px='72px' pt='48px' zIndex='1' justifyContent='center'>
 			<Flex
 				h='711px'
-				w='100%'
-				justifyContent='space-around'
+				w={{ base: '100%', xl: '1135px' }}
+				justifyContent='space-between'
 				alignItems='center'
 			>
 				<Stack spacing={0}>

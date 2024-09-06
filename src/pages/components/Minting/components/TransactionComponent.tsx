@@ -54,7 +54,7 @@ const TransactionComponent = ({ transaction }: Props) => {
 						fontSize='14px'
 						lineHeight='24px'
 						fontWeight={400}
-						variant='lightGrayDarkPurple'
+						variant='purpleDarkGradient'
 						isExternal
 						href={transaction.link}
 					>

@@ -13,12 +13,11 @@ import {
 	LightExploreBackground,
 } from '../../../assets/images';
 import { useEffect, useState } from 'react';
-import { currencyFormatter } from '../../../utils/utils';
+import { convertBTCToCurrency, currencyFormatter } from '../../../utils/utils';
 import { useNavigate } from 'react-router-dom';
 import { fetchHeaderExploreData } from '../../../services/fetchServices';
 
 const initialValue = {
-	supply: 0,
 	tbtc: 0,
 	minting: 0,
 	addresses: 0,
@@ -26,6 +25,7 @@ const initialValue = {
 
 const HeaderExploreComponent = () => {
 	const [data, setData] = useState(initialValue);
+	const [supply, setSupply] = useState('0');
 	const [errorMsg, setErrorMsg] = useState('');
 	const navigate = useNavigate();
 
@@ -38,6 +38,7 @@ const HeaderExploreComponent = () => {
 			if (fetchedData !== null) {
 				setData(fetchedData);
 			}
+			setSupply(await convertBTCToCurrency(fetchedData?.tbtc));
 		};
 		try {
 			fetchData();
@@ -96,9 +97,9 @@ const HeaderExploreComponent = () => {
 					fontWeight={700}
 					textAlign='center'
 				>
-					{data.supply !== 0 ? (
+					{data.tbtc !== 0 ? (
 						errorMsg === '' ? (
-							currencyFormatter(data.supply)
+							supply
 						) : (
 							errorMsg
 						)

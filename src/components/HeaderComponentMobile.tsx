@@ -35,7 +35,7 @@ const HeaderComponentMobile = ({ isOpen, onOpen }: Props) => {
 			borderBottom={`1px solid ${borderColor}`}
 		>
 			<Flex justifyContent='space-between' alignItems='center'>
-				<Box gap='5px' px='20px' alignItems='center'>
+				<Flex gap='20px' px='20px' alignItems='center'>
 					<IconButton
 						aria-label='HamburgerIcon'
 						as={HamburgerIcon}
@@ -43,8 +43,8 @@ const HeaderComponentMobile = ({ isOpen, onOpen }: Props) => {
 						p='8px'
 						onClick={onOpen}
 					/>
-				</Box>
-				<LogoAloneIcon color={logoColor} boxSize='25px' />
+					<LogoAloneIcon color={logoColor} boxSize='25px' />
+				</Flex>
 				<Flex alignItems='center' gap='10px'>
 					{colorMode === 'light' ? (
 						<HiMoon

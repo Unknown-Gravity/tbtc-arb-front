@@ -8,13 +8,19 @@ import { useDispatch } from 'react-redux';
 import {
 	addArbTxHash,
 	addDeposit,
+	addFinalizedEthTxHash,
+	addInitializedEthTxHash,
 	addStatus,
 	addUtxo,
 } from '../../../../../redux/reducers/DepositReducer';
 import { getDepositInfo } from '../../../../../services/depositServices';
 import { getDepositId, reverseString } from '../../../../../utils/utils';
 import { ArrowBackIcon } from '@chakra-ui/icons';
-import { checkTransactionExist } from '../../../../../services/tbtcServices';
+import {
+	checkTransactionExist,
+	getFinalizedTxHash,
+	getInitializedTxHash,
+} from '../../../../../services/tbtcServices';
 import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import { extractBitcoinRawTxVectors } from '@keep-network/tbtc-v2.ts';
 
@@ -25,14 +31,15 @@ type Props = {
 
 const ResumeMintingProcess = ({ setTabSelected, setStep }: Props) => {
 	const { address } = useWeb3ModalAccount();
+	const { isConnected, chainId } = useWeb3ModalAccount();
 	const [fileName, setFileName] = useState<string | null>(null);
 	const [fileContent, setFileContent] = useState<JsonData>();
 	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useDispatch();
 	const { sdk } = useSdk();
 
-	useEffect(() => {}, []);
-
+	const isMainnet =
+		isConnected && chainId === process.env.REACT_APP_MAINNET_CHAINID;
 	const handleClick = async () => {
 		if (fileName !== null && fileContent && sdk) {
 			setIsLoading(true);
@@ -73,11 +80,29 @@ const ResumeMintingProcess = ({ setTabSelected, setStep }: Props) => {
 
 					const fundingTxVectors =
 						extractBitcoinRawTxVectors(bitcoinRawTx);
+
 					const arbitrumTx = await checkTransactionExist(
 						fundingTxVectors,
 						address,
 					);
 					dispatch(addArbTxHash(arbitrumTx.hash));
+					const initializedTx = await getInitializedTxHash(
+						isMainnet,
+						address,
+						fundingTxVectors,
+					);
+					if (initializedTx !== null) {
+						dispatch(addInitializedEthTxHash(initializedTx));
+					}
+
+					const finalizedTx = await getFinalizedTxHash(
+						isMainnet,
+						address,
+						fundingTxVectors,
+					);
+					if (finalizedTx !== null) {
+						dispatch(addFinalizedEthTxHash(finalizedTx));
+					}
 
 					setStep(3);
 				}

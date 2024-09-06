@@ -18,7 +18,7 @@ import SideBarMenu from '../components/SideBarMenu';
 import HeaderComponent from '../components/HeaderComponent';
 
 const AppLayout = ({ component, headerTitle }: AppLayoutProps) => {
-	const [isMobile] = useMediaQuery('(min-width: 768px)');
+	const [isMobile] = useMediaQuery('(min-width: 600px)');
 	const { colorMode } = useColorMode();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const mask = useColorModeValue(
@@ -44,7 +44,7 @@ const AppLayout = ({ component, headerTitle }: AppLayoutProps) => {
 		>
 			{path === 'home' && (
 				<Box
-					maxH='711px'
+					maxH={{ base: 'none', xl: '711px' }}
 					content='""'
 					position='absolute'
 					top='61px'
@@ -55,7 +55,12 @@ const AppLayout = ({ component, headerTitle }: AppLayoutProps) => {
 						maskImage: mask,
 					}}
 				>
-					<Image src={backgroundImage} w='100%' position='absolute' />
+					<Image
+						src={backgroundImage}
+						w='100%'
+						position='absolute'
+						h='80vh'
+					/>
 				</Box>
 			)}
 

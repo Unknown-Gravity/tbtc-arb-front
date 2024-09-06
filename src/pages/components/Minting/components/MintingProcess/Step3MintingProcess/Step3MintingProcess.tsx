@@ -11,6 +11,12 @@ import {
 	addStatus,
 } from '../../../../../../redux/reducers/DepositReducer';
 import { Deposit } from '@keep-network/tbtc-v2.ts';
+import {
+	getFundingTxVectors,
+	handleCrossChainTransactions,
+	setDepositStatus,
+} from '../../../../../../services/tbtcServices';
+import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 
 type Props = { setStep: Dispatch<SetStateAction<number>> };
 
@@ -46,6 +52,11 @@ const Step3MintingProcess = ({ setStep }: Props) => {
 	// eslint-disable-next-line
 	const [txHash, setTxHash] = useState(depositInfo.utxo?.transactionHash);
 	const [status, setStatus] = useState(depositInfo.status);
+	const { isConnected, chainId, address } = useWeb3ModalAccount();
+	console.log('🚀 ~ Step3MintingProcess ~ address:', address);
+	const isMainnet =
+		isConnected && chainId === process.env.REACT_APP_MAINNET_CHAINID;
+
 	const dispatch = useDispatch();
 
 	const { sdk } = useSdk();
@@ -88,6 +99,34 @@ const Step3MintingProcess = ({ setStep }: Props) => {
 			} catch (error) {}
 		};
 
+		const checkDepositStep = async () => {
+			try {
+				const utxo = depositInfo.utxo;
+				if (utxo) {
+					const { transactionHash, outputIndex } = utxo;
+
+					setDepositStatus(
+						transactionHash,
+						outputIndex,
+						sdk,
+						dispatch,
+					);
+					const fundingTxVectors = await getFundingTxVectors(
+						transactionHash,
+						sdk,
+					);
+					await handleCrossChainTransactions(
+						fundingTxVectors,
+						address,
+						isMainnet,
+						dispatch,
+					);
+				}
+			} catch (error) {
+				console.error('Error processing deposit:', error);
+			}
+		};
+
 		const changeStep = async () => {
 			switch (status) {
 				case 0:
@@ -109,7 +148,10 @@ const Step3MintingProcess = ({ setStep }: Props) => {
 			}
 		};
 		initiateMinting(deposit);
-		changeStep();
+		setInterval(() => {
+			checkDepositStep();
+			changeStep();
+		}, 60000);
 	}, [depositInfo, dispatch, sdk, setActiveStep, status]);
 
 	return (

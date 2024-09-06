@@ -1,5 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Button, Box, Flex, ButtonProps, Image } from '@chakra-ui/react';
+import {
+	Button,
+	Box,
+	Flex,
+	ButtonProps,
+	Image,
+	useMediaQuery,
+} from '@chakra-ui/react';
 import {
 	useWeb3Modal,
 	useWeb3ModalAccount,
@@ -8,7 +15,11 @@ import {
 import { ethers } from 'ethers';
 import { useDispatch } from 'react-redux';
 import { addAccount } from '../redux/reducers/AccountReducer';
-import { generateIdenticon, normalizeNetWorkNames } from '../utils/utils';
+import {
+	formatAddress,
+	generateIdenticon,
+	normalizeNetWorkNames,
+} from '../utils/utils';
 import { ArbitrumIcon } from '../assets/icons/ArbitrumIcon';
 import { getTbtcBalance } from '../services/tbtcServices';
 
@@ -22,6 +33,7 @@ const ConnectButton = (props: ButtonProps) => {
 	const isMainnet =
 		isConnected &&
 		chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
+	const [isMobile] = useMediaQuery('(max-width: 600px)');
 
 	const getNetworkName = (isMainnet: boolean): string => {
 		return isMainnet ? 'Arbitrum One' : 'Arbitrum Sepolia';
@@ -82,9 +94,14 @@ const ConnectButton = (props: ButtonProps) => {
 						bg='none'
 						fontSize={{ base: '12px', md: '16px' }}
 						variant='grayOutlined'
-						leftIcon={<ArbitrumIcon boxSize='17px' />}
+						leftIcon={
+							!isMobile ? (
+								<ArbitrumIcon boxSize='17px' />
+							) : undefined
+						}
 					>
-						{normalizeNetWorkNames(networkName)}
+						{isMobile && <ArbitrumIcon boxSize='17px' />}
+						{!isMobile && normalizeNetWorkNames(networkName)}
 					</Button>
 					<Button
 						variant='purple'
@@ -97,7 +114,10 @@ const ConnectButton = (props: ButtonProps) => {
 							/>
 						}
 					>
-						{address?.slice(0, 5)}...{address?.slice(-4)}
+						{}
+						{!isMobile
+							? formatAddress(address)
+							: '0x...' + address.slice(-3)}
 					</Button>
 				</Flex>
 			)}

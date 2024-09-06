@@ -94,9 +94,36 @@ export const depositSlice = createSlice({
 				};
 			},
 		},
+		addInitializedEthTxHash: {
+			reducer: (state, action: PayloadAction<string>) => {
+				state.initializedEthTxHash = action.payload;
+			},
+			prepare: (initializedEthTxHash: string) => {
+				return {
+					payload: initializedEthTxHash,
+				};
+			},
+		},
+		addFinalizedEthTxHash: {
+			reducer: (state, action: PayloadAction<string>) => {
+				state.finalizedEthTxHash = action.payload;
+			},
+			prepare: (finalizedEthTxHash: string) => {
+				return {
+					payload: finalizedEthTxHash,
+				};
+			},
+		},
 	},
 });
 
-export const { eraseDeposit, addDeposit, addUtxo, addStatus, addArbTxHash } =
-	depositSlice.actions;
+export const {
+	eraseDeposit,
+	addDeposit,
+	addUtxo,
+	addStatus,
+	addArbTxHash,
+	addInitializedEthTxHash,
+	addFinalizedEthTxHash,
+} = depositSlice.actions;
 export default depositSlice.reducer;
