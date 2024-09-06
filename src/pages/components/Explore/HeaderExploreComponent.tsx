@@ -110,7 +110,7 @@ const HeaderExploreComponent = () => {
 
 				<Button
 					as={Link}
-					href={process.env.REACT_APP_DUNE_ANALYTICS_URL}
+					href={process.env.REACT_APP_DUNE_URL}
 					h='48px'
 					variant='grayOutlined2'
 					isExternal
