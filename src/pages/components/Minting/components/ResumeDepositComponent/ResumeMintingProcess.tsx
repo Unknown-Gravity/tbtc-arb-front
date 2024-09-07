@@ -39,7 +39,7 @@ const ResumeMintingProcess = ({ setTabSelected, setStep }: Props) => {
 	const { sdk } = useSdk();
 
 	const isMainnet =
-		isConnected && chainId === process.env.REACT_APP_MAINNET_CHAINID;
+		isConnected && chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
 	const handleClick = async () => {
 		if (fileName !== null && fileContent && sdk) {
 			setIsLoading(true);
@@ -82,10 +82,11 @@ const ResumeMintingProcess = ({ setTabSelected, setStep }: Props) => {
 						extractBitcoinRawTxVectors(bitcoinRawTx);
 
 					const arbitrumTx = await checkTransactionExist(
+						isMainnet,
 						fundingTxVectors,
 						address,
 					);
-					dispatch(addArbTxHash(arbitrumTx.hash));
+					dispatch(addArbTxHash(arbitrumTx?.hash));
 					const initializedTx = await getInitializedTxHash(
 						isMainnet,
 						address,

@@ -107,6 +107,7 @@ export const getWalletTransactions = async (
 };
 
 export const getBitcoinRawTxVectors = async (
+	isMainnet: boolean,
 	transactionHash: BitcoinTxHash,
 	address: string,
 	sdk: TBTC,
@@ -116,14 +117,15 @@ export const getBitcoinRawTxVectors = async (
 	);
 
 	const fundingTxVectors = extractBitcoinRawTxVectors(bitcoinRawTx);
-	checkTransactionExist(fundingTxVectors, address);
+	checkTransactionExist(isMainnet, fundingTxVectors, address);
 };
 
 export const checkTransactionExist = async (
+	isMainnet: boolean,
 	fundingTx: any,
 	address: string,
 ) => {
-	const arbTransactions = await getArbTransactionsByAddress(false, address);
+	const arbTransactions = await getArbTransactionsByAddress(isMainnet, address);
 	const { result } = arbTransactions.data;
 
 	return result.find((transaction: any) => {
@@ -175,7 +177,7 @@ export const handleCrossChainTransactions = async (
 	isMainnet: boolean,
 	dispatch: Dispatch,
 ) => {
-	const arbitrumTx = await checkTransactionExist(fundingTxVectors, address);
+	const arbitrumTx = await checkTransactionExist(isMainnet, fundingTxVectors, address);
 	if (arbitrumTx?.hash) dispatch(addArbTxHash(arbitrumTx.hash));
 
 	const initializedTx = await getInitializedTxHash(
@@ -253,7 +255,7 @@ export const getTbtcTransactions = async (
 	const apiKey = process.env.REACT_APP_ARBISCAN_API_KEY;
 	const contractAddress = getContractAddress(isMainnet, 'TBTC');
 	const urlHeader = getUrlHeader(isMainnet, 'ARBISCAN');
-	const url = `${urlHeader}/api?module=account&action=tokentx&contractaddress=${contractAddress}&page=1&offset=100&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`;
+	const url = `${urlHeader}/api?module=account&action=tokentx&contractaddress=${contractAddress}&page=1&offset=100&startblock=0&endblock=99999999&sort=desc&apikey=${apiKey}`;
 	const {
 		data: { result },
 	} = await axios.get(url);
@@ -281,7 +283,7 @@ export const getEtherScanTransactions = async (
 	const contractAddress = getContractAddress(isMainnet, 'L1BITCOIN');
 
 	const urlHeader = getUrlHeader(isMainnet, 'ETHERSCAN');
-	const url = `${urlHeader}/api?module=account&action=txlist&contractaddress=${contractAddress}&address=${address}&page=1&offset=50&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`;
+	const url = `${urlHeader}/api?module=account&action=txlist&contractaddress=${contractAddress}&address=${address}&page=1&offset=50&startblock=0&endblock=99999999&sort=desc&apikey=${apiKey}`;
 
 	let data: any = (await axios.get(url)).data.result;
 

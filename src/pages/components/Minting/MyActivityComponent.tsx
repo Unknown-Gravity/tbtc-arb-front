@@ -32,7 +32,7 @@ const MyActivityComponent = ({ isConnected }: BasicComponentProps) => {
 		const getTransactions = async () => {
 			const address = await accountInfo.signer?.getAddress();
 			const network = accountInfo.provider?.network.chainId;
-			const isMainnet = network === 42161;
+			const isMainnet = network?.toString() === "42161";
 			if (!address) return;
 			const transactions = await getWalletTransactions(
 				isMainnet,
