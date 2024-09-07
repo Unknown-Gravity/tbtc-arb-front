@@ -59,7 +59,7 @@ const AppLayout = ({ component, headerTitle }: AppLayoutProps) => {
 						src={backgroundImage}
 						w='100%'
 						position='absolute'
-						h='80vh'
+						h='100vh'
 					/>
 				</Box>
 			)}

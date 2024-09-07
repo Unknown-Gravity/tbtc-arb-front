@@ -88,9 +88,13 @@ const ModalMinting = ({ isOpen, onClose, goBack }: Props) => {
 				<Stack gap='10px'>
 					<Text fontSize='14px' lineHeight='20px' textAlign='center'>
 						Read more about the{' '}
-						<Text as={Link} variant='purpleDarkGradient'>
+						<Link 
+							href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
+							variant='purpleDarkGradient' 
+							isExternal
+						>
 							bridge contract.
-						</Text>
+						</Link>
 					</Text>
 					<Divider
 						opacity={1}

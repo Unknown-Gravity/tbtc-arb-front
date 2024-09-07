@@ -24,7 +24,7 @@ const MintingProcessComponent = () => {
 	const [supply, setSupply] = useState<number>(0);
 	const { isConnected, chainId } = useWeb3ModalAccount();
 	const isMainnet =
-		isConnected && chainId === process.env.REACT_APP_MAINNET_CHAINID;
+		isConnected && chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
 
 	useEffect(() => {
 		const getTransactions = async () => {

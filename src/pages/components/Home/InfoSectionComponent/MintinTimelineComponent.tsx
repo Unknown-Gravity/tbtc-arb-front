@@ -21,7 +21,7 @@ const MintinTimelineComponent = () => {
 	return (
 		<CustomBox w='100%' fontSize='14px' h={{ xl: '1177px' }} p='25px'>
 			<Text fontSize='24px' fontWeight={700} lineHeight='16px' mb='16px'>
-				Bridging duration
+				Bridging Duration
 			</Text>
 
 			<Stepper
@@ -36,7 +36,11 @@ const MintinTimelineComponent = () => {
 						Provide an ETH address and a BTC Return address to
 						generate a unique BTC deposit address.
 					</Text>
-					<Link variant='purpleDarkGradient'>
+					<Link 
+						href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
+						variant='purpleDarkGradient' 
+						isExternal
+					>
 						Read More
 						<UpRightIcon />
 					</Link>
@@ -53,7 +57,11 @@ const MintinTimelineComponent = () => {
 					<BulletPoint>
 						Providing a BTC refund address means your bitcoin will
 						be safe, even in the unlikely case of an error minting.{' '}
-						<Link variant='purpleDarkGradient'>
+						<Link 
+							href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
+							variant='purpleDarkGradient' 
+							isExternal
+						>
 							Read More
 							<UpRightIcon />
 						</Link>
@@ -63,7 +71,11 @@ const MintinTimelineComponent = () => {
 						you control. Don't use a multi-sig or an exchange
 						address. You can read more about the requirements and
 						P2PKH.{' '}
-						<Link variant='purpleDarkGradient'>
+						<Link 
+							href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
+							variant='purpleDarkGradient' 
+							isExternal
+						>
 							Read More
 							<UpRightIcon />
 						</Link>
@@ -73,7 +85,11 @@ const MintinTimelineComponent = () => {
 						Mainnet and with “m”, “n” or “tb1” for Testnet Bitcoin.
 						This means that your addresses are P2PKH or P2WPKH
 						compliant.{' '}
-						<Link variant='purpleDarkGradient'>
+						<Link 
+							href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
+							variant='purpleDarkGradient' 
+							isExternal
+						>
 							Read More
 							<UpRightIcon />
 						</Link>
@@ -81,7 +97,11 @@ const MintinTimelineComponent = () => {
 					<BulletPoint>
 						Based on these two addresses, the protocol will create a
 						unique BTC deposit address using a P2SWH for each user.{' '}
-						<Link variant='purpleDarkGradient'>
+						<Link 
+							href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
+							variant='purpleDarkGradient' 
+							isExternal
+						>
 							Read More
 							<UpRightIcon />
 						</Link>

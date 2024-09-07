@@ -69,7 +69,7 @@ const HeaderExploreComponent = () => {
 				flexDir={{ base: 'column', xl: 'row' }}
 			>
 				<Text fontSize='24px' lineHeight='32px' fontWeight={600}>
-					tBTC TVL
+					tBTC Arbitrum TVL
 				</Text>
 				<Button
 					variant='purple'

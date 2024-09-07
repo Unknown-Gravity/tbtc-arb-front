@@ -47,7 +47,7 @@ const MintComponent = ({
 	const [btcRecoveryAddress, setBtcAdress] = useState('');
 	const [errorMsg, setErrorMsg] = useState('');
 	const [depositAddress, setDepositAdress] = useState('');
-	const [initilizingDeposit, setInitializingDeposit] =
+	const [initializingDeposit, setInitializingDeposit] =
 		useState<boolean>(false);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { address } = useWeb3ModalAccount();
@@ -146,7 +146,7 @@ const MintComponent = ({
 							onChange={handleBtcAddressChange}
 							btcRecoveryAddress={btcRecoveryAddress}
 							errorMsg={errorMsg}
-							initializingDeposit={initilizingDeposit}
+							initializingDeposit={initializingDeposit}
 							setStep={setStep}
 							setTabSelected={setTabSelected}
 						/>
@@ -178,7 +178,11 @@ const MintComponent = ({
 							Provide an ETH address and a BTC Return address to
 							generate a unique BTC deposit address.
 							<br />
-							<Link as='span' variant='purpleDarkGradient'>
+							<Link 
+								href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
+								variant='purpleDarkGradient' 
+								isExternal
+							>
 								Read More
 							</Link>
 						</Text>

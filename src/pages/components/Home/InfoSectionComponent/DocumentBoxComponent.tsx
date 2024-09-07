@@ -84,7 +84,11 @@ const DocumentBoxComponent = ({ contract, report }: Props) => {
 					)}
 				</Stack>
 			</Flex>
-			<Link variant='purpleDarkGradient' whiteSpace='nowrap'>
+			<Link 
+				href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
+				variant='purpleDarkGradient' 
+				isExternal
+			>
 				Read More
 				<UpRightIcon />
 			</Link>

@@ -51,7 +51,13 @@ const TimelineComponent = () => {
 						<StepDescription>
 							Provide an ETH address and a BTC Return address to
 							generate a unique BTC deposit address.{' '}
-							<Link variant='purpleDarkGradient'>Read more</Link>
+							<Link 
+								href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
+								variant='purpleDarkGradient' 
+								isExternal
+							>
+								Read more
+							</Link>
 						</StepDescription>
 					</Box>
 					<StepSeparator />

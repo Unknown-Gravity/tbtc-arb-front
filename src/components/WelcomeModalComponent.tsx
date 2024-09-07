@@ -73,7 +73,7 @@ const WelcomeModalComponent = (props: Props) => {
 								/>
 								<InfoWelcomeModalComponent
 									header='MINIMUM DEPOSIT'
-									info1='The minimum deposit at launch is'
+									info1='The minimum deposit is'
 									purpleInfo='0.01 BTC.'
 									info2='Depositing less than the minimum can mean losing access to your funds.'
 								/>
