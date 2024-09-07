@@ -24,10 +24,11 @@ const HistoryExploreComponent = () => {
 	const [history, setHistory] = useState<Array<Transactions>>([]);
 
 	useEffect(() => {
-		const history = fetchExploreHistory();
-		if (history != null) {
+		const getHistory = async () => {
+			const history = await fetchExploreHistory();
 			setHistory(history);
-		}
+		};
+		getHistory();
 	}, []);
 
 	return (

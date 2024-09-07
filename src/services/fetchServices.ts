@@ -1,20 +1,16 @@
 import axios from 'axios';
 
-const fetchExploreHistory = () => {
+const fetchExploreHistory = async () => {
 	const apikey = process.env.REACT_APP_API_KEY || '';
-	let history = null;
-	axios
-		.get('https://api.dune.com/api/v1/query/3965425/results?limit=20', {
+	const url = 'https://api.dune.com/api/v1/query/3965425/results?limit=20';
+	try {
+		const response = await axios.get(url, {
 			headers: { 'X-Dune-API-Key': apikey },
 		})
-		.then(res => {
-			history = res.data.result.rows;
-		})
-		.catch(error => {
-			console.error('Error fetching data:', error);
-		});
-
-	return history;
+		return response.data.result.rows;
+	} catch (error) {
+		console.error('Error fetching tbtc history:', error);
+	}
 };
 
 export const fetchTbtcSupply = async () => {

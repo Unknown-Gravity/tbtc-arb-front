@@ -27,9 +27,10 @@ const Explore = () => {
 			<CustomBox w='100%' p='0'>
 				<HeaderExploreComponent />
 			</CustomBox>
+			{/* TODO ADD TBTC HISTORY ON ARBITRUM
 			<CustomBox p='25px'>
 				<HistoryExploreComponent />
-			</CustomBox>
+			</CustomBox> */}
 		</Stack>
 	);
 };
