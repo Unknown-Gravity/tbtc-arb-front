@@ -178,9 +178,9 @@ const MintComponent = ({
 							Provide an ETH address and a BTC Return address to
 							generate a unique BTC deposit address.
 							<br />
-							<Link 
-								href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
-								variant='purpleDarkGradient' 
+							<Link
+								href='https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc'
+								variant='purpleDarkGradient'
 								isExternal
 							>
 								Read More
@@ -198,9 +198,9 @@ const MintComponent = ({
 				{isConnected && step === 2 && (
 					<TimeLineTemplate step={2} label='Make a BTC Deposit'>
 						<Text fontSize='14px'>
-							Send any amount larger than 0.01 BTC to this unique
-							BTC Deposit Address. The amount sent will be used to
-							mint tBTC.
+							Send any amount of 0.01 BTC or larger to this unique
+							BTC BTC Deposit Address. The amount sent will be
+							used to mint tBTC.
 						</Text>
 					</TimeLineTemplate>
 				)}

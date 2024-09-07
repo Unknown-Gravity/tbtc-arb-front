@@ -65,8 +65,8 @@ const Step2ProvideDataComponent = ({ onClick, btcRecoveryAddress }: Props) => {
 				- PROVIDE DATA
 			</Text>
 			<Text fontSize='14px' lineHeight='24px' mt='10px' variant='gray'>
-				Use this generated address to send any amount larger than 0.01
-				BTC, to mint as tBTC.{' '}
+				Use this generated address to send any amount of 0.01 BTC or
+				larger, to mint as tBTC.{' '}
 			</Text>
 			<Text fontSize='14px' lineHeight='24px' mt='24px' variant='gray'>
 				This address is a uniquely generated address based on the data
