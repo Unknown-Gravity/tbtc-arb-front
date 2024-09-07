@@ -5,11 +5,11 @@ import DocumentBoxComponent from './DocumentBoxComponent';
 const contracts = [
 	{
 		name: 'Token Contract',
-		link: 'https://sepolia.etherscan.io/address/0xE4835Ef9185847d1b7891267f3181172F7B96753#code#F1#L1',
+		link: 'https://arbiscan.io/address/0x6c84a8f1c29108F47a79964b5Fe888D4f4D0dE40',
 	},
 	{
 		name: 'Bridge Contract',
-		link: 'https://sepolia.etherscan.io/address/0xE4835Ef9185847d1b7891267f3181172F7B96753#code#F18#L1',
+		link: 'https://etherscan.io/address/0x5e4861a80B55f035D899f66772117F00FA0E8e7B',
 	},
 ];
 

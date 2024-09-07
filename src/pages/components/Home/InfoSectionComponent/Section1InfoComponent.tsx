@@ -22,7 +22,7 @@ const Section1InfoComponent = () => {
 				/>
 				<InfoSection
 					title='Minimum Deposit'
-					content='The minimum deposit at launch is'
+					content='The minimum deposit is'
 					highlight='0.01 BTC.'
 					postContent='Depositing less than the minimum can mean losing access to your funds.'
 				/>

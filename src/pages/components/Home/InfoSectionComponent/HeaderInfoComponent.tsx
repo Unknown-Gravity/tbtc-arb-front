@@ -8,12 +8,12 @@ import LittleInfoComponent from './LittleInfoComponent';
 const infos = [
 	{
 		header: 'Battle-tested',
-		body: 'tBTC on Threshold has securely bridged over 11,000 BTC. tBTC smart contracts have undergone rigorous security reviews conducted by Mixbytes and Cantina. Threshold offers a $500k bug bounty program to encourage ongoing scrutiny of the protocol.',
+		body: 'tBTC on Threshold has securely minted over 11,000 BTC. tBTC smart contracts have undergone rigorous security reviews conducted by Mixbytes and Cantina. Threshold offers a $500k bug bounty program to encourage ongoing scrutiny of the protocol.',
 		icon: TbDeviceIpadHorizontalSearch,
 	},
 	{
 		header: 'Decentralized ',
-		body: 'tBTC is decentralized Threshold’s decentralized bridge to bring BTC to Decentralized Finance (DeFi) without reliance on centralized entities. It allows holders to permissionlessly use Bitcoin in DeFi. Redeemable by anyone, 1-1 for BTC.',
+		body: 'tBTC is Threshold’s decentralized bridge to bring BTC to Decentralized Finance (DeFi) without reliance on centralized entities. It allows holders to permissionlessly use Bitcoin in DeFi. Redeemable by anyone, 1-1 for BTC.',
 		icon: BsCurrencyBitcoin,
 	},
 	{

@@ -25,7 +25,7 @@ const initialMsg = {
 	body: 'The deposit is being initialized. This process can take a few minutes.',
 	transaction: {
 		label: 'blockstream',
-		link: 'https://blockstream.info/testnet/tx/',
+		link: 'https://blockstream.info/tx/',
 	},
 };
 
@@ -33,8 +33,8 @@ const mintingMsg = {
 	header: 'Initializing minting',
 	body: 'A Minter is assessing the minting initialization. Minters are a small group of experts who monitor BTC deposits on the chain.',
 	transaction: {
-		label: 'etherScan',
-		link: 'link',
+		label: 'etherscan',
+		link: 'https://etherscan.io/tx/',
 	},
 };
 
@@ -42,8 +42,8 @@ const finalizingMinting = {
 	header: 'Minting in progress',
 	body: 'The contract is minting your tBTC tokens.',
 	transaction: {
-		label: 'etherScan',
-		link: 'link',
+		label: 'etherscan',
+		link: 'https://etherscan.io/tx/',
 	},
 };
 
@@ -55,7 +55,7 @@ const Step3MintingProcess = ({ setStep }: Props) => {
 	const { isConnected, chainId, address } = useWeb3ModalAccount();
 	console.log('🚀 ~ Step3MintingProcess ~ address:', address);
 	const isMainnet =
-		isConnected && chainId === process.env.REACT_APP_MAINNET_CHAINID;
+		isConnected && chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
 
 	const dispatch = useDispatch();
 
@@ -82,21 +82,19 @@ const Step3MintingProcess = ({ setStep }: Props) => {
 
 	useEffect(() => {
 		const deposit = depositInfo.deposit;
-		if (!deposit || !sdk) {
-			return;
-		}
+		if (!deposit || !sdk) return;
 		const initiateMinting = async (deposit: Deposit) => {
 			try {
 				const fundingUxtos = await deposit?.detectFunding();
 				if (fundingUxtos) {
-					if (depositInfo.arbTxHash === null) {
-						const arbTxHash = await deposit.initiateMinting(
-							fundingUxtos[0],
-						);
-						dispatch(addArbTxHash(arbTxHash.toString()));
-					}
+					const arbTxHash = await deposit.initiateMinting(
+						fundingUxtos[0],
+					);
+					dispatch(addArbTxHash(arbTxHash.toString()));
 				}
-			} catch (error) {}
+			} catch (error) {
+				console.error('Error initiating minting:', error);
+			}
 		};
 
 		const checkDepositStep = async () => {
@@ -147,12 +145,20 @@ const Step3MintingProcess = ({ setStep }: Props) => {
 				setStatus(depositStatus);
 			}
 		};
-		initiateMinting(deposit);
-		setInterval(() => {
+
+		if (deposit && depositInfo.arbTxHash === null) {
+			initiateMinting(deposit);
+		}
+
+		// Set up interval for checking deposit step
+		const interval = setInterval(() => {
 			checkDepositStep();
 			changeStep();
-		}, 60000);
-	}, [depositInfo, dispatch, sdk, setActiveStep, status]);
+		}, 30000);
+
+		// Clear interval when component unmounts or dependencies change
+		return () => clearInterval(interval);
+	}, [depositInfo.deposit, sdk, depositInfo.finalizedEthTxHash, status, address, isMainnet, dispatch, setActiveStep]);
 
 	return (
 		<Flex>
