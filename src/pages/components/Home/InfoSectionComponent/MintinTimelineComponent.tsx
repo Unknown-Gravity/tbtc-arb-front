@@ -109,7 +109,7 @@ const MintinTimelineComponent = () => {
 				</Stack>
 
 				<StepContent stepNumber={2} title='Make a BTC Deposit'>
-					Send any amount larger than 0.01 BTC to this unique BTC
+					Send any amount of 0.01 BTC or larger to this unique BTC
 					Deposit Address. The amount sent will be used to mint tBTC.
 				</StepContent>
 
