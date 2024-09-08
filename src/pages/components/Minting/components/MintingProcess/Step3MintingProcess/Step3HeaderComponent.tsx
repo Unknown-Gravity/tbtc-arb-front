@@ -26,7 +26,7 @@ const Step3HeaderComponent = ({ activeStep, steps }: Props) => {
 	const normalizedValue = rawValue && normalizeTbtcValue(rawValue);
 	return (
 		<Box
-			mt={'20px'}
+			mt={'40px'}
 			w={{ base: '100%', xl: '458.46px' }}
 			position='relative'
 		>

@@ -7,6 +7,7 @@ import {
 	Stack,
 	Text,
 	Tooltip,
+	Link,
 } from '@chakra-ui/react';
 import { ChangeEvent, Dispatch, SetStateAction, useEffect } from 'react';
 import { InfoIcon } from '../../../../../assets/icons/InfoIcon';
@@ -14,6 +15,7 @@ import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import { useSdk } from '../../../../../context/SDKProvider';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../../types/RootState';
+import AlertMessageBox from '../../../../../components/AlertMessageBox';
 
 type Props = {
 	onClick: () => void;
@@ -45,7 +47,7 @@ const Step1MintingProcess = ({
 	}, [deposit.deposit, setStep]);
 
 	return (
-		<Box h={{ base: 'auto', xl: '555px' }} zIndex={10}>
+		<Box h={{ base: 'auto', xl: '600px' }} zIndex={10}>
 			<Stack spacing='24px' mt='24px'>
 				<Text fontSize='16px' lineHeight='28px' fontWeight={600}>
 					<Text variant='purpleDarkGradient' as={'span'}>
@@ -63,8 +65,21 @@ const Step1MintingProcess = ({
 					you an unique BTC deposit address. There is no minting
 					limit.
 				</Text>
+				<AlertMessageBox message={
+					<>
+						Ensure you have Arbitrum ETH for gas fees. Use the
+						<Link
+							href="https://bridge.arbitrum.io/?destinationChain=arbitrum-one&sourceChain=ethereum"
+							variant='purpleDarkGradient'
+							isExternal
+						>
+							{" Arbitrum Bridge "}
+						</Link>
+						to transfer funds.
+					</>
+				} />
 			</Stack>
-			<Stack spacing='24px' mt='50.31px'>
+			<Stack spacing='24px' mt='24px'>
 				<Stack spacing='8px'>
 					<Flex alignItems='center' gap={2}>
 						<Text

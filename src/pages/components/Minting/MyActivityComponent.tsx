@@ -58,7 +58,7 @@ const MyActivityComponent = ({ isConnected }: BasicComponentProps) => {
 	}, [transactions, accountInfo.provider]);
 
 	return (
-		<CustomBox h='100%' p='25px 15px' maxH='518.8px'>
+		<CustomBox h='100%' p='25px 15px' maxH='620px'>
 			<Text fontSize='16px' lineHeight='16px' fontWeight='600'>
 				MY ACTIVITY
 			</Text>
