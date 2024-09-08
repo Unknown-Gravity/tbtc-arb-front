@@ -107,7 +107,7 @@ const MintingTimelineComponent = () => {
 						</Link>
 					</BulletPoint>
 					<BulletPoint>
-						At the time of deposit finalization, at least 0.001 tBTC is subtracted from the deposited amount on mainnet. This is because the contract accounts for the highest possible fee values to process the bridge interaction
+						At the time of deposit finalization, 0.001 tBTC is subtracted from the deposited amount on mainnet. This is because the contract accounts for the deposit max fee value to process the bridge interaction
 					</BulletPoint>
 				</Stack>
 

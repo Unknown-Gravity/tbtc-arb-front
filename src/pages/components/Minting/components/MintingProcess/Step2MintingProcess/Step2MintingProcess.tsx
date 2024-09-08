@@ -108,7 +108,7 @@ const Step2ProvideDataComponent = ({ onClick }: Props) => {
 			</Text>
 			<AlertMessageBox message={
 				<>
-					At least 0.001 tBTC will be charged due to the variation of the deposit max fee.
+					0.001 tBTC will be subtracted from the deposited amount on mainnet due to the variation of the deposit max fee.
 				</>
 			}
 				mt='20px'

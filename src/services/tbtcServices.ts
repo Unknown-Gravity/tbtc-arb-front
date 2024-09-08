@@ -35,8 +35,8 @@ const getContractAddress = (isMainnet: boolean, contract: string) => {
 	return contract === 'TBTC'
 		? tbtcContractAddress
 		: contract === 'L1BITCOIN'
-		? L1BitcoinAddress
-		: L2BitcoinAddress;
+			? L1BitcoinAddress
+			: L2BitcoinAddress;
 };
 
 const getUrlHeader = (isMainnet: boolean, blockExplorer: string) => {
@@ -271,6 +271,7 @@ export const getTbtcTransactions = async (
 			link: `${urlTxHeader}/tx/${tx.hash}`,
 			address: tx.to,
 		}))
+		.filter((tx: any) => tx.value >= 0.01)
 		.sort((a: any, b: any) => b.timeStamp - a.timeStamp)
 		.slice(0, 8);
 };
