@@ -5,7 +5,7 @@ import { UpRightIcon } from '../../../../assets/icons/UpRightIcon';
 import BulletPoint from './BulletPoint';
 import StepContent from './StepContent';
 
-const MintinTimelineComponent = () => {
+const MintingTimelineComponent = () => {
 	const { colorMode } = useColorMode();
 	const { activeStep } = useSteps({ index: 1 });
 
@@ -19,7 +19,7 @@ const MintinTimelineComponent = () => {
 	};
 
 	return (
-		<CustomBox w='100%' fontSize='14px' h={{ xl: '1177px' }} p='25px'>
+		<CustomBox w='100%' fontSize='14px' h={{ xl: '1360px' }} p='25px'>
 			<Text fontSize='24px' fontWeight={700} lineHeight='16px' mb='16px'>
 				Bridging Duration
 			</Text>
@@ -106,10 +106,13 @@ const MintinTimelineComponent = () => {
 							<UpRightIcon />
 						</Link>
 					</BulletPoint>
+					<BulletPoint>
+						At the time of deposit finalization, at least 0.001 tBTC is subtracted from the deposited amount on mainnet. This is because the contract accounts for the highest possible fee values to process the bridge interaction
+					</BulletPoint>
 				</Stack>
 
 				<StepContent stepNumber={2} title='Make a BTC Deposit'>
-					Send any amount of 0.01 BTC or larger to this unique BTC
+					Send any amount larger than 0.01 BTC to this unique BTC
 					Deposit Address. The amount sent will be used to mint tBTC.
 				</StepContent>
 
@@ -123,4 +126,4 @@ const MintinTimelineComponent = () => {
 	);
 };
 
-export default MintinTimelineComponent;
+export default MintingTimelineComponent;
