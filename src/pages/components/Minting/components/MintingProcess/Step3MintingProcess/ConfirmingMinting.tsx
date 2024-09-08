@@ -116,7 +116,10 @@ const ConfirmingMinting = ({ msg, step, setStep }: Props) => {
 						>
 							Success!
 						</Text>
-						<Text fontSize='14px' lineHeight='24px' variant='gray'>
+						<Text fontSize='14px' lineHeight='24px' variant='gray' textAlign='center'>
+							The tBTC has been minted on mainnet and it will be bridged over to Arbitrum and sent to your wallet in a few minutes!
+						</Text>
+						<Text fontSize='14px' lineHeight='24px' variant='gray' textAlign='center'>
 							Add the tBTC token address to your Ethereum wallet
 						</Text>
 					</Stack>
