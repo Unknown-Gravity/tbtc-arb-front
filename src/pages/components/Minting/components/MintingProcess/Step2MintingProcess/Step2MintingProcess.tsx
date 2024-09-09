@@ -39,12 +39,12 @@ const cardsInfo = [
 		btc: '< 0.10',
 	},
 	{
-		time: 3,
+		time: 2.5,
 		confirmations: 3,
 		btc: '< 1.00',
 	},
 	{
-		time: 2,
+		time: 3,
 		confirmations: 6,
 		btc: '≥ 1.00',
 	},
