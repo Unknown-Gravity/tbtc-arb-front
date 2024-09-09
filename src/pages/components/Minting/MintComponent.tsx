@@ -8,7 +8,7 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import { CustomBox } from '../../../components/CustomBox';
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import { useDispatch } from 'react-redux';
 import HeaderStepsMintingComponent from './components/MintingProcess/HeaderStepsMintingComponent';
@@ -29,6 +29,7 @@ import {
 	addDeposit,
 	eraseDeposit,
 } from '../../../redux/reducers/DepositReducer';
+import { Deposit } from '@keep-network/tbtc-v2.ts';
 type Props = {
 	isConnected: boolean;
 	step: number;
@@ -49,6 +50,7 @@ const MintComponent = ({
 	const [depositAddress, setDepositAdress] = useState('');
 	const [initializingDeposit, setInitializingDeposit] =
 		useState<boolean>(false);
+	const [depositInstance, setDepositInstance] = useState<Deposit | null>()
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { address } = useWeb3ModalAccount();
 
@@ -67,41 +69,52 @@ const MintComponent = ({
 
 		try {
 			setInitializingDeposit(true);
-			if (sdk) {
-				const depositInstance =
-					await sdk.deposits.initiateCrossChainDeposit(
-						btcRecoveryAddress,
-						'Arbitrum',
-					);
-				setInitializingDeposit(false);
-				const btcDepositAddress =
-					await depositInstance.getBitcoinAddress();
-				setDepositAdress(btcDepositAddress);
+			if (!sdk) return
 
-				downloadJson(
-					depositInstance.getReceipt(),
-					btcDepositAddress,
+			setDepositInstance(
+				await sdk.deposits.initiateCrossChainDeposit(
 					btcRecoveryAddress,
-					address,
-				);
-				const ethAddress = address;
-				dispatch(
-					addDeposit(
-						depositInstance,
-						btcDepositAddress,
-						btcRecoveryAddress,
-						ethAddress,
-					),
-				);
+					'Arbitrum',
+				)
+			)
 
-				setStep(2);
-			}
+			setInitializingDeposit(false);
 		} catch (error) {
 			setErrorMsg('Invalid Bitcoin address');
 		} finally {
 			setInitializingDeposit(false);
 		}
 	};
+
+	useEffect(() => {
+		if (!depositInstance) return
+
+		const updateDepositInstance = async () => {
+			const btcDepositAddress =
+			await depositInstance.getBitcoinAddress();
+			setDepositAdress(btcDepositAddress);
+
+			downloadJson(
+				depositInstance.getReceipt(),
+				btcDepositAddress,
+				btcRecoveryAddress,
+				address,
+			);
+	
+			const ethAddress = address;
+			dispatch(
+				addDeposit(
+					depositInstance,
+					btcDepositAddress,
+					btcRecoveryAddress,
+					ethAddress,
+				),
+			);
+		}
+
+		updateDepositInstance();
+		setStep(2);
+	}, [depositInstance]);
 
 	const handleClickGenerateDepositAddress = async () => {
 		await initializeDeposit();
@@ -117,7 +130,7 @@ const MintComponent = ({
 	return (
 		<CustomBox
 			p='26px'
-			h={{ base: 'none', xl: step === 1 ? '634px' : 'fit-content' }}
+			h={{ base: 'none', xl: step === 1 ? '680px' : 'fit-content' }}
 			zIndex={10}
 		>
 			<ModalMinting isOpen={isOpen} onClose={onClose} goBack={goBack} />
@@ -160,6 +173,27 @@ const MintComponent = ({
 					)}
 					{isConnected && step === 3 && (
 						<Step3MintingProcess setStep={setStep} />
+					)}
+					{depositInstance && (
+						<Text variant='gray' fontSize='12px' lineHeight='24px' mt={4}>
+							If the JSON file download didn’t start automatically,{' '}
+							<Link
+								onClick={() =>
+									downloadJson(
+										depositInstance.getReceipt(),
+										depositAddress,
+										btcRecoveryAddress,
+										address
+									)
+								}
+								cursor="pointer"
+								color="blue.500"
+							>
+								click here
+							</Link>{' '}
+							to download ite. This file is important
+							to resume the deposit process.
+						</Text>
 					)}
 				</Stack>
 
@@ -209,5 +243,6 @@ const MintComponent = ({
 		</CustomBox>
 	);
 };
+
 
 export default MintComponent;

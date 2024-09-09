@@ -1,4 +1,14 @@
-import { Box, Flex, useSteps } from '@chakra-ui/react';
+import {
+	Box,
+	Flex,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
+	IconButton,
+	useSteps,
+} from '@chakra-ui/react';
+import { SettingsIcon } from '@chakra-ui/icons';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import ConfirmingMinting from './ConfirmingMinting';
 import Step3HeaderComponent from './Step3HeaderComponent';
@@ -10,7 +20,7 @@ import {
 	addArbTxHash,
 	addStatus,
 } from '../../../../../../redux/reducers/DepositReducer';
-import { Deposit } from '@keep-network/tbtc-v2.ts';
+import { Deposit, TBTC } from '@keep-network/tbtc-v2.ts';
 import {
 	getFundingTxVectors,
 	handleCrossChainTransactions,
@@ -49,6 +59,7 @@ const finalizingMinting = {
 
 const Step3MintingProcess = ({ setStep }: Props) => {
 	const depositInfo = useSelector((state: RootState) => state.deposit);
+	const deposit = depositInfo.deposit;
 	// eslint-disable-next-line
 	const [txHash, setTxHash] = useState(depositInfo.utxo?.transactionHash);
 	const [status, setStatus] = useState(depositInfo.status);
@@ -80,89 +91,114 @@ const Step3MintingProcess = ({ setStep }: Props) => {
 		count: steps.length,
 	});
 
+	const initiateMinting = async (deposit: Deposit) => {
+		try {
+			const fundingUxtos = await deposit?.detectFunding();
+			if (fundingUxtos) {
+				const arbTxHash = await deposit.initiateMinting(
+					fundingUxtos[0],
+				);
+				dispatch(addArbTxHash(arbTxHash.toString()));
+			}
+		} catch (error) {
+			console.error('Error initiating minting:', error);
+		}
+	};
+
+	const checkDepositStep = async () => {
+		try {
+			const utxo = depositInfo.utxo;
+			if (!utxo || !sdk) return
+
+			const { transactionHash, outputIndex } = utxo;
+
+			setDepositStatus(
+				transactionHash,
+				outputIndex,
+				sdk,
+				dispatch,
+			);
+			const fundingTxVectors = await getFundingTxVectors(
+				transactionHash,
+				sdk,
+			);
+			await handleCrossChainTransactions(
+				fundingTxVectors,
+				address,
+				isMainnet,
+				dispatch,
+			);
+		} catch (error) {
+			console.error('Error processing deposit:', error);
+		}
+	};
+
+	const changeStep = async (deposit: Deposit, sdk: TBTC) => {
+		switch (status) {
+			case 0:
+				setActiveStep(1);
+				setMsg(mintingMsg);
+				break;
+			case 1:
+				setActiveStep(2);
+				setMsg(finalizingMinting);
+				break;
+			case 2:
+				setActiveStep(3);
+				break;
+		}
+		const depositStatus = await checkDepositStatus(deposit, sdk);
+		if (depositStatus !== status && depositStatus) {
+			dispatch(addStatus(depositStatus));
+			setStatus(depositStatus);
+		}
+	};
+
 	useEffect(() => {
-		const deposit = depositInfo.deposit;
+		if (!deposit || !sdk) return
+		checkDepositStep();
+		changeStep(deposit, sdk);
+	}, [deposit, sdk]);
+
+	useEffect(() => {
 		if (!deposit || !sdk) return;
-		const initiateMinting = async (deposit: Deposit) => {
-			try {
-				const fundingUxtos = await deposit?.detectFunding();
-				if (fundingUxtos) {
-					const arbTxHash = await deposit.initiateMinting(
-						fundingUxtos[0],
-					);
-					dispatch(addArbTxHash(arbTxHash.toString()));
-				}
-			} catch (error) {
-				console.error('Error initiating minting:', error);
-			}
-		};
 
-		const checkDepositStep = async () => {
-			try {
-				const utxo = depositInfo.utxo;
-				if (utxo) {
-					const { transactionHash, outputIndex } = utxo;
-
-					setDepositStatus(
-						transactionHash,
-						outputIndex,
-						sdk,
-						dispatch,
-					);
-					const fundingTxVectors = await getFundingTxVectors(
-						transactionHash,
-						sdk,
-					);
-					await handleCrossChainTransactions(
-						fundingTxVectors,
-						address,
-						isMainnet,
-						dispatch,
-					);
-				}
-			} catch (error) {
-				console.error('Error processing deposit:', error);
-			}
-		};
-
-		const changeStep = async () => {
-			switch (status) {
-				case 0:
-					setActiveStep(1);
-					setMsg(mintingMsg);
-					break;
-				case 1:
-					setActiveStep(2);
-					setMsg(finalizingMinting);
-					break;
-				case 2:
-					setActiveStep(3);
-					break;
-			}
-			const depositStatus = await checkDepositStatus(deposit, sdk);
-			if (depositStatus !== status && depositStatus) {
-				dispatch(addStatus(depositStatus));
-				setStatus(depositStatus);
-			}
-		};
-
-		if (deposit && depositInfo.arbTxHash === null) {
+		if (deposit && !depositInfo.arbTxHash) {
 			initiateMinting(deposit);
 		}
 
-		// Set up interval for checking deposit step
 		const interval = setInterval(() => {
 			checkDepositStep();
-			changeStep();
+			changeStep(deposit, sdk);
 		}, 30000);
 
-		// Clear interval when component unmounts or dependencies change
+		// Clear interval on unmount
 		return () => clearInterval(interval);
-	}, [depositInfo.deposit, sdk, depositInfo.finalizedEthTxHash, status, address, isMainnet, dispatch, setActiveStep]);
+	}, [deposit, sdk, status, address, isMainnet, dispatch, setActiveStep]);
 
 	return (
 		<Flex>
-			<Box h={{ base: 'auto', xl: '555px' }}>
+			<Box position="relative" h={{ base: 'auto', xl: '555px' }}>
+				{deposit && (
+					<Menu>
+						<MenuButton
+							as={IconButton}
+							icon={<SettingsIcon />}
+							position="absolute"
+							top="-30px"
+							right="0px"
+							zIndex={10}
+						/>
+						<MenuList>
+							<MenuItem
+								onClick={() => initiateMinting(deposit)}
+								isDisabled={!depositInfo.deposit}
+							>
+								Manually Initialize Deposit
+							</MenuItem>
+						</MenuList>
+					</Menu>
+				)}
 				<Step3HeaderComponent activeStep={activeStep} steps={steps} />
 				<ConfirmingMinting
 					step={activeStep}

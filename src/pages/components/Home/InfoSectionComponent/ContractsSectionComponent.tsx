@@ -11,6 +11,14 @@ const contracts = [
 		name: 'Bridge Contract',
 		link: 'https://etherscan.io/address/0x5e4861a80B55f035D899f66772117F00FA0E8e7B',
 	},
+	{
+		name: 'L1 Bitcoin Depositor',
+		link: 'https://etherscan.io/address/0x75A6e4A7C8fAa162192FAD6C1F7A6d48992c619A',
+	},
+	{
+		name: 'L2 Bitcoin Depositor',
+		link: 'https://arbiscan.io/address/0x1C8d7b744b474c080faADd5BF9AD965Be4258F9e',
+	},
 ];
 
 const ContractsSectionComponent = () => {
@@ -19,7 +27,7 @@ const ContractsSectionComponent = () => {
 			as={CustomBox}
 			w='100%'
 			gap='20px'
-			h={{ base: 'auto', xl: '249px' }}
+			h={{ base: 'auto', xl: '430px' }}
 			p='25px'
 		>
 			<Text fontSize='24px' fontWeight={700} lineHeight='13px'>

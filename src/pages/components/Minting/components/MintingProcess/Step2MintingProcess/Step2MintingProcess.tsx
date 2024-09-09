@@ -24,6 +24,7 @@ import { useSdk } from '../../../../../../context/SDKProvider';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../../../types/RootState';
 import { addUtxo } from '../../../../../../redux/reducers/DepositReducer';
+import AlertMessageBox from '../../../../../../components/AlertMessageBox';
 
 type Props = {
 	onClick: Dispatch<SetStateAction<number>>;
@@ -33,17 +34,17 @@ type Props = {
 
 const cardsInfo = [
 	{
-		time: 1,
+		time: 2,
 		confirmations: 1,
 		btc: '< 0.10',
 	},
 	{
-		time: 2,
+		time: 3,
 		confirmations: 3,
 		btc: '< 1.00',
 	},
 	{
-		time: 1,
+		time: 2,
 		confirmations: 6,
 		btc: '≥ 1.00',
 	},
@@ -105,7 +106,13 @@ const Step2ProvideDataComponent = ({ onClick }: Props) => {
 				This address is a uniquely generated address based on the data
 				you provided.{' '}
 			</Text>
-
+			<AlertMessageBox message={
+				<>
+					0.001 tBTC will be subtracted from the deposited amount on mainnet due to the variation of the deposit max fee.
+				</>
+			}
+				mt='20px'
+			/>
 			<Stack
 				bg={
 					colorMode === 'dark' ? 'dark.background' : 'light.lightGray'

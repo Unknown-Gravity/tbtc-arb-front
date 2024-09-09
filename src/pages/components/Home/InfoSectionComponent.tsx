@@ -3,7 +3,7 @@ import HeaderInfoComponent from './InfoSectionComponent/HeaderInfoComponent';
 import Section1InfoComponent from './InfoSectionComponent/Section1InfoComponent';
 import Section2InfoComponent from './InfoSectionComponent/Section2InfoComponent';
 import { Flex, Stack } from '@chakra-ui/react';
-import MintinTimelineComponent from './InfoSectionComponent/MintinTimelineComponent';
+import MintingTimelineComponent from './InfoSectionComponent/MintingTimelineComponent';
 import ContractsSectionComponent from './InfoSectionComponent/ContractsSectionComponent';
 import JsonFileComponent from './InfoSectionComponent/JsonFileComponent';
 import AuditReportComponent from './InfoSectionComponent/AuditReportComponent';
@@ -27,7 +27,7 @@ const InfoSectionComponent: FC = () => {
 					w={{ base: '100%', xl: '50%' }}
 					gap={4}
 				>
-					<MintinTimelineComponent />
+					<MintingTimelineComponent />
 				</Stack>
 				<Stack
 					alignItems='center'
