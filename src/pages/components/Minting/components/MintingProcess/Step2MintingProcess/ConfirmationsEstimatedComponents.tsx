@@ -33,7 +33,7 @@ const ConfirmationsEstimatedComponents = ({
 						lineHeight='32px'
 						variant='darkPurpleGradient'
 					>
-						{time} {time > 1 ? "hours" : "hour"}
+						~{time} {time > 1 ? "hours" : "hour"}
 					</Text>
 					<Text
 						fontSize='10px'
