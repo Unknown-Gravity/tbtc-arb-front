@@ -191,7 +191,7 @@ const MintComponent = ({
 							>
 								click here
 							</Link>{' '}
-							to download ite. This file is important
+							to download it. This file is important
 							to resume the deposit process.
 						</Text>
 					)}
