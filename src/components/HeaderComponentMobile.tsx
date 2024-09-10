@@ -1,5 +1,6 @@
 import {
 	Box,
+	BoxProps,
 	Flex,
 	IconButton,
 	useColorMode,
@@ -36,16 +37,18 @@ const HeaderComponentMobile = ({ isOpen, onOpen }: Props) => {
 	const bgHeaderColor = useColorModeValue('white', 'dark.primaryGray');
 	const logoColor = useColorModeValue('brand.purple.900', 'white');
 
+	const boxStyle: BoxProps = {
+		position: 'fixed',
+		top: 0,
+		padding: '1rem',
+		backgroundColor: bgHeaderColor,
+		zIndex: 15,
+		borderBottom: `1px solid ${borderColor}`,
+		width: '100%',
+	};
+
 	return (
-		<Box
-			position='fixed'
-			w='100%'
-			top={0}
-			p='1rem'
-			bg={bgHeaderColor}
-			zIndex={15}
-			borderBottom={`1px solid ${borderColor}`}
-		>
+		<Box {...boxStyle}>
 			<Flex justifyContent='space-between' alignItems='center'>
 				<Flex gap='20px' px='20px' alignItems='center'>
 					<IconButton

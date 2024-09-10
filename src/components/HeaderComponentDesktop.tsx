@@ -1,4 +1,11 @@
-import { Box, Flex, Text, useColorModeValue, useTheme } from '@chakra-ui/react';
+import {
+	Box,
+	BoxProps,
+	Flex,
+	Text,
+	useColorModeValue,
+	useTheme,
+} from '@chakra-ui/react';
 import ConnectButton from './ConnectButton';
 import ToggleColorModeButton from './ToggleColorModeButton';
 
@@ -25,19 +32,21 @@ const HeaderComponentDesktop = ({ isOpen, title }: Props) => {
 	const bgColor = useColorModeValue('white', 'dark.primaryGray');
 	// const { isOpen } = useDisclosure();
 
+	const boxStyle: BoxProps = {
+		position: 'fixed',
+		top: 0,
+		right: 0,
+		width: isOpen === false ? 'calc(100% - 37px)' : 'calc(100% - 185px)',
+		transition: 'width 0.2s',
+		padding: '10px 60px 10px 60px',
+		borderBottom: `1px solid ${borderColor}`,
+		borderRadius: '0px 0px 10px 10px',
+		backgroundColor: bgColor,
+		zIndex: 15,
+	};
+
 	return (
-		<Box
-			position='fixed'
-			top={0}
-			right={0}
-			w={isOpen === false ? 'calc(100% - 37px)' : 'calc(100% - 185px)'}
-			transition='width 0.2s'
-			p='10px 60px 10px 60px'
-			borderBottom={`1px solid ${borderColor}`}
-			borderRadius='0px 0px 10px 10px'
-			bg={bgColor}
-			zIndex={15}
-		>
+		<Box {...boxStyle}>
 			<Flex justifyContent='space-between'>
 				<Text
 					fontSize='24px'

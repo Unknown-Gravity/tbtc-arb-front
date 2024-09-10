@@ -11,14 +11,11 @@ import {
 } from '@chakra-ui/react';
 import LogoIcon from '../../assets/icons/LogoIcon';
 import IconSideBar from './IconSideBar';
-import { HouseIcon } from '../../assets/icons/HouseIcon';
-import { BitcoinIcon } from '../../assets/icons/BitcoinIcon';
-import { SearchIcon } from '../../assets/icons/SearchIcon';
 import { GitHubIcon } from '../../assets/icons/GitHubIcon';
 import { DiscorIcon } from '../../assets/icons/DiscordIcon';
-import { LoyaltyIcon } from '../../assets/icons/LoyaltyIcon';
-import { ExternalRoutes, PublicRoutes } from '../../Routes/Routes';
-import { useNavigate } from 'react-router-dom';
+import { ExternalRoutes } from '../../Routes/Routes';
+import SideBarLinkList from './SideBarLinkList';
+import MediaLinksList from './MediaLinksList';
 
 type Props = {
 	isOpen: boolean;
@@ -40,13 +37,8 @@ type Props = {
  */
 
 const DrawerComponent = ({ isOpen, onClose, path }: Props) => {
-	const navigate = useNavigate();
 	const drawerBgColor = useColorModeValue('white', 'dark.primaryGray');
 
-	const handleClick = (route: string) => {
-		navigate(route);
-		onClose();
-	};
 	return (
 		<Drawer isOpen={isOpen} placement='left' onClose={onClose}>
 			<DrawerOverlay />
@@ -55,51 +47,15 @@ const DrawerComponent = ({ isOpen, onClose, path }: Props) => {
 					<LogoIcon color='white' boxSize='160px' h='20px' />
 				</DrawerHeader>
 
-				<DrawerBody display='flex' flexDir='column' gap='20px'>
-					<IconSideBar
-						icon={HouseIcon}
+				<DrawerBody>
+					<SideBarLinkList
+						path={path}
+						onClose={onClose}
 						isOpen={isOpen}
-						text='Overview'
-						filled={path === PublicRoutes.Home}
-						onClick={() => handleClick(`/${PublicRoutes.Home}`)}
-					/>
-					<IconSideBar
-						icon={BitcoinIcon}
-						isOpen={isOpen}
-						text='tBTC'
-						filled={path === PublicRoutes.Minting}
-						onClick={() => handleClick(`/${PublicRoutes.Minting}`)}
-					/>
-					<IconSideBar
-						icon={SearchIcon}
-						isOpen={isOpen}
-						text='Explorer'
-						filled={path === PublicRoutes.Explore}
-						onClick={() => handleClick(`/${PublicRoutes.Explore}`)}
-					/>
-					<IconSideBar
-						icon={LoyaltyIcon}
-						isOpen={isOpen}
-						text='Loyalty Program'
-						filled={path === PublicRoutes.Loyalty}
-						onClick={() => handleClick(`/${PublicRoutes.Loyalty}`)}
 					/>
 				</DrawerBody>
 				<DrawerFooter justifyContent='center' flexDir='column'>
-					<Flex>
-						<IconSideBar
-							icon={GitHubIcon}
-							isOpen={false}
-							text='GitHub'
-							link={ExternalRoutes.Github}
-						/>
-						<IconSideBar
-							icon={DiscorIcon}
-							isOpen={false}
-							text='Discord'
-							link={ExternalRoutes.Discord}
-						/>
-					</Flex>
+					<MediaLinksList />
 					<Text fontSize='10px'>© 2024 Threshold Network</Text>
 				</DrawerFooter>
 			</DrawerContent>

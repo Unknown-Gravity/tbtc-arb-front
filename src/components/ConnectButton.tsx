@@ -6,6 +6,7 @@ import {
 	ButtonProps,
 	Image,
 	useMediaQuery,
+	useColorModeValue,
 } from '@chakra-ui/react';
 import {
 	useWeb3Modal,
@@ -48,6 +49,11 @@ const ConnectButton = (props: ButtonProps) => {
 	const getNetworkName = (isMainnet: boolean): string => {
 		return isMainnet ? 'Arbitrum One' : 'Arbitrum Sepolia';
 	};
+
+	const arbitrumLogoColor = useColorModeValue(
+		'light.focusGray',
+		'light.coolGray',
+	);
 
 	useEffect(() => {
 		const getBalance = async () => {
@@ -106,11 +112,19 @@ const ConnectButton = (props: ButtonProps) => {
 						variant='grayOutlined'
 						leftIcon={
 							!isMobile ? (
-								<ArbitrumIcon boxSize='17px' />
+								<ArbitrumIcon
+									color={arbitrumLogoColor}
+									boxSize='17px'
+								/>
 							) : undefined
 						}
 					>
-						{isMobile && <ArbitrumIcon boxSize='17px' />}
+						{isMobile && (
+							<ArbitrumIcon
+								color={arbitrumLogoColor}
+								boxSize='17px'
+							/>
+						)}
 						{!isMobile && normalizeNetWorkNames(networkName)}
 					</Button>
 					<Button
