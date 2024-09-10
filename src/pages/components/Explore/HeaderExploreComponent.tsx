@@ -13,7 +13,7 @@ import {
 	LightExploreBackground,
 } from '../../../assets/images';
 import { useEffect, useState } from 'react';
-import { convertBTCToCurrency, currencyFormatter } from '../../../utils/utils';
+import { convertBTCToCurrency } from '../../../utils/utils';
 import { useNavigate } from 'react-router-dom';
 import { fetchHeaderExploreData } from '../../../services/fetchServices';
 

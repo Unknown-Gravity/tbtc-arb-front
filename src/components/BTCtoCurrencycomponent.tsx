@@ -2,6 +2,16 @@ import { FC, useEffect, useState } from 'react';
 import { Spinner, Text } from '@chakra-ui/react';
 import { convertBTCToCurrency, Currency } from '../utils/utils';
 
+/**
+ * @name BTCtoCurrencyComponent
+ *
+ * @param { number } btcAmount - The amount of Bitcoin to convert to a currency.
+ * @param { Currency } currency - The currency to convert the Bitcoin to.
+ * @param { string } variant - The variant of the text component.
+ *
+ * @returns { JSX.Element }
+ */
+
 const BTCtoCurrencyComponent: FC<{
 	btcAmount: number;
 	currency: Currency;

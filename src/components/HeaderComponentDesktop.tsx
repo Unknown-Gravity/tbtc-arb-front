@@ -15,6 +15,18 @@ type Props = {
 	title: string | undefined;
 };
 
+/**
+ *
+ * @name HeaderComponentDesktop
+ *
+ * @description This component is a reusable component that displays the header of the application on desktop.
+ *
+ * @param { boolean } isOpen - A boolean to determine if the sidebar is open or not.
+ * @param { string | undefined } title - The title of the header.
+ *
+ * @returns { JSX.Element }
+ */
+
 const HeaderComponentDesktop = ({ isOpen, title }: Props) => {
 	const theme = useTheme();
 	const { colorMode, toggleColorMode } = useColorMode();

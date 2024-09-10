@@ -12,6 +12,14 @@ type Props = {
 	onClose: () => void;
 };
 
+/**
+ * @name ConfirmActionModalUnmint
+ *
+ * @description This component displays the confirm action modal for unminting.
+ *
+ * @param {() => void} onClose The function to be called when the modal is closed.
+ */
+
 const ConfirmActionModalUnmint = ({ onClose }: Props) => {
 	const logocolor = useColorModeValue('white', 'dark.primaryGray');
 	const boxcolor = useColorModeValue('brand.purple.910', 'dark.primaryGray');

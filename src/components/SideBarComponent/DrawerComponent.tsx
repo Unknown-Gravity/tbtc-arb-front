@@ -26,6 +26,19 @@ type Props = {
 	path: string;
 };
 
+/**
+ *
+ * @name DrawerComponent
+ *
+ * @description Mobile version of the sidebar component. It contains the same links as the sidebar.
+ *
+ * @param { boolean } isOpen - A boolean to determine if the drawer is open or not.
+ * @param { () => void } onClose - A function to close the drawer.
+ * @param { string } path - The current path of the application.
+ *
+ * @returns { JSX.Element }
+ */
+
 const DrawerComponent = ({ isOpen, onClose, path }: Props) => {
 	const navigate = useNavigate();
 	const drawerBgColor = useColorModeValue('white', 'dark.primaryGray');

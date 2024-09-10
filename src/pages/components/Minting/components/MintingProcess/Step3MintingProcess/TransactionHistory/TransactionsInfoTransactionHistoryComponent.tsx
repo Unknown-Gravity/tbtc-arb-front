@@ -7,6 +7,18 @@ type Props = {
 	blockExplorer: string;
 };
 
+/**
+ * @name TransactionsInfoTransactionHistoryComponent
+ *
+ * @description This component is a reusable component that displays the transaction history of the minting process.
+ *
+ * @param {boolean} isMainnet - Prop that check if the user is running in mainnet or not
+ * @param {string} txHash - Hash of the transaction
+ * @param {string} blockExplorer - Block explorer
+ *
+ * @returns { JSX.Element }
+ */
+
 const TransactionsInfoTransactionHistoryComponent = ({
 	isMainnet,
 	txHash,

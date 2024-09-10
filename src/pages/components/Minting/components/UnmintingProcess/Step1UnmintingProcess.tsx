@@ -15,6 +15,20 @@ type Props = {
 
 const initialValue = { amount: 0, btcRecoveryAddress: '' };
 
+/**
+ * @name Step1UnmintingProcess
+ *
+ * @description This component displays the first step of the unminting process.
+ *
+ * @param {() => void} onOpen The function to be called when the modal is opened.
+ * @param {() => void} onClose The function to be called when the modal is closed.
+ * @param {() => void} onClick Function that sets isMinting to true.
+ * @param {boolean} isOpen The state of the modal.
+ * @param {boolean} isUnminting The state of the unminting process.
+ *
+ * @returns {JSX.Element}
+ */
+
 const Step1UnmintingProcess = ({
 	onOpen,
 	onClose,

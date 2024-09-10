@@ -31,6 +31,18 @@ type Props = {
 	path: string;
 };
 
+/**
+ * @name SideBarComponent
+ *
+ * @description This component is a reusable component that displays a sidebar with links to the different pages of the application.
+ *
+ * @param { boolean } isOpen - A boolean to determine if the sidebar is open or not.
+ * @param { () => void } onOpen - A function to open the sidebar.
+ * @param { string } path - The current path of the application.
+ *
+ * @returns { JSX.Element }
+ */
+
 const SideBarComponent = ({ isOpen, onOpen, path }: Props) => {
 	const [sideBarWidth, setSideBarWidth] = useState('');
 	const [hasAnimated, setHasAnimated] = useState(false);

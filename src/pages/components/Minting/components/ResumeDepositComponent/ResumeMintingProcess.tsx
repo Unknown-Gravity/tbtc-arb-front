@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import HeaderStepsMintingComponent from '../MintingProcess/HeaderStepsMintingComponent';
 import { Button, Flex, Link, Spinner, Stack, Text } from '@chakra-ui/react';
 import DragAndDropComponent from './DragAndDropComponent';
@@ -39,7 +39,8 @@ const ResumeMintingProcess = ({ setTabSelected, setStep }: Props) => {
 	const { sdk } = useSdk();
 
 	const isMainnet =
-		isConnected && chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
+		isConnected &&
+		chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
 	const handleClick = async () => {
 		if (fileName !== null && fileContent && sdk) {
 			setIsLoading(true);

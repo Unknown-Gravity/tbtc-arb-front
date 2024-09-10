@@ -11,13 +11,16 @@ import {
 	useTheme,
 } from '@chakra-ui/react';
 import { AtomImage, LightPointBackground } from '../../../assets/images';
-import { ComponentProps } from '../../../interfaces/ComponentProps';
 import { useNavigate } from 'react-router-dom';
 import { PublicRoutes } from '../../../Routes/Routes';
 
+interface Props {
+	onClick: () => void;
+}
+
 // Definimos la interfaz para las props
 
-const BannerHome = ({ onClick }: ComponentProps) => {
+const BannerHome = ({ onClick }: Props) => {
 	const { colorMode } = useColorMode();
 	const theme = useTheme();
 	const borderColor = useColorModeValue(

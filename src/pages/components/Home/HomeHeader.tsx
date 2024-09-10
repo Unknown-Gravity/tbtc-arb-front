@@ -9,6 +9,14 @@ import {
 import { DarkCoins, LightCoins } from '../../../assets/images';
 import { FC } from 'react';
 
+/**
+ * @name HomeHeader
+ *
+ * @description This component contains the header of the home page.
+ *
+ * @returns { JSX.Element }
+ */
+
 const HomeHeader: FC = () => {
 	const [isMobile] = useMediaQuery('(min-width: 820px)');
 

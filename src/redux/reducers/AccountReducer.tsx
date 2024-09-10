@@ -20,8 +20,7 @@ const initialState: AccountState = {
 /**
  *
  * @name accountSlice
- * @description The auth slice
- * @version 1.0.0
+ * @description The auth slice of the Redux store.
  *
  */
 export const accountSlice = createSlice({

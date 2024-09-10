@@ -1,8 +1,15 @@
 import { Center, Divider, useBreakpointValue } from '@chakra-ui/react';
 
-type Props = {};
+/**
+ *
+ * @name DividerCustom
+ *
+ * @description This component is a reusable component that displays a divider.
+ *
+ * @returns { JSX.Element }
+ */
 
-const DividerCustom = (props: Props) => {
+const DividerCustom = () => {
 	const orientation = useBreakpointValue<'horizontal' | 'vertical'>({
 		base: 'horizontal',
 		xl: 'vertical',

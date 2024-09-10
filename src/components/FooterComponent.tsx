@@ -2,6 +2,15 @@ import { Flex } from '@chakra-ui/react';
 import ComercialInfoComponent from './FooterComponent/ComercialInfoComponent';
 import LinksComponent from './FooterComponent/LinksComponent';
 
+/**
+ *
+ * @name FooterComponent
+ *
+ * @description This component contains the footer of the website.
+ *
+ * @returns { JSX.Element }
+ */
+
 const FooterComponent = () => {
 	return (
 		<Flex

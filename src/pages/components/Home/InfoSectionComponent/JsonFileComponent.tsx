@@ -3,6 +3,14 @@ import { Flex, Image, Link, Stack, Text, useColorMode } from '@chakra-ui/react';
 import { DarkJsonImage, LightJsonImage } from '../../../../assets/images';
 import { UpRightIcon } from '../../../../assets/icons/UpRightIcon';
 
+/**
+ * @name JsonFileComponent
+ *
+ * @description This component is a reusable component that displays the information about how the JSON file works for resume a deposit.
+ *
+ * @returns { JSX.Element }
+ */
+
 const JsonFileComponent = () => {
 	const { colorMode } = useColorMode();
 

@@ -7,6 +7,18 @@ type Props = {
 	icon: IconType;
 };
 
+/**
+ * @name LittleInfoComponent
+ *
+ * @description This component is a reusable component that displays the information in the HeaderInfoComponent.
+ *
+ * @param { string } header - The header of the information.
+ * @param { string } body - The body of the information.
+ * @param { IconType } icon - The icon of the information.
+ *
+ * @returns { JSX.Element }
+ */
+
 const LittleInfoComponent = ({ header, body, icon }: Props) => {
 	return (
 		<Stack gap='12px' alignItems='center'>

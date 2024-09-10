@@ -14,6 +14,17 @@ type Props = {
 	onClose: () => void;
 };
 
+/**
+ * @name ReceiptModalUnmint
+ *
+ * @description This component displays the receipt modal for unminting.
+ *
+ * @param {() => void} onClick The function to be called when the button is clicked.
+ * @param {() => void} onClose The function to be called when the modal is closed.
+ *
+ * @returns {JSX.Element}
+ */
+
 const ReceiptModalUnmint = ({ onClick, onClose }: Props) => {
 	const boxcolor = useColorModeValue('brand.purple.910', 'dark.primaryGray');
 	const borderColor = useColorModeValue(
@@ -93,9 +104,9 @@ const ReceiptModalUnmint = ({ onClick, onClose }: Props) => {
 			<Stack gap='10px'>
 				<Text fontSize='14px' lineHeight='20px' textAlign='center'>
 					Read more about the{' '}
-					<Link 
-						href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
-						variant='purpleDarkGradient' 
+					<Link
+						href='https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc'
+						variant='purpleDarkGradient'
 						isExternal
 					>
 						bridge contract.

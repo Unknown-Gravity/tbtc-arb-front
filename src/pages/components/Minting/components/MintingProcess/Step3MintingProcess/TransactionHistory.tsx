@@ -10,6 +10,12 @@ import TransactionInProgressInfoComponent from './TransactionHistory/Transaction
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../../../types/RootState';
 
+/**
+ * @name TransactionHistory
+ *
+ * @description Shows the transaction history and the transaction links for the different steps of the minting process
+ */
+
 const TransactionHistory = () => {
 	const gradientColor = 'linear(to-r, #B62CFF,#7D00FF )';
 	const { utxo, arbTxHash, initializedEthTxHash, finalizedEthTxHash } =

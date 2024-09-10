@@ -1,5 +1,15 @@
 import { Box, BoxProps, useColorMode } from '@chakra-ui/react';
 
+/**
+ * @name CustomBox
+ *
+ * @description This component is a reusable component used for the container boxes of the website.
+ *
+ * @param { BoxProps } props - The props to pass to the Box component.
+ *
+ * @returns { JSX.Element }
+ */
+
 export const CustomBox = (props: BoxProps) => {
 	const { bg, p } = props;
 	const { colorMode } = useColorMode();

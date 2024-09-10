@@ -5,6 +5,16 @@ type Props = {
 	label: string;
 };
 
+/**
+ * @name HeaderStepsMintingComponent
+ *
+ * @description This component displays the header of the minting process.
+ *
+ * @param {string} label The label of the header.
+ *
+ * @returns {JSX.Element}
+ */
+
 const HeaderStepsMintingComponent = ({ label }: Props) => {
 	const { colorMode } = useColorMode();
 	return (

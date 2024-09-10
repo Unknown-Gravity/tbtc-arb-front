@@ -15,6 +15,14 @@ import { useEffect, useState } from 'react';
 import { getTbtcTransactions } from '../../../../services/tbtcServices';
 import { fetchTbtcSupply } from '../../../../services/fetchServices';
 
+/**
+ * @name MintingProcessComponent
+ *
+ * @description This component displays the minting process component.
+ *
+ * @returns {JSX.Element}
+ */
+
 const MintingProcessComponent = () => {
 	const bgGradient = useColorModeValue(
 		'linear-gradient(to top, white, transparent)',
@@ -24,7 +32,8 @@ const MintingProcessComponent = () => {
 	const [supply, setSupply] = useState<number>(0);
 	const { isConnected, chainId } = useWeb3ModalAccount();
 	const isMainnet =
-		isConnected && chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
+		isConnected &&
+		chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
 
 	useEffect(() => {
 		const getTransactions = async () => {

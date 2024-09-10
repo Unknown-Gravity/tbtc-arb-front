@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { CustomBox } from '../../../components/CustomBox';
 import {
 	Box,
@@ -14,6 +14,14 @@ import TxInfoComponent from './BidgeStatsComponent/TxInfoComponent';
 import { getTbtcTransactions } from '../../../services/tbtcServices';
 import { fetchTbtcSupply } from '../../../services/fetchServices';
 import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
+
+/**
+ * @name BridgeStatsComponent
+ *
+ * @description This component is a reusable component that displays the bridge stats of the home page.
+ *
+ * @returns { JSX.Element }
+ */
 
 const BridgeStatsComponent: FC = () => {
 	const [tbtcSupply, setTbtcSupply] = useState<number>(0);

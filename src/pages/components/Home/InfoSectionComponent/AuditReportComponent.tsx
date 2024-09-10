@@ -11,6 +11,15 @@ const reports = [
 	},
 ];
 
+/**
+ *
+ * @name AuditReportComponent
+ *
+ * @description This component is a reusable component that displays the audit report.
+ *
+ * @returns { JSX.Element }
+ */
+
 const AuditReportComponent = () => {
 	return (
 		<CustomBox w='100%' as={Stack} justifyContent='space-between' p='25px'>

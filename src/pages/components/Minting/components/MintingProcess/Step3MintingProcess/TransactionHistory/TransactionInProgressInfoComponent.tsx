@@ -11,6 +11,15 @@ import {
 	LightTransactionBoxImage,
 } from '../../../../../../../assets/images';
 
+/**
+ * @name TransactionInProgressInfoComponent
+ *
+ * @description This component displays the information about the transaction in progress.
+ *
+ * @returns {JSX.Element}
+ *
+ */
+
 const TransactionInProgressInfoComponent = () => {
 	const bgColor = useColorModeValue(
 		'linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), linear-gradient(121.21deg, #D987FF 3.33%, #7A00F8 95.81%)',

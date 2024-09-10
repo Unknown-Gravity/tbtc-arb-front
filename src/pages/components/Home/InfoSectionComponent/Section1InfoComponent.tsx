@@ -2,6 +2,15 @@ import { Flex } from '@chakra-ui/react';
 import { CustomBox } from '../../../../components/CustomBox';
 import InfoSection from './InfoSection';
 
+/**
+ *
+ * @name Section1InfoComponent
+ *
+ * @description This component contains the information of the home page. It is the first section of the InfoComponent.
+ *
+ * @returns { JSX.Element }
+ */
+
 const Section1InfoComponent = () => {
 	return (
 		<CustomBox

@@ -8,6 +8,14 @@ import JoinComponent from './components/Home/JoinComponent';
 import FooterComponent from '../components/FooterComponent';
 import WelcomeModalComponent from '../components/WelcomeModalComponent';
 
+/**
+ * @name Home
+ *
+ * @description This component displays the Home page.
+ *
+ * @returns {JSX.Element}
+ */
+
 const Home: FC = () => {
 	const [showMintWindow, setShowMintWindow] = useState(true);
 

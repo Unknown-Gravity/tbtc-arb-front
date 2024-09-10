@@ -10,6 +10,16 @@ type Props = {
 	transaction: CustomTransaction;
 };
 
+/**
+ * @name TransactionMinting
+ *
+ * @description This component displays the transactions for minting.
+ *
+ * @param {CustomTransaction} transaction The transaction object.
+ *
+ * @returns {JSX.Element}
+ */
+
 const TransactionMinting = ({ transaction }: Props) => {
 	return (
 		<Box p='14px' border='1px solid #B1BCCC' borderRadius='6px'>

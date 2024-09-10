@@ -19,6 +19,20 @@ type Props = InputProps & {
 	onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
+/**
+ *
+ * @name CustomInput
+ *
+ * @description This component is a reusable component that displays an input with a left and right label.
+ *
+ * @param { string } leftlabel - The left label to display.
+ * @param { string } rightlabel - The right label to display.
+ * @param { string } lefticon - A boolean to determine if the left icon should be displayed.
+ * @param { () => void } onChange - A function to execute when the input value changes.
+ *
+ * @returns { JSX.Element }
+ */
+
 const CustomInput = (props: Props) => {
 	const { leftlabel, rightlabel, lefticon, onChange } = props;
 	const { colorMode } = useColorMode();

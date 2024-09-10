@@ -5,6 +5,14 @@ import { UpRightIcon } from '../../../../assets/icons/UpRightIcon';
 import BulletPoint from './BulletPoint';
 import StepContent from './StepContent';
 
+/**
+ * @name MintingTimelineComponent
+ *
+ * @description This component is a reusable component that displays the minting timeline for the user.
+ *
+ * @returns { JSX.Element }
+ */
+
 const MintingTimelineComponent = () => {
 	const { colorMode } = useColorMode();
 	const { activeStep } = useSteps({ index: 1 });
@@ -36,9 +44,9 @@ const MintingTimelineComponent = () => {
 						Provide an ETH address and a BTC Return address to
 						generate a unique BTC deposit address.
 					</Text>
-					<Link 
-						href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
-						variant='purpleDarkGradient' 
+					<Link
+						href='https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc'
+						variant='purpleDarkGradient'
 						isExternal
 					>
 						Read More
@@ -57,9 +65,9 @@ const MintingTimelineComponent = () => {
 					<BulletPoint>
 						Providing a BTC refund address means your bitcoin will
 						be safe, even in the unlikely case of an error minting.{' '}
-						<Link 
-							href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
-							variant='purpleDarkGradient' 
+						<Link
+							href='https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc'
+							variant='purpleDarkGradient'
 							isExternal
 						>
 							Read More
@@ -71,9 +79,9 @@ const MintingTimelineComponent = () => {
 						you control. Don't use a multi-sig or an exchange
 						address. You can read more about the requirements and
 						P2PKH.{' '}
-						<Link 
-							href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
-							variant='purpleDarkGradient' 
+						<Link
+							href='https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc'
+							variant='purpleDarkGradient'
 							isExternal
 						>
 							Read More
@@ -85,9 +93,9 @@ const MintingTimelineComponent = () => {
 						Mainnet and with “m”, “n” or “tb1” for Testnet Bitcoin.
 						This means that your addresses are P2PKH or P2WPKH
 						compliant.{' '}
-						<Link 
-							href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
-							variant='purpleDarkGradient' 
+						<Link
+							href='https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc'
+							variant='purpleDarkGradient'
 							isExternal
 						>
 							Read More
@@ -97,9 +105,9 @@ const MintingTimelineComponent = () => {
 					<BulletPoint>
 						Based on these two addresses, the protocol will create a
 						unique BTC deposit address using a P2SWH for each user.{' '}
-						<Link 
-							href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
-							variant='purpleDarkGradient' 
+						<Link
+							href='https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc'
+							variant='purpleDarkGradient'
 							isExternal
 						>
 							Read More
@@ -107,7 +115,10 @@ const MintingTimelineComponent = () => {
 						</Link>
 					</BulletPoint>
 					<BulletPoint>
-						At the time of deposit finalization, 0.001 tBTC is subtracted from the deposited amount on mainnet. This is because the contract accounts for the deposit max fee value to process the bridge interaction
+						At the time of deposit finalization, 0.001 tBTC is
+						subtracted from the deposited amount on mainnet. This is
+						because the contract accounts for the deposit max fee
+						value to process the bridge interaction
 					</BulletPoint>
 				</Stack>
 

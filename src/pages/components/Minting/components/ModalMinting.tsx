@@ -20,6 +20,19 @@ type Props = {
 	goBack: () => void;
 };
 
+/**
+ * @name ModalMinting
+ *
+ * @description This component displays the minting modal.
+ *
+ * @param {boolean} isOpen The state of the modal.
+ * @param {() => void} onClose The function to be called when the modal is closed.
+ * @param {() => void} goBack The functions that erase all the deposit information from redux and
+ * 							  from the differents states of MintingComponent. I will send you to the step 1 of the minting process
+ *
+ * @returns
+ */
+
 const ModalMinting = ({ isOpen, onClose, goBack }: Props) => {
 	const { colorMode } = useColorMode();
 	return (
@@ -88,9 +101,9 @@ const ModalMinting = ({ isOpen, onClose, goBack }: Props) => {
 				<Stack gap='10px'>
 					<Text fontSize='14px' lineHeight='20px' textAlign='center'>
 						Read more about the{' '}
-						<Link 
-							href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
-							variant='purpleDarkGradient' 
+						<Link
+							href='https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc'
+							variant='purpleDarkGradient'
 							isExternal
 						>
 							bridge contract.

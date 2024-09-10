@@ -5,9 +5,15 @@ import { TwitterXIcon } from '../../../assets/icons/TwitterXIcon';
 import IconJoincomponent from './JoinComponent/IconJoincomponent';
 import { ExternalRoutes } from '../../../Routes/Routes';
 
-type Props = {};
+/**
+ * @name JoinComponent
+ *
+ * @description Component used for showing the Join the Threshold DAO info
+ *
+ * @returns { JSX.Element }
+ */
 
-const JoinComponent = (props: Props) => {
+const JoinComponent = () => {
 	return (
 		<Stack alignItems='center' py='200px'>
 			<Text fontSize='47.8px' fontWeight={700} lineHeight='72px'>

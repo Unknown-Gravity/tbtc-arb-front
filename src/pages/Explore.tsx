@@ -2,9 +2,16 @@
 import HeaderExploreComponent from './components/Explore/HeaderExploreComponent';
 import { CustomBox } from '../components/CustomBox';
 import { Stack } from '@chakra-ui/react';
-import HistoryExploreComponent from './components/Explore/HistoryExploreComponent';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+
+/**
+ * @name Explore
+ *
+ * @description This component displays the Explore page.
+ *
+ * @returns {JSX.Element}
+ */
 
 const Explore = () => {
 	const acceptedTerms = localStorage.getItem('acceptedTerms');

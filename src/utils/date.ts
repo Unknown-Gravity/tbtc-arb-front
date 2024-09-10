@@ -6,9 +6,25 @@ export const ONE_WEEK_IN_SECONDS = ONE_DAY_IN_SECONDS * 7;
 export const ONE_MONTH_IN_SECONDS = ONE_DAY_IN_SECONDS * 30;
 export const ONE_YEAR_IN_SECONDS = ONE_DAY_IN_SECONDS * 365;
 
+/**
+ * @name dateToUnixTimestamp
+ * @description This function converts a date to a Unix timestamp.
+ * @param {Date} date - The date to convert.
+ * @returns {number} The Unix timestamp.
+ *
+ */
+
 export const dateToUnixTimestamp = (date: Date = new Date()) => {
 	return Math.floor(date.getTime() / ONE_SEC_IN_MILISECONDS);
 };
+
+/**
+ * @name dateAs
+ * @description This function converts a Unix timestamp to a date.
+ * @param {number} targetUnix - The Unix timestamp to convert.
+ * @returns {Object} The converted date.
+ *
+ */
 
 export const dateAs = (targetUnix: number) => {
 	const days = Math.floor(targetUnix / ONE_DAY_IN_SECONDS);
@@ -22,6 +38,16 @@ export const dateAs = (targetUnix: number) => {
 
 	return { days, hours, minutes, seconds };
 };
+
+/**
+ * @name formatDate
+ * @description This function formats a date.
+ * @param {string | number} timestamp - The timestamp to format.
+ * @param {Intl.LocalesArgument} locales - The locales to use.
+ * @param {Intl.DateTimeFormatOptions} options - The options to use.
+ * @returns {string} The formatted date.
+ *
+ */
 
 export const formatDate = (
 	timestamp: string | number,
@@ -44,6 +70,14 @@ const unitsToDivisor: [Intl.RelativeTimeFormatUnit, number, number][] = [
 	['year', Infinity, ONE_YEAR_IN_SECONDS],
 ];
 const rtf = new Intl.RelativeTimeFormat('en-gb', { style: 'short' });
+
+/**
+ * @name getRelativeTime
+ * @description This function gets the relative time.
+ * @param {Date | number} dateOrUnixTimestamp - The date or Unix timestamp.
+ * @returns {string} The relative time.
+ *
+ */
 
 export const getRelativeTime = (dateOrUnixTimestamp: Date | number): string => {
 	const time =

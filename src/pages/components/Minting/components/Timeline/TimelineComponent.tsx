@@ -13,6 +13,15 @@ import {
 	useSteps,
 } from '@chakra-ui/react';
 
+/**
+ * @name TimelineComponent
+ *
+ * @description This component displays the timeline of the minting process.
+ *
+ * @returns {JSX.Element}
+ *
+ */
+
 const TimelineComponent = () => {
 	const { activeStep } = useSteps({
 		index: 1,
@@ -51,9 +60,9 @@ const TimelineComponent = () => {
 						<StepDescription>
 							Provide an ETH address and a BTC Return address to
 							generate a unique BTC deposit address.{' '}
-							<Link 
-								href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
-								variant='purpleDarkGradient' 
+							<Link
+								href='https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc'
+								variant='purpleDarkGradient'
 								isExternal
 							>
 								Read more

@@ -17,6 +17,16 @@ import {
 import SideBarMenu from '../components/SideBarMenu';
 import HeaderComponent from '../components/HeaderComponent';
 
+/**
+ * @name AppLayout
+ *
+ * @description This component contains the layout of the application.
+ *
+ * @param { AppLayoutProps } props - The props for the AppLayout component.
+ *
+ * @returns { JSX.Element }
+ */
+
 const AppLayout = ({ component, headerTitle }: AppLayoutProps) => {
 	const [isMobile] = useMediaQuery('(min-width: 600px)');
 	const { colorMode } = useColorMode();

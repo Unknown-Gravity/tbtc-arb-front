@@ -7,6 +7,14 @@ import {
 
 type Props = {};
 
+/**
+ * @name DurationComponent
+ *
+ * @description This component displays the duration of the minting process.
+ *
+ * @returns {JSX.Element}
+ */
+
 const DurationComponent = (props: Props) => {
 	const { colorMode } = useColorMode();
 	return (

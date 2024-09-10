@@ -21,6 +21,16 @@ const loadingTransactions = [
 	<Skeleton height='50px' borderRadius='10px' />,
 ];
 
+/**
+ * @name MyActivityComponent
+ *
+ * @description This component displays the user's transactions. It will show also the status of the transactions.
+ *
+ * @param {BasicComponentProps} isConnected The connection status.
+ *
+ * @returns {JSX.Element}
+ */
+
 const MyActivityComponent = ({ isConnected }: BasicComponentProps) => {
 	const accountInfo = useSelector((state: RootState) => state.account);
 	const [transactions, setTransactions] = useState<Array<CustomTransaction>>(
@@ -32,7 +42,7 @@ const MyActivityComponent = ({ isConnected }: BasicComponentProps) => {
 		const getTransactions = async () => {
 			const address = await accountInfo.signer?.getAddress();
 			const network = accountInfo.provider?.network.chainId;
-			const isMainnet = network?.toString() === "42161";
+			const isMainnet = network?.toString() === '42161';
 			if (!address) return;
 			const transactions = await getWalletTransactions(
 				isMainnet,

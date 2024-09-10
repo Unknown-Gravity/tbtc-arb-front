@@ -7,6 +7,15 @@ import { GitHubIcon } from '../../assets/icons/GitHubIcon';
 import { ExternalRoutes } from '../../Routes/Routes';
 import { FC } from 'react';
 
+/**
+ *
+ * @name ComercialInfoComponent
+ *
+ * @description This component contains the commercial information of the project as well as the social media links.
+ *
+ * @returns { JSX.Element }
+ */
+
 const ComercialInfoComponent: FC = () => {
 	const { colorMode } = useColorMode();
 
@@ -39,7 +48,7 @@ const ComercialInfoComponent: FC = () => {
 				fontWeight={400}
 				mt='23px'
 			>
-				Curated by Threshold DAO Developed by Uknown Gravity
+				Curated by Threshold DAO Developed by Unknown Gravity
 			</Text>
 			<Flex gap='12px' mt='20px' justifyContent='center'>
 				<FooterIcon link={ExternalRoutes.Youtube} icon={BsYoutube} />

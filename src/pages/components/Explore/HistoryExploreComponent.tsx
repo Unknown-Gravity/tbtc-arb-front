@@ -20,6 +20,14 @@ import {
 import { Transactions } from '../../../interfaces/Transactions.interface';
 import { fetchExploreHistory } from '../../../services/fetchServices';
 
+/**
+ * @name HistoryExploreComponent
+ *
+ * @description This component is a reusable component that displays the history of the explore page.
+ *
+ * @returns { JSX.Element }
+ */
+
 const HistoryExploreComponent = () => {
 	const [history, setHistory] = useState<Array<Transactions>>([]);
 

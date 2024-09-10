@@ -7,6 +7,19 @@ type Props = {
 	unmint?: boolean;
 };
 
+/**
+ * @name TimelineTemplate
+ *
+ * @description This component displays the timeline template.
+ *
+ * @param {number} step The step number.
+ * @param {string} label The label of the step.
+ * @param {any} children The children components.
+ * @param {boolean} unmint The state of the minting.
+ *
+ * @returns {JSX.Element}
+ */
+
 const TimelineTemplate = ({ step, label, children, unmint }: Props) => {
 	const theme = useTheme();
 	const borderColor = theme.colors.brand.purple[900];

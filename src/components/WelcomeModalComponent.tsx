@@ -16,9 +16,17 @@ import {
 import { DarkWelcomeImage, LightWelcomeImage } from '../assets/images';
 import InfoWelcomeModalComponent from './WelcomeModalComponent/InfoWelcomeModalComponent';
 import { useEffect } from 'react';
-type Props = {};
 
-const WelcomeModalComponent = (props: Props) => {
+/**
+ *
+ * @name WelcomeModalComponent
+ *
+ * @description This component is a reusable component that displays the welcome modal.
+ *
+ * @returns { JSX.Element }
+ */
+
+const WelcomeModalComponent = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const headerModalImage = useColorModeValue(
 		LightWelcomeImage,

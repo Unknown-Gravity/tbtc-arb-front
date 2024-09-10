@@ -28,6 +28,17 @@ const HeaderText = ({ children }: { children: React.ReactNode }) => (
 	</Text>
 );
 
+/**
+ * @name HeaderStep2UnmintingProcess
+ *
+ * @description This component displays the header of the unminting process.
+ *
+ * @param {number} activeStep The active step of the process.
+ * @param {Array<{ step: string }>} steps The steps of the process.
+ *
+ * @returns {JSX.Element}
+ */
+
 const HeaderStep2UnmintingProcess = ({ activeStep, steps }: Props) => {
 	return (
 		<Box mt='20px' w={{ base: '100%', xl: '458.46px' }}>

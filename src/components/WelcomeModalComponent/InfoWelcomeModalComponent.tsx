@@ -8,6 +8,20 @@ type Props = {
 	info2: string;
 };
 
+/**
+ *
+ * @name InfoWelcomeModalComponent
+ *
+ * @description This component is a reusable component that displays the information of the welcome modal.
+ *
+ * @param { string } header - The header of the welcome modal.
+ * @param { string } info1 - The first part of the information.
+ * @param { string } purpleInfo - The purple part of the information.
+ * @param { string } info2 - The second part of the information.
+ *
+ * @returns { JSX.Element }
+ */
+
 const InfoWelcomeModalComponent = ({
 	header,
 	info1,

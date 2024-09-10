@@ -23,6 +23,16 @@ import {
 import { ArbitrumIcon } from '../assets/icons/ArbitrumIcon';
 import { getTbtcBalance } from '../services/tbtcServices';
 
+/**
+ * @name ConnectButton
+ *
+ * @description This component is a reusable component that displays a button to connect the wallet.
+ *
+ * @param props - The props of the button.
+ *
+ * @returns { JSX.Element }
+ */
+
 const ConnectButton = (props: ButtonProps) => {
 	const { address, isConnected, chainId } = useWeb3ModalAccount();
 	const { walletProvider } = useWeb3ModalProvider();
