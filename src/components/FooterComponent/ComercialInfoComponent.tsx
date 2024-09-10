@@ -44,7 +44,7 @@ const ComercialInfoComponent: FC = () => {
 			<Text
 				fontSize='13.9px'
 				lineHeight='21px'
-				w='207px'
+				w='212px'
 				fontWeight={400}
 				mt='23px'
 			>

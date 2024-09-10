@@ -11,6 +11,9 @@ import { UpRightIcon } from '../../../../assets/icons/UpRightIcon';
  * @returns { JSX.Element }
  */
 
+const recoveryGuideLink =
+	'https://github.com/keep-network/tbtc-v2/blob/main/typescript/scripts/README.adoc';
+
 const JsonFileComponent = () => {
 	const { colorMode } = useColorMode();
 
@@ -45,7 +48,11 @@ const JsonFileComponent = () => {
 			</Text>
 			<Text fontSize='14px'>
 				Recovery guide can be found{' '}
-				<Link variant='purpleDarkGradient'>
+				<Link
+					variant='purpleDarkGradient'
+					href={recoveryGuideLink}
+					isExternal
+				>
 					here
 					<UpRightIcon />
 				</Link>

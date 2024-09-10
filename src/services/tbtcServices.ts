@@ -423,7 +423,6 @@ export const getTbtcTransactions = async (
 	} = await axios.get(url);
 
 	const urlTxHeader = getUrlTxHeader(isMainnet, 'ARBISCAN');
-	const uniqueTransactions = new Set();
 
 	return result
 		.map((tx: any) => ({
@@ -436,12 +435,6 @@ export const getTbtcTransactions = async (
 			link: `${urlTxHeader}/tx/${tx.hash}`,
 			address: tx.to,
 		}))
-		.filter(
-			(tx: any) =>
-				tx.value >= 0.01 &&
-				!uniqueTransactions.has(tx.hash) &&
-				uniqueTransactions.add(tx.hash),
-		) // Evitar duplicados por hash
 		.sort((a: any, b: any) => b.timeStamp - a.timeStamp)
 		.slice(0, limit);
 };

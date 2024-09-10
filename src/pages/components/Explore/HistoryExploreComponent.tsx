@@ -21,8 +21,9 @@ const HistoryExploreComponent = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const { isConnected, chainId } = useWeb3ModalAccount();
 	const isMainnet =
-		isConnected &&
-		chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
+		(isConnected &&
+			chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID) ||
+		!isConnected;
 
 	const totalPages = Math.ceil(history.length / ITEMS_PER_PAGE);
 	const paginatedHistory = history.slice(
