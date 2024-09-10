@@ -6,13 +6,9 @@ import {
 	useTheme,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { ExternalRoutes } from '../../Routes/Routes';
 import { publicLinks } from '../../Routes/Routes';
 import { useEffect, useState } from 'react';
-import { SidebarArrow } from '../../assets/icons/SidebarArrow';
 import IconSideBar from './IconSideBar';
-import { GitHubIcon } from '../../assets/icons/GitHubIcon';
-import { DiscorIcon } from '../../assets/icons/DiscordIcon';
 import SideBarLogo from './SideBarLogo';
 import MediaLinksList from './MediaLinksList';
 import SidebarArrowCustom from './SidebarArrowCustom';

@@ -3,7 +3,6 @@ import IconSideBar from './IconSideBar';
 import { GitHubIcon } from '../../assets/icons/GitHubIcon';
 import { DiscorIcon } from '../../assets/icons/DiscordIcon';
 import { ExternalRoutes } from '../../Routes/Routes';
-import { useState } from 'react';
 
 const mediaLinks = [
 	{

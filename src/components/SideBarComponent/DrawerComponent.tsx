@@ -5,15 +5,10 @@ import {
 	DrawerOverlay,
 	DrawerContent,
 	DrawerFooter,
-	Flex,
 	Text,
 	useColorModeValue,
 } from '@chakra-ui/react';
 import LogoIcon from '../../assets/icons/LogoIcon';
-import IconSideBar from './IconSideBar';
-import { GitHubIcon } from '../../assets/icons/GitHubIcon';
-import { DiscorIcon } from '../../assets/icons/DiscordIcon';
-import { ExternalRoutes } from '../../Routes/Routes';
 import SideBarLinkList from './SideBarLinkList';
 import MediaLinksList from './MediaLinksList';
 

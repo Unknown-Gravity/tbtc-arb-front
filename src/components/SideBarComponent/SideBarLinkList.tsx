@@ -6,7 +6,6 @@ import { SearchIcon } from '../../assets/icons/SearchIcon';
 import { PublicRoutes } from '../../Routes/Routes';
 import IconSideBar from './IconSideBar';
 import { Stack } from '@chakra-ui/react';
-import { useState } from 'react';
 
 type Props = {
 	onClose: () => void;
