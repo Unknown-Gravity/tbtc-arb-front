@@ -12,6 +12,16 @@ const MotionBox = motion(
 	)),
 );
 
+/**
+ * @name SideBarLogo
+ *
+ * @description This component displays the logo for the sidebar component
+ *
+ * @param {boolean} isOpen - The state of the sidebar
+ *
+ * @returns {JSX.Element}
+ */
+
 const SideBarLogo = ({ isOpen }: Props) => {
 	const [hasAnimated, setHasAnimated] = useState(false);
 	const logoColor = useColorModeValue('brand.purple.900', 'white');

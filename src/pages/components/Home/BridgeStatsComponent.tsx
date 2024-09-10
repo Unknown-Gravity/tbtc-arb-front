@@ -19,7 +19,6 @@ import ProtocolHistory from './BidgeStatsComponent/ProtocolHistory';
 const BridgeStatsComponent: FC = () => {
 	const [tbtcSupply, setTbtcSupply] = useState<number>(0);
 	const [tbtcTransactions, setTbtcTransactions] = useState<Array<any>>([]);
-	console.log('🚀 ~ tbtcTransactions:', tbtcTransactions);
 	const { isConnected, chainId } = useWeb3ModalAccount();
 	const isMainnet =
 		isConnected &&

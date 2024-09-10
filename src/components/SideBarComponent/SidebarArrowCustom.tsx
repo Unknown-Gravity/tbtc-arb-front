@@ -2,6 +2,17 @@ import { SidebarArrow } from '../../assets/icons/SidebarArrow';
 
 type Props = { isOpen: boolean; onClick: () => void };
 
+/**
+ * @name SidebarArrowCustom
+ *
+ * @description This component displays the arrow for the sidebar component
+ *
+ * @param {boolean} isOpen - The state of the sidebar
+ * @param {() => void} onClick - The function to toggle the sidebar
+ *
+ * @returns {JSX.Element}
+ */
+
 const SidebarArrowCustom = ({ isOpen, onClick }: Props) => {
 	return (
 		<SidebarArrow

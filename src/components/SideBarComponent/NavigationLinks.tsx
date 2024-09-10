@@ -5,6 +5,17 @@ import { useNavigate } from 'react-router-dom';
 
 type Props = { isOpen: boolean; path: string };
 
+/**
+ * @name NavigationLinks
+ *
+ * @description This component displays the navigation links for the sidebar component
+ *
+ * @param {boolean} isOpen - The state of the sidebar
+ * @param {string} path - The current path
+ *
+ * @returns {JSX.Element}
+ */
+
 const NavigationLinks = ({ isOpen, path }: Props) => {
 	const navigate = useNavigate();
 	return (

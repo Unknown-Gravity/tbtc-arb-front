@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
 	Box,
 	Flex,
@@ -99,8 +100,7 @@ const Step2ProvideDataComponent = ({ onClick }: Props) => {
 		}, 5000); // Check every 5 seconds
 		return () => clearInterval(intervalId);
 		// Clean up the interval on component unmount
-		// TODO Revisar dependencias
-	}, [deposit.deposit, deposit.utxo, dispatch, onClick, sdk]);
+	}, [deposit.deposit, deposit.utxo, sdk]);
 
 	return (
 		<Box maxW={{ xl: '448.28px' }}>

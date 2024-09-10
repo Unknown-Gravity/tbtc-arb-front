@@ -19,6 +19,14 @@ const mediaLinks = [
 
 type Props = { isOpen?: boolean };
 
+/**
+ * @name MediaLinksList
+ *
+ * @description This component displays the list of media links for the sidebar component
+ *
+ *
+ */
+
 const MediaLinksList = ({ isOpen }: Props) => {
 	const [isMobile] = useMediaQuery('(max-width: 600px)');
 	return (

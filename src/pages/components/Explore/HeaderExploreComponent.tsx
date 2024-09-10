@@ -23,6 +23,14 @@ const initialValue = {
 	addresses: 0,
 };
 
+/**
+ * @name HeaderExploreComponent
+ *
+ * @description Header of the Explore page
+ *
+ * @returns {JSX.Element}
+ */
+
 const HeaderExploreComponent = () => {
 	const [data, setData] = useState(initialValue);
 	const [supply, setSupply] = useState('0');

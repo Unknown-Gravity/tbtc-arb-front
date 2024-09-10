@@ -4,6 +4,7 @@ import { CustomBox } from '../components/CustomBox';
 import { Stack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import HistoryExploreComponent from './components/Explore/HistoryExploreComponent';
 
 /**
  * @name Explore
@@ -34,10 +35,9 @@ const Explore = () => {
 			<CustomBox w='100%' p='0'>
 				<HeaderExploreComponent />
 			</CustomBox>
-			{/* TODO ADD TBTC HISTORY ON ARBITRUM
 			<CustomBox p='25px'>
 				<HistoryExploreComponent />
-			</CustomBox> */}
+			</CustomBox>
 		</Stack>
 	);
 };

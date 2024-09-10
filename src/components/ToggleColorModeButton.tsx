@@ -3,6 +3,13 @@ import { HiMoon, HiOutlineSun } from 'react-icons/hi';
 
 type Props = {};
 
+/**
+ * @name ToggleColorModeButton
+ *
+ * @description This component displays a button that changes the color moded of the site.
+ * @returns {JSX.Element}
+ */
+
 const ToggleColorModeButton = (props: Props) => {
 	const { colorMode, toggleColorMode } = useColorMode();
 	const icon =

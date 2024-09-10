@@ -411,7 +411,9 @@ export const getTbtcTransactionsbyAddress = async (
 
 export const getTbtcTransactions = async (
 	isMainnet: boolean,
+	noLimit?: boolean,
 ): Promise<any[]> => {
+	const limit = noLimit ? 100 : 8;
 	const apiKey = process.env.REACT_APP_ARBISCAN_API_KEY;
 	const contractAddress = getContractAddress(isMainnet, 'TBTC');
 	const urlHeader = getUrlHeader(isMainnet, 'ARBISCAN');
@@ -419,7 +421,6 @@ export const getTbtcTransactions = async (
 	const {
 		data: { result },
 	} = await axios.get(url);
-	console.log('🚀 ~ result:', result);
 
 	const urlTxHeader = getUrlTxHeader(isMainnet, 'ARBISCAN');
 	const uniqueTransactions = new Set();
@@ -442,7 +443,7 @@ export const getTbtcTransactions = async (
 				uniqueTransactions.add(tx.hash),
 		) // Evitar duplicados por hash
 		.sort((a: any, b: any) => b.timeStamp - a.timeStamp)
-		.slice(0, 8);
+		.slice(0, limit);
 };
 
 /**
