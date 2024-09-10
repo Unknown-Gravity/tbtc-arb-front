@@ -8,6 +8,7 @@ import {
 	useColorMode,
 	Link,
 	Icon,
+	useColorModeValue,
 } from '@chakra-ui/react';
 import { CustomBox } from '../components/CustomBox';
 import {
@@ -26,10 +27,29 @@ import { BsBoxArrowUpRight } from 'react-icons/bs';
  * @returns {JSX.Element}
  */
 
+const loyaltyLinks = [
+	{
+		name: 'Curve tBTC/WBTC Pool',
+		link: 'https://curve.fi/#/arbitrum/pools/factory-stable-ng-69/deposit',
+	},
+	{
+		name: 'Uniswap V3 tBTC/WBTC Pool',
+		link: 'https://merkl.angle.money/arbitrum/pool/0xe9e6b9aAAfaf6816C3364345F6eF745CcFC8660a',
+	},
+	{
+		name: 'Uniswap V3 tBTC/ETH Pool',
+		link: 'https://merkl.angle.money/arbitrum/pool/2/0xCb198a55e2a88841E855bE4EAcaad99422416b33',
+	},
+];
+
 const Loyalty = () => {
 	const { colorMode } = useColorMode();
 	const [searchQuery, setSearchQuery] = useState(''); // New state for search query
 	const acceptedTerms = localStorage.getItem('acceptedTerms');
+	const bgImage = useColorModeValue(
+		LightLoyaltyProgramGrid,
+		DarkLoyaltyProgramGrid,
+	);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -64,11 +84,7 @@ const Loyalty = () => {
 					mx='auto'
 					position='relative'
 					overflow='hidden'
-					bgImage={
-						colorMode === 'light'
-							? `url('${LightLoyaltyProgramGrid}')`
-							: `url('${DarkLoyaltyProgramGrid}')`
-					}
+					bgImage={bgImage}
 					bgRepeat='no-repeat'
 					bgPosition='top center'
 				>
@@ -107,30 +123,17 @@ const Loyalty = () => {
 								direction='row'
 								gap={8}
 							>
-								<Link
-									href='https://curve.fi/#/arbitrum/pools/factory-stable-ng-69/deposit'
-									isExternal
-									color='blue.500'
-								>
-									Curve tBTC/WBTC Pool{' '}
-									<Icon as={BsBoxArrowUpRight} mx='2px' />
-								</Link>
-								<Link
-									href='https://merkl.angle.money/arbitrum/pool/0xe9e6b9aAAfaf6816C3364345F6eF745CcFC8660a'
-									isExternal
-									color='blue.500'
-								>
-									Uniswap V3 tBTC/WBTC Pool{' '}
-									<Icon as={BsBoxArrowUpRight} mx='2px' />
-								</Link>
-								<Link
-									href='https://merkl.angle.money/arbitrum/pool/2/0xCb198a55e2a88841E855bE4EAcaad99422416b33'
-									isExternal
-									color='blue.500'
-								>
-									Uniswap V3 tBTC/ETH Pool{' '}
-									<Icon as={BsBoxArrowUpRight} mx='2px' />
-								</Link>
+								{loyaltyLinks.map((link, index) => (
+									<Link
+										key={index}
+										href={link.link}
+										variant='purpleDarkGradient'
+										isExternal
+									>
+										{link.name}
+										<Icon as={BsBoxArrowUpRight} />
+									</Link>
+								))}
 							</Flex>
 						</Stack>
 					</Flex>
