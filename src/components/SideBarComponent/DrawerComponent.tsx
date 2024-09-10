@@ -42,6 +42,11 @@ type Props = {
 const DrawerComponent = ({ isOpen, onClose, path }: Props) => {
 	const navigate = useNavigate();
 	const drawerBgColor = useColorModeValue('white', 'dark.primaryGray');
+
+	const handleClick = (route: string) => {
+		navigate(route);
+		onClose();
+	};
 	return (
 		<Drawer isOpen={isOpen} placement='left' onClose={onClose}>
 			<DrawerOverlay />
@@ -56,28 +61,28 @@ const DrawerComponent = ({ isOpen, onClose, path }: Props) => {
 						isOpen={isOpen}
 						text='Overview'
 						filled={path === PublicRoutes.Home}
-						onClick={() => navigate(`/${PublicRoutes.Home}`)}
+						onClick={() => handleClick(`/${PublicRoutes.Home}`)}
 					/>
 					<IconSideBar
 						icon={BitcoinIcon}
 						isOpen={isOpen}
 						text='tBTC'
 						filled={path === PublicRoutes.Minting}
-						onClick={() => navigate(`/${PublicRoutes.Minting}`)}
+						onClick={() => handleClick(`/${PublicRoutes.Minting}`)}
 					/>
 					<IconSideBar
 						icon={SearchIcon}
 						isOpen={isOpen}
 						text='Explorer'
 						filled={path === PublicRoutes.Explore}
-						onClick={() => navigate(`/${PublicRoutes.Explore}`)}
+						onClick={() => handleClick(`/${PublicRoutes.Explore}`)}
 					/>
 					<IconSideBar
 						icon={LoyaltyIcon}
 						isOpen={isOpen}
 						text='Loyalty Program'
 						filled={path === PublicRoutes.Loyalty}
-						onClick={() => navigate(`/${PublicRoutes.Loyalty}`)}
+						onClick={() => handleClick(`/${PublicRoutes.Loyalty}`)}
 					/>
 				</DrawerBody>
 				<DrawerFooter justifyContent='center' flexDir='column'>

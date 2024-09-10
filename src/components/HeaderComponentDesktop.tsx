@@ -1,14 +1,6 @@
-import {
-	Box,
-	Flex,
-	Text,
-	useColorMode,
-	useColorModeValue,
-	useTheme,
-} from '@chakra-ui/react';
-import { HiMoon } from 'react-icons/hi';
-import { HiOutlineSun } from 'react-icons/hi';
+import { Box, Flex, Text, useColorModeValue, useTheme } from '@chakra-ui/react';
 import ConnectButton from './ConnectButton';
+import ToggleColorModeButton from './ToggleColorModeButton';
 
 type Props = {
 	isOpen: boolean;
@@ -29,7 +21,6 @@ type Props = {
 
 const HeaderComponentDesktop = ({ isOpen, title }: Props) => {
 	const theme = useTheme();
-	const { colorMode, toggleColorMode } = useColorMode();
 	const borderColor = theme.colors.brand.purple[940];
 	const bgColor = useColorModeValue('white', 'dark.primaryGray');
 	// const { isOpen } = useDisclosure();
@@ -57,19 +48,7 @@ const HeaderComponentDesktop = ({ isOpen, title }: Props) => {
 					{title}
 				</Text>
 				<Flex alignItems='center' gap='10px'>
-					{colorMode === 'light' ? (
-						<HiMoon
-							size='19px'
-							onClick={toggleColorMode}
-							cursor='pointer'
-						/>
-					) : (
-						<HiOutlineSun
-							size='19px'
-							onClick={toggleColorMode}
-							cursor='pointer'
-						/>
-					)}
+					<ToggleColorModeButton />
 					<ConnectButton />
 				</Flex>
 			</Flex>

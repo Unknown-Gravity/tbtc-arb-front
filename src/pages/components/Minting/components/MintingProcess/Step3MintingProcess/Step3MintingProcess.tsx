@@ -73,7 +73,6 @@ const Step3MintingProcess = ({ setStep }: Props) => {
 	const [txHash, setTxHash] = useState(depositInfo.utxo?.transactionHash);
 	const [status, setStatus] = useState(depositInfo.status);
 	const { isConnected, chainId, address } = useWeb3ModalAccount();
-	console.log('🚀 ~ Step3MintingProcess ~ address:', address);
 	const isMainnet =
 		isConnected &&
 		chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;

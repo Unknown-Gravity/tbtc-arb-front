@@ -161,7 +161,7 @@ export const getWalletTransactions = async (
 	);
 	let transactions = [...arbitrumTransactions, ...etherScanTransactions];
 	transactions = transactions.sort((a, b) => b.timeStamp - a.timeStamp);
-	transactions = transactions.slice(0, 7);
+	transactions = transactions.slice(0, 8);
 	transactions.forEach(tx => {
 		if (tx.status === 'PENDING') {
 			tx.value = getTbtcValue(getOutputVector(tx)).toFixed(5);
@@ -383,18 +383,22 @@ export const getTbtcTransactionsbyAddress = async (
 	const contractAddress = getContractAddress(isMainnet, 'TBTC');
 	const urlHeader = getUrlHeader(isMainnet, 'ARBISCAN');
 	const url = `${urlHeader}/api?module=account&action=tokentx&contractaddress=${contractAddress}&address=${address}&page=1&offset=100&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`;
-	const res = await axios.get(url);
-	const urlTxHeader = getUrlTxHeader(isMainnet, 'ARBISCAN');
-	const formatted = res.data.result.map((tx: any) => ({
-		value: parseFloat(ethers.utils.formatEther(tx.value)).toFixed(3),
-		hash: tx.hash,
-		status: 'MINTED',
-		timeStamp: tx.timeStamp,
-		date: new Date(tx.timeStamp * 1000).toLocaleString(),
-		isError: '0',
-		link: `${urlTxHeader}/tx/${tx.hash}`,
-	}));
-	return formatted;
+	try {
+		const res = await axios.get(url);
+		const urlTxHeader = getUrlTxHeader(isMainnet, 'ARBISCAN');
+		const formatted = res.data.result.map((tx: any) => ({
+			value: parseFloat(ethers.utils.formatEther(tx.value)).toFixed(3),
+			hash: tx.hash,
+			status: 'MINTED',
+			timeStamp: tx.timeStamp,
+			date: new Date(tx.timeStamp * 1000).toLocaleString(),
+			isError: '0',
+			link: `${urlTxHeader}/tx/${tx.hash}`,
+		}));
+		return formatted;
+	} catch (error) {
+		console.error('Error fetching tbtc transactions:', error);
+	}
 };
 
 /**
@@ -415,7 +419,11 @@ export const getTbtcTransactions = async (
 	const {
 		data: { result },
 	} = await axios.get(url);
+	console.log('🚀 ~ result:', result);
+
 	const urlTxHeader = getUrlTxHeader(isMainnet, 'ARBISCAN');
+	const uniqueTransactions = new Set();
+
 	return result
 		.map((tx: any) => ({
 			value: parseFloat(ethers.utils.formatEther(tx.value)).toFixed(3),
@@ -427,7 +435,12 @@ export const getTbtcTransactions = async (
 			link: `${urlTxHeader}/tx/${tx.hash}`,
 			address: tx.to,
 		}))
-		.filter((tx: any) => tx.value >= 0.01)
+		.filter(
+			(tx: any) =>
+				tx.value >= 0.01 &&
+				!uniqueTransactions.has(tx.hash) &&
+				uniqueTransactions.add(tx.hash),
+		) // Evitar duplicados por hash
 		.sort((a: any, b: any) => b.timeStamp - a.timeStamp)
 		.slice(0, 8);
 };
@@ -500,11 +513,11 @@ const checkErrorTx = (tx: any) => {
 
 /**
  * @name checkNormalTx
- * @description Checks if a transaction is normal
+ * @description Checks if a transaction is from the user's wallet
  * @param tx - The transaction
  * @param address - The account address
  * @param contractAddress - The contract address
- * @returns If the transaction is normal
+ * @returns true or false
  */
 
 const checkNormalTx = (tx: any, address: string, contractAddress: string) => {

@@ -1,24 +1,17 @@
 import { FC, useEffect, useState } from 'react';
 import { CustomBox } from '../../../components/CustomBox';
-import {
-	Box,
-	Divider,
-	Grid,
-	Stack,
-	Text,
-	useColorMode,
-} from '@chakra-ui/react';
+import { Box, Divider, Stack, Text, useColorMode } from '@chakra-ui/react';
 import { currencyFormatter } from '../../../utils/utils';
 import BTCtoCurrencyComponent from '../../../components/BTCtoCurrencycomponent';
-import TxInfoComponent from './BidgeStatsComponent/TxInfoComponent';
 import { getTbtcTransactions } from '../../../services/tbtcServices';
 import { fetchTbtcSupply } from '../../../services/fetchServices';
 import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
+import ProtocolHistory from './BidgeStatsComponent/ProtocolHistory';
 
 /**
  * @name BridgeStatsComponent
  *
- * @description This component is a reusable component that displays the bridge stats of the home page.
+ * @description Component that displays the bridge stats.
  *
  * @returns { JSX.Element }
  */
@@ -26,6 +19,7 @@ import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 const BridgeStatsComponent: FC = () => {
 	const [tbtcSupply, setTbtcSupply] = useState<number>(0);
 	const [tbtcTransactions, setTbtcTransactions] = useState<Array<any>>([]);
+	console.log('🚀 ~ tbtcTransactions:', tbtcTransactions);
 	const { isConnected, chainId } = useWeb3ModalAccount();
 	const isMainnet =
 		isConnected &&
@@ -81,26 +75,7 @@ const BridgeStatsComponent: FC = () => {
 					<Text fontSize='14px' variant='gray'>
 						Protocol History
 					</Text>
-
-					<Grid
-						templateColumns={{ xl: 'repeat(2, minmax(0, 1fr))' }}
-						w='100%'
-						gap=' 20px'
-						pt='20px'
-					>
-						{tbtcTransactions &&
-							tbtcTransactions.map((tx, index) => {
-								return (
-									<TxInfoComponent
-										key={index}
-										value={tx.value}
-										hash={tx.hash}
-										timeStamp={tx.timeStamp}
-										link={tx.link}
-									/>
-								);
-							})}
-					</Grid>
+					<ProtocolHistory tbtcTransactions={tbtcTransactions} />
 				</Stack>
 			</CustomBox>
 		</Stack>

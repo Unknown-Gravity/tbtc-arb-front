@@ -151,8 +151,11 @@ export const normalizeNetWorkNames = (networkName: string): string => {
 
 export const formatAddress = (
 	address: `0x${string}` | undefined | string,
+	isMobile?: boolean,
 ): string => {
-	return address?.slice(0, 5) + '...' + address?.slice(-4);
+	return !isMobile
+		? address?.slice(0, 5) + '...' + address?.slice(-4)
+		: address?.slice(0, 3) + '...' + address?.slice(-2);
 };
 
 /**

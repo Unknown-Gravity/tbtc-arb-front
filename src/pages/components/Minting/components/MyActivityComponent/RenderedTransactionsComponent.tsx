@@ -50,7 +50,7 @@ const RenderedTransactionsComponent = ({ data }: Props) => {
 					STATE
 				</Text>
 			</Grid>
-			<Stack>
+			<Stack gap='14.5px'>
 				{data.map((item, index) => (
 					<React.Fragment key={index}>{item}</React.Fragment>
 				))}
