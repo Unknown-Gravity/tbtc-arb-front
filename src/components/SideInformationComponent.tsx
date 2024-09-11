@@ -12,6 +12,18 @@ import {
 
 type Props = { header: string; body: string };
 
+/**
+ *
+ * @name SideInformationComponent
+ *
+ * @description This component is a reusable component that displays the side information of the application.
+ *
+ * @param { string } header - The header of the side information.
+ * @param { string } body - The body of the side information.
+ *
+ * @returns { JSX.Element }
+ */
+
 const SideInformationComponent = ({ header, body }: Props) => {
 	const theme = useTheme();
 	const image = useColorModeValue(

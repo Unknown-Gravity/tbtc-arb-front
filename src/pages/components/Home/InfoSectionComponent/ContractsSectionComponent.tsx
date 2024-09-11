@@ -21,6 +21,15 @@ const contracts = [
 	},
 ];
 
+/**
+ *
+ * @name ContractsSectionComponent
+ *
+ * @description This component is a reusable component that displays the contracts section.
+ *
+ * @returns { JSX.Element }
+ */
+
 const ContractsSectionComponent = () => {
 	return (
 		<Stack

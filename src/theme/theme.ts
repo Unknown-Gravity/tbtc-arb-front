@@ -496,6 +496,18 @@ const components: ThemeOverride['components'] = {
 			},
 		}),
 	},
+
+	Tooltip: {
+		baseStyle: ({ colorMode }: StyleFunctionProps) => ({
+			bg:
+				colorMode === 'light'
+					? 'dark.primaryGray'
+					: 'light.primaryGray',
+			color: 'white',
+			borderRadius: '8px',
+			p: '10px',
+		}),
+	},
 };
 
 export const theme = extendTheme({ config, styles, components, fonts, colors });

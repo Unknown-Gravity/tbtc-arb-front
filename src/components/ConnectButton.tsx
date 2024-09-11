@@ -6,6 +6,7 @@ import {
 	ButtonProps,
 	Image,
 	useMediaQuery,
+	useColorModeValue,
 } from '@chakra-ui/react';
 import {
 	useWeb3Modal,
@@ -23,6 +24,16 @@ import {
 import { ArbitrumIcon } from '../assets/icons/ArbitrumIcon';
 import { getTbtcBalance } from '../services/tbtcServices';
 
+/**
+ * @name ConnectButton
+ *
+ * @description This component is a reusable component that displays a button to connect the wallet.
+ *
+ * @param props - The props of the button.
+ *
+ * @returns { JSX.Element }
+ */
+
 const ConnectButton = (props: ButtonProps) => {
 	const { address, isConnected, chainId } = useWeb3ModalAccount();
 	const { walletProvider } = useWeb3ModalProvider();
@@ -38,6 +49,11 @@ const ConnectButton = (props: ButtonProps) => {
 	const getNetworkName = (isMainnet: boolean): string => {
 		return isMainnet ? 'Arbitrum One' : 'Arbitrum Sepolia';
 	};
+
+	const arbitrumLogoColor = useColorModeValue(
+		'light.focusGray',
+		'light.coolGray',
+	);
 
 	useEffect(() => {
 		const getBalance = async () => {
@@ -96,11 +112,19 @@ const ConnectButton = (props: ButtonProps) => {
 						variant='grayOutlined'
 						leftIcon={
 							!isMobile ? (
-								<ArbitrumIcon boxSize='17px' />
+								<ArbitrumIcon
+									color={arbitrumLogoColor}
+									boxSize='17px'
+								/>
 							) : undefined
 						}
 					>
-						{isMobile && <ArbitrumIcon boxSize='17px' />}
+						{isMobile && (
+							<ArbitrumIcon
+								color={arbitrumLogoColor}
+								boxSize='17px'
+							/>
+						)}
 						{!isMobile && normalizeNetWorkNames(networkName)}
 					</Button>
 					<Button

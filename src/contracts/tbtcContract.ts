@@ -1,3 +1,11 @@
+/**
+ * @notice This file contains the ABI of the tBTC contract.
+ *
+ * @name tbtcContractABI
+ *
+ * @description The ABI of the tBTC contract.
+ */
+
 export const tbtcContractABI = [
 	{ inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
 	{

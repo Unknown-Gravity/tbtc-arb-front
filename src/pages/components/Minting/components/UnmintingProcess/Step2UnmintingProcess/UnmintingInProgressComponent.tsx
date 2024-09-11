@@ -1,6 +1,14 @@
 import { Box, Link, Stack, Text } from '@chakra-ui/react';
 import CustomSpinner from '../../../../../../components/CustomSpinner';
 
+/**
+ * @name UnmintingInProgressComponent
+ *
+ * @description This component displays the unminting in progress component.
+ *
+ * @returns {JSX.Element}
+ */
+
 const UnmintingInProgressComponent = () => {
 	return (
 		<Box>

@@ -23,6 +23,14 @@ const infos = [
 	},
 ];
 
+/**
+ * @name HeaderInfoComponent
+ *
+ * @description Component that displays the information in the InforComponent header section.
+ *
+ * @returns { JSX.Element }
+ */
+
 const HeaderInfoComponent: FC = () => {
 	return (
 		<Stack

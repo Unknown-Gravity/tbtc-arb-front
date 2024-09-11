@@ -19,6 +19,16 @@ type Props = {
 	steps: Array<{ title: string; description: string }>;
 };
 
+/**
+ * @name Step3HeaderComponent
+ *
+ * @description This component is a reusable component that displays the header of the step 3 of the minting process.
+ *
+ * @param { number } activeStep - The active step
+ * @param { Array<{ title: string; description: string }> } steps - The steps
+ *
+ */
+
 const Step3HeaderComponent = ({ activeStep, steps }: Props) => {
 	const rawValue = useSelector(
 		(state: RootState) => state.deposit.utxo?.value,

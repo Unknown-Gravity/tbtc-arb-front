@@ -1,3 +1,9 @@
+/**
+ * @name CustomTransaction
+ *
+ * @description This interface contains the properties for the CustomTransaction object.
+ */
+
 export interface CustomTransaction {
 	hash: string;
 	value: number;

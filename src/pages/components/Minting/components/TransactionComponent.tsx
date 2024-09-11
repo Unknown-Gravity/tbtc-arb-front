@@ -7,6 +7,17 @@ type Props = {
 	provider?: Web3Provider | null;
 };
 
+/**
+ * @name TransactionComponent
+ *
+ * @description This component displays the transactions for My Activity section.
+ *
+ * @param {CustomTransaction} transaction The transaction object.
+ * @param {Web3Provider | null} provider The provider object.
+ *
+ * @returns
+ */
+
 const TransactionComponent = ({ transaction }: Props) => {
 	const { colorMode } = useColorMode();
 	return (

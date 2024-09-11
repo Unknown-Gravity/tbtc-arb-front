@@ -10,6 +10,17 @@ type Props = {
 	setStep: Dispatch<SetStateAction<number>>;
 };
 
+/**
+ * @name ResumeDepositComponent
+ *
+ * @description This component displays the resume deposit component.
+ *
+ * @param {Dispatch<SetStateAction<number>>} setTabSelected The function to set the selected tab.
+ * @param {Dispatch<SetStateAction<number>>} setStep The function to set the step.
+ *
+ * @returns {JSX.Element}
+ */
+
 const ResumeDepositComponent = ({ setTabSelected, setStep }: Props) => {
 	return (
 		<CustomBox w='100%' p='26px'>

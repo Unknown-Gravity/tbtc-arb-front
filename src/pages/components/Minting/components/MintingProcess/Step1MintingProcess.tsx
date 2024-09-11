@@ -27,6 +27,22 @@ type Props = {
 	setTabSelected: Dispatch<SetStateAction<number>>;
 };
 
+/**
+ * @name Step1MintingProcess
+ *
+ * @description This component displays the first step of the minting process.
+ *
+ * @param {() => void} onClick The function to be called when the button is clicked.
+ * @param {(event: ChangeEvent<HTMLInputElement>) => void} onChange The function to be called when the input changes.
+ * @param {string} btcRecoveryAddress The BTC recovery address.
+ * @param {string} errorMsg The error message.
+ * @param {boolean} initializingDeposit The state of the deposit initialization.
+ * @param {Dispatch<SetStateAction<number>>} setStep The function to set the step.
+ * @param {Dispatch<SetStateAction<number>>} setTabSelected The function to set the selected tab.
+ *
+ * @returns {JSX.Element}
+ */
+
 const Step1MintingProcess = ({
 	onClick,
 	onChange,
@@ -65,19 +81,21 @@ const Step1MintingProcess = ({
 					you an unique BTC deposit address. There is no minting
 					limit.
 				</Text>
-				<AlertMessageBox message={
-					<>
-						Ensure you have Arbitrum ETH for gas fees. Use the
-						<Link
-							href="https://bridge.arbitrum.io/?destinationChain=arbitrum-one&sourceChain=ethereum"
-							variant='purpleDarkGradient'
-							isExternal
-						>
-							{" Arbitrum Bridge "}
-						</Link>
-						to transfer funds.
-					</>
-				} />
+				<AlertMessageBox
+					message={
+						<>
+							Ensure you have Arbitrum ETH for gas fees. Use the
+							<Link
+								href='https://bridge.arbitrum.io/?destinationChain=arbitrum-one&sourceChain=ethereum'
+								variant='purpleDarkGradient'
+								isExternal
+							>
+								{' Arbitrum Bridge '}
+							</Link>
+							to transfer funds.
+						</>
+					}
+				/>
 			</Stack>
 			<Stack spacing='24px' mt='24px'>
 				<Stack spacing='8px'>

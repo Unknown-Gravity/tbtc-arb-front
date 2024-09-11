@@ -2,6 +2,15 @@ import { Flex, Image, Stack, Text } from '@chakra-ui/react';
 import { CustomBox } from '../../../../components/CustomBox';
 import { Bridge } from '../../../../assets/images';
 
+/**
+ *
+ * @name Section2InfoComponent
+ *
+ * @description This component is a reusable component that displays the information of the sencod section of the InfoComponent.
+ *
+ * @returns { JSX.Element }
+ */
+
 const Section2InfoComponent = () => {
 	return (
 		<CustomBox p='25px' minW={{ base: '100%', xl: '1134px' }} mx='auto'>

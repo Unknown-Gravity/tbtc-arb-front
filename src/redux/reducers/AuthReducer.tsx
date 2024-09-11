@@ -9,8 +9,7 @@ const initialState = {
 /**
  *
  * @name authSlice
- * @description The auth slice
- * @version 1.0.0
+ * @description The auth slice of the Redux store.
  *
  */
 export const authSlice = createSlice({

@@ -2,6 +2,18 @@ import { Box, Stack, Text, useColorMode } from '@chakra-ui/react';
 
 type Props = { time: number; confirmations: number; btc: string };
 
+/**
+ * @name ConfirmationsEstimatedComponents
+ *
+ * @description This component is a reusable component that displays the estimated confirmations.
+ *
+ * @param { number } time - Time spent for the confirmations
+ * @param { number } confirmations - The confirmations
+ * @param { string } btc - tbe btc amount
+ *
+ * @returns { JSX.Element }
+ */
+
 const ConfirmationsEstimatedComponents = ({
 	time,
 	confirmations,
@@ -33,7 +45,7 @@ const ConfirmationsEstimatedComponents = ({
 						lineHeight='32px'
 						variant='darkPurpleGradient'
 					>
-						~{time} {time > 1 ? "hours" : "hour"}
+						~{time} {time > 1 ? 'hours' : 'hour'}
 					</Text>
 					<Text
 						fontSize='10px'

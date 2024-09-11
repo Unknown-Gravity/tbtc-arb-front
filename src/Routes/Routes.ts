@@ -4,6 +4,7 @@ import { HouseIcon } from '../assets/icons/HouseIcon';
 import { LoyaltyIcon } from '../assets/icons/LoyaltyIcon';
 import { LinkType } from '../types/Links.type';
 
+// PublicRoutes object containing various route names
 export const PublicRoutes = {
 	Login: 'login',
 	Home: 'home',
@@ -12,6 +13,7 @@ export const PublicRoutes = {
 	Explore: 'explore',
 };
 
+// ExternalRoutes object containing various external URLs
 export const ExternalRoutes = {
 	Discord: 'https://discord.com/invite/Threshold',
 	Youtube: 'https://www.youtube.com/channel/UCMEW6scsXJFigeeLhSCPF5Q',
@@ -29,8 +31,7 @@ export const ExternalRoutes = {
 	GMX: 'https://app.gmx.io/#/trade',
 };
 
-export const PrivateRoutes = {};
-
+// publicLinks array containing public links with their respective icons, titles, and routes
 export const publicLinks: Array<LinkType> = [
 	{
 		icon: HouseIcon,
@@ -54,6 +55,7 @@ export const publicLinks: Array<LinkType> = [
 	},
 ];
 
+// externalLinks array containing external links with their respective titles and URLs
 export const externalLinks: Array<LinkType> = [
 	{
 		title: 'Youtube',
@@ -69,6 +71,7 @@ export const externalLinks: Array<LinkType> = [
 	},
 ];
 
+// connectWithUsLinks array containing links to connect with the community with their respective titles and URLs
 export const connectWithUsLinks: Array<LinkType> = [
 	{
 		title: 'DAO Forum',
@@ -88,6 +91,7 @@ export const connectWithUsLinks: Array<LinkType> = [
 	},
 ];
 
+// thresholdLinks array containing links related to Threshold Network with their respective titles and URLs
 export const thresholdLinks: Array<LinkType> = [
 	{
 		title: 'Curve tBTC/WBTC',

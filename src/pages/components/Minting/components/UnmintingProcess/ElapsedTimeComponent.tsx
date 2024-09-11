@@ -14,6 +14,16 @@ import TransactionCompletedImage from '../../../../../assets/icons/TransactionCo
 
 type Props = { isSent: boolean };
 
+/**
+ * @name ElapsedTimeComponent
+ *
+ * @description This component displays the elapsed time and transaction history.
+ *
+ * @param {boolean} isSent The state of the transaction.
+ *
+ * @returns {JSX.Element}
+ */
+
 const ElapsedTimeComponent = ({ isSent }: Props) => {
 	const bgColor = 'linear-gradient(122.36deg, #B62CFF 0%, #7D00FF 100%)';
 	const iconBgcolor = useColorModeValue('white', 'dark.primaryGray');

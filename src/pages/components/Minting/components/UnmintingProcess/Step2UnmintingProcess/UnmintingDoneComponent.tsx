@@ -3,6 +3,16 @@ import { Fragment } from 'react/jsx-runtime';
 
 type Props = { onClick: () => void };
 
+/**
+ * @name UnmintingDoneComponent
+ *
+ * @description This component displays the unminting done component.
+ *
+ * @param {() => void} onClick The function to be called when the button is clicked.
+ *
+ * @returns {JSX.Element}
+ */
+
 const UnmintingDoneComponent = ({ onClick }: Props) => {
 	return (
 		<Fragment>

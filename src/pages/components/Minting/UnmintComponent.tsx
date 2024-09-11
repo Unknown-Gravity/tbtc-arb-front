@@ -28,6 +28,17 @@ const initialValue = {
 	isSent: false,
 };
 
+/**
+ * @name UnmintComponent
+ *
+ * @description This component displays the unminting process.
+ *
+ * @param {boolean} isConnected The state of the wallet connection.
+ * @param {Dispatch<number>} setTabSelected The function to set the selected tab.
+ *
+ * @returns {JSX.Element}
+ */
+
 const UnmintComponent = ({ isConnected, setTabSelected }: Props) => {
 	const [step, setStep] = useState(1);
 	const { onOpen, isOpen, onClose } = useDisclosure();

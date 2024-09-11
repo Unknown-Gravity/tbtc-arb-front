@@ -2,6 +2,13 @@ import { ethers } from 'ethers';
 import { TBTC } from '@keep-network/tbtc-v2.ts';
 import { InfoAccount } from '../interfaces/InfoAccount.type';
 
+/**
+ * @name initiateSDK
+ * @description Initializes the TBTC SDK
+ * @param data - The account information
+ * @returns The TBTC SDK
+ */
+
 const initiateSDK = async (data: InfoAccount): Promise<TBTC> => {
 	let sdk: TBTC | null = null;
 

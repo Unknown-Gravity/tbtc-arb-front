@@ -5,7 +5,6 @@ import {
 	useColorMode,
 	useColorModeValue,
 } from '@chakra-ui/react';
-import React from 'react';
 import {
 	DarkPurpleBitcoinIcon,
 	DarkYellowBitcoinIcon,
@@ -15,6 +14,16 @@ import {
 import { GoDotFill } from 'react-icons/go';
 
 type Props = { activeIndex: number };
+
+/**
+ * @name TransactionInProgressComponent
+ *
+ * @description This component displays the transaction in progress.
+ *
+ * @param {number} activeIndex The index of the active transaction.
+ *
+ * @returns {JSX.Element}
+ */
 
 const TransactionInProgressComponent = ({ activeIndex }: Props) => {
 	const image1 = useColorModeValue(

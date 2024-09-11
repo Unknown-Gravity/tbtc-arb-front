@@ -5,6 +5,17 @@ import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 type Props = {
 	children: ReactNode;
 };
+
+/**
+ * @name BulletPoint
+ *
+ * @description This component is a reusable component that displays the point used in the Tansaction history page.
+ *
+ * @param { ReactNode } children - The children of the component.
+ *
+ * @returns { JSX.Element }
+ */
+
 const BulletPoint = ({ children }: Props) => {
 	return (
 		<Text lineHeight='24px'>

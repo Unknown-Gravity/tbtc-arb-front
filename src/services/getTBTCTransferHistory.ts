@@ -1,8 +1,15 @@
 import { Contract } from 'ethers';
-import { Web3Provider } from '@ethersproject/providers';
+
+/**
+ * @name getTBTCTransferHistory
+ *
+ * @description This function gets the transfer history of a tBTC account.
+ *
+ * @param {string} account The account to get the transfer history for.
+ * @param {Contract} tbtcContract The tBTC contract.
+ */
 
 export async function getTBTCTransferHistory(
-	provider: Web3Provider,
 	account: string,
 	tbtcContract: Contract,
 ) {

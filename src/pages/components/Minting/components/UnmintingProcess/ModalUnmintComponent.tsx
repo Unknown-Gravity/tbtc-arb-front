@@ -9,6 +9,19 @@ type Props = {
 	onClick: () => void;
 };
 
+/**
+ * @name ModalUnmintComponent
+ *
+ * @description This component displays the unmint modal component.
+ *
+ * @param {boolean} isOpen The state of the modal.
+ * @param {() => void} onClose The function to be called when the modal is closed.
+ * @param {boolean} isUnminting The state of the unminting process.
+ * @param {() => void} onClick The function to be called when the button is clicked.
+ *
+ * @returns {JSX.Element}
+ */
+
 const ModalUnmintComponent = ({
 	isOpen,
 	onClose,

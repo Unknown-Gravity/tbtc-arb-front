@@ -4,6 +4,19 @@ import { currencyFormatter } from '../../../../utils/utils';
 
 type Props = { info: number; label: string; symbol?: string };
 
+/**
+ *
+ * @name InfoHeaderExploreComponent
+ *
+ * @description This component is a reusable component that displays the information of the header of the explore page.
+ *
+ * @param { number } info - The information to display.
+ * @param { string } label - The label of the information.
+ * @param { string } symbol - The symbol of the information.
+ *
+ * @returns { JSX.Element }
+ */
+
 const InfoHeaderExploreComponent = ({ info, label, symbol }: Props) => {
 	const bgBox = useColorModeValue('white', 'dark.focusGray');
 	return (

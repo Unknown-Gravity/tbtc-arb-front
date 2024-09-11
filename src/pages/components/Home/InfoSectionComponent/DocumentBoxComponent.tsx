@@ -17,6 +17,17 @@ type Props = {
 	report?: Report;
 };
 
+/**
+ * @name DocumentBoxComponent
+ *
+ * @description This component is a reusable component that displays the document box used in the InfoSectionComponent.
+ *
+ * @param { Contract } contract - The contract data.
+ * @param { Report } report - The report data.
+ *
+ * @returns { JSX.Element }
+ */
+
 const DocumentBoxComponent = ({ contract, report }: Props) => {
 	const boxBg = useColorModeValue('light.lightGray', 'dark.focusGray');
 	const filter = useColorModeValue('brightness(0.9)', 'brightness(1.15)');
@@ -84,11 +95,7 @@ const DocumentBoxComponent = ({ contract, report }: Props) => {
 					)}
 				</Stack>
 			</Flex>
-			<Link 
-				href="https://github.com/keep-network/tbtc-v2/blob/main/docs/rfc/rfc-1.adoc" 
-				variant='purpleDarkGradient' 
-				isExternal
-			>
+			<Link>
 				Read More
 				<UpRightIcon />
 			</Link>

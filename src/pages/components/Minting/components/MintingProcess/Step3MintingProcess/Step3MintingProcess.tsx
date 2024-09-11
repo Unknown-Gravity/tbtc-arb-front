@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
 	Box,
 	Flex,
@@ -57,6 +58,14 @@ const finalizingMinting = {
 	},
 };
 
+/**
+ * @name Step3MintingProcess
+ *
+ * @description This component shows the last step of the minting process. It shows the status of the minting process and the transaction links. Also it will check the deposit status and change the step accordingly.
+ *
+ *  @param { Dispatch<SetStateAction<number>> } setStep - Function to change the step
+ */
+
 const Step3MintingProcess = ({ setStep }: Props) => {
 	const depositInfo = useSelector((state: RootState) => state.deposit);
 	const deposit = depositInfo.deposit;
@@ -64,9 +73,9 @@ const Step3MintingProcess = ({ setStep }: Props) => {
 	const [txHash, setTxHash] = useState(depositInfo.utxo?.transactionHash);
 	const [status, setStatus] = useState(depositInfo.status);
 	const { isConnected, chainId, address } = useWeb3ModalAccount();
-	console.log('🚀 ~ Step3MintingProcess ~ address:', address);
 	const isMainnet =
-		isConnected && chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
+		isConnected &&
+		chainId.toString() === process.env.REACT_APP_MAINNET_CHAINID;
 
 	const dispatch = useDispatch();
 
@@ -108,16 +117,11 @@ const Step3MintingProcess = ({ setStep }: Props) => {
 	const checkDepositStep = async () => {
 		try {
 			const utxo = depositInfo.utxo;
-			if (!utxo || !sdk) return
+			if (!utxo || !sdk) return;
 
 			const { transactionHash, outputIndex } = utxo;
 
-			setDepositStatus(
-				transactionHash,
-				outputIndex,
-				sdk,
-				dispatch,
-			);
+			setDepositStatus(transactionHash, outputIndex, sdk, dispatch);
 			const fundingTxVectors = await getFundingTxVectors(
 				transactionHash,
 				sdk,
@@ -155,7 +159,7 @@ const Step3MintingProcess = ({ setStep }: Props) => {
 	};
 
 	useEffect(() => {
-		if (!deposit || !sdk) return
+		if (!deposit || !sdk) return;
 		checkDepositStep();
 		changeStep(deposit, sdk);
 	}, [deposit, sdk]);
@@ -178,15 +182,15 @@ const Step3MintingProcess = ({ setStep }: Props) => {
 
 	return (
 		<Flex>
-			<Box position="relative" h={{ base: 'auto', xl: '555px' }}>
+			<Box position='relative' h={{ base: 'auto', xl: '555px' }}>
 				{deposit && (
 					<Menu>
 						<MenuButton
 							as={IconButton}
 							icon={<SettingsIcon />}
-							position="absolute"
-							top="-30px"
-							right="0px"
+							position='absolute'
+							top='-30px'
+							right='0px'
 							zIndex={10}
 						/>
 						<MenuList>

@@ -1,5 +1,15 @@
 import { Spinner, SpinnerProps, useColorModeValue } from '@chakra-ui/react';
 
+/**
+ * @name CustomSpinner
+ *
+ * @description This component is a reusable spinner component.
+ *
+ * @param { SpinnerProps } props - The props to pass to the Spinner component.
+ *
+ * @returns { JSX.Element }
+ */
+
 const CustomSpinner = (props: SpinnerProps) => {
 	const { h, w, speed, thickness, color, emptyColor } = props;
 

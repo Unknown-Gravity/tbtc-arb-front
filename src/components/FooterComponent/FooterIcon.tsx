@@ -14,6 +14,19 @@ type Props = {
 	solid?: boolean;
 };
 
+/**
+ *
+ * @name FooterIcon
+ *
+ * @description This component is a reusable component that displays an icon with a link to an external website.
+ *
+ * @param { string } link - The link to the external website.
+ * @param { IconType | ComponentWithAs<'svg', IconProps> } icon - The icon to display.
+ * @param { boolean } solid - A boolean to determine if the icon should be solid or not. It is used to determine the background color of the icon.
+ *
+ * @returns { JSX.Element }
+ */
+
 const FooterIcon = ({ link, icon, solid }: Props) => {
 	return (
 		<Link

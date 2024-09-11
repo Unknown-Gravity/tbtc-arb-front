@@ -2,9 +2,17 @@
 import HeaderExploreComponent from './components/Explore/HeaderExploreComponent';
 import { CustomBox } from '../components/CustomBox';
 import { Stack } from '@chakra-ui/react';
-import HistoryExploreComponent from './components/Explore/HistoryExploreComponent';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import HistoryExploreComponent from './components/Explore/HistoryExploreComponent';
+
+/**
+ * @name Explore
+ *
+ * @description This component displays the Explore page.
+ *
+ * @returns {JSX.Element}
+ */
 
 const Explore = () => {
 	const acceptedTerms = localStorage.getItem('acceptedTerms');
@@ -27,10 +35,9 @@ const Explore = () => {
 			<CustomBox w='100%' p='0'>
 				<HeaderExploreComponent />
 			</CustomBox>
-			{/* TODO ADD TBTC HISTORY ON ARBITRUM
 			<CustomBox p='25px'>
 				<HistoryExploreComponent />
-			</CustomBox> */}
+			</CustomBox>
 		</Stack>
 	);
 };

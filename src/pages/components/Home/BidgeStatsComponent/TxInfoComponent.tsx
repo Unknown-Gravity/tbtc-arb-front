@@ -16,6 +16,20 @@ type Props = {
 	link: string;
 };
 
+/**
+ *
+ * @name TxInfoComponent
+ *
+ * @description This component displays the information of the transaction.
+ *
+ * @param { number } value - The value of the transaction.
+ * @param { string } hash - The hash of the transaction.
+ * @param { string } timeStamp - The timestamp of the transaction.
+ * @param { string } link - The link of the transaction.
+ *
+ * @returns { JSX.Element }
+ */
+
 const TxInfoComponent = ({ value, hash, timeStamp, link }: Props) => {
 	const theme = useTheme();
 	const { colorMode } = useColorMode();

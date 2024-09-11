@@ -13,7 +13,7 @@ import {
 	LightExploreBackground,
 } from '../../../assets/images';
 import { useEffect, useState } from 'react';
-import { convertBTCToCurrency, currencyFormatter } from '../../../utils/utils';
+import { convertBTCToCurrency } from '../../../utils/utils';
 import { useNavigate } from 'react-router-dom';
 import { fetchHeaderExploreData } from '../../../services/fetchServices';
 
@@ -22,6 +22,14 @@ const initialValue = {
 	minting: 0,
 	addresses: 0,
 };
+
+/**
+ * @name HeaderExploreComponent
+ *
+ * @description Header of the Explore page
+ *
+ * @returns {JSX.Element}
+ */
 
 const HeaderExploreComponent = () => {
 	const [data, setData] = useState(initialValue);

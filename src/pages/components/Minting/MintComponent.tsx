@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
 	Flex,
 	Image,
@@ -8,7 +9,13 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import { CustomBox } from '../../../components/CustomBox';
-import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
+import {
+	ChangeEvent,
+	Dispatch,
+	SetStateAction,
+	useEffect,
+	useState,
+} from 'react';
 import { useWeb3ModalAccount } from '@web3modal/ethers5/react';
 import { useDispatch } from 'react-redux';
 import HeaderStepsMintingComponent from './components/MintingProcess/HeaderStepsMintingComponent';
@@ -37,6 +44,19 @@ type Props = {
 	setTabSelected: Dispatch<SetStateAction<number>>;
 };
 
+/**
+ * @name MintComponent
+ *
+ * @description This component displays the minting component.
+ *
+ * @param {boolean} isConnected The state of the connection.
+ * @param {number} step The current step.
+ * @param {Dispatch<SetStateAction<number>>} setStep The function to set the step.
+ * @param {Dispatch<SetStateAction<number>>} setTabSelected The function to set the selected tab.
+ *
+ * @returns {JSX.Element}
+ */
+
 const MintComponent = ({
 	isConnected,
 	step,
@@ -50,7 +70,7 @@ const MintComponent = ({
 	const [depositAddress, setDepositAdress] = useState('');
 	const [initializingDeposit, setInitializingDeposit] =
 		useState<boolean>(false);
-	const [depositInstance, setDepositInstance] = useState<Deposit | null>()
+	const [depositInstance, setDepositInstance] = useState<Deposit | null>();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { address } = useWeb3ModalAccount();
 
@@ -69,14 +89,14 @@ const MintComponent = ({
 
 		try {
 			setInitializingDeposit(true);
-			if (!sdk) return
+			if (!sdk) return;
 
 			setDepositInstance(
 				await sdk.deposits.initiateCrossChainDeposit(
 					btcRecoveryAddress,
 					'Arbitrum',
-				)
-			)
+				),
+			);
 
 			setInitializingDeposit(false);
 		} catch (error) {
@@ -87,11 +107,10 @@ const MintComponent = ({
 	};
 
 	useEffect(() => {
-		if (!depositInstance) return
+		if (!depositInstance) return;
 
 		const updateDepositInstance = async () => {
-			const btcDepositAddress =
-			await depositInstance.getBitcoinAddress();
+			const btcDepositAddress = await depositInstance.getBitcoinAddress();
 			setDepositAdress(btcDepositAddress);
 
 			downloadJson(
@@ -100,7 +119,7 @@ const MintComponent = ({
 				btcRecoveryAddress,
 				address,
 			);
-	
+
 			const ethAddress = address;
 			dispatch(
 				addDeposit(
@@ -110,7 +129,7 @@ const MintComponent = ({
 					ethAddress,
 				),
 			);
-		}
+		};
 
 		updateDepositInstance();
 		setStep(2);
@@ -175,24 +194,30 @@ const MintComponent = ({
 						<Step3MintingProcess setStep={setStep} />
 					)}
 					{depositInstance && (
-						<Text variant='gray' fontSize='12px' lineHeight='24px' mt={4}>
-							If the JSON file download didn’t start automatically,{' '}
+						<Text
+							variant='gray'
+							fontSize='12px'
+							lineHeight='24px'
+							mt={4}
+						>
+							If the JSON file download didn’t start
+							automatically,{' '}
 							<Link
 								onClick={() =>
 									downloadJson(
 										depositInstance.getReceipt(),
 										depositAddress,
 										btcRecoveryAddress,
-										address
+										address,
 									)
 								}
-								cursor="pointer"
-								color="blue.500"
+								cursor='pointer'
+								color='blue.500'
 							>
 								click here
 							</Link>{' '}
-							to download it. This file is important
-							to resume the deposit process.
+							to download it. This file is important to resume the
+							deposit process.
 						</Text>
 					)}
 				</Stack>
@@ -243,6 +268,5 @@ const MintComponent = ({
 		</CustomBox>
 	);
 };
-
 
 export default MintComponent;

@@ -8,6 +8,15 @@ import ContractsSectionComponent from './InfoSectionComponent/ContractsSectionCo
 import JsonFileComponent from './InfoSectionComponent/JsonFileComponent';
 import AuditReportComponent from './InfoSectionComponent/AuditReportComponent';
 
+/**
+ *
+ * @name InfoSectionComponent
+ *
+ * @description This component is a reusable component that displays the information of the InfoSection.
+ *
+ * @returns { JSX.Element }
+ */
+
 const InfoSectionComponent: FC = () => {
 	return (
 		<Stack gap={4} maxW={{ base: '100%', xl: '1134px' }} mx='auto'>

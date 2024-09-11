@@ -8,13 +8,26 @@ import {
 	StepTitle,
 	Text,
 } from '@chakra-ui/react';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 type Props = {
 	stepNumber: number;
 	title: string;
 	children: ReactNode;
 };
+
+/**
+ *
+ * @name StepContent
+ *
+ * @description This component is a reusable component that displays the content of the step.
+ *
+ * @param { number } stepNumber - The step number.
+ * @param { string } title - The title of the step.
+ * @param { ReactNode } children - The children of the component.
+ *
+ * @returns { JSX.Element }
+ */
 
 const StepContent = ({ stepNumber, title, children }: Props) => {
 	return (

@@ -2,6 +2,15 @@ import { Flex, Stack, Text } from '@chakra-ui/react';
 import { connectWithUsLinks, thresholdLinks } from '../../Routes/Routes';
 import LinkComponent from './LinkComponent';
 
+/**
+ *
+ * @name LinksComponent
+ *
+ * @description This component contains the links to the Threshold website and the social media links.
+ *
+ * @returns { JSX.Element }
+ */
+
 const LinksComponent = () => {
 	return (
 		<Flex gap='64px'>

@@ -53,28 +53,28 @@ const getTransactionStatus = async (
 		const receipt = await provider?.getTransactionReceipt(transactionHash);
 
 		if (!receipt) {
-			return 'PENDING'; // Si el recibo no existe, la transacción está pendiente
+			return 'PENDING'; // If the receipt does not exist, the transaction is pending
 		}
 
 		if (receipt.status === 1) {
-			return 'MINTED'; // Transacción exitosa
+			return 'MINTED'; // Successful transaction
 		} else if (receipt.status === 0) {
-			return 'ERROR'; // Transacción fallida
+			return 'ERROR'; // Failed transaction
 		} else {
-			return 'unknown'; // Estado desconocido (esto no debería ocurrir en condiciones normales)
+			return 'unknown'; // Unknown status (this should not happen under normal conditions)
 		}
 	} catch (error) {
 		console.error('Error fetching transaction status:', error);
-		return 'error'; // En caso de error al obtener el recibo
+		return 'error'; // In case of error while fetching the receipt
 	}
 };
 
 export const getTransactionValue = (transaction: Transaction): string => {
 	if (!transaction || !transaction.value) {
-		return '0'; // En caso de que la transacción no tenga un valor, devolvemos '0'
+		return '0'; // If the transaction does not have a value, return '0'
 	}
 
-	// Convertimos el valor de wei a Ether
+	// Convert the value from wei to Ether
 	const valueInEther = ethers.utils.formatEther(transaction.value);
 	return valueInEther;
 };

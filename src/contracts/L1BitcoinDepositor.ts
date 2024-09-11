@@ -1,3 +1,10 @@
+/**
+ * @name L1BitcoinDepositor
+ *
+ * @description This contract is responsible for handling the deposit of Bitcoin on the L1 chain.
+ *
+ */
+
 export const L1BitcoinDepositor = [
 	{ inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
 	{

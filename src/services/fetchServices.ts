@@ -1,17 +1,30 @@
 import axios from 'axios';
 
+/**
+ * Fetches the explore history from the specified URL using the provided API key.
+ *
+ * @returns {Promise<any[]>} A promise that resolves to an array of explore history data.
+ * @throws {Error} If there is an error fetching the explore history.
+ */
 const fetchExploreHistory = async () => {
 	const apikey = process.env.REACT_APP_API_KEY || '';
 	const url = 'https://api.dune.com/api/v1/query/3965425/results?limit=20';
 	try {
 		const response = await axios.get(url, {
 			headers: { 'X-Dune-API-Key': apikey },
-		})
+		});
 		return response.data.result.rows;
 	} catch (error) {
 		console.error('Error fetching tbtc history:', error);
 	}
 };
+
+/**
+ * Fetches the tbtc supply from the specified URL using the provided API key.
+ *
+ * @returns {Promise<number>} A promise that resolves to the tbtc supply.
+ * @throws {Error} If there is an error fetching the tbtc supply.
+ */
 
 export const fetchTbtcSupply = async () => {
 	const apikey = process.env.REACT_APP_API_KEY;
@@ -25,6 +38,13 @@ export const fetchTbtcSupply = async () => {
 		console.error('Error fetching tbtc supply:', error);
 	}
 };
+
+/**
+ * Fetches the minting data from the specified URL using the provided API key.
+ *
+ * @returns {Promise<any>} A promise that resolves to the minting data.
+ * @throws {Error} If there is an error fetching the minting data.
+ */
 
 const fetchHeaderExploreData = async () => {
 	const apikey = process.env.REACT_APP_API_KEY;

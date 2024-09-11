@@ -34,6 +34,16 @@ interface Timer {
 	togglePause: () => void;
 }
 
+/**
+ * @name useTimer
+ *
+ * @description This hook handles the timer logic.
+ *
+ * @param startTime - The time to start the timer.
+ *
+ * @returns { Timer }
+ */
+
 export const useTimer = (startTime: string): Timer => {
 	const { days, hours, minutes, seconds } = parseTime(startTime);
 	const [time, setTime] = useState({ days, hours, minutes, seconds });

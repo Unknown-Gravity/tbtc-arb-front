@@ -11,9 +11,15 @@ import MintComponent from './components/Minting/MintComponent';
 import ResumeDepositComponent from './components/Minting/ResumeDepositComponent';
 import { useNavigate } from 'react-router-dom';
 
-type Props = {};
+/**
+ * @name TbtcComponent
+ *
+ * @description This component displays the tBTC page.
+ *
+ * @returns {JSX.Element}
+ */
 
-const TbtcComponent = (props: Props) => {
+const TbtcComponent = () => {
 	const [step, setStep] = useState(1);
 	const [tabSelected, setTabSelected] = useState<number>(1);
 	const accountInfo = useSelector((state: RootState) => state.account);

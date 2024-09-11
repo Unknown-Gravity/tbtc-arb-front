@@ -3,6 +3,16 @@ import React from 'react';
 
 type Props = { data: Array<JSX.Element> };
 
+/**
+ * @name RenderedTransactionsComponent
+ *
+ * @description This component displays the rendered transactions.
+ *
+ * @param {Array<JSX.Element>} data The data to be displayed.
+ *
+ * @returns {JSX.Element}
+ */
+
 const RenderedTransactionsComponent = ({ data }: Props) => {
 	return (
 		<Stack mt='40px' maxH='520px'>
@@ -40,7 +50,7 @@ const RenderedTransactionsComponent = ({ data }: Props) => {
 					STATE
 				</Text>
 			</Grid>
-			<Stack>
+			<Stack gap='14.5px'>
 				{data.map((item, index) => (
 					<React.Fragment key={index}>{item}</React.Fragment>
 				))}

@@ -16,6 +16,16 @@ interface SdkContextValue {
 	error: string | null;
 }
 
+/**
+ * @name SdkProvider
+ *
+ * @description This component is a provider that wraps the application and provides the SDK instance to the rest of the application.
+ *
+ * @param { ReactNode } children - The children of the component.
+ *
+ * @returns { JSX.Element }
+ */
+
 const SdkContext = createContext<SdkContextValue | undefined>(undefined);
 
 export const SdkProvider = ({ children }: { children: ReactNode }) => {

@@ -8,6 +8,19 @@ type Props = {
 	postContent: string;
 };
 
+/**
+ * @name InfoSection
+ *
+ * @description This component is a reusable component that displays the information of the home page.
+ *
+ * @param { string } title - The title of the information.
+ * @param { string } content - The content of the information.
+ * @param { string } highlight - The highlight of the information.
+ * @param { string } postContent - The post content of the information.
+ *
+ * @returns { JSX.Element }
+ */
+
 const InfoSection = ({ title, content, highlight, postContent }: Props) => {
 	return (
 		<Stack gap='15px' maxW='463px'>

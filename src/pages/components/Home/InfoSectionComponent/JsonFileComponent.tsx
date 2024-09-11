@@ -3,6 +3,17 @@ import { Flex, Image, Link, Stack, Text, useColorMode } from '@chakra-ui/react';
 import { DarkJsonImage, LightJsonImage } from '../../../../assets/images';
 import { UpRightIcon } from '../../../../assets/icons/UpRightIcon';
 
+/**
+ * @name JsonFileComponent
+ *
+ * @description This component is a reusable component that displays the information about how the JSON file works for resume a deposit.
+ *
+ * @returns { JSX.Element }
+ */
+
+const recoveryGuideLink =
+	'https://github.com/keep-network/tbtc-v2/blob/main/typescript/scripts/README.adoc';
+
 const JsonFileComponent = () => {
 	const { colorMode } = useColorMode();
 
@@ -37,7 +48,11 @@ const JsonFileComponent = () => {
 			</Text>
 			<Text fontSize='14px'>
 				Recovery guide can be found{' '}
-				<Link variant='purpleDarkGradient'>
+				<Link
+					variant='purpleDarkGradient'
+					href={recoveryGuideLink}
+					isExternal
+				>
 					here
 					<UpRightIcon />
 				</Link>

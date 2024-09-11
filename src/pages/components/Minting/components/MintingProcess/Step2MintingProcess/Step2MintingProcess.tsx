@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
 	Box,
 	Flex,
@@ -50,6 +51,18 @@ const cardsInfo = [
 	},
 ];
 
+/**
+ * @name Step2ProvideDataComponent
+ *
+ * @description This component is a reusable component that displays the step 2 of the minting process.
+ *
+ * @param { Dispatch<SetStateAction<number>> } onClick - Function to change the step
+ * @param { string } btcDepositAddress - The btc deposit address calculated by the sdk
+ * @param { string } btcRecoveryAddress - The btc recovery address given by the user
+ *
+ * @returns { JSX.Element }
+ */
+
 const Step2ProvideDataComponent = ({ onClick }: Props) => {
 	const deposit = useSelector((state: RootState) => state.deposit);
 	const { address } = useWeb3ModalAccount();
@@ -87,8 +100,7 @@ const Step2ProvideDataComponent = ({ onClick }: Props) => {
 		}, 5000); // Check every 5 seconds
 		return () => clearInterval(intervalId);
 		// Clean up the interval on component unmount
-		// TODO Revisar dependencias
-	}, [deposit.deposit, deposit.utxo, dispatch, onClick, sdk]);
+	}, [deposit.deposit, deposit.utxo, sdk]);
 
 	return (
 		<Box maxW={{ xl: '448.28px' }}>
@@ -106,11 +118,13 @@ const Step2ProvideDataComponent = ({ onClick }: Props) => {
 				This address is a uniquely generated address based on the data
 				you provided.{' '}
 			</Text>
-			<AlertMessageBox message={
-				<>
-					0.001 tBTC will be subtracted from the deposited amount on mainnet due to the variation of the deposit max fee.
-				</>
-			}
+			<AlertMessageBox
+				message={
+					<>
+						0.001 tBTC will be subtracted from the deposited amount
+						on mainnet due to the variation of the deposit max fee.
+					</>
+				}
 				mt='20px'
 			/>
 			<Stack

@@ -20,6 +20,8 @@ const initialState: DepositState = {
 	ethAddress: null,
 	utxo: null,
 	arbTxHash: null,
+	initializedEthTxHash: null,
+	finalizedEthTxHash: null,
 	status: null,
 };
 

@@ -7,6 +7,14 @@ import {
 
 type Props = {};
 
+/**
+ * @name NotRenderedTransactionsComponent
+ *
+ * @description This component displays the transactions that have not been rendered yet.
+ *
+ * @returns {JSX.Element}
+ */
+
 const NotRenderedTransactionsComponent = (props: Props) => {
 	const image = useColorModeValue(LightMintingActivity, DarkMintingActivity);
 	return (

@@ -42,6 +42,15 @@ const cardsInfo = [
 	},
 ];
 
+/**
+ * @name Step2ProvideDataComponent
+ *
+ * @description This component is a reusable component that displays the step 2 of the minting process.
+ *
+ * @param { Dispatch<SetStateAction<number>> } onClick - Function to change the step
+ * @param { string } btcRecoveryAddress - The btc recovery address given by the user
+ */
+
 const Step2ProvideDataComponent = ({ onClick, btcRecoveryAddress }: Props) => {
 	const { address } = useWeb3ModalAccount();
 	const { colorMode } = useColorMode();

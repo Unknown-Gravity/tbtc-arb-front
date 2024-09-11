@@ -7,6 +7,18 @@ type Props = {
 	flexDir?: FlexProps['flexDirection'];
 };
 
+/**
+ * @name InfoTextTemplateComponent
+ *
+ * @description This component is a reusable component that displays the information of the text template.
+ *
+ * @param { string } title - The title of the information.
+ * @param { ReactNode } children - The children of the component.
+ * @param { FlexProps['flexDirection'] } flexDir - The flex direction of the component.
+ *
+ * @returns { JSX.Element }
+ */
+
 const InfoTextTemplateComponent = ({ title, children, flexDir }: Props) => {
 	return (
 		<Stack gap='15px'>

@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, useMediaQuery } from '@chakra-ui/react';
 import {
 	formatAddress,
 	generateIdenticon,
@@ -10,9 +10,25 @@ type Props = {
 	transaction: CustomTransaction;
 };
 
+/**
+ * @name TransactionMinting
+ *
+ * @description This component displays the transactions for minting.
+ *
+ * @param {CustomTransaction} transaction The transaction object.
+ *
+ * @returns {JSX.Element}
+ */
+
 const TransactionMinting = ({ transaction }: Props) => {
+	const [isMobile] = useMediaQuery('(max-width: 415px)');
 	return (
-		<Box p='14px' border='1px solid #B1BCCC' borderRadius='6px'>
+		<Box
+			p='14px'
+			border='1px solid #B1BCCC'
+			borderRadius='6px'
+			minW='280px'
+		>
 			<Flex justifyContent='space-between'>
 				<Text variant='gray' fontSize='14px'>
 					{transaction.value}
@@ -24,7 +40,7 @@ const TransactionMinting = ({ transaction }: Props) => {
 						h='16px'
 					/>
 					<Text fontFamily={'IBM Plex Mono'}>
-						{formatAddress(transaction.hash)}
+						{formatAddress(transaction.hash, isMobile)}
 					</Text>
 				</Flex>
 				{transaction.date && (

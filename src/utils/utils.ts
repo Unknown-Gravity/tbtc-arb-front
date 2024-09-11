@@ -23,9 +23,25 @@ const currencyLocales: { [key in Currency]: string } = {
 	GBP: 'en-GB',
 };
 
+/**
+ * @name generateIdenticon
+ * @description Generates an identicon for the given address.
+ * @param {string} address - The address to generate the identicon for.
+ * @returns The identicon.
+ */
+
 export const generateIdenticon = (address: string) => {
 	return blockies.create({ seed: address.toLowerCase() }).toDataURL();
 };
+
+/**
+ * @name currencyFormatter
+ * @description Formats a number as a currency.
+ * @param {number} money - The number to format.
+ * @param {Currency} currency - The currency to format the number as.
+ * @param {string} symbol - The symbol to display.
+ * @returns The formatted currency.
+ */
 
 export const currencyFormatter = (
 	money: number,
@@ -55,6 +71,14 @@ export const currencyFormatter = (
 	return formatter.format(money);
 };
 
+/**
+ * @name convertBTCToCurrency
+ * @description Converts a BTC amount to a currency.
+ * @param {number} btcAmount - The BTC amount to convert.
+ * @param {Currency} currency - The currency to convert the BTC amount to.
+ * @returns The converted currency.
+ */
+
 export const convertBTCToCurrency = async (
 	btcAmount: number,
 	currency: Currency = 'USD',
@@ -75,6 +99,14 @@ export const convertBTCToCurrency = async (
 	}
 };
 
+/**
+ * @name getDifferenceInMinutes
+ * @description Returns the difference in minutes between two dates.
+ * @param {Date} date1 - The first date.
+ * @param {Date} date2 - The second date.
+ * @returns The difference in minutes.
+ */
+
 export const getDifferenceInMinutes = (date1: Date, date2: Date) => {
 	const diffInMs = date2.getTime() - date1.getTime();
 	const diffInMinutes = Math.floor(diffInMs / 60000);
@@ -92,6 +124,13 @@ export const getDifferenceInMinutes = (date1: Date, date2: Date) => {
 	return `${diffInDays} days ago`;
 };
 
+/**
+ * @name normalizeNetWorkNames
+ * @description Normalizes the network names.
+ * @param {string} networkName - The network name to normalize.
+ * @returns The normalized network name.
+ */
+
 export const normalizeNetWorkNames = (networkName: string): string => {
 	if (!networkName) return '';
 
@@ -103,11 +142,28 @@ export const normalizeNetWorkNames = (networkName: string): string => {
 		.join(' ');
 };
 
+/**
+ * @name formatAddress
+ * @description Formats an address.
+ * @param {string} address - The address to format.
+ * @returns The formatted address.
+ */
+
 export const formatAddress = (
 	address: `0x${string}` | undefined | string,
+	isMobile?: boolean,
 ): string => {
-	return address?.slice(0, 5) + '...' + address?.slice(-4);
+	return !isMobile
+		? address?.slice(0, 5) + '...' + address?.slice(-4)
+		: address?.slice(0, 3) + '...' + address?.slice(-2);
 };
+
+/**
+ * @name formatAmount
+ * @description Formats an amount.
+ * @param {number} amount - The amount to format.
+ * @returns The formatted amount.
+ */
 
 const millisecondsToTimeString = (milliseconds: number): string => {
 	const totalMinutes = milliseconds / 60000; // 1 minuto = 60,000 milisegundos
@@ -121,6 +177,13 @@ const millisecondsToTimeString = (milliseconds: number): string => {
 	}
 };
 
+/**
+ * @name truncateToDecimals
+ * @param {string} value - The decimal value to truncate
+ * @param {number} decimals - The number of decimals to truncate to
+ * @returns The truncated value
+ */
+
 export const truncateToDecimals = (value: string, decimals: number) => {
 	if (parseFloat(value) === 0) return '0';
 	const [integerPart, decimalPart] = value.split('.');
@@ -129,6 +192,12 @@ export const truncateToDecimals = (value: string, decimals: number) => {
 	}
 	return `${integerPart}.${decimalPart.slice(0, decimals)}`;
 };
+
+/**
+ * @name fetchLoyaltyProgramCIDs
+ * @description Fetches the loyalty program CIDs.
+ * @returns The loyalty program CIDs.
+ */
 
 export const fetchLoyaltyProgramCIDs = async () => {
 	try {
@@ -142,6 +211,13 @@ export const fetchLoyaltyProgramCIDs = async () => {
 	}
 };
 
+/**
+ * @name fetchIPFSData
+ * @description Fetches the IPFS data.
+ * @param {string} cid - The CID to fetch the data for.
+ * @returns The IPFS data.
+ */
+
 export const fetchIPFSData = async (cid: string) => {
 	try {
 		const response = await axios.get(
@@ -154,6 +230,13 @@ export const fetchIPFSData = async (cid: string) => {
 	}
 };
 
+/**
+ * @name fetchDepositReceipt
+ * @description Fetches the deposit receipt.
+ * @param {string} depositId - The deposit ID.
+ * @returns The deposit receipt.
+ */
+
 export const serializeReceipt = (receipt: DepositReceipt) => {
 	const serializedReceipt = {
 		...receipt,
@@ -165,32 +248,47 @@ export const serializeReceipt = (receipt: DepositReceipt) => {
 	return serializedReceipt;
 };
 
+/**
+ * @name deserializeReceipt
+ * @description Deserializes the deposit receipt.
+ * @param {DepositReceipt} receipt - The receipt to deserialize.
+ * @param {string} depositId - The deposit ID.
+ * @returns The deserialized receipt.
+ */
+
 const getDepositId = (
 	fundingTxHash: string,
 	fundingOutputIndex: number,
 ): string => {
-	// Asegúrate de que fundingTxHash es una cadena de 64 caracteres hexadecimales
+	// Make sure fundingTxHash is a 64-character hexadecimal string
 	if (fundingTxHash.length !== 64) {
 		throw new Error('Invalid fundingTxHash');
 	}
 
-	// Convertir el fundingTxHash a un formato de bytes32 esperado por ethers.js
+	// Convert the fundingTxHash to a bytes32 format expected by ethers.js
 	const fundingTxHashBytes = '0x' + fundingTxHash;
 
-	// Codifica los datos de manera similar a abi.encodePacked en Solidity
+	// Encode the data similar to abi.encodePacked in Solidity
 	const encodedData = ethers.utils.solidityPack(
 		['bytes32', 'uint32'],
 		[fundingTxHashBytes, fundingOutputIndex],
 	);
 
-	// Calcula el hash keccak256
+	// Calculate the keccak256 hash
 	const hash = ethers.utils.keccak256(encodedData);
 
-	// Convierte el- hash a un entero sin signo de 256 bits (uint256)
+	// Convert the hash to a 256-bit unsigned integer (uint256)
 	const depositKey = ethers.BigNumber.from(hash).toString();
 
 	return depositKey;
 };
+
+/**
+ * @name reverseString
+ * @description Reverses a string.
+ * @param {string} str - The string to reverse.
+ * @returns The reversed string.
+ */
 
 const reverseString = (str: string) => {
 	let interleaved = '';
@@ -203,11 +301,27 @@ const reverseString = (str: string) => {
 	return interleaved;
 };
 
+/**
+ * @name getBtcBlockExplorerUrl
+ * @description Returns the block explorer URL for the BTC network.
+ * @param {boolean} isMainnet - Whether the network is mainnet or not.
+ * @param {string} txHash - The transaction hash.
+ * @returns The block explorer URL.
+ */
+
 const getBtcBlockExplorerUrl = (isMainnet: boolean, txHash: string) => {
 	return isMainnet
 		? `${process.env.REACT_APP_BTC_EXPLORER_MAINNET}/tx/${txHash}`
 		: `${process.env.REACT_APP_BTC_EXPLORER_SEPOLIA}/tx/${txHash}`;
 };
+
+/**
+ * @name getArbBlockExplorerUrl
+ * @description Returns the block explorer URL for the Arbitrum network.
+ * @param {boolean} isMainnet - Whether the network is mainnet or not.
+ * @param {string} txHash - The transaction hash.
+ * @returns The block explorer URL.
+ */
 
 const getArbBlockExplorerUrl = (isMainnet: boolean, txHash: string) => {
 	return isMainnet
@@ -215,11 +329,28 @@ const getArbBlockExplorerUrl = (isMainnet: boolean, txHash: string) => {
 		: `${process.env.REACT_APP_ARB_EXPLORER_SEPOLIA}/tx/${txHash}`;
 };
 
+/**
+ * @name getEthBlockExplorerUrl
+ * @description Returns the block explorer URL for the Ethereum network.
+ * @param {boolean} isMainnet - Whether the network is mainnet or not.
+ * @param {string} txHash - The transaction hash.
+ * @returns The block explorer URL.
+ */
+
 const getEthBlockExplorerUrl = (isMainnet: boolean, txHash: string) => {
 	return isMainnet
 		? `${process.env.REACT_APP_ETH_EXPLORER_MAINNET}/tx/${txHash}`
 		: `${process.env.REACT_APP_ETH_EXPLORER_SEPOLIA}/tx/${txHash}`;
 };
+
+/**
+ * @name getBlockExplorerUrl
+ * @description Returns the block explorer URL.
+ * @param {boolean} isMainnet - Whether the network is mainnet or not.
+ * @param {string} txHash - The transaction hash.
+ * @param {string} blockExplorer - The block explorer to use.
+ * @returns The block explorer URL.
+ */
 
 const getBlockExplorerUrl = (
 	isMainnet: boolean,
