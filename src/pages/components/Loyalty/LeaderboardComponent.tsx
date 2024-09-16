@@ -15,10 +15,11 @@ import {
 import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import {
-	fetchIPFSData,
-	fetchLoyaltyProgramCIDs,
+	fetchLoyaltyProgramRewards,
 	formatAddress,
+	formatAsUSD,
 	generateIdenticon,
+	getProviderBalance,
 } from '../../../utils/utils';
 import EventRow from './EventRow';
 import Pagination from '../Pagination';
@@ -42,6 +43,7 @@ export interface Event {
 	token1: Token;
 	transactionHash: string;
 	timestamp: number;
+	hash_balance: string;
 }
 
 interface LeaderboardRowProps {
@@ -119,16 +121,18 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 }) => {
 	const points = parseFloat(reward.weighted_avg_liquidity);
 	const sharePercentage = ((points / totalPoints) * 100).toFixed(2);
+	const depositedBalance = getProviderBalance(events, reward.provider);
+	const depositedBalanceFormattedToUSD = formatAsUSD(parseFloat(depositedBalance!));
 
 	const sortedEvents = events
 		.filter(
 			event =>
 				event.provider.toLowerCase() ===
-					reward.provider.toLowerCase() &&
+				reward.provider.toLowerCase() &&
 				!(
-					Number(event.token0.amount) === 0 &&
-					Number(event.token1.amount) === 0
-				),
+					parseFloat(event.token0.amount) === 0 &&
+					parseFloat(event.token1.amount) === 0
+				)
 		)
 		.sort((a, b) => b.timestamp - a.timestamp);
 
@@ -224,6 +228,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 					</>
 				)}
 			</Grid>
+
 			<Collapse in={isExpanded} animateOpacity>
 				<Box
 					mt={1}
@@ -236,44 +241,62 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 							: 'transparent'
 					}
 				>
-					<Grid
-						templateColumns={
-							isSmallScreen ? 'repeat(3, 1fr)' : 'repeat(5, 1fr)'
-						}
-						gap={4}
-						textTransform='uppercase'
-						pl={[8, 12, 24]}
-						py={4}
-					>
-						<Text fontSize='11px' fontWeight={500}>
-							Event
-						</Text>
-						<GridItem colSpan={isSmallScreen ? 1 : 2}>
-							<Text fontSize='11px' fontWeight={500}>
-								Amounts
-							</Text>
-						</GridItem>
-						{!isSmallScreen && (
-							<Text fontSize='11px' fontWeight={500}>
-								Tx. Hash
-							</Text>
-						)}
-						<Text fontSize='11px' fontWeight={500}>
-							Timestamp
-						</Text>
-					</Grid>
-					{paginatedEvents.map((event, eventIndex) => (
-						<EventRow
-							key={eventIndex}
-							event={event}
-							isSmallScreen={isSmallScreen ?? false}
-						/>
-					))}
-					<Pagination
-						currentPage={currentPage}
-						totalPages={totalPages}
-						onPageChange={handlePageChange}
-					/>
+					{depositedBalanceFormattedToUSD &&
+						<Flex 
+							w='full'
+							textTransform='capitalize'
+							justifyContent='end'
+							pr={[8, 12, 28]}
+							pt={7}
+							pb={4}
+							fontSize='14px' 
+							fontWeight={500}
+						>
+							Current Deposited Liquidity (USD): {depositedBalanceFormattedToUSD!}
+						</Flex>
+					}
+					{paginatedEvents.length > 0 && (
+						<>
+							<Grid
+								templateColumns={
+									isSmallScreen ? 'repeat(3, 1fr)' : 'repeat(5, 1fr)'
+								}
+								gap={4}
+								textTransform='uppercase'
+								pl={[8, 12, 24]}
+								py={4}
+							>
+								<Text fontSize='11px' fontWeight={500}>
+									Event
+								</Text>
+								<GridItem colSpan={isSmallScreen ? 1 : 2}>
+									<Text fontSize='11px' fontWeight={500}>
+										Amounts
+									</Text>
+								</GridItem>
+								{!isSmallScreen && (
+									<Text fontSize='11px' fontWeight={500}>
+										Tx. Hash
+									</Text>
+								)}
+								<Text fontSize='11px' fontWeight={500}>
+									Timestamp
+								</Text>
+							</Grid>
+							{paginatedEvents.map((event, eventIndex) => (
+								<EventRow
+									key={eventIndex}
+									event={event}
+									isSmallScreen={isSmallScreen ?? false}
+								/>
+							))}
+							<Pagination
+								currentPage={currentPage}
+								totalPages={totalPages}
+								onPageChange={handlePageChange}
+							/>
+						</>
+					)}
 				</Box>
 			</Collapse>
 		</Box>
@@ -293,13 +316,9 @@ const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const cids = await fetchLoyaltyProgramCIDs();
-				const [rewards, events] = await Promise.all([
-					fetchIPFSData(cids?.rewards_cid),
-					fetchIPFSData(cids?.events_cid),
-				]);
-				setRewardsData(rewards?.rewards);
-				setEventsData(events?.events);
+				const { rewards, events } = await fetchLoyaltyProgramRewards();
+				setRewardsData(rewards);
+				setEventsData(events);
 			} catch (error) {
 				console.error('Failed to fetch leaderboard data:', error);
 			} finally {
@@ -350,7 +369,7 @@ const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({
 			parseFloat(a.weighted_avg_liquidity),
 	);
 	const filteredRewards = sortedRewards.filter(reward =>
-		reward.provider.toLowerCase().includes(searchQuery.toLowerCase()),
+		reward.provider.toLowerCase().includes(searchQuery.toLowerCase()) && parseFloat(reward.weighted_avg_liquidity) > 0,
 	);
 	const totalPages = Math.ceil(filteredRewards.length / ITEMS_PER_PAGE);
 	const paginatedRewards = filteredRewards.slice(
@@ -388,11 +407,10 @@ const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({
 				onPageChange={handlePageChange}
 			/>
 			<Text fontSize='12px' variant='gray'>
-				{`Showing ${
-					currentPage * ITEMS_PER_PAGE > filteredRewards.length
+				{`Showing ${currentPage * ITEMS_PER_PAGE > filteredRewards.length
 						? filteredRewards.length
 						: currentPage * ITEMS_PER_PAGE
-				} of ${filteredRewards.length} entries`}
+					} of ${filteredRewards.length} entries`}
 			</Text>
 		</Box>
 	);

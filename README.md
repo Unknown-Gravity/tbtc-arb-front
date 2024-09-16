@@ -82,7 +82,6 @@ REACT_APP_L2BITCOIN_MAINNET= '0x1C8d7b744b474c080faADd5BF9AD965Be4258F9e'
 # ###########################################
 # #     IPFS Loyalty Program Endpoints      #
 # ###########################################
-REACT_APP_IPFS_RETRIEVER_URL='<YOUR_IPFS_RETRIEVER_URL>'
 REACT_APP_LOYALTY_PROGRAM_API_URL='<YOUR_LOYALTY_PROGRAM_API_URL>'
 ```
 

@@ -2,6 +2,7 @@ import { DepositReceipt, Hex } from '@keep-network/tbtc-v2.ts';
 import axios from 'axios';
 import blockies from 'ethereum-blockies';
 import { ethers } from 'ethers';
+import { Event } from '../pages/components/Loyalty/LeaderboardComponent';
 
 const COINDESK_API_URL = 'https://api.coindesk.com/v1/bpi/currentprice.json';
 
@@ -194,38 +195,19 @@ export const truncateToDecimals = (value: string, decimals: number) => {
 };
 
 /**
- * @name fetchLoyaltyProgramCIDs
- * @description Fetches the loyalty program CIDs.
- * @returns The loyalty program CIDs.
+ * @name fetchLoyaltyProgramRewards
+ * @description Fetches the loyalty program Rewards.
+ * @returns The loyalty program Rewards.
  */
 
-export const fetchLoyaltyProgramCIDs = async () => {
+export const fetchLoyaltyProgramRewards = async () => {
 	try {
 		const response = await axios.get(
 			`${process.env.REACT_APP_LOYALTY_PROGRAM_API_URL}`,
 		);
 		return response.data;
 	} catch (error) {
-		console.error('Error fetching CIDs:', error);
-		return null;
-	}
-};
-
-/**
- * @name fetchIPFSData
- * @description Fetches the IPFS data.
- * @param {string} cid - The CID to fetch the data for.
- * @returns The IPFS data.
- */
-
-export const fetchIPFSData = async (cid: string) => {
-	try {
-		const response = await axios.get(
-			`${process.env.REACT_APP_IPFS_RETRIEVER_URL}${cid}`,
-		);
-		return response.data;
-	} catch (error) {
-		console.error('Error fetching IPFS data:', error);
+		console.error('Error fetching Rewards:', error);
 		return null;
 	}
 };
@@ -233,7 +215,7 @@ export const fetchIPFSData = async (cid: string) => {
 /**
  * @name fetchDepositReceipt
  * @description Fetches the deposit receipt.
- * @param {string} depositId - The deposit ID.
+ * @param {string} receipt - The deposit receipt.
  * @returns The deposit receipt.
  */
 
@@ -372,3 +354,36 @@ export {
 	reverseString,
 	getBlockExplorerUrl,
 };
+
+/**
+ * @name getProviderBalance
+ * @description Returns the current deposited balance of the provider.
+ * @param {Event} events - The events to filter.
+ * @param {string} providerWallet - The provider wallet address.
+ * @returns The provider balance.
+ */
+
+export const getProviderBalance = (events: Event[], providerWallet: string) => {
+	const providerEvents = events.filter(event => event.provider.toLowerCase() === providerWallet.toLowerCase());
+
+	if (providerEvents.length === 0) {
+		return null;
+	}
+	const sortedEvents = providerEvents.sort((a, b) => b.timestamp - a.timestamp);
+	return sortedEvents[0].hash_balance;
+};
+
+/**
+ * @name formatAsUSD
+ * @description formats a number as USD.
+ * @param {number} amount - amount to be formatted to USD.
+ * @returns The amount formatted to USD.
+ */
+
+export const formatAsUSD = (amount: number) => {
+	return new Intl.NumberFormat('en-US', {
+	  style: 'currency',
+	  currency: 'USD',
+	  minimumFractionDigits: 2, // Ensures two decimal places
+	}).format(amount);
+  };

@@ -126,6 +126,9 @@ const Loyalty = () => {
 								{loyaltyLinks.map((link, index) => (
 									<Link
 										key={index}
+										display='flex'
+										justifyContent='center'
+										gap={2}
 										href={link.link}
 										variant='purpleDarkGradient'
 										isExternal
