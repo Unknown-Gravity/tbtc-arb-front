@@ -231,7 +231,6 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 					</>
 				)}
 			</Grid>
-
 			<Collapse in={isExpanded} animateOpacity>
 				<Box
 					mt={1}
@@ -258,7 +257,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 							Current Deposited Liquidity (USD): {depositedBalanceFormattedToUSD!}
 						</Flex>
 					}
-					{paginatedEvents.length > 0 && (
+					{paginatedEvents.length > 0 ? (
 						<>
 							<Grid
 								templateColumns={
@@ -270,7 +269,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 								py={4}
 							>
 								<Text fontSize='11px' fontWeight={500}>
-									Event
+									Events
 								</Text>
 								<GridItem colSpan={isSmallScreen ? 1 : 2}>
 									<Text fontSize='11px' fontWeight={500}>
@@ -299,7 +298,14 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 								onPageChange={handlePageChange}
 							/>
 						</>
-					)}
+					) : <Text
+						fontSize='12px'
+						variant='gray'
+						textAlign='center'
+						py={5}
+					>
+						Events for this provider occurred before the start of the loyalty program.
+					</Text>}
 				</Box>
 			</Collapse>
 		</Box>
