@@ -132,15 +132,18 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 				!(
 					parseFloat(event.token0.amount) === 0 &&
 					parseFloat(event.token1.amount) === 0
-				) && event.timestamp > 1725840000
+				)
 		)
 		.sort((a, b) => b.timestamp - a.timestamp);
+
+	const displayedEvents =
+		sortedEvents.length > 1 ? sortedEvents.slice(0, -1) : sortedEvents;
 
 	const { colorMode } = useColorMode();
 	const [currentPage, setCurrentPage] = useState(1);
 
-	const totalPages = Math.ceil(sortedEvents.length / ITEMS_PER_PAGE);
-	const paginatedEvents = sortedEvents.slice(
+	const totalPages = Math.ceil(displayedEvents.length / ITEMS_PER_PAGE);
+	const paginatedEvents = displayedEvents.slice(
 		(currentPage - 1) * ITEMS_PER_PAGE,
 		currentPage * ITEMS_PER_PAGE,
 	);

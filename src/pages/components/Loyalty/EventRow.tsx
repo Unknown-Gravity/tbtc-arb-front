@@ -83,7 +83,7 @@ const EventRow: React.FC<EventRowProps> = ({ event, isSmallScreen }) => {
 			py={2.5}
 		>
 			<Text fontSize='12px' variant='gray' textTransform='uppercase'>
-				{event.action}
+				{event.action === 'remove' && event.timestamp <= 1725840000 && parseFloat(event.hash_balance) > 0 ? "partial remove" : event.action}
 			</Text>
 			<GridItem colSpan={isSmallScreen ? 1 : 2}>
 				<Text fontSize='12px' variant='gray'>
