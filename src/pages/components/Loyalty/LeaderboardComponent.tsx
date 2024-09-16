@@ -83,7 +83,7 @@ const LeaderboardHeader: React.FC<{ isSmallScreen: boolean }> = ({
 	<Grid
 		templateColumns={isSmallScreen ? 'repeat(5, 1fr)' : 'repeat(7, 1fr)'}
 		alignItems='center'
-		pl={[8, 12, 24]}
+		pl={[8, 12, 12, 16]}
 		py={4}
 		textTransform='uppercase'
 	>
@@ -174,7 +174,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 				}
 				rounded='md'
 				onClick={onExpand}
-				pl={[8, 12, 24]}
+				pl={[8, 12, 12, 16]}
 				py={5}
 			>
 				<Text fontSize='12px' variant='gray'>
@@ -237,8 +237,11 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 				)}
 			</Grid>
 			<Collapse in={isExpanded} animateOpacity>
-				<Box
+				<Flex
+					justifyContent='center'
+					direction='column'
 					mt={1}
+					pl={[8, 12, 12, 16]}
 					pb={3}
 					bg={
 						index % 2 === 0
@@ -266,11 +269,10 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 						<>
 							<Grid
 								templateColumns={
-									isSmallScreen ? 'repeat(3, 1fr)' : 'repeat(6, 1fr)'
+									isSmallScreen ? 'repeat(3, 1fr)' : 'repeat(7, 1fr)'
 								}
 								gap={4}
 								textTransform='uppercase'
-								pl={[8, 12, 24]}
 								py={4}
 							>
 								<Text fontSize='11px' fontWeight={500}>
@@ -290,9 +292,11 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 									</Text>
 								)}
 								{!isSmallScreen && (
-									<Text fontSize='11px' fontWeight={500}>
-										Resulting Liquidity (USD)
-									</Text>
+									<GridItem display='flex' justifyContent='center' colSpan={isSmallScreen ? 1 : 2}>
+										<Text fontSize='11px' fontWeight={500}>
+											Resulting Liquidity (USD)
+										</Text>
+									</GridItem>
 								)}
 								<Text fontSize='11px' fontWeight={500}>
 									Timestamp
@@ -319,7 +323,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 					>
 						Events for this provider occurred before the start of the loyalty program.
 					</Text>}
-				</Box>
+				</Flex>
 			</Collapse>
 		</Box>
 	);
