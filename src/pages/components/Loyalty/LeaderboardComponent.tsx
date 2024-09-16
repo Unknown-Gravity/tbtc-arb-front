@@ -44,6 +44,8 @@ export interface Event {
 	transactionHash: string;
 	timestamp: number;
 	hash_balance: string;
+	txhash_counter: number;
+	event_balance: string;
 }
 
 interface LeaderboardRowProps {
@@ -124,17 +126,20 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 	const depositedBalance = getProviderBalance(events, reward.provider);
 	const depositedBalanceFormattedToUSD = formatAsUSD(parseFloat(depositedBalance!));
 
-	const sortedEvents = events
+	const filteredEvents = events
 		.filter(
 			event =>
-				event.provider.toLowerCase() ===
-				reward.provider.toLowerCase() &&
-				!(
+				event.provider.toLowerCase() === reward.provider.toLowerCase()
+				&& !(
 					parseFloat(event.token0.amount) === 0 &&
 					parseFloat(event.token1.amount) === 0
 				)
 		)
-		.sort((a, b) => b.timestamp - a.timestamp);
+
+	let sortedEvents = []
+	for (let i = filteredEvents.length - 1; i >= 0; i--) {
+		sortedEvents.push(filteredEvents[i])
+	}
 
 	const displayedEvents =
 		sortedEvents.length > 1 ? sortedEvents.slice(0, -1) : sortedEvents;
@@ -261,7 +266,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 						<>
 							<Grid
 								templateColumns={
-									isSmallScreen ? 'repeat(3, 1fr)' : 'repeat(5, 1fr)'
+									isSmallScreen ? 'repeat(3, 1fr)' : 'repeat(6, 1fr)'
 								}
 								gap={4}
 								textTransform='uppercase'
@@ -282,6 +287,11 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 								{!isSmallScreen && (
 									<Text fontSize='11px' fontWeight={500}>
 										Tx. Hash
+									</Text>
+								)}
+								{!isSmallScreen && (
+									<Text fontSize='11px' fontWeight={500}>
+										Resulting Liquidity (USD)
 									</Text>
 								)}
 								<Text fontSize='11px' fontWeight={500}>
