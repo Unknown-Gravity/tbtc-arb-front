@@ -269,7 +269,10 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 								py={4}
 							>
 								<Text fontSize='11px' fontWeight={500}>
-									Events
+									{paginatedEvents.length === 1 && paginatedEvents[0].timestamp <= 1725840000
+										? "Event Before Program"
+										: "Events"
+									}
 								</Text>
 								<GridItem colSpan={isSmallScreen ? 1 : 2}>
 									<Text fontSize='11px' fontWeight={500}>
