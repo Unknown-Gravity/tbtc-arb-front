@@ -132,7 +132,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 				!(
 					parseFloat(event.token0.amount) === 0 &&
 					parseFloat(event.token1.amount) === 0
-				)
+				) && event.timestamp > 1725840000
 		)
 		.sort((a, b) => b.timestamp - a.timestamp);
 
@@ -242,14 +242,14 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 					}
 				>
 					{depositedBalanceFormattedToUSD &&
-						<Flex 
+						<Flex
 							w='full'
 							textTransform='capitalize'
 							justifyContent='end'
 							pr={[8, 12, 28]}
 							pt={7}
 							pb={4}
-							fontSize='14px' 
+							fontSize='14px'
 							fontWeight={500}
 						>
 							Current Deposited Liquidity (USD): {depositedBalanceFormattedToUSD!}
@@ -408,8 +408,8 @@ const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({
 			/>
 			<Text fontSize='12px' variant='gray'>
 				{`Showing ${currentPage * ITEMS_PER_PAGE > filteredRewards.length
-						? filteredRewards.length
-						: currentPage * ITEMS_PER_PAGE
+					? filteredRewards.length
+					: currentPage * ITEMS_PER_PAGE
 					} of ${filteredRewards.length} entries`}
 			</Text>
 		</Box>
