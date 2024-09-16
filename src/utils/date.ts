@@ -41,14 +41,12 @@ export const dateAs = (targetUnix: number) => {
 
 /**
  * @name formatDate
- * @description This function formats a date.
+ * @description This function formats a date in UTC.
  * @param {string | number} timestamp - The timestamp to format.
  * @param {Intl.LocalesArgument} locales - The locales to use.
  * @param {Intl.DateTimeFormatOptions} options - The options to use.
- * @returns {string} The formatted date.
- *
+ * @returns {string} The formatted date in UTC.
  */
-
 export const formatDate = (
 	timestamp: string | number,
 	locales: Intl.LocalesArgument = 'en-gb',
@@ -56,7 +54,10 @@ export const formatDate = (
 ) =>
 	new Date(+timestamp * ONE_SEC_IN_MILISECONDS).toLocaleDateString(
 		locales,
-		options,
+		{
+			timeZone: 'UTC', // Ensure UTC formatting
+			...options, // Allow overriding other options
+		},
 	);
 
 // unit, max diff, divisor
