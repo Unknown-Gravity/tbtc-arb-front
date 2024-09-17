@@ -356,24 +356,6 @@ export {
 };
 
 /**
- * @name getProviderBalance
- * @description Returns the current deposited balance of the provider.
- * @param {Event} events - The events to filter.
- * @param {string} providerWallet - The provider wallet address.
- * @returns The provider balance.
- */
-
-export const getProviderBalance = (events: Event[], providerWallet: string) => {
-	const providerEvents = events.filter(event => event.provider.toLowerCase() === providerWallet.toLowerCase());
-
-	if (providerEvents.length === 0) {
-		return null;
-	}
-	const sortedEvents = providerEvents.sort((a, b) => b.timestamp - a.timestamp);
-	return sortedEvents[0].hash_balance;
-};
-
-/**
  * @name formatAsUSD
  * @description formats a number as USD.
  * @param {number} amount - amount to be formatted to USD.

@@ -19,7 +19,6 @@ import {
 	formatAddress,
 	formatAsUSD,
 	generateIdenticon,
-	getProviderBalance,
 } from '../../../utils/utils';
 import EventRow from './EventRow';
 import Pagination from '../Pagination';
@@ -123,8 +122,6 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 }) => {
 	const points = parseFloat(reward.weighted_avg_liquidity);
 	const sharePercentage = ((points / totalPoints) * 100).toFixed(2);
-	const depositedBalance = getProviderBalance(events, reward.provider);
-	const depositedBalanceFormattedToUSD = formatAsUSD(parseFloat(depositedBalance!));
 
 	const filteredEvents = events
 		.filter(
@@ -251,20 +248,6 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 							: 'transparent'
 					}
 				>
-					{depositedBalanceFormattedToUSD &&
-						<Flex
-							w='full'
-							textTransform='capitalize'
-							justifyContent='end'
-							pr={[8, 12, 28]}
-							pt={7}
-							pb={4}
-							fontSize='14px'
-							fontWeight={500}
-						>
-							Current Deposited Liquidity (USD): {depositedBalanceFormattedToUSD!}
-						</Flex>
-					}
 					{paginatedEvents.length > 0 ? (
 						<>
 							<Grid
