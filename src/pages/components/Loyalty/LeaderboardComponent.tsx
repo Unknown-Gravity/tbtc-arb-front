@@ -19,7 +19,6 @@ import {
 	formatAddress,
 	formatAsUSD,
 	generateIdenticon,
-	getProviderBalance,
 } from '../../../utils/utils';
 import EventRow from './EventRow';
 import Pagination from '../Pagination';
@@ -44,6 +43,8 @@ export interface Event {
 	transactionHash: string;
 	timestamp: number;
 	hash_balance: string;
+	txhash_counter: number;
+	event_balance: string;
 }
 
 interface LeaderboardRowProps {
@@ -81,7 +82,7 @@ const LeaderboardHeader: React.FC<{ isSmallScreen: boolean }> = ({
 	<Grid
 		templateColumns={isSmallScreen ? 'repeat(5, 1fr)' : 'repeat(7, 1fr)'}
 		alignItems='center'
-		pl={[8, 12, 24]}
+		pl={[8, 12, 12, 16]}
 		py={4}
 		textTransform='uppercase'
 	>
@@ -121,20 +122,21 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 }) => {
 	const points = parseFloat(reward.weighted_avg_liquidity);
 	const sharePercentage = ((points / totalPoints) * 100).toFixed(2);
-	const depositedBalance = getProviderBalance(events, reward.provider);
-	const depositedBalanceFormattedToUSD = formatAsUSD(parseFloat(depositedBalance!));
 
-	const sortedEvents = events
+	const filteredEvents = events
 		.filter(
 			event =>
-				event.provider.toLowerCase() ===
-				reward.provider.toLowerCase() &&
-				!(
+				event.provider.toLowerCase() === reward.provider.toLowerCase()
+				&& !(
 					parseFloat(event.token0.amount) === 0 &&
 					parseFloat(event.token1.amount) === 0
 				)
 		)
-		.sort((a, b) => b.timestamp - a.timestamp);
+
+	let sortedEvents = []
+	for (let i = filteredEvents.length - 1; i >= 0; i--) {
+		sortedEvents.push(filteredEvents[i])
+	}
 
 	const displayedEvents =
 		sortedEvents.length > 1 ? sortedEvents.slice(0, -1) : sortedEvents;
@@ -169,7 +171,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 				}
 				rounded='md'
 				onClick={onExpand}
-				pl={[8, 12, 24]}
+				pl={[8, 12, 12, 16]}
 				py={5}
 			>
 				<Text fontSize='12px' variant='gray'>
@@ -232,8 +234,11 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 				)}
 			</Grid>
 			<Collapse in={isExpanded} animateOpacity>
-				<Box
+				<Flex
+					justifyContent='center'
+					direction='column'
 					mt={1}
+					pl={[8, 12, 12, 16]}
 					pb={3}
 					bg={
 						index % 2 === 0
@@ -243,33 +248,21 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 							: 'transparent'
 					}
 				>
-					{depositedBalanceFormattedToUSD &&
-						<Flex
-							w='full'
-							textTransform='capitalize'
-							justifyContent='end'
-							pr={[8, 12, 28]}
-							pt={7}
-							pb={4}
-							fontSize='14px'
-							fontWeight={500}
-						>
-							Current Deposited Liquidity (USD): {depositedBalanceFormattedToUSD!}
-						</Flex>
-					}
 					{paginatedEvents.length > 0 ? (
 						<>
 							<Grid
 								templateColumns={
-									isSmallScreen ? 'repeat(3, 1fr)' : 'repeat(5, 1fr)'
+									isSmallScreen ? 'repeat(3, 1fr)' : 'repeat(7, 1fr)'
 								}
 								gap={4}
 								textTransform='uppercase'
-								pl={[8, 12, 24]}
 								py={4}
 							>
 								<Text fontSize='11px' fontWeight={500}>
-									Events
+									{paginatedEvents.length === 1 && paginatedEvents[0].timestamp <= 1725840000
+										? "Event Before Program"
+										: "Events"
+									}
 								</Text>
 								<GridItem colSpan={isSmallScreen ? 1 : 2}>
 									<Text fontSize='11px' fontWeight={500}>
@@ -280,6 +273,13 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 									<Text fontSize='11px' fontWeight={500}>
 										Tx. Hash
 									</Text>
+								)}
+								{!isSmallScreen && (
+									<GridItem display='flex' justifyContent='center' colSpan={isSmallScreen ? 1 : 2}>
+										<Text fontSize='11px' fontWeight={500}>
+											Resulting Liquidity (USD)
+										</Text>
+									</GridItem>
 								)}
 								<Text fontSize='11px' fontWeight={500}>
 									Timestamp
@@ -306,7 +306,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 					>
 						Events for this provider occurred before the start of the loyalty program.
 					</Text>}
-				</Box>
+				</Flex>
 			</Collapse>
 		</Box>
 	);

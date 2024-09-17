@@ -8,9 +8,10 @@ import {
 	Link,
 	Tooltip,
 	useColorMode,
+	Box,
 } from '@chakra-ui/react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
-import { formatAddress, truncateToDecimals } from '../../../utils/utils';
+import { formatAddress, formatAsUSD, truncateToDecimals } from '../../../utils/utils';
 import { formatDate, getRelativeTime } from '../../../utils/date';
 import { Event } from './LeaderboardComponent';
 
@@ -37,7 +38,7 @@ const arbscanBaseUrl = 'https://arbiscan.io';
 
 const EventRow: React.FC<EventRowProps> = ({ event, isSmallScreen }) => {
 	const { colorMode } = useColorMode();
-	const { token0, token1, transactionHash, timestamp } = event;
+	const { token0, token1, transactionHash, timestamp, event_balance } = event;
 
 	const token0Amount = useMemo(
 		() =>
@@ -74,12 +75,11 @@ const EventRow: React.FC<EventRowProps> = ({ event, isSmallScreen }) => {
 	return (
 		<Grid
 			templateColumns={
-				isSmallScreen ? 'repeat(3, 1fr)' : 'repeat(5, 1fr)'
+				isSmallScreen ? 'repeat(3, 1fr)' : 'repeat(7, 1fr)'
 			}
 			gap={4}
 			alignItems='center'
 			mt={2}
-			pl={[8, 12, 24]}
 			py={2.5}
 		>
 			<Text fontSize='12px' variant='gray' textTransform='uppercase'>
@@ -120,6 +120,15 @@ const EventRow: React.FC<EventRowProps> = ({ event, isSmallScreen }) => {
 						</Flex>
 					</Link>
 				</Tooltip>
+			)}
+			{!isSmallScreen && (
+				<GridItem display='flex' justifyContent='center' colSpan={isSmallScreen ? 1 : 2}>
+					<Box w='156px'>
+						<Text textAlign='left' fontSize='12px' variant='gray'>
+							{formatAsUSD(parseFloat(event_balance))}
+						</Text>
+					</Box>
+				</GridItem>
 			)}
 			<Tooltip label={formatDate(timestamp)} fontSize='xs'>
 				<Text fontSize='12px' variant='gray'>
