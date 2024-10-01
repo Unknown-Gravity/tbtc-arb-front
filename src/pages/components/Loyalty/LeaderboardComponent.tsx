@@ -140,26 +140,22 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 	const filteredEvents = events[reward.provider]
 		.filter(
 			event =>
-				event.provider.toLowerCase() === reward.provider.toLowerCase()
-				&& !(
+				!(
 					parseFloat(event.token0.amount) === 0 &&
 					parseFloat(event.token1.amount) === 0
-				)
-		)
+				) && event.timestamp >= 1725840000
+		) 
 
 	let sortedEvents = []
 	for (let i = filteredEvents.length - 1; i >= 0; i--) {
 		sortedEvents.push(filteredEvents[i])
 	}
 
-	const displayedEvents =
-		sortedEvents.length > 1 ? sortedEvents.slice(0, -1) : sortedEvents;
-
 	const { colorMode } = useColorMode();
 	const [currentPage, setCurrentPage] = useState(1);
 
-	const totalPages = Math.ceil(displayedEvents.length / ITEMS_PER_PAGE);
-	const paginatedEvents = displayedEvents.slice(
+	const totalPages = Math.ceil(sortedEvents.length / ITEMS_PER_PAGE);
+	const paginatedEvents = sortedEvents.slice(
 		(currentPage - 1) * ITEMS_PER_PAGE,
 		currentPage * ITEMS_PER_PAGE,
 	);
@@ -276,7 +272,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 							Current Deposited Liquidity (USD): {depositedBalanceFormattedToUSD!}
 						</Flex>
 					}
-					{paginatedEvents.length > 0 ? (
+					{paginatedEvents.length > 1 ? (
 						<>
 							<Grid
 								templateColumns={
@@ -287,10 +283,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 								py={4}
 							>
 								<Text fontSize='11px' fontWeight={500}>
-									{paginatedEvents.length === 1 && paginatedEvents[0].timestamp <= 1725840000
-										? "Event Before Program"
-										: "Events"
-									}
+									Events
 								</Text>
 								<GridItem colSpan={isSmallScreen ? 1 : 2}>
 									<Text fontSize='11px' fontWeight={500}>
@@ -327,7 +320,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 						textAlign='center'
 						py={5}
 					>
-						Events for this provider occurred before the start of the loyalty program.
+						Events that occurred before the starting date led to accumulated balances during the program.
 					</Text>}
 				</Flex>
 			</Collapse>
