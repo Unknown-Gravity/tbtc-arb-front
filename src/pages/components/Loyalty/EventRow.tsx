@@ -8,10 +8,9 @@ import {
 	Link,
 	Tooltip,
 	useColorMode,
-	Box,
 } from '@chakra-ui/react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
-import { formatAddress, formatAsUSD, truncateToDecimals } from '../../../utils/utils';
+import { formatAddress, truncateToDecimals } from '../../../utils/utils';
 import { formatDate, getRelativeTime } from '../../../utils/date';
 import { Event } from './LeaderboardComponent';
 
@@ -38,7 +37,7 @@ const arbscanBaseUrl = 'https://arbiscan.io';
 
 const EventRow: React.FC<EventRowProps> = ({ event, isSmallScreen }) => {
 	const { colorMode } = useColorMode();
-	const { token0, token1, transactionHash, timestamp, event_balance } = event;
+	const { token0, token1, transactionHash, timestamp } = event;
 
 	const token0Amount = useMemo(
 		() =>
@@ -99,35 +98,28 @@ const EventRow: React.FC<EventRowProps> = ({ event, isSmallScreen }) => {
 				</Text>
 			</GridItem>
 			{!isSmallScreen && (
-				<Tooltip label={transactionHash} fontSize='xs'>
-					<Link
-						href={`${arbscanBaseUrl}/tx/${transactionHash}`}
-						isExternal
-					>
-						<Flex alignItems='center' gap={1.5}>
-							<Text fontSize='12px' variant='gray'>
-								{formatAddress(transactionHash)}
-							</Text>
-							<ExternalLinkIcon
-								mx='2px'
-								boxSize={3.5}
-								color={
-									colorMode === 'light'
-										? 'light.gray'
-										: 'dark.coolGray'
-								}
-							/>
-						</Flex>
-					</Link>
-				</Tooltip>
-			)}
-			{!isSmallScreen && (
-				<GridItem display='flex' justifyContent='center' colSpan={isSmallScreen ? 1 : 2}>
-					<Box w='156px'>
-						<Text textAlign='left' fontSize='12px' variant='gray'>
-							{formatAsUSD(parseFloat(event_balance))}
-						</Text>
-					</Box>
+				<GridItem colSpan={2}>
+					<Tooltip label={transactionHash} fontSize='xs'>
+						<Link
+							href={`${arbscanBaseUrl}/tx/${transactionHash}`}
+							isExternal
+						>
+							<Flex alignItems='center' gap={1.5}>
+								<Text fontSize='12px' variant='gray'>
+									{formatAddress(transactionHash)}
+								</Text>
+								<ExternalLinkIcon
+									mx='2px'
+									boxSize={3.5}
+									color={
+										colorMode === 'light'
+											? 'light.gray'
+											: 'dark.coolGray'
+									}
+								/>
+							</Flex>
+						</Link>
+					</Tooltip>
 				</GridItem>
 			)}
 			<Tooltip label={formatDate(timestamp)} fontSize='xs'>

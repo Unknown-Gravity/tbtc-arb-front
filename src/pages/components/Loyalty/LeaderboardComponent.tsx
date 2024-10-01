@@ -19,6 +19,7 @@ import {
 	formatAddress,
 	formatAsUSD,
 	generateIdenticon,
+	getProviderBalance,
 } from '../../../utils/utils';
 import EventRow from './EventRow';
 import Pagination from '../Pagination';
@@ -46,11 +47,21 @@ export interface Event {
 	txhash_counter: number;
 	event_balance: string;
 }
+export interface Balance {
+	balance_date: string;
+	token_usd_balance: {
+		WBTC?: string
+		tBTC?: string
+		ETH?: string
+	};
+	total_usd_balance: string;
+}
 
 interface LeaderboardRowProps {
 	index: number;
 	totalPoints: number;
-	events: Event[];
+	balances: Record<string, Balance[]>;
+	events: Record<string, Event[]>;
 	reward: Reward;
 	isSmallScreen: boolean;
 	expandedRow: number | null;
@@ -113,6 +124,7 @@ const LeaderboardHeader: React.FC<{ isSmallScreen: boolean }> = ({
 const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 	index,
 	totalPoints,
+	balances,
 	events,
 	reward,
 	isSmallScreen,
@@ -122,30 +134,28 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 }) => {
 	const points = parseFloat(reward.weighted_avg_liquidity);
 	const sharePercentage = ((points / totalPoints) * 100).toFixed(2);
+	const depositedBalance = getProviderBalance(balances, reward.provider);
+	const depositedBalanceFormattedToUSD = formatAsUSD(parseFloat(depositedBalance!));
 
-	const filteredEvents = events
+	const filteredEvents = events[reward.provider]
 		.filter(
 			event =>
-				event.provider.toLowerCase() === reward.provider.toLowerCase()
-				&& !(
+				!(
 					parseFloat(event.token0.amount) === 0 &&
 					parseFloat(event.token1.amount) === 0
-				)
-		)
+				) && event.timestamp >= 1725840000
+		) 
 
 	let sortedEvents = []
 	for (let i = filteredEvents.length - 1; i >= 0; i--) {
 		sortedEvents.push(filteredEvents[i])
 	}
 
-	const displayedEvents =
-		sortedEvents.length > 1 ? sortedEvents.slice(0, -1) : sortedEvents;
-
 	const { colorMode } = useColorMode();
 	const [currentPage, setCurrentPage] = useState(1);
 
-	const totalPages = Math.ceil(displayedEvents.length / ITEMS_PER_PAGE);
-	const paginatedEvents = displayedEvents.slice(
+	const totalPages = Math.ceil(sortedEvents.length / ITEMS_PER_PAGE);
+	const paginatedEvents = sortedEvents.slice(
 		(currentPage - 1) * ITEMS_PER_PAGE,
 		currentPage * ITEMS_PER_PAGE,
 	);
@@ -248,7 +258,21 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 							: 'transparent'
 					}
 				>
-					{paginatedEvents.length > 0 ? (
+					{depositedBalanceFormattedToUSD &&
+						<Flex
+							w='full'
+							textTransform='capitalize'
+							justifyContent='end'
+							pr={[8, 12, 28]}
+							pt={7}
+							pb={4}
+							fontSize='14px'
+							fontWeight={500}
+						>
+							Current Deposited Liquidity (USD): {depositedBalanceFormattedToUSD!}
+						</Flex>
+					}
+					{paginatedEvents.length > 1 ? (
 						<>
 							<Grid
 								templateColumns={
@@ -259,10 +283,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 								py={4}
 							>
 								<Text fontSize='11px' fontWeight={500}>
-									{paginatedEvents.length === 1 && paginatedEvents[0].timestamp <= 1725840000
-										? "Event Before Program"
-										: "Events"
-									}
+									Events
 								</Text>
 								<GridItem colSpan={isSmallScreen ? 1 : 2}>
 									<Text fontSize='11px' fontWeight={500}>
@@ -270,14 +291,9 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 									</Text>
 								</GridItem>
 								{!isSmallScreen && (
-									<Text fontSize='11px' fontWeight={500}>
-										Tx. Hash
-									</Text>
-								)}
-								{!isSmallScreen && (
-									<GridItem display='flex' justifyContent='center' colSpan={isSmallScreen ? 1 : 2}>
+									<GridItem colSpan={2}>
 										<Text fontSize='11px' fontWeight={500}>
-											Resulting Liquidity (USD)
+											Tx. Hash
 										</Text>
 									</GridItem>
 								)}
@@ -304,7 +320,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 						textAlign='center'
 						py={5}
 					>
-						Events for this provider occurred before the start of the loyalty program.
+						Events that occurred before the starting date led to accumulated balances during the program.
 					</Text>}
 				</Flex>
 			</Collapse>
@@ -318,16 +334,18 @@ const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({
 	const [expandedRow, setExpandedRow] = useState<number | null>(null);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [rewardsData, setRewardsData] = useState<Reward[]>();
-	const [eventsData, setEventsData] = useState<Event[]>();
+	const [balancesData, setBalancesData] = useState<Record<string, Balance[]>>()
+	const [eventsData, setEventsData] = useState<Record<string, Event[]>>();
 	const [isLoading, setIsLoading] = useState(true);
 	const isSmallScreen = useBreakpointValue({ base: true, md: false });
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const { rewards, events } = await fetchLoyaltyProgramRewards();
+				const { rewards, events, balances } = await fetchLoyaltyProgramRewards();
 				setRewardsData(rewards);
 				setEventsData(events);
+				setBalancesData(balances);
 			} catch (error) {
 				console.error('Failed to fetch leaderboard data:', error);
 			} finally {
@@ -355,7 +373,7 @@ const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({
 		);
 	}
 
-	if (!rewardsData || !eventsData || rewardsData.length === 0) {
+	if (!rewardsData || !eventsData || !balancesData || rewardsData.length === 0) {
 		return (
 			<Box
 				display='flex'
@@ -401,6 +419,7 @@ const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({
 				<LeaderboardRow
 					key={filteredRewards.indexOf(reward)}
 					totalPoints={totalPoints}
+					balances={balancesData}
 					events={eventsData}
 					index={sortedRewards.indexOf(reward)}
 					reward={reward}
