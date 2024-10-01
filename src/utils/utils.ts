@@ -369,7 +369,10 @@ export const getProviderBalance = (balances: Record<string, Balance[]>, provider
 	if (providerBalances.length === 0) {
 		return null;
 	}
-	const providerBalance = providerBalances[providerBalances.length - 1];
+	const providerBalance = providerBalances.reduce((latest, current) => {
+		return new Date(current.balance_date) > new Date(latest.balance_date) ? current : latest;
+	  });
+
 	return providerBalance.total_usd_balance;
 };
 
