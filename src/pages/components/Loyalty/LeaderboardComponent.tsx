@@ -19,6 +19,7 @@ import {
 	formatAddress,
 	formatAsUSD,
 	generateIdenticon,
+	getProviderBalance,
 } from '../../../utils/utils';
 import EventRow from './EventRow';
 import Pagination from '../Pagination';
@@ -46,11 +47,21 @@ export interface Event {
 	txhash_counter: number;
 	event_balance: string;
 }
+export interface Balance {
+	balance_date: string;
+	token_usd_balance: {
+		WBTC?: string
+		tBTC?: string
+		ETH?: string
+	};
+	total_usd_balance: string;
+}
 
 interface LeaderboardRowProps {
 	index: number;
 	totalPoints: number;
-	events: Event[];
+	balances: Record<string, Balance[]>;
+	events: Record<string, Event[]>;
 	reward: Reward;
 	isSmallScreen: boolean;
 	expandedRow: number | null;
@@ -113,6 +124,7 @@ const LeaderboardHeader: React.FC<{ isSmallScreen: boolean }> = ({
 const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 	index,
 	totalPoints,
+	balances,
 	events,
 	reward,
 	isSmallScreen,
@@ -122,8 +134,10 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 }) => {
 	const points = parseFloat(reward.weighted_avg_liquidity);
 	const sharePercentage = ((points / totalPoints) * 100).toFixed(2);
+	const depositedBalance = getProviderBalance(balances, reward.provider);
+	const depositedBalanceFormattedToUSD = formatAsUSD(parseFloat(depositedBalance!));
 
-	const filteredEvents = events
+	const filteredEvents = events[reward.provider]
 		.filter(
 			event =>
 				event.provider.toLowerCase() === reward.provider.toLowerCase()
@@ -248,6 +262,20 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 							: 'transparent'
 					}
 				>
+					{depositedBalanceFormattedToUSD &&
+						<Flex
+							w='full'
+							textTransform='capitalize'
+							justifyContent='end'
+							pr={[8, 12, 28]}
+							pt={7}
+							pb={4}
+							fontSize='14px'
+							fontWeight={500}
+						>
+							Current Deposited Liquidity (USD): {depositedBalanceFormattedToUSD!}
+						</Flex>
+					}
 					{paginatedEvents.length > 0 ? (
 						<>
 							<Grid
@@ -270,14 +298,9 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 									</Text>
 								</GridItem>
 								{!isSmallScreen && (
-									<Text fontSize='11px' fontWeight={500}>
-										Tx. Hash
-									</Text>
-								)}
-								{!isSmallScreen && (
-									<GridItem display='flex' justifyContent='center' colSpan={isSmallScreen ? 1 : 2}>
+									<GridItem colSpan={2}>
 										<Text fontSize='11px' fontWeight={500}>
-											Resulting Liquidity (USD)
+											Tx. Hash
 										</Text>
 									</GridItem>
 								)}
@@ -318,16 +341,18 @@ const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({
 	const [expandedRow, setExpandedRow] = useState<number | null>(null);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [rewardsData, setRewardsData] = useState<Reward[]>();
-	const [eventsData, setEventsData] = useState<Event[]>();
+	const [balancesData, setBalancesData] = useState<Record<string, Balance[]>>()
+	const [eventsData, setEventsData] = useState<Record<string, Event[]>>();
 	const [isLoading, setIsLoading] = useState(true);
 	const isSmallScreen = useBreakpointValue({ base: true, md: false });
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const { rewards, events } = await fetchLoyaltyProgramRewards();
+				const { rewards, events, balances } = await fetchLoyaltyProgramRewards();
 				setRewardsData(rewards);
 				setEventsData(events);
+				setBalancesData(balances);
 			} catch (error) {
 				console.error('Failed to fetch leaderboard data:', error);
 			} finally {
@@ -355,7 +380,7 @@ const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({
 		);
 	}
 
-	if (!rewardsData || !eventsData || rewardsData.length === 0) {
+	if (!rewardsData || !eventsData || !balancesData || rewardsData.length === 0) {
 		return (
 			<Box
 				display='flex'
@@ -401,6 +426,7 @@ const LeaderboardComponent: React.FC<LeaderboardComponentProps> = ({
 				<LeaderboardRow
 					key={filteredRewards.indexOf(reward)}
 					totalPoints={totalPoints}
+					balances={balancesData}
 					events={eventsData}
 					index={sortedRewards.indexOf(reward)}
 					reward={reward}

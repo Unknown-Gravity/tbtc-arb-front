@@ -2,7 +2,7 @@ import { DepositReceipt, Hex } from '@keep-network/tbtc-v2.ts';
 import axios from 'axios';
 import blockies from 'ethereum-blockies';
 import { ethers } from 'ethers';
-import { Event } from '../pages/components/Loyalty/LeaderboardComponent';
+import { Balance } from '../pages/components/Loyalty/LeaderboardComponent';
 
 const COINDESK_API_URL = 'https://api.coindesk.com/v1/bpi/currentprice.json';
 
@@ -353,6 +353,24 @@ export {
 	getDepositId,
 	reverseString,
 	getBlockExplorerUrl,
+};
+
+/**
+ * @name getProviderBalance
+ * @description Returns the current deposited balance of the provider.
+ * @param {Record<string, Balance[]>} balances - The balances to filter.
+ * @param {string} providerWallet - The provider wallet address.
+ * @returns The provider balance.
+ */
+
+export const getProviderBalance = (balances: Record<string, Balance[]>, providerWallet: string) => {
+	const providerBalances = balances[providerWallet];
+
+	if (providerBalances.length === 0) {
+		return null;
+	}
+	const providerBalance = providerBalances[providerBalances.length - 1];
+	return providerBalance.total_usd_balance;
 };
 
 /**
