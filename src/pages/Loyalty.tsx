@@ -114,6 +114,11 @@ const Loyalty = () => {
 								The more liquidity you provide, the more
 								treasure you’ll claim.
 							</Text>
+							<Text fontSize='15px' fontWeight={300} mb='12px'>
+								The program runs for 30 weeks, starting on 
+								September 9th and concluding on April 7th. 
+								Join now to maximize your rewards!
+							</Text>
 							<Text fontSize='15px' fontWeight={500} mt='24px'>
 								Links to the pools:
 							</Text>
