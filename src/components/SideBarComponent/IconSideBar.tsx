@@ -4,12 +4,11 @@ import {
 	Text,
 	useColorModeValue,
 	useTheme,
-	As,
 } from '@chakra-ui/react';
 import { Link } from '@chakra-ui/react';
 
 type Props = {
-	icon: As;
+	icon: any;
 	isOpen?: boolean;
 	text?: string;
 	filled?: boolean;

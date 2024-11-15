@@ -1,5 +1,3 @@
-import { As } from '@chakra-ui/react';
-
 /**
  * @name LinkType
  *
@@ -10,7 +8,7 @@ import { As } from '@chakra-ui/react';
  */
 
 export type LinkType = {
-	icon?: As;
+	icon?: any;
 	title: string;
 	link: string;
 };
