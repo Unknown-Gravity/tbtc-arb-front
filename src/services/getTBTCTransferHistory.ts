@@ -11,7 +11,7 @@ import { Contract } from 'ethers';
 
 export async function getTBTCTransferHistory(
 	account: string,
-	tbtcContract: Contract,
+	tbtcContract: any,
 ) {
 	const transferEvents = await tbtcContract.queryFilter(
 		tbtcContract.filters.Transfer(account, null),
@@ -19,7 +19,7 @@ export async function getTBTCTransferHistory(
 		'latest',
 	);
 
-	const transfers = transferEvents.map(event => ({
+	const transfers = transferEvents.map((event: any) => ({
 		from: event.args?.from,
 		to: event.args?.to,
 		value: event.args?.value.toString(),

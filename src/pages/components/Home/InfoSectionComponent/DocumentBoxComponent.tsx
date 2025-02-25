@@ -13,7 +13,7 @@ import { UpRightIcon } from '../../../../assets/icons/UpRightIcon';
 import { Report } from '../../../../interfaces/Report.interface';
 
 type Props = {
-	contract?: Contract;
+	contract?: any;
 	report?: Report;
 };
 

@@ -141,7 +141,7 @@ const Step1MintingProcess = ({
 							placement='top'
 							bg={'white'}
 							color='light.primaryGray'
-							label='This address needs to start with “1” or “bc1”. Return Address is a BTC address where your BTC funds are sent back if something exceptional happens with your deposit. A Return Address cannot be a multi-sig or an exchange address. Funds claiming is done by using the JSON file'
+							label='This address needs to start with “1” or “bc1q”. Return Address is a BTC address where your BTC funds are sent back if something exceptional happens with your deposit. A Return Address cannot be a multi-sig or an exchange address. Funds claiming is done by using the JSON file'
 						>
 							<InfoIcon />
 						</Tooltip>

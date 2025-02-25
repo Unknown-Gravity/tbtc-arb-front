@@ -89,7 +89,7 @@ const MintingTimelineComponent = () => {
 						</Link>
 					</BulletPoint>
 					<BulletPoint>
-						This address has to start with “1” or “bc1” for Bitcoin
+						This address has to start with “1” or “bc1q” for Bitcoin
 						Mainnet and with “m”, “n” or “tb1” for Testnet Bitcoin.
 						This means that your addresses are P2PKH or P2WPKH
 						compliant.{' '}

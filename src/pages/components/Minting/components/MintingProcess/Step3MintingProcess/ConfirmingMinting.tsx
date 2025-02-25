@@ -8,7 +8,7 @@ import {
 	useTheme,
 } from '@chakra-ui/react';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
-import { IoCheckmark } from 'react-icons/io5';
+import { IoIosCheckmark } from 'react-icons/io';
 import CustomSpinner from '../../../../../../components/CustomSpinner';
 import { Dispatch, SetStateAction } from 'react';
 import { useDispatch } from 'react-redux';
@@ -66,7 +66,7 @@ const ConfirmingMinting = ({ msg, step, setStep }: Props) => {
 					justifyContent='center'
 					borderRadius='full'
 				>
-					<IoCheckmark
+					<IoIosCheckmark
 						size='120px'
 						color={
 							colorMode === 'light'

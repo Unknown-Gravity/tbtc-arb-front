@@ -6,7 +6,6 @@ import DarkGridBackground from './darkGridBackground.svg';
 import LightGridBackground from './lightGridBackground.svg';
 import DarkCoins from './darkCoins.svg';
 import LightCoins from './lightCoins.svg';
-import DarkPointBackground from './darkPointBackground.svg';
 import LightPointBackground from './lightPointBackground.svg';
 import AtomImage from './atomImage.svg';
 import Bridge from './bridge.svg';
@@ -25,8 +24,6 @@ import LightYellowBitcoinIcon from './lightYellowBitcoinIcon.svg';
 import DarkYellowBitcoinIcon from './darkYellowBitcoinIcon.svg';
 import LightTransactionBoxImage from './lightTransactionBoxImage.svg';
 import DarkTransactionBoxImage from './darkTransactionBoxImage.svg';
-import LightMainGridBackground from './lightMainGridBackground.svg';
-import DarkMainGridBackground from './darkMainGridBackground.svg';
 import LightUnmintImage from './lightUnmintImage.svg';
 import DarkUnmintImage from './darkUnmintImage.svg';
 import TransactionCompletedImage from './transactionCompletedImage.svg';
@@ -46,7 +43,6 @@ export {
 	LightGridBackground,
 	DarkCoins,
 	LightCoins,
-	DarkPointBackground,
 	LightPointBackground,
 	Bridge,
 	AtomImage,
@@ -65,8 +61,6 @@ export {
 	DarkYellowBitcoinIcon,
 	LightTransactionBoxImage,
 	DarkTransactionBoxImage,
-	LightMainGridBackground,
-	DarkMainGridBackground,
 	LightUnmintImage,
 	DarkUnmintImage,
 	TransactionCompletedImage,

@@ -65,7 +65,7 @@ const getDepositInfo = async (receipt: DepositReceipt, sdk: TBTC) => {
 
 	// Create a depositor proxy using the cross-chain contracts
 	const depositorProxy = new CrossChainDepositor(crossChainContracts);
-
+	
 	// Create a deposit object from the deposit receipt
 	const deposit = await Deposit.fromReceipt(
 		depositReceipt,

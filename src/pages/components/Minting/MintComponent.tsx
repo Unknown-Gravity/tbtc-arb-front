@@ -112,7 +112,7 @@ const MintComponent = ({
 		const updateDepositInstance = async () => {
 			const btcDepositAddress = await depositInstance.getBitcoinAddress();
 			setDepositAdress(btcDepositAddress);
-
+			
 			downloadJson(
 				depositInstance.getReceipt(),
 				btcDepositAddress,
